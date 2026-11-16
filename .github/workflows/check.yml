@@ -1,0 +1,27 @@
+name: Nix Flake Check
+
+on:
+  push:
+    branches-ignore:
+      - main # main は PR 経由でのみ更新するため push を除外
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: nix flake check
+        run: nix flake check
+
+      # dev/flake.nix の ci シェルで任意コマンドを実行する場合:
+      # - name: Run tests
+      #   run: nix develop '.?dir=dev#ci' -c <コマンド>
+      #   env:
+      #     TERM: "dumb"
