@@ -232,15 +232,27 @@ the project.
 They represent different kinds of information:
 
 -   **`generated`** records the generation/update state of an artifact.
--   **`verified`** records human review.
+-   **`verified`** records confirmations of an artifact, each as an
+    entry stating who confirmed it (`by`) and when (`at`). Following
+    OKF, the confirmer may be a person or a machine.
 
-`verified` is not an automated assertion that a document is correct. It
+Only entries whose `by` is `human:<id>` count as human review. A human
+entry is not an automated assertion that a document is correct. It
 represents a human act of inspection. After reviewing the relevant
-content, a person updates the property and commits that change.
+content, a person adds the entry and commits that change.
 
 This makes the review state visible and version-controlled. It also
 preserves the distinction between content produced or changed by
 automation and content that a person has subsequently reviewed.
+
+Entries made by machines are never counted as human review, which keeps
+design principle 6 (§11). They do, however, advance the reference time
+used to detect stale downstream artifacts (§7). If a machine entry is
+newer than an upstream change, the artifact is no longer reported as
+awaiting review, even though no person has looked at it. Principle 6
+forbids treating content as human-reviewed; it does not stop a machine
+confirmation from clearing the review-pending state. Projects that
+allow machines to write `verified` should do so with this in mind.
 
 ## 7. Change impact and review workflow
 
