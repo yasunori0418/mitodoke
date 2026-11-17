@@ -1,0 +1,32 @@
+name: 機能要望
+description: サブコマンド・検査の契約・設定（mitodoke.yaml）・文書のモデル・スキルなどの提案
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 背景 / 解決したい課題
+      description: なぜこれが必要か。今の mitodoke で何ができないか。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案
+      description: どう解決したいか。サブコマンドの入出力・exit code・設定や型の定義への影響があれば具体的に。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 検討した代替案
+      description: 他の手段や、既存のツール（sara・textlint など）や導入先での組み立てで代替できない理由。
+    validations:
+      required: false
+  - type: textarea
+    id: scope
+    attributes:
+      label: 方針・スコープへの影響
+      description: コンセプト（品質を所有せず支援する / 判断を代替しない / 先回りした抽象化を避ける）や既存 ADR との整合。ADR が必要そうなら触れる。
+    validations:
+      required: false
