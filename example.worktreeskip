@@ -1,0 +1,7 @@
+# worktrunk の symlink-ignored hook にディレクトリ symlink を作らせないパターン
+# (1行1パターン / basename に対する glob / 祖先にもマッチ)
+#
+# .claude: layat が .claude/skills/<name> へ個別配置するため、.claude/skills をディレクトリ symlink 化されると
+#          祖先 symlink 検出で `layat apply skills` が conflict で停止する。配下の settings.local.json /
+#          scheduled_tasks.lock も worktree ごとに独立していて共有の必要がないので .claude ごとスキップする。
+.claude
