@@ -1,39 +1,40 @@
-# qascade --- Product Concept
+# mitodoke --- Product Concept
 
 ## 1. Overview
 
-**qascade** is a quality-support platform for software development.
+**mitodoke** is a quality-support platform for software development.
 
 It structures the decisions and artifacts through which people reason
 about software quality, makes the relationships between those artifacts
 traceable, and mechanically identifies places that require renewed human
 review when upstream information changes.
 
-qascade does not manage or guarantee software quality on behalf of its
+mitodoke does not manage or guarantee software quality on behalf of its
 users. It supports the people who are responsible for quality by making
 their decisions, relationships, and review obligations explicit and
 machine-checkable.
 
-> qascade helps people take responsibility for software quality; it does
+> mitodoke helps people take responsibility for software quality; it does
 > not take that responsibility away from them.
 
 ## 2. Name
 
-**qascade** is a coined name formed from **Quality + Cascade**.
+**mitodoke** comes from the Japanese word **見届け** (*mitodoke*): to
+watch something through to the end and confirm it with one's own eyes.
 
-The name evokes the propagation of quality-related decisions and their
-consequences through a connected set of development artifacts: from
-problems and requirements, through design and risks, to test conditions
-and implemented test cases.
+The one who sees things through is a person, not the tool. People follow
+quality-related decisions and their consequences through the connected
+development artifacts---from problems and requirements, through design
+and risks, to test conditions and implemented test cases---and confirm
+that each review has actually been carried out, including the reviews
+that an upstream change makes necessary.
 
-The cascade is not merely a sequence of documents. It is a network of
-relationships in which an upstream change may make downstream decisions
-worth reviewing again.
+mitodoke supports that act of seeing through. It shows what remains to
+be confirmed and records what a person has confirmed. The name describes
+this supporting role without claiming that the application itself
+guarantees quality.
 
-The name describes this connected, cascading structure without claiming
-that the application itself guarantees quality.
-
-## 3. The problem qascade addresses
+## 3. The problem mitodoke addresses
 
 AI-assisted software development makes implementation faster and
 increasingly automatable. However, generating code and tests does not by
@@ -64,7 +65,7 @@ important assumptions and review obligations remain invisible.
 
 ### 4.1 Quality is a human responsibility
 
-Quality is not something qascade can guarantee merely by validating
+Quality is not something mitodoke can guarantee merely by validating
 metadata, checking links, or observing successful CI runs.
 
 People remain responsible for:
@@ -83,13 +84,13 @@ This is both **accountability** (being able to explain and stand behind
 a decision) and **responsibility for execution** (actually performing
 the necessary work).
 
-If an operator chooses not to follow the review process, qascade cannot
+If an operator chooses not to follow the review process, mitodoke cannot
 make that process effective on their behalf. The platform is designed to
 support a quality-conscious operation, not to substitute for one.
 
 ### 4.2 Machines support judgment; they do not replace it
 
-qascade uses machine-checkable structure and automation to make quality
+mitodoke uses machine-checkable structure and automation to make quality
 work more effective.
 
 Automation can:
@@ -112,7 +113,7 @@ review, and take responsibility.**
 
 ### 4.3 Make relationships explicit
 
-qascade treats the relationships between development artifacts as
+mitodoke treats the relationships between development artifacts as
 first-class information.
 
 The goal is not to impose documentation for its own sake. It is to make
@@ -123,7 +124,7 @@ should be understandable.
 
 ### 4.4 Preserve local responsibility and replaceability
 
-qascade should have a clearly bounded responsibility: support
+mitodoke should have a clearly bounded responsibility: support
 quality-related development activities through structured artifacts,
 relationship checks, and review signals.
 
@@ -224,7 +225,7 @@ inspection, but is not proof of test effectiveness.
 
 ## 6. Generated and verified states
 
-qascade uses the `generated` and `verified` front-matter properties
+mitodoke uses the `generated` and `verified` front-matter properties
 associated with the Open Knowledge Format (OKF) convention adopted by
 the project.
 
@@ -243,7 +244,7 @@ automation and content that a person has subsequently reviewed.
 
 ## 7. Change impact and review workflow
 
-qascade uses document relationships together with `generated` and
+mitodoke uses document relationships together with `generated` and
 `verified` information to identify downstream artifacts that may need
 renewed review after an upstream change.
 
@@ -267,14 +268,14 @@ The important distinction is that an upstream change does not imply that
 every downstream artifact must change. It implies that relevant
 downstream decisions may need to be reconsidered.
 
-qascade surfaces that obligation; the person determines the outcome.
+mitodoke surfaces that obligation; the person determines the outcome.
 
 ## 8. SARA and external tools
 
 The current implementation uses **SARA** to describe and validate
 relationships between documents.
 
-SARA is an intentional external dependency. qascade does not aim to
+SARA is an intentional external dependency. mitodoke does not aim to
 reimplement SARA or build a general abstraction layer for hypothetical
 alternative engines.
 
@@ -300,20 +301,20 @@ However, three different claims must not be conflated:
     concern.
 
 CI can provide evidence for the first two. The third depends on the
-quality of the test design and implementation, which is why qascade
+quality of the test design and implementation, which is why mitodoke
 emphasizes the reasoning from requirements and design through risks and
 test conditions.
 
 In AI-assisted development, it is desirable to execute tests across the
 testing levels---from end-to-end through unit tests---in CI where
-practical. But qascade's central purpose is not to become a
+practical. But mitodoke's central purpose is not to become a
 test-execution or log-aggregation platform. Its central purpose is to
 help people define and trace the test intent that makes those executions
 meaningful.
 
 ## 10. Scope and non-goals
 
-### qascade is intended to
+### mitodoke is intended to
 
 -   structure quality-related development artifacts;
 -   make relationships between those artifacts explicit;
@@ -328,7 +329,7 @@ meaningful.
     with the project's adoption of the ISTQB/JSTQB testing-process
     perspective and holistic testing.
 
-### qascade is not intended to
+### mitodoke is not intended to
 
 -   guarantee software quality automatically;
 -   replace human judgment, accountability, or execution responsibility;
@@ -371,7 +372,7 @@ The following principles summarize the product's intended direction.
 
 ## 12. Product statement
 
-**qascade is a quality-support platform that makes software-development
+**mitodoke is a quality-support platform that makes software-development
 decisions and their test implications traceable, detects when upstream
 changes call downstream decisions into question, and helps people carry
 out their responsibility for quality.**
