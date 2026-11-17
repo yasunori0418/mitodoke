@@ -1,5 +1,5 @@
 {
-  description = "qascade development environment";
+  description = "mitodoke development environment";
 
   inputs = {
     root.url = "path:../";
