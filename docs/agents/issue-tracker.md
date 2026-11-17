@@ -24,7 +24,7 @@ successor tracking issue takes over and links back to its predecessor.
 An epic bundles sub-issues under the tracking issue. Epics are plain issues — there is no
 separate issue type — distinguished by convention:
 
-- **Title prefix** `epic:` (e.g. `epic: 文書管理の土台をつくる`).
+- **Title prefix** `epic:` (e.g. `epic: grilling の決定を ADR に起こす`).
 - **Label** `epic`, plus a topical label (`enhancement` / `documentation`).
 - **Registered** in the tracking issue's epic table and attached to the tracking issue as a
   GitHub sub-issue. The table is the index; the label makes the same set queryable with
