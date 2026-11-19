@@ -25,8 +25,8 @@ specification_ja: |
   その規範を英語で述べなければならず、対応する日本語の規範文を併記しなければならない。
   いずれの欄も他方の訳注として扱ってはならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-13T14:34:03+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ
 
@@ -52,7 +52,5 @@ generated:
 
 ## 出典
 
-`docs/spec.md` 冒頭の書き方の規約、規約文書の型判別規約と
-`specification` / `specification_ja` の執筆規約、`CLAUDE.md` の ID 規約節、
-`docs/dev/definition-of-done.md` の DOD-04 が実運用してきた規範を、Issue #272 で quality item
-として立てたもの。
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/normative-items-placement-and-authoring.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

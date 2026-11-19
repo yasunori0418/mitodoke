@@ -19,8 +19,8 @@ specification_ja: |
   避けなければならない。執筆中に必要になった用語に item が無い場合、その欠落は、その場で綴りを
   作り出すのではなく、item を追加するか既存の用語を選ぶことで解消されなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-13T14:34:03+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 用語の正名は用語 item が固定し、執筆はそれに従う
 
@@ -37,7 +37,7 @@ generated:
 持ち込もうとしているか、本当に語彙が欠けているかのどちらかで、どちらもその場で綴りを決めて
 先へ進む扱いにはしない。
 
-**本 item のスコープは執筆規約に限る。** コマンドの出力にどの文言を用いるかは、利用者が
+**本 item のスコープは執筆規約に限る。** 製品の出力や画面にどの文言を用いるかは、利用者が
 直接触れる振る舞いであり個別の `requirement` の領分になる。本 item が縛るのは、そこで語を
 選ぶときに参照する正名の所在と、リポジトリ全体の執筆でそれに従うことだけになる。
 
@@ -48,7 +48,5 @@ generated:
 
 ## 出典
 
-`docs/glossary.md` 冒頭（README・コードコメント・コマンド出力の表記基準としての正名宣言と
-避けるべき同義語）、`CONTEXT.md` 冒頭（正名と避けるべき同義語の固定）、
-`docs/agents/domain.md`（CONTEXT は意味を、glossary は綴りを正とするという分担）が実運用してきた
-規範を、Issue #272 で quality item として立てたもの。
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/glossary-fixes-canonical-terms.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

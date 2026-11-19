@@ -13,14 +13,14 @@ origin: "PR #716 のレビューコメント（2026-11-10）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-10T00:43:33+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T01:01:01+09:00"
 ---
 # 棄却した提案の要件と設計は提案の形の題で deprecated にして残す
 
 - ステータス: stable
 - 日付: 2026-11-10
-- 関連: `docs/model.md`、[一部の entry だけを適用する --only を提供する](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/adr/partial-apply-only-flag.md)
+- 関連: `docs/model.md`
 - 起点: PR #716 のレビューコメント（2026-11-10）で確定
 
 ## 背景

@@ -22,8 +22,8 @@ status: stable
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-11T23:49:49+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # level が high の risk は人が確かめた記録を持つ
 
@@ -40,12 +40,12 @@ high は見立てを誤ったときの損失が最も大きい。本 item は hi
 
 `verified` は自動では付けない。人が内容を確かめたときにだけ手で足す。
 
-未達の risk は列挙して報告に留め、マージの条件にしない
-（→ [傾向の計測は報告に留め、マージの条件にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/measurement-reports-without-gating.md)）。
+未達の risk は列挙して報告に留め、マージの条件にしない。
 未達の件数は、人が確かめるのを待っている risk の数で、何かが破損したことを意味しない。
 
 列挙の実装と CI での実行は infrastructure の item が持つ。
 
 ## 出典
 
-epic #676 の grilling（2026-11-11）で確定した、鮮度と信頼の確認の仕様。
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/high-risk-verified-by-human.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

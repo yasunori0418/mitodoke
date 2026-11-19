@@ -22,8 +22,8 @@ specification_ja: |
   規範の強度をずらしてはならない。どちらの欄でも、他の item への言及は ID を裸で書かず
   Markdown リンクで書かなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-11T00:57:16+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える
 
@@ -74,5 +74,9 @@ linter（textlint など）に置き、自前のスクリプトは書かない�
 
 ## 出典
 
-`specification` の様式として運用してきた規約を、Issue #649 で quality item として立てた。
-この規約を定めた決定は [specification の必須の強度を SHALL 系の綴りに固定する](../adr/specification-shall-family-fixed.md) に記録してある。
+根拠の決定は次の ADR が持つ。
+
+- [specification の必須の強度を SHALL 系の綴りに固定する](../adr/specification-shall-family-fixed.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/specification-shall-family-and-matching-auxiliaries.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

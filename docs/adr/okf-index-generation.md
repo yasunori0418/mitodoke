@@ -13,8 +13,8 @@ origin: "epic #662 の grilling（2026-11-07）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-09T08:08:50+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T01:01:01+09:00"
 ---
 # OKF の index.md を sara check の出力から生成してコミットする
 
@@ -28,7 +28,7 @@ generated:
 OKF の読み手は、ディレクトリごとの index.md から item を探す。sara の item には index.md が無く、
 一覧は `sara query` や `sara report` で取る。sara を持たない読み手は、これらを使えない。
 
-[リファレンスドキュメントは記述対象のソースから生成し、生成物を持たない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/reference-docs-generated-from-source.md) という規範がある。
+「リファレンスドキュメントは記述対象のソースから生成し、生成物を持たない」という規範がある。
 
 ## 決定
 
@@ -38,12 +38,12 @@ OKF の読み手は、ディレクトリごとの index.md から item を探す
 - index.md には item の `name`・`description`・`status` とファイルへのリンクを載せる
 - sara の relation は index.md に出さない。OKF の読み手には item の一覧だけを見せる
 - `description` を持たない item は、本文の最初の段落で代用する
-- index.md のコミットは [リファレンスドキュメントは記述対象のソースから生成し、生成物を持たない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/reference-docs-generated-from-source.md) の例外として扱う
+- index.md のコミットは「リファレンスドキュメントは記述対象のソースから生成し、生成物を持たない」の例外として扱う
 
 ## 根拠
 
 OKF の読み手は、リポジトリをそのまま読む。ビルド時に生成する方式では、ビルドを実行しない読み手に
-index.md が届かない。そのため [リファレンスドキュメントは記述対象のソースから生成し、生成物を持たない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/reference-docs-generated-from-source.md) の例外とし、生成物を
+index.md が届かない。そのため「リファレンスドキュメントは記述対象のソースから生成し、生成物を持たない」の例外とし、生成物を
 コミットする。生成物とソースの食い違いという、例外で生じる問題は、差分ゼロの契約テストで防ぐ。
 
 `sara check --format json` は item の一覧とフィールドを機械可読で返すので、frontmatter を

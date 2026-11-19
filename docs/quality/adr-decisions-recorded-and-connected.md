@@ -28,7 +28,7 @@ specification_ja: |
   守られなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-11T22:30:00+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 設計判断は ADR に記録し、改訂の書き戻しと item への接続を同じ変更の中で完了させる
 
@@ -50,8 +50,8 @@ generated:
 
 ADR の粒度・本文の構成・統合と分割の手順・`justifies` の選定基準は本 item の規範に含めず、
 [ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る](adr-one-decision-four-sections-justifies-by-contribution.md) が持つ。
-接続可能な型の一覧も本 item の規範に含めず、`docs/model.yaml` が持つ。layat への当てはめは
-`docs/adr/README.md` が持つ。ステータス・出典・置き換え・採番の手引きは次の節に示す。
+接続可能な型の一覧も本 item の規範に含めず、`docs/model.yaml` が持つ。
+ステータス・出典・置き換え・採番の手引きは次の節に示す。
 
 ### ステータス
 
@@ -110,7 +110,5 @@ ADR も他の item と同じく UUID で採番する。連番は並列の作業�
 
 ## 出典
 
-ADR の規則として運用してきた置き換えの規則・`justifies` 必須の規約と `docs/adr/README.md`
-（セルフチェック手順）、`docs/dev/definition-of-done.md` の DOD-03、
-`.github/PULL_REQUEST_TEMPLATE.md` の「docs / ADR 影響」欄が実運用してきた規範を、Issue #272 で
-quality item として立てたもの。
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/adr-decisions-recorded-and-connected.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

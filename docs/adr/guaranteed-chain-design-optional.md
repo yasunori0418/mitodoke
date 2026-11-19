@@ -13,8 +13,8 @@ origin: "epic #648 の grilling セッション（2026-11-08）で確定"
 justifies:
   - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-09T23:31:26+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T01:01:01+09:00"
 ---
 # 保証する連鎖は requirement → risk → test_condition → test_case とし、design は任意の中継点にする
 
@@ -27,7 +27,7 @@ generated:
 
 `docs/model.yaml` の辺をどこまでつなげば「要件がテストで確かめられている」と言えるのかが、決まっていなかった。
 
-[型グラフの規約](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/agents/sara-graph.md)では、`risk` は原則として `requirement` へ張り、`design` へ張るのは設計を差し替えると消える懸念に限られる。この規約に従うと、`risk` を持たない `design` が生じる。一方で `sara-gap` は、threatens されていない `design` を未カバーとして数えている。
+[risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る](../quality/risk-attaches-to-requirement-by-default.md) の規約では、`risk` は原則として `requirement` へ張り、`design` へ張るのは設計を差し替えると消える懸念に限られる。この規約に従うと、`risk` を持たない `design` が生じる。一方で `sara-gap` は、threatens されていない `design` を未カバーとして数えている。
 
 ## 決定
 

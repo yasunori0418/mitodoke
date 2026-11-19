@@ -10,6 +10,10 @@ The five triage labels in this repo's issue tracker.
 | `ready-for-human` | Requires human implementation            |
 | `wontfix`         | Will not be actioned                     |
 
+A triage label says what an issue needs next, so it stops applying once the issue is
+closed. Remove the triage label when closing an issue. The one exception is `wontfix`: it
+records why the issue was closed, so keep it.
+
 ## Structural labels (not triage roles)
 
 These are orthogonal to the triage roles above — they describe what an issue *is*, not

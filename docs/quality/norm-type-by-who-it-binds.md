@@ -24,8 +24,8 @@ specification_ja: |
   `infrastructure` の間では、規範そのものは `quality` が持たなければならず、それを支える仕組みは
   `infrastructure` が持たなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-10T23:49:00+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 規範の型は、それが誰を縛るかで決める
 
@@ -45,7 +45,7 @@ generated:
 
 | 型 | 規範が縛るもの | 親 | 判定の問い |
 |---|---|---|---|
-| `requirement` | 製品の振る舞いと契約。このリポジトリを読まない利用者にも観測できる。 | `use_case` | 外すと、layat の何らかの*使い方*が変わる。 |
+| `requirement` | 製品の振る舞いと契約。このリポジトリを読まない利用者にも観測できる。 | `use_case` | 外すと、製品の何らかの*使い方*が変わる。 |
 | `quality` | 開発の進め方・規約・ガバナンス。機能に付くのではなく作業を横断し、それ自体は何かの検証を目的としない。 | `solution` | 外しても気付くのは開発者だけで、出荷物は変わらず、失われる検証も無い。 |
 | `test_plan` | テストの範囲・レベル・方法。テスト対象へ手が届くようにすることを含む。 | `solution` | そもそも存在する理由が、何かを検証しなければならないことにある。 |
 
@@ -53,65 +53,40 @@ generated:
 `test_plan` の問いを先に当てる。何かを検証する必要があるから存在する item は `test_plan` で、
 残りが `quality` になる。
 
-例: 終了コードの意味、`manifest.json` のフィールド構成、衝突したら止まることは `requirement`。
-「`specification` は英語で書く」「CI で全プラットフォームの `flake check` を回す」は `quality`。
-E2E ハーネスの範囲、*テストの*対象外とする宣言、テストできるようにする手当ては `test_plan`。
+例: 製品が返す結果の意味（CLI の終了コード、API の応答の状態など）、外へ公開するデータ形式の
+構成、矛盾する入力を受けたら処理を止めることは `requirement`。「`specification` は英語で書く」
+「CI で対象の全プラットフォームの検査を回す」は `quality`。テスト環境の範囲、*テストの*対象外と
+する宣言、テストできるようにする手当ては `test_plan`。
 
-### 灰色領域
+### 判別に迷う場合
 
-ほとんどの item は上の規則だけで決まる。決まらないのは次の場合で、並列のレーンで判断が割れない
-よう、先例で決着させる。
+ほとんどの item は上の規則だけで決まる。迷うのは、規範の見かけと、それが縛る相手が食い違う
+ときである。そのときは見かけではなく、判定の問いで決める。
 
-**テストのために開いた API の面。** [lib.__internal で private helper をテストへ公開する](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/test-plan/lib-internal-test-seam.md)（もとは
-`requirement`）は Issue #239 で `test_plan` に決まった。製品が公開する実在の attrset なので契約に
-見えるが、動機は評価テストを private helper へ届かせることだけにある。その `specification` は
-SHALL NOT を、この面を安定性と後方互換の対象から*外す*ことに使っている。何かをテストできるように
-するためだけに存在し、契約が負う保証を放棄している面は、テストできることが優先し `test_plan` になる。
-
-**layat の作り方についての規範。** 「エンジンは標準ライブラリだけを使う」「CLI の第三者依存は
-cobra に限り vendorHash で固定する」「`lib` は nixpkgs.lib だけに依存する」といった制約は進め方の
-規則に見えるが、`requirement` のままにする。利用者が出会うアーキテクチャの境界だからである。
-`lib` が nixpkgs.lib だけに依存するから、利用者は home-manager を引き込まずにどの Nix 環境へも
-取り込める。判別するのは判定の問いで、規範を外すと layat の使い方が変わる。本当の `quality` に
-あたるのは、*リポジトリの進め方*についての規則（レビューの慣行、CI の義務）のように、利用者の
-誰にも観測できないものである。
-
-**何かを対象外とする宣言。** *誰の*範囲かを問う。製品が何かを提供しないという宣言は
-`requirement` である。「`--only` フラグは無い」「MVP に片付けのコマンドは無い」「2 つの設定を
-同じ配置先へ向けるのは利用者の責任」がこれにあたり、利用者ができることの範囲を区切り、利用者は
-その欠落に直接出会う。何かを*検証しない*という宣言は `test_plan` である。
-[NixOS / nix-darwin モジュールで使うときの実 activate は E2E ハーネスの対象外とする](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/test-plan/nixos-vm-test-future.md) は NixOS / nix-darwin モジュールの経路を
-実際に activate することを E2E ハーネスの外に置く。製品はその機能を提供したままで、テストが
-そこまで届かないだけである。
-
-**エラーと警告の出力についての規範。** 「エラーは対処の案内を 1 行持つ」「成功は既定で何も
-出さない」「警告は stderr へ出し、stdout は機械可読の出力に充てる」はどれも `requirement` で、
-文言・出力先・出力の多さのどれを縛るかを問わない。出力は CLI の観測できる振る舞いの一部で、
-利用者もパイプもそれに直接出会う。`quality` になるのは、どのコマンドの契約も依存しない、
-リポジトリ全体の書き方の規約である場合に限る。
-
-**バージョンと互換性の方針。** 「`schemaVersion` は 1 に固定する」「MVP は v1 だけを出力・受理
-し、移行の仕組みを作らない」は `requirement` である。`manifest.json` の利用者が読む契約を縛り、
-後者はさらにエンジンが実行時に何を受理するかも縛る。製品が出力・受理するものを変えずに、開発者が
-いつバージョンを上げてよいかだけを定める方針なら `quality` になる。
-
-**nix の作業手順についての規範。** 縛る作業手順が*利用者の*ものなら `requirement` である。
-「`nix flake check` が `unknown flake output` を警告するのは受け入れ、主な検証は `nix build`
-とする」は、利用者自身の flake が出すものを縛る。layat が利用者に採ってもらう出力の名前空間の
-性質である。「flake の entrypoint は純粋に評価し、legacy の entrypoint は利用者の責任で非純粋に評価してよい」と
-「`experimental-features` は CLI が肩代わりしない前提条件である」は、layat がそもそも動くために
-利用者の nix 環境が満たすべきものを縛る。どれかがこのリポジトリ自身の CI についての規則なら
-`quality` になる（守る規範ではなくそれを回すパイプラインについての規則なら `infrastructure`）。
+- 進め方の規則に見えても、外すと利用者の使い方が変わる規範は `requirement` にする。依存の制約、
+  出力の形式や出力先、公開するデータ形式の版、製品が動くために利用者の環境が満たす前提条件が
+  これにあたる。どれも利用者が直接出会う境界を縛る。同じ主題でも、製品が出力・受理するものを
+  変えずに開発者の作業だけを縛る規範（いつ版を上げてよいか、リポジトリ全体の書き方、この
+  リポジトリ自身の CI の義務）は `quality` になる
+- 何かを対象外とする宣言は、*誰の*範囲を区切るかで決める。製品が何かを提供しないという宣言は
+  `requirement` にする。利用者ができることの範囲を区切り、利用者はその欠落に直接出会うからで
+  ある。何かを*検証しない*という宣言は `test_plan` にする。製品はその機能を提供したままで、
+  テストがそこまで届かないだけだからである
+- 製品が公開する面でも、テストを内部の実装へ届かせるためだけに存在し、安定性と後方互換の保証を
+  負わない面は `test_plan` にする。契約に見えるが、存在する理由は検証にある
 
 ### `quality` と `infrastructure` の区別
 
-`quality` は規範を持ち、`infrastructure` はそれを支える仕組みを持つ。「マージ前に全プラット
-フォームの `flake check` が通る」は `quality`、それを回す CI パイプラインは `infrastructure` で
+`quality` は規範を持ち、`infrastructure` はそれを支える仕組みを持つ。「マージ前に対象の
+全プラットフォームで検査が通る」は `quality`、それを回す CI パイプラインは `infrastructure` で
 ある。迷ったら、ツールを差し替えてもその item が成り立つかを問う。成り立つなら規範である。
 
 ## 出典
 
-[テスト計画の型を品質方針の型から分けて設ける](../adr/quality-and-test-plan-types.md) と
-[infrastructure を技術基盤として再定義し root から外す](../adr/infrastructure-redefined-non-root.md) が置いた型の区分を、Issue #240 で判別の規則として
-定め、灰色領域の先例（Issue #239 の決着を含む）とともに運用してきたもの。Issue #649 で
-quality item として立てた。
+根拠の決定は次の ADR が持つ。
+
+- [テスト計画の型を品質方針の型から分けて設ける](../adr/quality-and-test-plan-types.md)
+- [infrastructure を技術基盤として再定義し root から外す](../adr/infrastructure-redefined-non-root.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/norm-type-by-who-it-binds.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

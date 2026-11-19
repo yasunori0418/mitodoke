@@ -32,8 +32,8 @@ specification_ja: |
   から導かなければならず、導いた優先度と違う扱いをする `test_condition` は、その理由を本文に
   書かなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-10T23:50:41+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # risk の level は likelihood と impact から導き、手で決めない
 
@@ -61,11 +61,10 @@ generated:
 
 この軸が問うのは 1 つだけで、**誰かが気付いた後に回復できるか**である。誰かが*気付くかどうか*は
 あえて採点しない（→ [沈黙性を risk のスコア軸にせず本文に書く](../adr/silence-not-a-score-axis.md)）。気付かれにくさは実在し、記録する
-価値もあるが、layat の脅威はほぼすべて気付かれにくい。配置は知らせずにずれていく。これを採点
+価値もあるが、脅威の大半が気付かれにくい製品では、これを採点
 すると尺度が飽和して何も順位付けしなくなる。代わりに item の本文に書く。そうすれば、item 群を
 並べ替えるふりをせずに読める形で残る。`medium` の行に「気付かれるかどうかを問わない」と明記
-するのも同じ理由である。以前の尺度は気付かれにくい脅威をすべて `high` に送っており、その読み方を
-習慣で残してはならない。
+するのも同じ理由である。気付かれにくいことを理由に、脅威を `high` へ送ってはならない。
 
 行は上から読み、最初に当てはまる行を採る。行は主語で互いに重ならない。`high` と `medium` は
 利用者が出会うものについて、`low` はリポジトリの外へ出ないものについての行である。したがって
@@ -87,15 +86,13 @@ generated:
 等しい。その検証が捕まえるはずだった退行として risk を採点する。後で引き継ぎ元を採点し直した
 とき、それを引き継ぐすべての item へ辿れるよう、退行を持つ `risk` への Markdown リンクで引き継ぎ
 元を本文に名指しする。検証が複数の退行を守るときは、引き継ぎ元にも最も重い向きの規則が働く。
-パスの安全性の検査（`high`）と文書の形の契約（`medium`）の両方を覆うテスト群は `high` を
-引き継ぐ。
+`high` の退行と `medium` の退行の両方を守る検証は `high` を引き継ぐ。
 
 ### `level`: 2 つから導き、手で判断しない
 
 **正は `dev/tests/risk-matrix.tsv` である。** このファイルが 9 つのセルを機械可読な形で並べる。
 下の表は読み物で、データファイルが持つ関係を目で読める形に並べたものにすぎない。導出を変える
-ときは TSV とこの表を同じコミットで直す（`dev/tests/test-categories.tsv` と `CLAUDE.md` の
-8 区分の表の関係と同じ取り決め）。
+ときは TSV とこの表を同じコミットで直す。
 
 | `likelihood` \ `impact` | `high` | `medium` | `low` |
 |---|---|---|---|
@@ -104,8 +101,7 @@ generated:
 | **`low`** | `medium` | `low` | `low` |
 
 この item の他の規則と違い、`level` の導出はレビューでは守らない。`dev/tests/risk-matrix.sh`
-が TSV を読み、`docs/risks/` のすべての item をそれと突き合わせる。この検査は `nix flake check ./dev` の
-`checks.risk-matrix` と CI の `sara` ジョブに組み込まれている（→ #303）。`sara check` は各
+が TSV を読み、`docs/risks/` のすべての item をそれと突き合わせる。`sara check` は各
 フィールドの enum を検証するが、3 つの間の関係は見ない。その隙間をこのテストが埋める。frontmatter
 の 3 フィールドの純粋な対応づけで、解釈する散文が無いので、スクリプトが完全に判定できる。
 
@@ -123,7 +119,12 @@ test_condition の両方に持つと二重管理になり、片方だけが古�
 
 ## 出典
 
-[risk の impact を検出後の回復可能性で採点する](../adr/risk-impact-as-recoverability.md)、[複数の失敗方向を持つ risk は最も重い方向で採点する](../adr/risk-heaviest-direction.md)、
-[自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](../adr/gate-risk-inherits-impact-by-link.md)、[沈黙性を risk のスコア軸にせず本文に書く](../adr/silence-not-a-score-axis.md) が Issue #303 で
-定めた採点の尺度と `level` の導出に、test_condition の優先度の導き方を合わせ、Issue #649 で
-quality item として立てた。
+根拠の決定は次の ADR が持つ。
+
+- [risk の impact を検出後の回復可能性で採点する](../adr/risk-impact-as-recoverability.md)
+- [複数の失敗方向を持つ risk は最も重い方向で採点する](../adr/risk-heaviest-direction.md)
+- [自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](../adr/gate-risk-inherits-impact-by-link.md)
+- [沈黙性を risk のスコア軸にせず本文に書く](../adr/silence-not-a-score-axis.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/risk-level-derived-from-likelihood-and-impact.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

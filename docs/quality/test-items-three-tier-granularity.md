@@ -7,16 +7,16 @@ status: stable
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
-  A `test_case` SHALL be raised one per test asset (a test file, an e2e scenario or a flake
-  check). A `test_condition` SHALL be raised per verification theme, and a `risk` SHALL be
-  raised per threat that groups `test_condition`s.
+  A `test_case` SHALL be raised one per test asset (an independently runnable unit of
+  tests, such as a test file or a test scenario). A `test_condition` SHALL be raised per
+  verification theme, and a `risk` SHALL be raised per threat that groups `test_condition`s.
 specification_ja: |
-  `test_case` はテスト資産（テストファイル・e2e シナリオ・flake check）1 つにつき 1 件で
-  起こさなければならない。`test_condition` は検証テーマごとに、`risk` は `test_condition` を
+  `test_case` はテスト資産（テストファイルやテストシナリオのような、単独で実行できるテストの
+  単位）1 つにつき 1 件で起こさなければならない。`test_condition` は検証テーマごとに、`risk` は `test_condition` を
   束ねる脅威ごとに起こさなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-13T14:34:03+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # テスト系 item は、テスト資産・検証テーマ・脅威の 3 段の粒度で起こす
 
@@ -25,7 +25,7 @@ generated:
 既存のテスト実装から item を起こすときは、次の 3 段の単位で起こす。「対象」は
 `docs/test/<対象>/` の区分を指す。区分の一覧と並び順は `dev/tests/test-categories.tsv` が持つ。
 
-- CASE はテストファイル・e2e シナリオ・flake check の単位で起こす。frontmatter の
+- CASE はテスト資産（テストファイルやテストシナリオ）の単位で起こす。frontmatter の
   `resource`（必須・単一値）に対象を正準表記で書き、人間向けの補足は本文の `## 対象` 節に書く。
   主な検証内容（テスト関数のテーマの列挙）も本文に書く。テスト関数の単位には割らない。
   CASE とテスト資産が 1 対 1 であることは `dev/tests/test-doc-map.sh` が強制する
@@ -41,6 +41,9 @@ generated:
 
 ## 出典
 
-Issue #273 と Issue #304 で決めたテスト系 item の粒度を規約として運用してきたものを、
-Issue #649 で quality item として立てた。
-この規約を定めた決定は [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](../adr/test-items-three-tier-granularity.md) に記録してある。
+根拠の決定は次の ADR が持つ。
+
+- [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](../adr/test-items-three-tier-granularity.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/test-items-three-tier-granularity.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

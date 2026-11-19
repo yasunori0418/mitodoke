@@ -21,8 +21,8 @@ specification_ja: |
   `justifies` は、その ADR が規範の形成に実質的に寄与した item を 1 本以上指さなければ
   ならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-10T23:55:19+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る
 
@@ -103,6 +103,9 @@ item を起こしてから張る。決定を item に落とせない ADR は、�
 
 ## 出典
 
-[ADR は単独で覆せる 1 つの決定だけを書く](../adr/adr-one-decision-granularity.md) が
-Issue #499 で定めた粒度に、本文の構成・統合と分割の手順・`justifies` の選定基準を合わせて
-ADR の規則として運用してきたものを、Issue #649 で quality item として立てた。
+根拠の決定は次の ADR が持つ。
+
+- [ADR は単独で覆せる 1 つの決定だけを書く](../adr/adr-one-decision-granularity.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/adr-one-decision-four-sections-justifies-by-contribution.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

@@ -12,8 +12,8 @@ satisfies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-19T21:17:37+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T01:01:01+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -28,7 +28,7 @@ generated:
 |---|---|
 | `docs/model.yaml` | カスタムスキーマ。12 型と relation を定義し、sara の組み込みモデルを全面置換する |
 | `sara.toml` | リポジトリ設定 |
-| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テスト 7 本（この表の `dev/tests/` のうち CI に載せるもの）を実行し、`sara-fresh` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
+| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テストを実行し、`sara-fresh` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
 | `sara-new` | `dev/scripts/sara-new.sh` を包む devShell のコマンド。`sara init` で採番し、`<slug>.md` へ配置して `generated` を足す |
 | `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバーを 7 節で列挙し、到達率を出す。実グラフへの実行は CI に載せていない |
 | `sara-fresh` | `dev/scripts/sara-fresh.sh` を包む devShell のコマンド。上流の `generated.at` が自身の基準時刻より新しい item、`--base <ref>` との差分で本文が変わったのに `generated.at` が変わっていない item、`generated.at` 以降の `human:` の `verified` を持たない high の risk を列挙する。結果は報告に留める |
@@ -44,13 +44,10 @@ generated:
 | `dev/tests/term-avoid.sh` | 用語 item の `avoid` にある綴りが docs・README・AGENTS.md の散文に無いことを検証する（CI に載せていない）|
 | `dev/scripts/test-doc-matrix.sh` | テスト資産 ⇔ CASE ⇔ TC ⇔ RISK の対応表を Markdown で生成する（CI に載せていない）|
 
-`sara` job のステップのうち `nix develop` を実行するものは 10 個で、`sara check`、契約テスト 7 本
-（`sara-gap`・`sara-fresh`・`sara-new`・`adr-supersede`・`okf-frontmatter`・`okf-index`・`link-text`）、
-`sara-fresh` による一覧の報告、`okf-index.sh --check` である。契約テストを同じ job へ載せるのは、
-テストが「人が思い出したときだけ動く」状態を避けるため。
-
-`term-avoid.sh`・`risk-matrix.sh`・`test-doc-map.sh` と `dev/scripts/test-doc-matrix.sh` の 4 本は、
-用語・risk・テスト資産が 0 件のいまは exit 1 になるため CI に載せていない。#6 で載せる。
+`sara` job が実行する契約テストは、上の表の `dev/tests/` のうち「CI に載せていない」と書いていない
+もの。契約テストを同じ job へ載せるのは、テストが「人が思い出したときだけ動く」状態を避けるため。
+「CI に載せていない」と書いた 4 本は、用語・risk・テスト資産が 0 件のいまは exit 1 になるので
+載せていない。#6 で載せる。
 
 `sara` job は実物のグラフにも `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
 pull_request では base ブランチを `--base` に渡し、push では `--base` を付けない。merge-base を引けるよう、
@@ -60,7 +57,7 @@ pull_request では base ブランチを `--base` に渡し、push では `--bas
 
 `sara` job は `check.yml` で `check` job（`nix flake check`）と並ぶが、paths-filter を持たず、
 `check` job と同じ条件（main 以外への push と pull_request）で毎回実行する。
-CI 用の devShell も sara 専用のもの（`dev#sara`）へ分ける。
+`sara` job は sara 専用の devShell（`dev#sara`）で実行する。
 
 ## ID 規約
 
@@ -76,7 +73,7 @@ error となり `sara check` は exit 1 を返す（→ [sara check を strict �
 一方で main の required status check には登録しない。
 これは移行中の暫定措置ではなく「**検出は機械・判断は人**」という分担を保つための恒久判断で、
 張り忘れの修正が自明でないケース（item 新設を伴う等）を CI が赤いままレビューで扱える余地を
-残す（決定は → [sara check を required status check にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/sara-adr/sara-check-not-required.md)）。
+残す。
 
 ## 出典
 
@@ -89,7 +86,7 @@ error となり `sara check` は exit 1 を返す（→ [sara check を strict �
 [item にできない外部参照は text フィールドへ逃がす](../adr/external-references-as-text-fields.md)、
 [提案を棄却した決定は status 不採用 で記録する](../adr/adr-status-rejected.md)、[adr の status_note を持たない](../adr/adr-status-note-removed.md)、
 [ADR の失効は supersedes と 廃止 で表す](../adr/adr-supersedes-and-deprecated-status.md)、[ID はフル UUID に統一し 8 文字省略形を使わない](../adr/full-uuid-ids-no-short-form.md)、
-[sara check を required status check にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/sara-adr/sara-check-not-required.md)、[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)。
+[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)。
 
 この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/infrastructure/traceability-verification.md) を下敷きに、mitodoke の構成に合わせて書き起こした。
 設計は [layat の epic の grilling セッション](https://github.com/yasunori0418/layat/issues/203) で確定した。
