@@ -5,7 +5,7 @@ name: "テスト系 item は、テスト資産・検証テーマ・脅威の 3 �
 description: "テスト系 item は CASE をテスト資産・TC を検証テーマ・RISK を脅威の単位で起こす"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   A `test_case` SHALL be raised one per test asset (a test file, an e2e scenario or a flake
   check). A `test_condition` SHALL be raised per verification theme, and a `risk` SHALL be

@@ -4,7 +4,7 @@ type: quality
 name: "規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   Normative content SHALL be held by the item graph alone, one item per file. The list of
   items of each type SHALL be held only by the index.md generated from the graph, and a

@@ -4,7 +4,7 @@ type: quality
 name: "欠陥はトラッカーが持ちドキュメントグラフは規範のみを持つ。起票は分類語彙を経由する"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   A defect found in the product SHALL be recorded in the issue tracker and SHALL NOT be
   recorded as an item in the document graph, which holds norms rather than events. The

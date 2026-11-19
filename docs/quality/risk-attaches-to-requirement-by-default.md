@@ -5,7 +5,7 @@ name: "risk はまず requirement に張り、設計を差し替えると消え�
 description: "risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   A `risk` SHALL attach to a `requirement` by default. It SHALL attach to a `design` only
   when it would disappear if that design were replaced by an alternative satisfying the

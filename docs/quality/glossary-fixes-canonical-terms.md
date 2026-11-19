@@ -4,7 +4,7 @@ type: quality
 name: "用語の正名は用語 item が固定し、執筆はそれに従う"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   The canonical spelling of each domain term SHALL be fixed by a single `ubiquitous_term`
   item, and every document that states the same term SHALL derive from that item rather

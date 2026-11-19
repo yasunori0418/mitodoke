@@ -5,7 +5,7 @@ name: "ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範�
 description: "ADR は単独で覆せる決定ごとに 1 本を 4 節で書き、justifies は規範の形成に寄与した item へ張る"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   ADRs SHALL be split so that each one holds a single decision that can be overturned on
   its own. The body of an ADR SHALL consist of four sections: background, decision,

@@ -33,7 +33,7 @@ specification_ja: |
   してはならない。
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-12T00:02:04+09:00"

@@ -20,7 +20,7 @@ specification_ja: |
   条件にしてはならない。人が risk の内容を読まないまま `verified` の要素を足してはならない。
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-11T23:49:49+09:00"

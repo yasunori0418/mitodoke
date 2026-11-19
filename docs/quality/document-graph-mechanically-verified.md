@@ -4,7 +4,7 @@ type: quality
 name: "ドキュメントグラフのトレーサビリティは機械的に検証する"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   The traceability of the document graph — that every reference resolves to an item that
   exists, that identifiers are unique, and that the graph is acyclic — SHALL be verified

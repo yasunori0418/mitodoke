@@ -4,7 +4,7 @@ type: quality
 name: "設計判断は ADR に記録し、改訂の書き戻しと item への接続を同じ変更の中で完了させる"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 depends_on:
   - "QA-6bf957d9-17d9-4660-92b7-ebd6eeb71a8c"
 specification: |

@@ -5,7 +5,7 @@ name: "規範の型は、それが誰を縛るかで決める"
 description: "規範の型は、それが誰を縛るかで requirement・quality・test_plan から選ぶ"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   A norm that binds the product's behaviour and contracts as a user meets them SHALL be
   placed in a `requirement`; a norm that binds the development process, conventions and

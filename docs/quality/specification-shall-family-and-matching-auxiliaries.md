@@ -5,7 +5,7 @@ name: "specification は SHALL 系で書き、日本語の規範文は同じ強�
 description: "specification は SHALL 系で書き、specification_ja は同じ強度の規範助動詞で終える"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   A `specification` SHALL write its mandatory strengths with the SHALL family (SHALL /
   SHALL NOT) only and SHALL NOT use the RFC 2119 synonyms of that family; SHOULD, SHOULD

@@ -5,7 +5,7 @@ name: "フル ID は frontmatter だけに書き、散文では item にリン�
 description: "ID はフル UUIDv4 で frontmatter だけに書き、ファイル名は slug とし、散文では name を文字列にしたリンクで item に触れる"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   An item ID SHALL take the form `<PREFIX>-<full UUIDv4>` and SHALL be written only in the
   frontmatter `id:` and in relation lists. An item's file name SHALL be its slug alone

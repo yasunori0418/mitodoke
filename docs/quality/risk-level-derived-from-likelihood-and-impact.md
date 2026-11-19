@@ -5,7 +5,7 @@ name: "risk の level は likelihood と impact から導き、手で決めな�
 description: "risk の likelihood と impact を決まった尺度で採点し、level はその 2 つから導く"
 status: stable
 derives_from:
-  - "SOL-9fcd1d6e-6204-42e6-92bb-1faf966f0b3e"
+  - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
   The `likelihood` of a `risk` SHALL be scored by how easily a regression that realises
   the threat gets in, and its `impact` SHALL be scored by how recoverable the threat is
