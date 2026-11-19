@@ -11,7 +11,7 @@ sources:
     title: "epic: 要求からテストまでの連鎖を sara のモデルでつなぐ — test_plan とテストケース・設計とリスクの切れ目"
 origin: "epic #648 の grilling セッション（2026-11-08）で確定"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 references:
   - "ADR-f3f9491f-d6f4-4742-82da-4933ad3d8db1"
 generated:

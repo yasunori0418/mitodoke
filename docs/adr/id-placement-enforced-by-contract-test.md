@@ -11,7 +11,7 @@ sources:
     title: "epic: 散文リンク移行の後始末 — 表示崩れ・重複表記・文の破綻・frontmatter のフル ID"
 origin: "epic #692 の完了後の残存調査（2026-11-09）で確定。[省略形の禁止は起票の機械化と全面移行で担保する](short-form-ban-enforced-by-tooling.md) を書き直した"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 supersedes:
   - "ADR-4656dd7b-0ea4-48fb-a6c4-a8c96ad50103"
 references:

@@ -16,7 +16,7 @@ sources:
     title: "#292"
 origin: "Issue #303 の着手前 grilling（2026-08-12）で確定。ADR-0052 §2 を書き直した"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 references:
   - "ADR-0fd284d6-60dc-4c04-a413-3d7926ae10ac"
   - "ADR-1a02013e-c57b-4079-9c72-8e9fe99e499a"

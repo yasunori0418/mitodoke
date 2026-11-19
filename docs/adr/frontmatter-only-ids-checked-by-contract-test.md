@@ -11,7 +11,7 @@ sources:
     title: "epic: 散文リンク移行の後始末 — 表示崩れ・重複表記・文の破綻・frontmatter のフル ID"
 origin: "H1 見出しの ID の要否の見直し（2026-11-09）で確定。[ID の書き場所と省略形の禁止は起票の機械化と契約テストで担保する](id-placement-enforced-by-contract-test.md) を書き直した"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
 supersedes:
   - "ADR-a28f6eb7-f0ab-4a3c-9a94-c8a0d0a6a66f"

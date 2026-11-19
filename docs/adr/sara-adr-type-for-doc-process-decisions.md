@@ -13,7 +13,7 @@ sources:
     title: "#500"
 origin: "Issue #499 の grilling（2026-11-01）で確定"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-01T21:26:22+09:00"

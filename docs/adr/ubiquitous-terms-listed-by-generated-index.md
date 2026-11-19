@@ -12,7 +12,7 @@ sources:
 origin: "epic #719 の grilling（2026-11-13）で確定"
 justifies:
   - "QA-4a623664-650d-4a08-800f-691f4ea6ff91"
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 supersedes:
   - "ADR-d3f88093-dc98-4703-af45-df5b27527ffa"
 generated:

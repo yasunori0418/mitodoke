@@ -11,7 +11,7 @@ sources:
     title: "epic: item のファイル名から日付と UUID を外して <slug>.md にする"
 origin: "issue #674 の grilling（2026-11-08）で確定"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 supersedes:
   - "ADR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
 references:

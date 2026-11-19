@@ -14,7 +14,7 @@ sources:
     title: "epic: 散文リンク移行の後始末 — 表示崩れ・重複表記・文の破綻・frontmatter のフル ID"
 origin: "epic #692 の grilling（2026-11-08）で確定。[item のファイル名は slug だけにする](slug-only-filenames.md) を書き直した"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 supersedes:
   - "ADR-6c6c0681-4d5e-429e-8ee9-acf8dd94ad54"
 references:

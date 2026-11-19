@@ -17,7 +17,7 @@ sources:
     title: "epic: 散文リンク移行の後始末 — 表示崩れ・重複表記・文の破綻・frontmatter のフル ID"
 origin: "epic #692 の grilling（2026-11-08）で確定。[sara-id を廃止し sara init を包む起票ラッパーを使う](sara-new-wrapper-replaces-sara-id.md) を書き直した"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
 supersedes:
   - "ADR-f5443db0-6407-41c0-9ab5-55f22dc4de5e"

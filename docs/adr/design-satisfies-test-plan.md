@@ -16,7 +16,7 @@ sources:
     title: "#203"
 origin: "epic #203 の grilling セッション（2026-08-08）で確定。ADR-0049 §4 を書き直した"
 justifies:
-  - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
+  - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
 references:
   - "ADR-34916a83-0cff-4524-a8ff-5a3195af52c3"
   - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
