@@ -13,7 +13,7 @@ satisfies:
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-19T23:37:00+09:00"
+  at: "2026-11-19T23:31:38+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）

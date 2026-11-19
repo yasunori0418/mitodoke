@@ -18,7 +18,7 @@ specification_ja: |
   しなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-19T23:35:00+09:00"
+  at: "2026-11-19T23:31:33+09:00"
 ---
 # フル ID は frontmatter だけに書き、散文では item にリンクで触れる
 
