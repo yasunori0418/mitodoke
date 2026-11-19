@@ -39,16 +39,16 @@ trap 'rm -rf "$work"' EXIT
 
 # 型ごとのディレクトリ: <docs/ からのディレクトリ>|<型>|<見出し>|<docs/index.md に載せる説明>
 TYPE_DIRS=(
-  "solution|solution|解決策（\`solution\`）|layat が解く課題と、その解き方の全体像"
-  "use-cases|use_case|ユースケース（\`use_case\`）|利用者が layat をどう使うかの場面"
-  "requirements|requirement|要件（\`requirement\`）|layat が満たす振る舞いの規範"
+  "solution|solution|解決策（\`solution\`）|mitodoke が解く課題と、その解き方の全体像"
+  "use-cases|use_case|ユースケース（\`use_case\`）|利用者が mitodoke をどう使うかの場面"
+  "requirements|requirement|要件（\`requirement\`）|mitodoke が満たす振る舞いの規範"
   "design|design|設計（\`design\`）|要件をどう実現するかの設計判断"
   "quality|quality|品質（\`quality\`）|開発とリリースの品質を保つ規範"
   "test-plan|test_plan|テスト計画（\`test_plan\`）|何をどの層のテストで確かめるかの方針"
   "infrastructure|infrastructure|基盤（\`infrastructure\`）|CI・配布・ドキュメントサイトなどの基盤の構成"
   "risks|risk|リスク（\`risk\`）|要件や設計が崩れたときに起きる脅威"
-  "adr|adr|ADR（\`adr\`）|layat の設計判断の記録"
-  "ubiquitous-language|ubiquitous_term|用語（\`ubiquitous_term\`）|layat の用語の定義と避ける綴り"
+  "adr|adr|ADR（\`adr\`）|mitodoke の設計判断の記録"
+  "ubiquitous-language|ubiquitous_term|用語（\`ubiquitous_term\`）|mitodoke の用語の定義と避ける綴り"
 )
 # index.md を section の節に分ける型の節: <型>|<section の値>|<## の見出し>。節はこの順に並べる。
 # risk の節はここに書かず、dev/tests/test-categories.tsv から足す。
@@ -270,7 +270,7 @@ for cat in $categories; do
   test_list+="* [$cat](./$cat/index.md)"$'\n'
 done
 write_index "docs/test/index.md" "$TEST_TITLE" "${test_list%$'\n'}"
-write_index "docs/index.md" "layat のドキュメント" "$top"
+write_index "docs/index.md" "mitodoke のドキュメント" "$top"
 
 if [ "$mode" = write ]; then
   while IFS= read -r path; do
