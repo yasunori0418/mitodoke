@@ -21,8 +21,8 @@ specification_ja: |
   `requirement` 側の risk を 1 つも持たない `requirement` は、その理由を `risk_exempt` に 1 文で
   書かなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-11T00:57:16+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:06:59+09:00"
 ---
 # risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る
 
@@ -47,8 +47,8 @@ design に属する。差し替えても残るなら `requirement` に属する�
 
 | risk | 張り先 | 理由 |
 |---|---|---|
-| [entrypoint の形ごとに root 解決と配置の意味論が食い違う](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/risks/entrypoint-root-resolution.md)（→ [legacy entrypoint の分岐は attr path 組み立てに閉じ、nix 呼び出しヘルパを共通で再利用する](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/design/legacy-nix-invocation-reuse.md)） | `design` | legacy の分岐を attr path の組み立てに閉じるのは、「entrypoint の形をまたいで実装を 1 つにする」ための設計の 1 つである。これを置き換えれば（たとえば entrypoint ごとに nix の呼び出しを別々に書けば）、この食い違いは消える。 |
-| `apply` が失敗したときにファイルシステムへ痕跡を残す | `requirement` | `requirement` そのものが破られることである。どの設計もこれに答えなければならず、設計を変えても懸念は消えない。 |
+| 入力の形式をまたいで 1 つにまとめた処理が、形式ごとの意味の違いを取りこぼす | `design` | 処理を 1 つにまとめるのは、「形式をまたいで実装を 1 つにする」ための設計の 1 つである。これを置き換えれば（たとえば形式ごとに処理を別々に書けば）、この懸念は消える。 |
+| 処理が失敗したときに、利用者の環境へ中途半端な状態を残す | `requirement` | `requirement` そのものが破られることである。どの設計もこれに答えなければならず、設計を変えても懸念は消えない。 |
 
 設計に固有の risk を `requirement` に張ると、それが特定の選択に伴う代償だという情報が失われる。
 `requirement` 側の risk を 1 つの design に張ると、同じ懸念を抱える他の設計からそれが見えなくなる。

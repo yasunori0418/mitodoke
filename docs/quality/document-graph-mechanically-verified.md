@@ -17,8 +17,8 @@ specification_ja: |
   その検証は要求されたときではなく CI で実行されなければならない。参照先を解決しない確認を
   もってこれを満たしたとみなしてはならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-09T08:22:37+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:06:59+09:00"
 ---
 # ドキュメントグラフのトレーサビリティは機械的に検証する
 
@@ -36,8 +36,8 @@ generated:
 [トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）](../infrastructure/traceability-verification.md) が、そう決めた根拠は [sara check を strict モードで回す](../adr/sara-check-strict-mode.md) が持つ。
 
 **スコープ境界**: 本 item が対象とするのは**ドキュメント間**のグラフ整合のみ。公開契約と
-コードの対応関係（cobra の `Use:` や `mkOption` からの母集団の機械抽出と比較）はドキュメント
-グラフの視野外で、quality-observability 側の課題として残る（→ Issue #203 のスコープ境界）。
+コードの対応関係（コードが定義する公開の面を機械的に抜き出し、文書と比べること）はドキュメント
+グラフの視野外にある。
 
 ## 出典
 
