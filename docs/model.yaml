@@ -264,12 +264,13 @@ item_types:
       - *status_field
       # 起点となったセッション等の散文。Issue は OKF の sources に書き、sara でなく
       # dev/tests/okf-frontmatter.sh が形を確かめる。
-      - name: origin
+      - &origin_field
+        name: origin
         display_name: Origin
         field_type: text
         required: false
       - *stale_after_field
-    allowed_targets:
+    allowed_targets: &adr_targets
       - relation: justifies
         targets:
           - requirement
