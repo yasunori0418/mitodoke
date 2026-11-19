@@ -99,7 +99,7 @@ REQ_DEP_UP="REQ-aaaa0007-0000-4000-8000-000000000016"
 REQ_DEP_DOWN="REQ-aaaa0008-0000-4000-8000-000000000017"
 REQ_TWO="REQ-aaaa0009-0000-4000-8000-000000000018"
 REQ_PEER="REQ-aaaa000a-0000-4000-8000-000000000019"
-SDR="SDR-dddd0001-0000-4000-8000-000000000020"
+ADR="ADR-dddd0001-0000-4000-8000-000000000020"
 RISK_NONE="RISK-11110001-0000-4000-8000-000000000030"
 RISK_AGENT="RISK-11110002-0000-4000-8000-000000000031"
 RISK_HUMAN_BEFORE="RISK-11110003-0000-4000-8000-000000000032"
@@ -271,7 +271,7 @@ generated:
   at: "2026-03-20T00:00:00+09:00"
 YAML
   # justifies で指す要求（2026-04-01）より古いが、justifies は辿らない。
-  item "$repo" sdr "$SDR" sara_adr "古い決定の記録" <<YAML
+  item "$repo" adr "$ADR" adr "古い決定の記録" <<YAML
 section: graph-model
 status: stable
 justifies:
@@ -412,7 +412,7 @@ assert_lacks "上流と同じ時刻の下流を挙げない" "^$REQ_EQUAL" "$sec
 assert_lacks "UTC オフセットを揃えて比べる（文字列順では古く見える下流を挙げない）" "^$REQ_OFFSET" "$sec_stale"
 assert_lacks "generated.at 以降の verified で基準時刻が進んだ下流を挙げない" "^$REQ_VER_AFTER" "$sec_stale"
 assert_has "generated.at より前の verified は基準時刻に効かない" "^$REQ_VER_BEFORE"$'\t' "$sec_stale"
-assert_lacks "justifies の辺は挙げない" "^$SDR" "$sec_stale"
+assert_lacks "justifies の辺は挙げない" "^$ADR" "$sec_stale"
 assert_lacks "peer の relation（depends_on）の辺は挙げない" "^$REQ_PEER" "$sec_stale"
 assert_lacks "deprecated の上流しか指さない下流を挙げない" "^$REQ_DEP_UP" "$sec_stale"
 assert_lacks "deprecated の下流を挙げない" "^$REQ_DEP_DOWN" "$sec_stale"

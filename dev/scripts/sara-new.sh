@@ -11,7 +11,7 @@ usage() {
   cat >&2 <<'EOF'
 usage: sara-new <type> <slug> <dir> -- --description <要約> [<sara init options>...]
 
-  type   sara の型名（requirement / test_case / adr / sara_adr …）
+  type   sara の型名（requirement / test_case / adr …）
   slug   ファイル名（<slug>.md）になる短い識別子（英小文字・数字・ハイフン）。
          同じディレクトリで一意にする。index は使えない
   dir    配置ディレクトリ（カレントからの相対。無ければ作る）

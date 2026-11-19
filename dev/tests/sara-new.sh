@@ -268,14 +268,13 @@ fi
 
 # --- 6. ADR の型 ---------------------------------------------------------------
 #
-# adr と sara_adr は UUID で起票する。
+# adr は UUID で起票する。
 
 repo6="$work/adr"
 make_repo "$repo6"
-for spec in "adr ADR docs/adr adr-decision" "sara_adr SDR docs/sara-adr underscore-decision" "sara-adr SDR docs/sara-adr hyphen-decision"; do
+for spec in "adr ADR docs/adr adr-decision"; do
   read -r adr_type adr_prefix adr_dir adr_slug <<<"$spec"
   adr_sec=(--section graph-model)
-  [[ "$adr_type" == adr ]] && adr_sec=(--section concept)
   run_sara_new "$repo6" sara-new "$adr_type" "$adr_slug" "$adr_dir" -- --status 採用 "${desc[@]}" "${adr_sec[@]}"
   adr_id="$(field id)"
   adr_file="$(field file)"
