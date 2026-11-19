@@ -58,6 +58,8 @@ scoped to. Label it `task`.
 
 PRs reference both levels: `Closes #<task>` + `Refs #<epic>`. When every sub-issue of an
 epic is merged, close the epic; when every epic is closed, close the tracking issue.
+Remove the triage label from an issue when closing it; the structural label stays (see
+`triage-labels.md`).
 
 ## Defect issues
 
