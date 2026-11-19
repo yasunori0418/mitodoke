@@ -64,7 +64,8 @@ epic is merged, close the epic; when every epic is closed, close the tracking is
 Defects found in the product are managed here, not in the document graph — there is no
 `defect` item type. The graph holds norms (what should hold); a defect is an event, and
 events belong to the tracker. The decision is recorded in the ADR
-[`defects-in-github-issues`](../adr/defects-in-github-issues.md), carried over from layat.
+[欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md), carried over
+from layat.
 
 - **File** a defect as a GitHub issue with the `bug` label.
 - **Fill in** the body template below. Maintainers (including agents) fill it in; the
