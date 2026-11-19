@@ -13,5 +13,4 @@
 # そもそも inventory が列挙しないものは列挙不要:
 #   - go-coverage（quality 担当のカバレッジ計測。flake check として存在しない）
 #   - dev/scripts/*.sh（inventory / 対応表生成の実装。テスト資産ではなく道具）
-#   - dev/tests/*.sh 自体（契約テストの実装。flake check 経由の dev:checks.* として
-#     列挙されるぶんは下に載っている）
+#   - dev/tests/*.sh 自体（契約テストの実装）
