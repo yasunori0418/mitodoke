@@ -106,7 +106,7 @@ scan() {
   ' "$@"
 }
 
-# AGENTS.md と dev/skills/ が ID 規約の例として使う ID。
+# AGENTS.md と dev/skills/ では ID 規約の例として書いてよい ID。
 example_id=REQ-2b0c2bb8-964f-4e36-a121-c6ea0d4be1c4
 
 # 検出を「<種別>\t<path>:<line>: <ID>」で標準出力へ出す。種別は full（許可外のフル ID）と short（8 文字省略形）。
