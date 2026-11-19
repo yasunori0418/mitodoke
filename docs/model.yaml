@@ -1,0 +1,558 @@
+# sara カスタムモデルスキーマ（mitodoke）。sara の組み込みモデルを全面的に置き換える。
+# 型構成・ID 形式・フィールドと関係の読み方は docs/model.md を参照。
+# id_format は全型 UUIDv4。採番は sara-new が行う。
+
+item_types:
+  # ---- 仕様の系統（solution → use_case → requirement → design）----
+
+  # 根。mitodoke というプロダクトが何であるかの 1 件。docs/solution/。
+  - id: solution
+    display_name: Solution
+    prefix: SOL
+    id_format: '{prefix}-{uuid4}'
+    parent_types: []
+    fields:
+      # OKF の status。全ての型が持つ。
+      - &status_field
+        name: status
+        display_name: Status
+        field_type: !enum
+          values:
+            - draft
+            - stable
+            - deprecated
+        required: true
+        placeholder: stable
+      # OKF の `stale_after`。値の形は sara でなく dev/tests/okf-frontmatter.sh が確かめる。
+      - &stale_after_field
+        name: stale_after
+        display_name: Stale After
+        field_type: date
+        required: false
+    allowed_targets: []
+
+  # ユーザーがどう使うか。docs/use-cases/。
+  - id: use_case
+    display_name: Use Case
+    prefix: UC
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - solution
+    fields:
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: refines
+        targets:
+          - solution
+
+  # 何を満たすべきか。docs/requirements/。
+  - id: requirement
+    display_name: Requirement
+    prefix: REQ
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - use_case
+    fields:
+      # 英語の規範文。sara が RFC2119 キーワードの存在を検証する。
+      # SHALL 系だけを使う規約は docs/quality/specification-shall-family-and-matching-auxiliaries.md が持つ。
+      - name: specification
+        display_name: Specification
+        field_type: text
+        required: true
+        placeholder: The system SHALL <describe the requirement>.
+      # specification と対になる日本語の規範文。sara は検査しない。
+      # 規範助動詞で終える規約と強度の写像は docs/quality/specification-shall-family-and-matching-auxiliaries.md が持つ。
+      - name: specification_ja
+        display_name: Specification (ja)
+        field_type: text
+        required: true
+        placeholder: mitodoke は <要求> を満たさなければならない。
+      # requirement 水準の risk を持たない理由を 1 文で書く。
+      - name: risk_exempt
+        display_name: Risk Exempt
+        field_type: text
+        required: false
+      # index.md の節。見出しと並び順は dev/scripts/okf-index.sh の表が持つ。
+      - name: section
+        display_name: Section
+        field_type: !enum
+          values:
+            - architecture
+            - lib-api
+            - lib-mkmanifest
+            - lib-markers
+            - lib-mkapplycommand
+            - lib-input-validation
+            - cli
+            - cli-entrypoint
+            - cli-subcommands
+            - cli-output
+            - cli-json
+            - cli-flow
+            - cli-reproducibility
+            - entries-schema
+            - manifest-schema
+            - placement-symlink
+            - placement-rollback
+            - placement-copy
+            - generations
+            - root-resolution
+            - modules
+            - errors
+            - dependencies
+        required: true
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: derives_from
+        targets:
+          - use_case
+      - relation: depends_on
+        targets:
+          - requirement
+
+  # どう実現するか。docs/design/。
+  - id: design
+    display_name: Design
+    prefix: DSG
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - requirement
+      - test_plan
+    fields:
+      # index.md の節。見出しと並び順は dev/scripts/okf-index.sh の表が持つ。
+      - name: section
+        display_name: Section
+        field_type: !enum
+          values:
+            - project-layout
+            - layers
+            - flake-outputs
+            - core-logic
+            - module-integration
+            - test-strategy
+        required: true
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      # テストハーネスの実装形を表す design は test_plan を満たす。
+      - relation: satisfies
+        targets:
+          - requirement
+          - test_plan
+      - relation: depends_on
+        targets:
+          - design
+
+  # ---- 品質とテスト計画の系統（solution 直下）----
+
+  # 品質方針・規約・プロセス横断のガバナンス文書。docs/quality/。
+  # テストプロセスの外にある関心事を置き、テスト計画は test_plan に置く。
+  - id: quality
+    display_name: Quality
+    prefix: QA
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - solution
+    fields:
+      # requirement の specification / specification_ja と同じ様式で書く。
+      - name: specification
+        display_name: Specification
+        field_type: text
+        required: true
+        placeholder: The project SHALL <describe the quality policy>.
+      - name: specification_ja
+        display_name: Specification (ja)
+        field_type: text
+        required: true
+        placeholder: mitodoke は <品質方針> を満たさなければならない。
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: derives_from
+        targets:
+          - solution
+      - relation: depends_on
+        targets:
+          - quality
+
+  # テスト計画活動の成果物。docs/test-plan/。テストスコープ・スコープ外宣言・
+  # テストレベル・テストアプローチ・テスト容易性の要求を置く。
+  - id: test_plan
+    display_name: Test Plan
+    prefix: TP
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - solution
+    fields:
+      # requirement の specification / specification_ja と同じ様式で書く。
+      - name: specification
+        display_name: Specification
+        field_type: text
+        required: true
+        placeholder: The test process SHALL <describe the test planning decision>.
+      - name: specification_ja
+        display_name: Specification (ja)
+        field_type: text
+        required: true
+        placeholder: テストプロセスは <テスト計画上の決定> を満たさなければならない。
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: derives_from
+        targets:
+          - solution
+      - relation: depends_on
+        targets:
+          - test_plan
+
+  # ---- 技術基盤 ----
+
+  # 開発・提供・稼働を支える技術基盤。docs/infrastructure/。
+  # 開発基盤は quality を、稼働基盤は design を満たす。
+  - id: infrastructure
+    display_name: Infrastructure
+    prefix: INF
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - quality
+      - design
+    fields:
+      # docs/dev/definition-of-done.md の項目 ID（DOD-01 …）のリスト。
+      # 実在する項目かは sara が検証しない。
+      - name: dod
+        display_name: Definition of Done
+        field_type: !list text
+        required: false
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: satisfies
+        targets:
+          - quality
+          - design
+      - relation: depends_on
+        targets:
+          - infrastructure
+
+  # ---- 独立した根 ----
+
+  # 意思決定の記録。docs/adr/。justifies で 1 本以上の item へ接続する
+  # （規則は docs/quality/adr-one-decision-four-sections-justifies-by-contribution.md と
+  # docs/quality/adr-decisions-recorded-and-connected.md、当てはめは docs/adr/README.md）。
+  - id: adr
+    display_name: Architecture Decision Record
+    prefix: ADR
+    id_format: '{prefix}-{uuid4}'
+    parent_types: []
+    fields:
+      # index.md の節。見出しと並び順は dev/scripts/okf-index.sh の表が持つ。
+      - name: section
+        display_name: Section
+        field_type: !enum
+          values:
+            - graph-model
+            - ids-and-filenames
+            - frontmatter-fields
+            - verification
+            - authoring
+            - doc-layout
+            - risk-test-defect
+        required: true
+      # deprecated は supersedes で後継に置き換えられた ADR と、提案を棄却した ADR に付ける。
+      - *status_field
+      # 起点となったセッション等の散文。Issue は OKF の sources に書き、sara でなく
+      # dev/tests/okf-frontmatter.sh が形を確かめる。
+      - &origin_field
+        name: origin
+        display_name: Origin
+        field_type: text
+        required: false
+      - *stale_after_field
+    allowed_targets: &adr_targets
+      - relation: justifies
+        targets:
+          - requirement
+          - design
+          - infrastructure
+          - quality
+          - test_plan
+      # 置き換えた ADR。文書丸ごとの失効を表す。
+      - relation: supersedes
+        targets:
+          - adr
+      # ADR ヘッダの「関連:」。
+      - relation: references
+        targets:
+          - adr
+
+  # ユビキタス言語の 1 語。docs/ubiquitous-language/。組み込みの name が英語の正名。
+  # どの item ともつながない根で、索引は docs/ubiquitous-language/index.md。
+  - id: ubiquitous_term
+    display_name: Ubiquitous Term
+    prefix: UBQ
+    id_format: '{prefix}-{uuid4}'
+    parent_types: []
+    fields:
+      # 日本語の正名。英語のまま使う語では省く。
+      - name: name_ja
+        display_name: Name (ja)
+        field_type: text
+        required: false
+      # 執筆で使わない綴りのリスト。説明は本文の Avoid / 避ける表現 の節に書く。
+      - name: avoid
+        display_name: Avoid
+        field_type: !list text
+        required: false
+      # index.md の節。見出しと並び順は dev/scripts/okf-index.sh の表が持つ。
+      - name: section
+        display_name: Section
+        field_type: !enum
+          values:
+            - core
+            - input-output
+            - modes
+            - kinds
+            - state
+            - errors
+        required: true
+      - *status_field
+      - *stale_after_field
+    allowed_targets: []
+
+  # ---- リスクとテストの系統（risk → test_condition → test_case）----
+
+  # 満たされない懸念。docs/risks/。requirement と design の両方を脅かせる。
+  # どちらへ張るかの規約は docs/quality/risk-attaches-to-requirement-by-default.md、
+  # 採点規約は docs/quality/risk-level-derived-from-likelihood-and-impact.md。
+  - id: risk
+    display_name: Risk
+    prefix: RISK
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - requirement
+      - design
+    fields:
+      - name: likelihood
+        display_name: Likelihood
+        field_type: !enum
+          values:
+            - high
+            - medium
+            - low
+        required: true
+        placeholder: medium
+      - name: impact
+        display_name: Impact
+        field_type: !enum
+          values:
+            - high
+            - medium
+            - low
+        required: true
+        placeholder: medium
+      - name: level
+        display_name: Level
+        field_type: !enum
+          values:
+            - high
+            - medium
+            - low
+        required: true
+        placeholder: medium
+      # index.md の節。値と並び順は dev/tests/test-categories.tsv の区分と同じにする。
+      - name: section
+        display_name: Section
+        field_type: !enum
+          values:
+            - manifest-eval
+            - engine-core
+            - copy
+            - migration-stale
+            - atomicity
+            - generations
+            - cli-json
+            - integration
+        required: true
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: threatens
+        targets:
+          - requirement
+          - design
+
+  # リスクを潰すためのテスト条件。docs/test/<対象>/。
+  - id: test_condition
+    display_name: Test Condition
+    prefix: TC
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - risk
+    fields:
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: mitigates
+        targets:
+          - risk
+
+  # 具体的なテストケース。docs/test/<対象>/。
+  - id: test_case
+    display_name: Test Case
+    prefix: CASE
+    id_format: '{prefix}-{uuid4}'
+    parent_types:
+      - test_condition
+      - test_plan
+    fields:
+      # 対応するテスト資産の正準表記（単一値）。正準形は docs/model.md を参照。
+      # dev/tests/test-doc-map.sh が CASE とテスト資産の 1:1 を照合する。
+      - name: resource
+        display_name: Resource
+        field_type: text
+        required: true
+        placeholder: internal/engine/engine_test.go
+      - *status_field
+      - *stale_after_field
+    allowed_targets:
+      - relation: covers
+        targets:
+          - test_condition
+      - relation: follows
+        targets:
+          - test_plan
+
+relations:
+  # ---- 組み込み由来（そのまま使う）----
+
+  - id: refines
+    display_name: Refines
+    inverse: is_refined_by
+    direction: upstream
+    primary: true
+  - id: is_refined_by
+    display_name: Is refined by
+    inverse: refines
+    direction: downstream
+    primary: false
+
+  - id: derives_from
+    display_name: Derives from
+    inverse: derives
+    direction: upstream
+    primary: true
+  - id: derives
+    display_name: Derives
+    inverse: derives_from
+    direction: downstream
+    primary: false
+
+  - id: satisfies
+    display_name: Satisfies
+    inverse: is_satisfied_by
+    direction: upstream
+    primary: true
+  - id: is_satisfied_by
+    display_name: Is satisfied by
+    inverse: satisfies
+    direction: downstream
+    primary: false
+
+  - id: depends_on
+    display_name: Depends on
+    inverse: is_required_by
+    direction: peer
+    primary: true
+  - id: is_required_by
+    display_name: Is required by
+    inverse: depends_on
+    direction: peer
+    primary: false
+
+  - id: justifies
+    display_name: Justifies
+    inverse: justified_by
+    direction: upstream
+    primary: true
+  - id: justified_by
+    display_name: Justified by
+    inverse: justifies
+    direction: downstream
+    primary: false
+
+  # ---- 独自定義: ADR 間の peer 関係 ----
+  # 後継の ADR から置き換えた ADR へ張る。置き換えられた側は status が deprecated になる。
+  - id: supersedes
+    display_name: Supersedes
+    inverse: superseded_by
+    direction: peer
+    primary: true
+  - id: superseded_by
+    display_name: Superseded by
+    inverse: supersedes
+    direction: peer
+    primary: false
+
+  # ADR ヘッダの「関連:」に対応。改訂を伴わない参照。
+  - id: references
+    display_name: References
+    inverse: is_referenced_by
+    direction: peer
+    primary: true
+  - id: is_referenced_by
+    display_name: Is referenced by
+    inverse: references
+    direction: peer
+    primary: false
+
+  # ---- 独自定義: リスクとテストの系統 ----
+
+  # risk → requirement / design。
+  - id: threatens
+    display_name: Threatens
+    inverse: is_threatened_by
+    direction: upstream
+    primary: true
+  - id: is_threatened_by
+    display_name: Is threatened by
+    inverse: threatens
+    direction: downstream
+    primary: false
+
+  # test_condition → risk。
+  - id: mitigates
+    display_name: Mitigates
+    inverse: is_mitigated_by
+    direction: upstream
+    primary: true
+  - id: is_mitigated_by
+    display_name: Is mitigated by
+    inverse: mitigates
+    direction: downstream
+    primary: false
+
+  # test_case → test_condition。
+  - id: covers
+    display_name: Covers
+    inverse: is_covered_by
+    direction: upstream
+    primary: true
+  - id: is_covered_by
+    display_name: Is covered by
+    inverse: covers
+    direction: downstream
+    primary: false
+
+  # test_case → test_plan。
+  - id: follows
+    display_name: Follows
+    inverse: is_followed_by
+    direction: upstream
+    primary: true
+  - id: is_followed_by
+    display_name: Is followed by
+    inverse: follows
+    direction: downstream
+    primary: false

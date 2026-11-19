@@ -23,6 +23,79 @@
       ];
       perSystem =
         { inputs', pkgs, ... }:
+        let
+          # dev/tests/term-avoid.sh が avoid の綴りの検出に使う。
+          textlint = pkgs.textlint.withPackages [ pkgs.textlint-rule-prh ];
+
+          # sara init を包む item 起票ラッパー。
+          #
+          #   sara-new <型> <slug> <配置ディレクトリ> -- --description <要約> [<sara init のオプション>...]
+          #
+          # 実体の dev/scripts/sara-new.sh を PATH に載せる薄い wrapper。
+          sara-new = pkgs.writeShellApplication {
+            name = "sara-new";
+            runtimeInputs = [
+              inputs'.nur.packages.sara
+              # date / mkdir / mv / rm / tr。
+              pkgs.coreutils
+              # ID 行の抽出に使う。
+              pkgs.gnused
+              # frontmatter の閉じの直前へ generated を足すのに使う。
+              pkgs.gawk
+              # 下の text が exec するインタプリタ自身。
+              pkgs.bash
+            ];
+            text = ''
+              exec bash ${./scripts/sara-new.sh} "$@"
+            '';
+          };
+
+          # sara ドキュメントグラフの未カバーを列挙する決定論コマンド。
+          #
+          #   sara-gap [--json]
+          #
+          # 実体の dev/scripts/sara-gap.sh を PATH に載せる薄い wrapper。
+          sara-gap = pkgs.writeShellApplication {
+            name = "sara-gap";
+            runtimeInputs = [
+              inputs'.nur.packages.sara
+              pkgs.jq
+              pkgs.coreutils
+              # sara.toml のある走査基点をリポジトリルート基準で解決するため。
+              pkgs.git
+              # 下の text が exec するインタプリタ自身。
+              pkgs.bash
+            ];
+            text = ''
+              exec bash ${./scripts/sara-gap.sh} "$@"
+            '';
+          };
+
+          # 上流より古い item・`--base` の ref からの generated の更新漏れ・人の確認が無い high の risk を列挙する決定論コマンド。
+          #
+          #   sara-fresh [--json] [--base <ref>]
+          #
+          # 実体の dev/scripts/sara-fresh.sh を PATH に載せる薄い wrapper。
+          sara-fresh = pkgs.writeShellApplication {
+            name = "sara-fresh";
+            runtimeInputs = [
+              inputs'.nur.packages.sara
+              pkgs.jq
+              # frontmatter の generated / verified を読む yq-go（mikefarah/yq v4）。
+              pkgs.yq-go
+              # frontmatter を 1 本の multi-document にまとめるのに使う。
+              pkgs.gawk
+              pkgs.coreutils
+              # sara.toml のある走査基点をリポジトリルート基準で解決するため。
+              pkgs.git
+              # 下の text が exec するインタプリタ自身。
+              pkgs.bash
+            ];
+            text = ''
+              exec bash ${./scripts/sara-fresh.sh} "$@"
+            '';
+          };
+        in
         {
           devShells = {
             # ローカル開発用: LSP・linter・formatter フル搭載
@@ -32,10 +105,44 @@
                 nixd # Nix language server
                 inputs'.root.formatter # root の treefmt formatter を再利用
                 inputs'.nur.packages.sara # ドキュメント間の関連性の記述・検証
+                # item 起票ラッパー（sara init + 規約どおりの rename）。
+                sara-new
+                # グラフ未カバーと到達率の列挙。
+                sara-gap
+                # 再検証待ちの item・generated の更新漏れ・人の確認が無い high の risk の列挙。
+                sara-fresh
+                # CASE frontmatter を読む yq-go（mikefarah/yq v4）。python-yq とは別実装。
+                yq-go
+                # test-doc-matrix.sh が sara report matrix --format json を整形するのに使う。
+                jq
               ];
               shellHook = ''
                 export REPO_ROOT=$(git rev-parse --show-superproject-working-tree --show-toplevel)
               '';
+            };
+
+            # CI の sara check と dev/tests/ の各テスト専用シェル。
+            sara = pkgs.mkShell {
+              packages = [
+                inputs'.nur.packages.sara
+                sara-new
+                sara-gap
+                sara-fresh
+                # 以下は dev/tests/ の各テストが使う。
+                pkgs.git
+                pkgs.gnused
+                pkgs.coreutils
+                # dev/tests/sara-new.sh が fixture の残存ファイルを数えるのに使う。
+                pkgs.findutils
+                pkgs.gnugrep
+                # dev/tests/test-doc-map.sh が CASE frontmatter を読む yq-go（mikefarah/yq v4）。
+                pkgs.yq-go
+                # dev/tests/sara-gap.sh が --json 出力のアサーションに使う。
+                pkgs.jq
+                # dev/tests/term-avoid.sh が avoid の綴りを検出する。
+                textlint
+              ];
+              env.TERM = "dumb";
             };
 
             # CI 用: 最小構成 + TERM=dumb
