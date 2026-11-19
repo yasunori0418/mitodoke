@@ -106,7 +106,7 @@ scan() {
   ' "$@"
 }
 
-# CLAUDE.md と dev/skills/ が ID 規約の例として使う ID。
+# AGENTS.md と dev/skills/ が ID 規約の例として使う ID。
 example_id=REQ-2b0c2bb8-964f-4e36-a121-c6ea0d4be1c4
 
 # 検出を「<種別>\t<path>:<line>: <ID>」で標準出力へ出す。種別は full（許可外のフル ID）と short（8 文字省略形）。
@@ -131,7 +131,7 @@ scan_ids() {
       line = $0
       while (match(line, full)) {
         id = substr(line, RSTART, RLENGTH)
-        if (!(id == example && (FILENAME == "CLAUDE.md" || FILENAME ~ /^dev\/skills\//))) report("full", id)
+        if (!(id == example && (FILENAME == "AGENTS.md" || FILENAME ~ /^dev\/skills\//))) report("full", id)
         line = substr(line, 1, RSTART - 1) " " substr(line, RSTART + RLENGTH)
       }
       line = " " line " "
@@ -314,7 +314,7 @@ cat > "$ids/nofm.md" <<'EOF'
 REQ-2b0c2bb8-964f-4e36-a121-c6ea0d4be1c4 は例示の場所の外
 EOF
 
-cat > "$ids/CLAUDE.md" <<'EOF'
+cat > "$ids/AGENTS.md" <<'EOF'
 `REQ-2b0c2bb8-964f-4e36-a121-c6ea0d4be1c4` は規約の例
 `REQ-11111111-2222-4333-8444-555555555555` は例ではない
 EOF
@@ -359,11 +359,11 @@ full	detect.sh:3
 short	detect.sh:4
 full	nofm.md:1
 full	nofm.md:2
-full	CLAUDE.md:2
+full	AGENTS.md:2
 full	dev/other/example.md:1
 EOF
 
-(cd "$ids" && scan_ids detect.md detect.sh nofm.md CLAUDE.md dev/skills/example.md dev/other/example.md clean.md) > "$work/ids.out"
+(cd "$ids" && scan_ids detect.md detect.sh nofm.md AGENTS.md dev/skills/example.md dev/other/example.md clean.md) > "$work/ids.out"
 ids_rc=$?
 if [ "$ids_rc" -ne 0 ]; then
   fault "自己テスト: ID の走査が異常終了した（exit $ids_rc）"
@@ -394,10 +394,10 @@ cd "$(testdoc_repo_root)" || exit 1
 
 # flake check のサンドボックスは git 管理外なので find へ倒す。
 if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-  git ls-files -z -- 'docs/*.md' README.md README.ja.md CLAUDE.md
+  git ls-files -z -- 'docs/*.md' README.md README.ja.md AGENTS.md
 else
   find docs -name '*.md' -print0
-  printf '%s\0' README.md README.ja.md CLAUDE.md
+  printf '%s\0' README.md README.ja.md AGENTS.md
 fi | LC_ALL=C sort -z > "$work/targets"
 
 mapfile -d '' -t targets < "$work/targets"
@@ -421,8 +421,8 @@ if [ "$scan_rc" -ne 0 ]; then
   exit 1
 fi
 
-id_roots=(docs internal cmd lib modules tests templates .github dev/scripts dev/skills)
-id_files=(README.md README.ja.md CLAUDE.md sara.toml flake.nix example.envrc example.worktreeinclude example.worktreeskip)
+id_roots=(docs .github dev/scripts)
+id_files=(README.md README.ja.md AGENTS.md sara.toml flake.nix example.envrc example.worktreeinclude example.worktreeskip)
 if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   git ls-files -z -- "${id_roots[@]}" "${id_files[@]}"
 else

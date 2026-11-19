@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 用語 item（ubiquitous_term）の avoid にある綴りが docs・README・CLAUDE.md の散文に無いことを確かめる契約テスト。
+# 用語 item（ubiquitous_term）の avoid にある綴りが docs・README・AGENTS.md の散文に無いことを確かめる契約テスト。
 #
 # 実行:
 #   nix develop '.?dir=dev#sara' -c dev/tests/term-avoid.sh   # devShell / CI から直接
@@ -64,8 +64,8 @@ fi
 
 {
   find docs -name '*.md' \
-    -not -path 'docs/adr/*' -not -path 'docs/sara-adr/*' -not -path 'docs/ubiquitous-language/*'
-  printf '%s\n' README.md README.ja.md CLAUDE.md
+    -not -path 'docs/adr/*' -not -path 'docs/ubiquitous-language/*'
+  printf '%s\n' README.md README.ja.md AGENTS.md
 } | LC_ALL=C sort > "$work/targets"
 
 mapfile -t targets < "$work/targets"
