@@ -65,9 +65,8 @@ Remove the triage label from an issue when closing it; the structural label stay
 
 Defects found in the product are managed here, not in the document graph — there is no
 `defect` item type. The graph holds norms (what should hold); a defect is an event, and
-events belong to the tracker. The decision is recorded in the ADR
-[欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md), carried over
-from layat.
+events belong to the tracker. The decision is recorded in an ADR:
+[欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md).
 
 - **File** a defect as a GitHub issue with the `bug` label.
 - **Fill in** the body template below. Maintainers (including agents) fill it in; the
