@@ -52,7 +52,7 @@ generated:
 `term-avoid.sh`・`risk-matrix.sh`・`test-doc-map.sh` と `dev/scripts/test-doc-matrix.sh` の 4 本は、
 用語・risk・テスト資産が 0 件のいまは exit 1 になるため CI に載せていない。#6 で載せる。
 
-`sara` job は契約テストに続けて、実物のグラフに `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
+`sara` job は実物のグラフにも `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
 pull_request では base ブランチを `--base` に渡し、push では `--base` を付けない。merge-base を引けるよう、
 この job の checkout は全履歴を取る。挙がった item は読み直しが要ることを示すだけで破損を意味しないため、
 一覧に item が挙がっても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす
