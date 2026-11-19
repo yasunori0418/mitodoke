@@ -12,8 +12,8 @@ satisfies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-19T21:17:37+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-19T23:37:00+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -60,7 +60,7 @@ pull_request では base ブランチを `--base` に渡し、push では `--bas
 
 `sara` job は `check.yml` で `check` job（`nix flake check`）と並ぶが、paths-filter を持たず、
 `check` job と同じ条件（main 以外への push と pull_request）で毎回実行する。
-CI 用の devShell も sara 専用のもの（`dev#sara`）へ分ける。
+`sara` job は sara 専用の devShell（`dev#sara`）で実行する。
 
 ## ID 規約
 
