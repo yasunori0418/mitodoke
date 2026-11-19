@@ -25,3 +25,71 @@ jobs:
       #   run: nix develop '.?dir=dev#ci' -c <コマンド>
       #   env:
       #     TERM: "dumb"
+
+  sara:
+    # docs/ の sara グラフの検査と契約テスト。required にはしない。
+    # paths-filter を付けず、check job と同じ条件で毎回実行する。
+    runs-on: ubuntu-latest
+    steps:
+      # sara-fresh --base が PR のベースブランチとのマージベースを辿れるよう、全履歴を取る。
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      # sara は個人 NUR から yasunori0418.cachix.org 経由で取る。
+      - name: Run sara check
+        run: nix develop '.?dir=dev#sara' -c sara check
+
+      - name: Run sara-gap contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-gap.sh
+
+      - name: Run sara-fresh contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-fresh.sh
+
+      # 上流より古い item・generated の更新漏れ（pull_request のときだけ、ベースブランチと比べる）・
+      # human: の verified が無い high の risk をログと Job Summary に出す。
+      # 検出あり（exit 1）は成功とし、実行の失敗（exit 2 以上）か見出しの欠落だけを失敗にする。
+      - name: Report stale items with sara-fresh
+        env:
+          BASE_REF: ${{ github.event_name == 'pull_request' && github.base_ref || '' }}
+        run: |
+          args=()
+          if [ -n "$BASE_REF" ]; then
+            args=(--base "origin/$BASE_REF")
+          fi
+          out="$RUNNER_TEMP/sara-fresh.txt"
+          status=0
+          nix develop '.?dir=dev#sara' -c sara-fresh "${args[@]}" >"$out" || status=$?
+          cat "$out"
+          if [ "$status" -gt 1 ] || ! grep -q '^## ' "$out"; then
+            echo "::error::sara-fresh failed (exit $status)"
+            exit 1
+          fi
+          {
+            echo '### sara-fresh'
+            echo
+            echo '```'
+            cat "$out"
+            echo '```'
+          } >>"$GITHUB_STEP_SUMMARY"
+
+      - name: Run sara-new contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-new.sh
+
+      - name: Run okf-frontmatter contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/okf-frontmatter.sh
+
+      - name: Run okf-index contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/okf-index.sh
+
+      # コミット済みの docs/ 配下の index.md が、okf-index.sh の生成結果と一致すること。
+      - name: Check generated index.md
+        run: nix develop '.?dir=dev#sara' -c bash dev/scripts/okf-index.sh --check
+
+      - name: Run link-text contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/link-text.sh
