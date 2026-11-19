@@ -48,17 +48,17 @@ sara の構造の検査は、型・relation・接続性が正しいかを見る�
 
 再検証待ちは上流の relation を辿って鮮度を比べる。下流の item の基準時刻より上流の
 `generated.at` が新しければ挙げる。辿る relation・基準時刻・除く item の理由は
-[鮮度は上流の relation を辿って下流へ伝播させる](../sara-adr/freshness-propagates-along-upstream-relations.md) が持つ。
+[鮮度は上流の relation を辿って下流へ伝播させる](../adr/freshness-propagates-along-upstream-relations.md) が持つ。
 
 `generated` の更新漏れは、base との差分で本文が変わったのに `generated.at` が変わっていない
 item を挙げる。比べる 2 点は `git merge-base <base> HEAD` のコミットと作業ツリーで、本文は
 frontmatter の外の行から H1 の行と `- ステータス:` の行を除いたものとし、空白だけの差は数えない。新しく足した
 item と削除した item は比べず、改名した item は旧パスの内容と比べる。この範囲にした理由と、時刻を
-比べない理由は [generated の更新漏れは PR の差分で確かめる](../sara-adr/generated-update-checked-in-pr-diff.md) が持つ。
+比べない理由は [generated の更新漏れは PR の差分で確かめる](../adr/generated-update-checked-in-pr-diff.md) が持つ。
 
 どちらの列挙も、挙がったことは何かが破損したことを意味しない。上流を書き換えれば、下流の読み直しが
 済むまで件数が増える。そのため結果は報告に留め、マージの条件にしない
-（→ [傾向の計測は報告に留め、マージの条件にしない](measurement-reports-without-gating.md)）。
+（→ [傾向の計測は報告に留め、マージの条件にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/measurement-reports-without-gating.md)）。
 挙がった item をどう扱うかは人が判断する。件数を減らすために `verified` を足したり `generated.at` を
 動かしたりしない。
 

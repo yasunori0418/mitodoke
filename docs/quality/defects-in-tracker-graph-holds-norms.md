@@ -64,7 +64,7 @@ generated:
 
 ## 出典
 
-[欠陥はグラフに置かず GitHub Issues で管理する](../sara-adr/defects-in-github-issues.md)、[欠陥 issue のクローズ時にテスト系 item の欠落を追補する](../sara-adr/defect-close-backfills-risks.md)、[欠陥を既存の RISK / TC に辿れたかで分類して数える](../sara-adr/defects-classified-by-risk-foresight.md) が置いた方針と、
+[欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md)、[欠陥 issue のクローズ時にテスト系 item の欠落を追補する](../adr/defect-close-backfills-risks.md)、[欠陥を既存の RISK / TC に辿れたかで分類して数える](../adr/defects-classified-by-risk-foresight.md) が置いた方針と、
 `docs/agents/issue-tracker.md` の Defect issues 節（片方向参照・クローズ前の shift-left
 ループ）、`docs/agents/triage-labels.md` の分類語彙、`.github/ISSUE_TEMPLATE/config.yml` の
 blank issue 禁止設定が実運用してきた規範を、Issue #272 で quality item として立てたもの。

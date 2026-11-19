@@ -75,4 +75,4 @@ linter（textlint など）に置き、自前のスクリプトは書かない�
 ## 出典
 
 `specification` の様式として運用してきた規約を、Issue #649 で quality item として立てた。
-この規約を定めた決定は [specification の必須の強度を SHALL 系の綴りに固定する](../sara-adr/specification-shall-family-fixed.md) に記録してある。
+この規約を定めた決定は [specification の必須の強度を SHALL 系の綴りに固定する](../adr/specification-shall-family-fixed.md) に記録してある。

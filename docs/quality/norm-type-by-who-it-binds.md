@@ -62,7 +62,7 @@ E2E ハーネスの範囲、*テストの*対象外とする宣言、テスト�
 ほとんどの item は上の規則だけで決まる。決まらないのは次の場合で、並列のレーンで判断が割れない
 よう、先例で決着させる。
 
-**テストのために開いた API の面。** [lib.__internal で private helper をテストへ公開する](../test-plan/lib-internal-test-seam.md)（もとは
+**テストのために開いた API の面。** [lib.__internal で private helper をテストへ公開する](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/test-plan/lib-internal-test-seam.md)（もとは
 `requirement`）は Issue #239 で `test_plan` に決まった。製品が公開する実在の attrset なので契約に
 見えるが、動機は評価テストを private helper へ届かせることだけにある。その `specification` は
 SHALL NOT を、この面を安定性と後方互換の対象から*外す*ことに使っている。何かをテストできるように
@@ -80,7 +80,7 @@ cobra に限り vendorHash で固定する」「`lib` は nixpkgs.lib だけに�
 `requirement` である。「`--only` フラグは無い」「MVP に片付けのコマンドは無い」「2 つの設定を
 同じ配置先へ向けるのは利用者の責任」がこれにあたり、利用者ができることの範囲を区切り、利用者は
 その欠落に直接出会う。何かを*検証しない*という宣言は `test_plan` である。
-[NixOS / nix-darwin モジュールで使うときの実 activate は E2E ハーネスの対象外とする](../test-plan/nixos-vm-test-future.md) は NixOS / nix-darwin モジュールの経路を
+[NixOS / nix-darwin モジュールで使うときの実 activate は E2E ハーネスの対象外とする](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/test-plan/nixos-vm-test-future.md) は NixOS / nix-darwin モジュールの経路を
 実際に activate することを E2E ハーネスの外に置く。製品はその機能を提供したままで、テストが
 そこまで届かないだけである。
 
@@ -111,7 +111,7 @@ cobra に限り vendorHash で固定する」「`lib` は nixpkgs.lib だけに�
 
 ## 出典
 
-[テスト計画の型を品質方針の型から分けて設ける](../sara-adr/quality-and-test-plan-types.md) と
-[infrastructure を技術基盤として再定義し root から外す](../sara-adr/infrastructure-redefined-non-root.md) が置いた型の区分を、Issue #240 で判別の規則として
+[テスト計画の型を品質方針の型から分けて設ける](../adr/quality-and-test-plan-types.md) と
+[infrastructure を技術基盤として再定義し root から外す](../adr/infrastructure-redefined-non-root.md) が置いた型の区分を、Issue #240 で判別の規則として
 定め、灰色領域の先例（Issue #239 の決着を含む）とともに運用してきたもの。Issue #649 で
 quality item として立てた。

@@ -43,4 +43,4 @@ generated:
 
 Issue #273 と Issue #304 で決めたテスト系 item の粒度を規約として運用してきたものを、
 Issue #649 で quality item として立てた。
-この規約を定めた決定は [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](../sara-adr/test-items-three-tier-granularity.md) に記録してある。
+この規約を定めた決定は [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](../adr/test-items-three-tier-granularity.md) に記録してある。

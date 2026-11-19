@@ -103,6 +103,6 @@ item を起こしてから張る。決定を item に落とせない ADR は、�
 
 ## 出典
 
-[ADR は単独で覆せる 1 つの決定だけを書く](../sara-adr/adr-one-decision-granularity.md) が
+[ADR は単独で覆せる 1 つの決定だけを書く](../adr/adr-one-decision-granularity.md) が
 Issue #499 で定めた粒度に、本文の構成・統合と分割の手順・`justifies` の選定基準を合わせて
 ADR の規則として運用してきたものを、Issue #649 で quality item として立てた。

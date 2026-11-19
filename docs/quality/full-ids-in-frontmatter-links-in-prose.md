@@ -58,9 +58,9 @@ relation に当たり、`sara query` へ渡しても同じものに当たる。�
 
 ## 出典
 
-[フル ID は frontmatter だけに書き、item にはリンクで触れる](../sara-adr/full-ids-in-frontmatter-only.md)、
-[ADR は UUID だけで採番する](../sara-adr/adr-uuid-only-numbering.md)、
-[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../sara-adr/frontmatter-only-ids-checked-by-contract-test.md)、
-[sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する](../sara-adr/sara-new-wrapper-applies-slug-filename.md)
+[フル ID は frontmatter だけに書き、item にはリンクで触れる](../adr/full-ids-in-frontmatter-only.md)、
+[ADR は UUID だけで採番する](../adr/adr-uuid-only-numbering.md)、
+[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)、
+[sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する](../adr/sara-new-wrapper-applies-slug-filename.md)
 が定めた ID の書き場所と採番を、CLAUDE.md の ID 規約として運用してきた。Issue #649 で
 quality item として立てた。

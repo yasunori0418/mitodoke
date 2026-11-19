@@ -36,12 +36,12 @@ high は見立てを誤ったときの損失が最も大きい。本 item は hi
 数えるのは、`by` が `human:` で始まり、`at` が `generated.at` 以降の `verified` だけになる。
 `generated.at` より前の確認はその後に変わった本文を確かめていない。対象を high の risk 自身に
 限る理由と、medium の risk や test_condition・test_case に広げない理由は
-[level が high の risk に人の verified を求める](../sara-adr/human-verified-required-for-high-risk.md) が持つ。
+[level が high の risk に人の verified を求める](../adr/human-verified-required-for-high-risk.md) が持つ。
 
 `verified` は自動では付けない。人が内容を確かめたときにだけ手で足す。
 
 未達の risk は列挙して報告に留め、マージの条件にしない
-（→ [傾向の計測は報告に留め、マージの条件にしない](measurement-reports-without-gating.md)）。
+（→ [傾向の計測は報告に留め、マージの条件にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/measurement-reports-without-gating.md)）。
 未達の件数は、人が確かめるのを待っている risk の数で、何かが破損したことを意味しない。
 
 列挙の実装と CI での実行は infrastructure の item が持つ。

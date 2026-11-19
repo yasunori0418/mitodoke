@@ -47,7 +47,7 @@ design に属する。差し替えても残るなら `requirement` に属する�
 
 | risk | 張り先 | 理由 |
 |---|---|---|
-| [entrypoint の形ごとに root 解決と配置の意味論が食い違う](../risks/entrypoint-root-resolution.md)（→ [legacy entrypoint の分岐は attr path 組み立てに閉じ、nix 呼び出しヘルパを共通で再利用する](../design/legacy-nix-invocation-reuse.md)） | `design` | legacy の分岐を attr path の組み立てに閉じるのは、「entrypoint の形をまたいで実装を 1 つにする」ための設計の 1 つである。これを置き換えれば（たとえば entrypoint ごとに nix の呼び出しを別々に書けば）、この食い違いは消える。 |
+| [entrypoint の形ごとに root 解決と配置の意味論が食い違う](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/risks/entrypoint-root-resolution.md)（→ [legacy entrypoint の分岐は attr path 組み立てに閉じ、nix 呼び出しヘルパを共通で再利用する](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/design/legacy-nix-invocation-reuse.md)） | `design` | legacy の分岐を attr path の組み立てに閉じるのは、「entrypoint の形をまたいで実装を 1 つにする」ための設計の 1 つである。これを置き換えれば（たとえば entrypoint ごとに nix の呼び出しを別々に書けば）、この食い違いは消える。 |
 | `apply` が失敗したときにファイルシステムへ痕跡を残す | `requirement` | `requirement` そのものが破られることである。どの設計もこれに答えなければならず、設計を変えても懸念は消えない。 |
 
 設計に固有の risk を `requirement` に張ると、それが特定の選択に伴う代償だという情報が失われる。
@@ -63,6 +63,6 @@ test_condition は risk からぶら下がる（`test_condition --mitigates--> r
 
 ## 出典
 
-epic #203 が定めた使い分けを規約として運用してきたものに、[requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](../sara-adr/requirement-risk-exempt.md) が置いた
+epic #203 が定めた使い分けを規約として運用してきたものに、[requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](../adr/requirement-risk-exempt.md) が置いた
 `risk_exempt` の書き方を合わせ、Issue #649 で quality item として立てた。
-この規約を定めた決定は [risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する](../sara-adr/risk-attaches-to-requirement-by-default.md) に記録してある。
+この規約を定めた決定は [risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する](../adr/risk-attaches-to-requirement-by-default.md) に記録してある。
