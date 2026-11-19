@@ -81,6 +81,9 @@ jobs:
       - name: Run sara-new contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-new.sh
 
+      - name: Run adr-supersede contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/adr-supersede.sh
+
       - name: Run okf-frontmatter contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/okf-frontmatter.sh
 
