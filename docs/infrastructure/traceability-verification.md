@@ -13,7 +13,7 @@ satisfies:
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:37:16+09:00"
+  at: "2026-11-20T01:01:01+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -28,7 +28,7 @@ generated:
 |---|---|
 | `docs/model.yaml` | カスタムスキーマ。12 型と relation を定義し、sara の組み込みモデルを全面置換する |
 | `sara.toml` | リポジトリ設定 |
-| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テスト 7 本（この表の `dev/tests/` のうち CI に載せるもの）を実行し、`sara-fresh` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
+| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テストを実行し、`sara-fresh` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
 | `sara-new` | `dev/scripts/sara-new.sh` を包む devShell のコマンド。`sara init` で採番し、`<slug>.md` へ配置して `generated` を足す |
 | `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバーを 7 節で列挙し、到達率を出す。実グラフへの実行は CI に載せていない |
 | `sara-fresh` | `dev/scripts/sara-fresh.sh` を包む devShell のコマンド。上流の `generated.at` が自身の基準時刻より新しい item、`--base <ref>` との差分で本文が変わったのに `generated.at` が変わっていない item、`generated.at` 以降の `human:` の `verified` を持たない high の risk を列挙する。結果は報告に留める |
@@ -44,13 +44,10 @@ generated:
 | `dev/tests/term-avoid.sh` | 用語 item の `avoid` にある綴りが docs・README・AGENTS.md の散文に無いことを検証する（CI に載せていない）|
 | `dev/scripts/test-doc-matrix.sh` | テスト資産 ⇔ CASE ⇔ TC ⇔ RISK の対応表を Markdown で生成する（CI に載せていない）|
 
-`sara` job のステップのうち `nix develop` を実行するものは 10 個で、`sara check`、契約テスト 7 本
-（`sara-gap`・`sara-fresh`・`sara-new`・`adr-supersede`・`okf-frontmatter`・`okf-index`・`link-text`）、
-`sara-fresh` による一覧の報告、`okf-index.sh --check` である。契約テストを同じ job へ載せるのは、
-テストが「人が思い出したときだけ動く」状態を避けるため。
-
-`term-avoid.sh`・`risk-matrix.sh`・`test-doc-map.sh` と `dev/scripts/test-doc-matrix.sh` の 4 本は、
-用語・risk・テスト資産が 0 件のいまは exit 1 になるため CI に載せていない。#6 で載せる。
+`sara` job が実行する契約テストは、上の表の `dev/tests/` のうち「CI に載せていない」と書いていない
+もの。契約テストを同じ job へ載せるのは、テストが「人が思い出したときだけ動く」状態を避けるため。
+「CI に載せていない」と書いた 4 本は、用語・risk・テスト資産が 0 件のいまは exit 1 になるので
+載せていない。#6 で載せる。
 
 `sara` job は実物のグラフにも `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
 pull_request では base ブランチを `--base` に渡し、push では `--base` を付けない。merge-base を引けるよう、
