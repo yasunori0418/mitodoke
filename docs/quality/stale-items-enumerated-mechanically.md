@@ -35,8 +35,8 @@ status: stable
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-12T00:02:04+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 上流より古い item と generated の更新漏れは機械的に列挙する
 
@@ -57,8 +57,7 @@ item と削除した item は比べず、改名した item は旧パスの内容
 比べない理由は [generated の更新漏れは PR の差分で確かめる](../adr/generated-update-checked-in-pr-diff.md) が持つ。
 
 どちらの列挙も、挙がったことは何かが破損したことを意味しない。上流を書き換えれば、下流の読み直しが
-済むまで件数が増える。そのため結果は報告に留め、マージの条件にしない
-（→ [傾向の計測は報告に留め、マージの条件にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/measurement-reports-without-gating.md)）。
+済むまで件数が増える。そのため結果は報告に留め、マージの条件にしない。
 挙がった item をどう扱うかは人が判断する。件数を減らすために `verified` を足したり `generated.at` を
 動かしたりしない。
 
