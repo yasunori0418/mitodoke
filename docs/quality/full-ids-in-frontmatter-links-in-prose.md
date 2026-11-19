@@ -18,7 +18,7 @@ specification_ja: |
   しなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:06:59+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # フル ID は frontmatter だけに書き、散文では item にリンクで触れる
 
@@ -55,9 +55,12 @@ relation に当たり、`sara query` へ渡しても同じものに当たる。�
 
 ## 出典
 
-[フル ID は frontmatter だけに書き、item にはリンクで触れる](../adr/full-ids-in-frontmatter-only.md)、
-[ADR は UUID だけで採番する](../adr/adr-uuid-only-numbering.md)、
-[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)、
-[sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する](../adr/sara-new-wrapper-applies-slug-filename.md)
-が定めた ID の書き場所と採番を、CLAUDE.md の ID 規約として運用してきた。Issue #649 で
-quality item として立てた。
+根拠の決定は次の ADR が持つ。
+
+- [フル ID は frontmatter だけに書き、item にはリンクで触れる](../adr/full-ids-in-frontmatter-only.md)
+- [ADR は UUID だけで採番する](../adr/adr-uuid-only-numbering.md)
+- [frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)
+- [sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する](../adr/sara-new-wrapper-applies-slug-filename.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/full-ids-in-frontmatter-links-in-prose.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

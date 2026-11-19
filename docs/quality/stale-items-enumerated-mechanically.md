@@ -65,4 +65,5 @@ item と削除した item は比べず、改名した item は旧パスの内容
 
 ## 出典
 
-epic #676 の grilling（2026-11-11）で確定した、鮮度と信頼の確認の仕様。
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/stale-items-enumerated-mechanically.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

@@ -20,7 +20,7 @@ specification_ja: |
   作り出すのではなく、item を追加するか既存の用語を選ぶことで解消されなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:06:59+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 用語の正名は用語 item が固定し、執筆はそれに従う
 
@@ -48,7 +48,5 @@ generated:
 
 ## 出典
 
-`docs/glossary.md` 冒頭（README・コードコメント・コマンド出力の表記基準としての正名宣言と
-避けるべき同義語）、`CONTEXT.md` 冒頭（正名と避けるべき同義語の固定）、
-`docs/agents/domain.md`（CONTEXT は意味を、glossary は綴りを正とするという分担）が実運用してきた
-規範を、Issue #272 で quality item として立てたもの。
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/glossary-fixes-canonical-terms.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

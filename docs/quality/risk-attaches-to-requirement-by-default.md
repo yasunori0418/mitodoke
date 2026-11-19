@@ -22,7 +22,7 @@ specification_ja: |
   書かなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:06:59+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る
 
@@ -63,6 +63,10 @@ test_condition は risk からぶら下がる（`test_condition --mitigates--> r
 
 ## 出典
 
-epic #203 が定めた使い分けを規約として運用してきたものに、[requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](../adr/requirement-risk-exempt.md) が置いた
-`risk_exempt` の書き方を合わせ、Issue #649 で quality item として立てた。
-この規約を定めた決定は [risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する](../adr/risk-attaches-to-requirement-by-default.md) に記録してある。
+根拠の決定は次の ADR が持つ。
+
+- [requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](../adr/requirement-risk-exempt.md)
+- [risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する](../adr/risk-attaches-to-requirement-by-default.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/risk-attaches-to-requirement-by-default.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

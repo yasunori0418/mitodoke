@@ -28,8 +28,8 @@ specification_ja: |
   クローズするときは、欠陥を起票した時点で既にあった risk または test_condition に辿れた
   かを、固定した語彙で記録しなければならない。
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-14T01:48:40+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 欠陥はトラッカーが持ちドキュメントグラフは規範のみを持つ。起票は分類語彙を経由する
 
@@ -64,7 +64,11 @@ generated:
 
 ## 出典
 
-[欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md)、[欠陥 issue のクローズ時にテスト系 item の欠落を追補する](../adr/defect-close-backfills-risks.md)、[欠陥を既存の RISK / TC に辿れたかで分類して数える](../adr/defects-classified-by-risk-foresight.md) が置いた方針と、
-`docs/agents/issue-tracker.md` の Defect issues 節（片方向参照・クローズ前の shift-left
-ループ）、`docs/agents/triage-labels.md` の分類語彙、`.github/ISSUE_TEMPLATE/config.yml` の
-blank issue 禁止設定が実運用してきた規範を、Issue #272 で quality item として立てたもの。
+根拠の決定は次の ADR が持つ。
+
+- [欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md)
+- [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](../adr/defect-close-backfills-risks.md)
+- [欠陥を既存の RISK / TC に辿れたかで分類して数える](../adr/defects-classified-by-risk-foresight.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/defects-in-tracker-graph-holds-norms.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

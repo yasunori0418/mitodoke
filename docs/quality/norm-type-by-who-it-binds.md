@@ -25,7 +25,7 @@ specification_ja: |
   `infrastructure` が持たなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:06:59+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # 規範の型は、それが誰を縛るかで決める
 
@@ -83,7 +83,10 @@ generated:
 
 ## 出典
 
-[テスト計画の型を品質方針の型から分けて設ける](../adr/quality-and-test-plan-types.md) と
-[infrastructure を技術基盤として再定義し root から外す](../adr/infrastructure-redefined-non-root.md) が置いた型の区分を、Issue #240 で判別の規則として
-定め、灰色領域の先例（Issue #239 の決着を含む）とともに運用してきたもの。Issue #649 で
-quality item として立てた。
+根拠の決定は次の ADR が持つ。
+
+- [テスト計画の型を品質方針の型から分けて設ける](../adr/quality-and-test-plan-types.md)
+- [infrastructure を技術基盤として再定義し root から外す](../adr/infrastructure-redefined-non-root.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/norm-type-by-who-it-binds.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。

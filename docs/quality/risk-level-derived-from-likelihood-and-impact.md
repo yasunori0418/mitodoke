@@ -33,7 +33,7 @@ specification_ja: |
   書かなければならない。
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:06:59+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 # risk の level は likelihood と impact から導き、手で決めない
 
@@ -119,7 +119,12 @@ test_condition の両方に持つと二重管理になり、片方だけが古�
 
 ## 出典
 
-[risk の impact を検出後の回復可能性で採点する](../adr/risk-impact-as-recoverability.md)、[複数の失敗方向を持つ risk は最も重い方向で採点する](../adr/risk-heaviest-direction.md)、
-[自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](../adr/gate-risk-inherits-impact-by-link.md)、[沈黙性を risk のスコア軸にせず本文に書く](../adr/silence-not-a-score-axis.md) が Issue #303 で
-定めた採点の尺度と `level` の導出に、test_condition の優先度の導き方を合わせ、Issue #649 で
-quality item として立てた。
+根拠の決定は次の ADR が持つ。
+
+- [risk の impact を検出後の回復可能性で採点する](../adr/risk-impact-as-recoverability.md)
+- [複数の失敗方向を持つ risk は最も重い方向で採点する](../adr/risk-heaviest-direction.md)
+- [自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](../adr/gate-risk-inherits-impact-by-link.md)
+- [沈黙性を risk のスコア軸にせず本文に書く](../adr/silence-not-a-score-axis.md)
+
+この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/risk-level-derived-from-likelihood-and-impact.md) を写し、製品の形態に依らない文面に
+直したもの。layat での運用の経緯は、原本の出典が持つ。
