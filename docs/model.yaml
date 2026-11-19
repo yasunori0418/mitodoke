@@ -1,11 +1,11 @@
-# sara カスタムモデルスキーマ（layat）。sara の組み込みモデルを全面的に置き換える。
+# sara カスタムモデルスキーマ（mitodoke）。sara の組み込みモデルを全面的に置き換える。
 # 型構成・ID 形式・フィールドと関係の読み方は docs/model.md を参照。
 # id_format は全型 UUIDv4。採番は sara-new が行う。
 
 item_types:
   # ---- 仕様の系統（solution → use_case → requirement → design）----
 
-  # 根。layat というプロダクトが何であるかの 1 件。docs/solution/。
+  # 根。mitodoke というプロダクトが何であるかの 1 件。docs/solution/。
   - id: solution
     display_name: Solution
     prefix: SOL
@@ -67,7 +67,7 @@ item_types:
         display_name: Specification (ja)
         field_type: text
         required: true
-        placeholder: layat は <要求> を満たさなければならない。
+        placeholder: mitodoke は <要求> を満たさなければならない。
       # requirement 水準の risk を持たない理由を 1 文で書く。
       - name: risk_exempt
         display_name: Risk Exempt
@@ -166,7 +166,7 @@ item_types:
         display_name: Specification (ja)
         field_type: text
         required: true
-        placeholder: layat は <品質方針> を満たさなければならない。
+        placeholder: mitodoke は <品質方針> を満たさなければならない。
       - *status_field
       - *stale_after_field
     allowed_targets:
