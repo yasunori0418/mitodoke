@@ -252,20 +252,13 @@ item_types:
         display_name: Section
         field_type: !enum
           values:
-            - concept
-            - lib-entries
-            - root-modes
-            - manifest-generator
-            - cli-commands
-            - cli-output
-            - placement
-            - removal-migration
-            - atomicity
-            - generations
-            - record-state
-            - modules
-            - dev-build
-            - ci-release-docs
+            - graph-model
+            - ids-and-filenames
+            - frontmatter-fields
+            - verification
+            - authoring
+            - doc-layout
+            - risk-test-defect
         required: true
       # deprecated は supersedes で後継に置き換えられた ADR と、提案を棄却した ADR に付ける。
       - *status_field
