@@ -115,7 +115,7 @@ scan_ids() {
     function hex(n, s) { s = ""; while (n-- > 0) s = s "[0-9a-f]"; return s }
     function report(kind, id) { printf "%s\t%s:%d: %s\n", kind, FILENAME, FNR, id }
     BEGIN {
-      prefix = "(SOL|UC|REQ|DSG|QA|TP|INF|RISK|TC|CASE|ADR|SDR|UBQ)"
+      prefix = "(SOL|UC|REQ|DSG|QA|TP|INF|RISK|TC|CASE|ADR|UBQ)"
       full = prefix "-" hex(8) "-" hex(4) "-" hex(4) "-" hex(4) "-" hex(12)
       short = "[^A-Za-z0-9-]" prefix "-" hex(8) "[^0-9a-f-]"
       id_line = "^id:[ \t]*\"?" full "\"?[ \t]*$"

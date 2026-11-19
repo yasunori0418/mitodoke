@@ -40,7 +40,7 @@ fi
 
 # 実物の docs/model.yaml を重ね、上流を持たない item とテスト条件 1 本だけのグラフを作る。
 fixture="$work/fixture"
-mkdir -p "$fixture/docs/adr" "$fixture/docs/sara-adr" "$fixture/docs/ubiquitous-language" "$fixture/docs/requirements" "$fixture/docs/risks" "$fixture/docs/test/copy"
+mkdir -p "$fixture/docs/adr" "$fixture/docs/ubiquitous-language" "$fixture/docs/requirements" "$fixture/docs/risks" "$fixture/docs/test/copy"
 cp "$repo_root/docs/model.yaml" "$fixture/docs/model.yaml"
 cat > "$fixture/sara.toml" <<'EOF'
 model_schema = "docs/model.yaml"
@@ -59,7 +59,7 @@ id: "ADR-11111111-1111-4111-8111-111111111111"
 type: adr
 name: "フィールドを持つ決定"
 description: "フィールドの要約"
-section: concept
+section: graph-model
 status: stable
 ---
 # ADR-11111111-1111-4111-8111-111111111111: フィールドを持つ決定
@@ -73,7 +73,7 @@ cat > "$fixture/docs/adr/from-paragraph.md" <<'EOF'
 id: "ADR-22222222-2222-4222-8222-222222222222"
 type: adr
 name: "results[] を返す"
-section: cli-output
+section: verification
 status: deprecated
 ---
 # ADR-22222222-2222-4222-8222-222222222222: results[] を返す
@@ -97,16 +97,16 @@ words を
 次の段落は使わない。
 EOF
 
-# description も段落も無い SDR。
-cat > "$fixture/docs/sara-adr/no-description.md" <<'EOF'
+# description も段落も無い ADR。
+cat > "$fixture/docs/adr/no-description.md" <<'EOF'
 ---
-id: "SDR-33333333-3333-4333-8333-333333333333"
-type: sara_adr
+id: "ADR-33333333-3333-4333-8333-333333333333"
+type: adr
 name: "説明の無い決定"
 section: graph-model
 status: stable
 ---
-# SDR-33333333-3333-4333-8333-333333333333: 説明の無い決定
+# ADR-33333333-3333-4333-8333-333333333333: 説明の無い決定
 
 - ステータス: stable
 
@@ -253,7 +253,7 @@ expect_line "description フィールドを使い、ADR の status を添える"
   '* [フィールドを持つ決定](./with-field.md) - フィールドの要約 (stable)'
 expect_line "description が無ければ H1 の次の最初の段落を使い、日本語が接する改行は空白なしでつなぐ" docs/adr/index.md \
   '* [results\[\] を返す](./from-paragraph.md) - 最初の段落は`results[]`の後に English words を挟む。 (deprecated)'
-expect_line "表・引用・HTML・字下げ行・~~~ のフェンスは段落に数えず、段落が無ければ ' - ' ごと省く" docs/sara-adr/index.md \
+expect_line "表・引用・HTML・字下げ行・~~~ のフェンスは段落に数えず、段落が無ければ ' - ' ごと省く" docs/adr/index.md \
   '* [説明の無い決定](./no-description.md) (stable)'
 expect_line "ADR 以外の item には status の添え字を付けず、英数字の行は空白でつなぐ" docs/ubiquitous-language/index.md \
   '* [term](./term.md) - The term definition.'
@@ -296,13 +296,13 @@ if ! (cd "$ordered" && bash "$generator") > "$work/ordered.out" 2>&1; then
   sed 's/^/    /' "$work/ordered.out"
 fi
 order=$(sed '/^## 有効でない item/q' "$ordered/docs/adr/index.md" | grep -oE '\(\./[^)]*\)' | tr -d '()' | tr '\n' ' ')
-if [ "$order" = "./another.md ./with-field.md " ]; then
+if [ "$order" = "./another.md ./no-description.md ./with-field.md " ]; then
   pass "エントリはファイル名順に並ぶ"
 else
   fault "(4) エントリがファイル名順に並ばない（実際: $order）"
 fi
 
-# --- (5) requirement・design・ubiquitous_term・adr・sara_adr は section の節に分ける
+# --- (5) requirement・design・ubiquitous_term・adr は section の節に分ける
 
 want_terms=$(cat <<'EOF'
 # 用語（`ubiquitous_term`）
@@ -351,8 +351,9 @@ expect_line "name_ja を持たない語はリンク文字列を name だけに�
 want_adrs=$(cat <<'EOF'
 # ADR（`adr`）
 
-## コンセプトと全体構成
+## グラフのモデル
 
+* [説明の無い決定](./no-description.md) (stable)
 * [フィールドを持つ決定](./with-field.md) - フィールドの要約 (stable)
 
 ## 有効でない item（`deprecated`）
@@ -368,7 +369,7 @@ else
 fi
 
 headed=""
-for f in docs/requirements/index.md docs/sara-adr/index.md docs/ubiquitous-language/index.md docs/test/copy/index.md; do
+for f in docs/requirements/index.md docs/ubiquitous-language/index.md docs/test/copy/index.md; do
   grep -qxF '## 有効でない item（`deprecated`）' "$fixture/$f" && headed+=" $f"
 done
 if [ -z "$headed" ]; then
@@ -389,15 +390,16 @@ else
   sed 's/^/    /' "$work/none.out"
 fi
 
-# from-paragraph.md（cli-output）はファイル名では with-field.md（concept）より前だが、節は表の順に並ぶ。
+# from-paragraph.md（verification）はファイル名では with-field.md（graph-model）より前だが、節は表の順に並ぶ。
 want_none_adrs=$(cat <<'EOF'
 # ADR（`adr`）
 
-## コンセプトと全体構成
+## グラフのモデル
 
+* [説明の無い決定](./no-description.md) (stable)
 * [フィールドを持つ決定](./with-field.md) - フィールドの要約 (stable)
 
-## 出力・エラー・`--json`
+## 機械検証と鮮度
 
 * [results\[\] を返す](./from-paragraph.md) - 最初の段落は`results[]`の後に English words を挟む。 (stable)
 EOF
@@ -409,43 +411,8 @@ else
   sed 's/^/    /' "$none/docs/adr/index.md"
 fi
 
-# 写しに SDR を足す。a-layout.md（doc-layout）はファイル名では no-description.md（graph-model）より前だが、節は表の順に並ぶ。
-cat > "$none/docs/sara-adr/a-layout.md" <<'SDR'
----
-id: "SDR-33333333-3333-4333-8333-333333333334"
-type: sara_adr
-name: "配置の決定"
-description: "配置の要約"
-section: doc-layout
-status: stable
----
-# SDR-33333333-3333-4333-8333-333333333334: 配置の決定
-SDR
-if ! (cd "$none" && bash "$generator") > "$work/none-sdr.out" 2>&1; then
-  fault "(5) SDR を足した入力から index.md を生成できなかった"
-  sed 's/^/    /' "$work/none-sdr.out"
-fi
-want_none_sdrs=$(cat <<'EOF'
-# SDR（`sara_adr`）
-
-## グラフのモデル
-
-* [説明の無い決定](./no-description.md) (stable)
-
-## 文書の配置と index.md の生成
-
-* [配置の決定](./a-layout.md) - 配置の要約 (stable)
-EOF
-)
-if [ "$(cat "$none/docs/sara-adr/index.md")" = "$want_none_sdrs" ]; then
-  pass "sara_adr の index.md は section の節に分け、節を表の順に並べる"
-else
-  fault "(5) docs/sara-adr/index.md の節分けが食い違う"
-  sed 's/^/    /' "$none/docs/sara-adr/index.md"
-fi
-
 # 写しに、節に分ける型の deprecated と draft の要件、区分の deprecated のテスト条件とテストケースを足し、
-# SDR を deprecated にして、主題の並びが空の index.md を作る。
+# ADR をすべて deprecated にして、主題の並びが空の index.md を作る。
 deprecated="$work/deprecated"
 cp -r "$fixture" "$deprecated"
 sed 's/8888-888888888888/8888-888888888890/; s/^status: stable$/status: deprecated/; s/エラーの要件/古い要件/; s/エラーの説明。/古い説明。/' \
@@ -454,7 +421,8 @@ sed 's/8888-888888888888/8888-888888888891/; s/^status: stable$/status: draft/; 
   "$fixture/docs/requirements/error.md" > "$deprecated/docs/requirements/z-draft.md"
 sed 's/8555-555555555555/8555-555555555556/; s/^status: stable$/status: deprecated/; s/条件/古い条件/g' \
   "$fixture/docs/test/copy/condition.md" > "$deprecated/docs/test/copy/old-condition.md"
-sed 's/^status: stable$/status: deprecated/' "$fixture/docs/sara-adr/no-description.md" > "$deprecated/docs/sara-adr/no-description.md"
+sed 's/^status: stable$/status: deprecated/' "$fixture/docs/adr/no-description.md" > "$deprecated/docs/adr/no-description.md"
+sed 's/^status: stable$/status: deprecated/' "$fixture/docs/adr/with-field.md" > "$deprecated/docs/adr/with-field.md"
 cat > "$deprecated/docs/test/copy/a-case.md" <<'EOF'
 ---
 id: "CASE-99999999-9999-4999-8999-999999999999"
@@ -501,19 +469,21 @@ else
   sed 's/^/    /' "$deprecated/docs/requirements/index.md"
 fi
 
-want_dep_sdrs=$(cat <<'EOF'
-# SDR（`sara_adr`）
+want_dep_adrs=$(cat <<'EOF'
+# ADR（`adr`）
 
 ## 有効でない item（`deprecated`）
 
+* [results\[\] を返す](./from-paragraph.md) - 最初の段落は`results[]`の後に English words を挟む。 (deprecated)
 * [説明の無い決定](./no-description.md) (deprecated)
+* [フィールドを持つ決定](./with-field.md) - フィールドの要約 (deprecated)
 EOF
 )
-if [ "$(cat "$deprecated/docs/sara-adr/index.md")" = "$want_dep_sdrs" ]; then
+if [ "$(cat "$deprecated/docs/adr/index.md")" = "$want_dep_adrs" ]; then
   pass "主題の並びが空で deprecated の item だけがある index.md は、題の直後に末尾の節を置く"
 else
-  fault "(7) docs/sara-adr/index.md の末尾の節の置き方が食い違う"
-  sed 's/^/    /' "$deprecated/docs/sara-adr/index.md"
+  fault "(7) docs/adr/index.md の末尾の節の置き方が食い違う"
+  sed 's/^/    /' "$deprecated/docs/adr/index.md"
 fi
 
 want_dep_copy=$(cat <<'EOF'

@@ -48,7 +48,6 @@ TYPE_DIRS=(
   "infrastructure|infrastructure|基盤（\`infrastructure\`）|CI・配布・ドキュメントサイトなどの基盤の構成"
   "risks|risk|リスク（\`risk\`）|要件や設計が崩れたときに起きる脅威"
   "adr|adr|ADR（\`adr\`）|layat の設計判断の記録"
-  "sara-adr|sara_adr|SDR（\`sara_adr\`）|ドキュメントグラフの運用についての判断の記録"
   "ubiquitous-language|ubiquitous_term|用語（\`ubiquitous_term\`）|layat の用語の定義と避ける綴り"
 )
 # index.md を section の節に分ける型の節: <型>|<section の値>|<## の見出し>。節はこの順に並べる。
@@ -89,27 +88,13 @@ SECTIONS=(
   "ubiquitous_term|kinds|Placement kinds"
   "ubiquitous_term|state|State management"
   "ubiquitous_term|errors|Error handling"
-  "adr|concept|コンセプトと全体構成"
-  "adr|lib-entries|lib API と entries の宣言"
-  "adr|root-modes|root と配置モード"
-  "adr|manifest-generator|manifest.json の契約と生成器"
-  "adr|cli-commands|CLI のコマンド体系と設定"
-  "adr|cli-output|出力・エラー・\`--json\`"
-  "adr|placement|配置動作"
-  "adr|removal-migration|古くなった配置の除去・移行・退避"
-  "adr|atomicity|巻き戻しとロック"
-  "adr|generations|世代と profile"
-  "adr|record-state|last-applied 記録と state"
-  "adr|modules|モジュール統合"
-  "adr|dev-build|ビルド・依存・開発規約"
-  "adr|ci-release-docs|CI・リリース・テンプレート・ドキュメント"
-  "sara_adr|graph-model|グラフのモデル"
-  "sara_adr|ids-and-filenames|ID・ファイル名・起票"
-  "sara_adr|frontmatter-fields|frontmatter のキー"
-  "sara_adr|verification|機械検証と鮮度"
-  "sara_adr|authoring|ADR と規範文の書き方"
-  "sara_adr|doc-layout|文書の配置と index.md の生成"
-  "sara_adr|risk-test-defect|risk・テスト系 item・欠陥"
+  "adr|graph-model|グラフのモデル"
+  "adr|ids-and-filenames|ID・ファイル名・起票"
+  "adr|frontmatter-fields|frontmatter のキー"
+  "adr|verification|機械検証と鮮度"
+  "adr|authoring|ADR と規範文の書き方"
+  "adr|doc-layout|文書の配置と index.md の生成"
+  "adr|risk-test-defect|risk・テスト系 item・欠陥"
 )
 # deprecated の item をまとめる末尾の節の見出し。
 DEPRECATED_HEADING="## 有効でない item（\`deprecated\`）"
@@ -203,7 +188,7 @@ awk -F '\t' '
     label = ($1 == "ubiquitous_term" && $9 != "") ? $4 "（" $9 "）" : $4
     line = "* [" esc(label) "](./" $3 ")"
     if (desc != "") line = line " - " desc
-    if (($1 == "adr" || $1 == "sara_adr") && $6 != "") line = line " (" $6 ")"
+    if ($1 == "adr" && $6 != "") line = line " (" $6 ")"
     print $6 "\t" $1 "\t" $2 "\t" $3 "\t" line "\t" $8
   }
 ' "$work/paras.tsv" "$work/items.tsv" | LC_ALL=C sort -t $'\t' -k4,4 |
