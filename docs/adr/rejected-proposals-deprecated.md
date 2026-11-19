@@ -20,7 +20,7 @@ generated:
 
 - ステータス: stable
 - 日付: 2026-11-10
-- 関連: `docs/model.md`、[一部の entry だけを適用する --only を提供する](../adr/partial-apply-only-flag.md)
+- 関連: `docs/model.md`、[一部の entry だけを適用する --only を提供する](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/adr/partial-apply-only-flag.md)
 - 起点: PR #716 のレビューコメント（2026-11-10）で確定
 
 ## 背景

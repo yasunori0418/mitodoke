@@ -27,7 +27,7 @@ generated:
 
 `docs/model.yaml` の辺をどこまでつなげば「要件がテストで確かめられている」と言えるのかが、決まっていなかった。
 
-[型グラフの規約](../agents/sara-graph.md)では、`risk` は原則として `requirement` へ張り、`design` へ張るのは設計を差し替えると消える懸念に限られる。この規約に従うと、`risk` を持たない `design` が生じる。一方で `sara-gap` は、threatens されていない `design` を未カバーとして数えている。
+[型グラフの規約](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/agents/sara-graph.md)では、`risk` は原則として `requirement` へ張り、`design` へ張るのは設計を差し替えると消える懸念に限られる。この規約に従うと、`risk` を持たない `design` が生じる。一方で `sara-gap` は、threatens されていない `design` を未カバーとして数えている。
 
 ## 決定
 
