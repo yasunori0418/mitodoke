@@ -13,7 +13,7 @@ satisfies:
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
   by: "claude-code/claude-fable-5-2"
-  at: "2026-11-19T23:31:38+09:00"
+  at: "2026-11-20T00:37:16+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -76,7 +76,7 @@ error となり `sara check` は exit 1 を返す（→ [sara check を strict �
 一方で main の required status check には登録しない。
 これは移行中の暫定措置ではなく「**検出は機械・判断は人**」という分担を保つための恒久判断で、
 張り忘れの修正が自明でないケース（item 新設を伴う等）を CI が赤いままレビューで扱える余地を
-残す（決定は → [sara check を required status check にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/sara-adr/sara-check-not-required.md)）。
+残す。
 
 ## 出典
 
@@ -89,7 +89,7 @@ error となり `sara check` は exit 1 を返す（→ [sara check を strict �
 [item にできない外部参照は text フィールドへ逃がす](../adr/external-references-as-text-fields.md)、
 [提案を棄却した決定は status 不採用 で記録する](../adr/adr-status-rejected.md)、[adr の status_note を持たない](../adr/adr-status-note-removed.md)、
 [ADR の失効は supersedes と 廃止 で表す](../adr/adr-supersedes-and-deprecated-status.md)、[ID はフル UUID に統一し 8 文字省略形を使わない](../adr/full-uuid-ids-no-short-form.md)、
-[sara check を required status check にしない](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/sara-adr/sara-check-not-required.md)、[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)。
+[frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ](../adr/frontmatter-only-ids-checked-by-contract-test.md)。
 
 この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/infrastructure/traceability-verification.md) を下敷きに、mitodoke の構成に合わせて書き起こした。
 設計は [layat の epic の grilling セッション](https://github.com/yasunori0418/layat/issues/203) で確定した。
