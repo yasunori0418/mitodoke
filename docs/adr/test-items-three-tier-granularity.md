@@ -1,6 +1,6 @@
 ---
-id: "SDR-e444ba7f-eac7-4cac-bff8-c3d7910d836a"
-type: sara_adr
+id: "ADR-e444ba7f-eac7-4cac-bff8-c3d7910d836a"
+type: adr
 name: "テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない"
 description: "CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。"
 section: risk-test-defect

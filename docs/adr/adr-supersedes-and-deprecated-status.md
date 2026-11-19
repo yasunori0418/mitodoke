@@ -1,6 +1,6 @@
 ---
-id: "SDR-3ff9f355-a667-476e-b10d-087248cdbfcf"
-type: sara_adr
+id: "ADR-3ff9f355-a667-476e-b10d-087248cdbfcf"
+type: adr
 name: "ADR の失効は supersedes と 廃止 で表す"
 section: authoring
 status: stable
@@ -12,7 +12,7 @@ origin: "Issue #499 の grilling（2026-11-01）で確定。ADR-0048 §2・§3 �
 justifies:
   - "QA-030f926b-5ae7-4543-b8cb-e66aae5e2b5e"
 references:
-  - "SDR-1afa3a31-224d-492d-96d9-d3f6c9cb20cd"
+  - "ADR-1afa3a31-224d-492d-96d9-d3f6c9cb20cd"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"

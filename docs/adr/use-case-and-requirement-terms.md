@@ -1,6 +1,6 @@
 ---
-id: "SDR-78d55d19-9e0f-4121-ae86-8e14095e4eba"
-type: sara_adr
+id: "ADR-78d55d19-9e0f-4121-ae86-8e14095e4eba"
+type: adr
 name: "use_case を要求、requirement を要件に対応させる"
 description: "型名 use_case に日本語の要求を、requirement に日本語の要件を対応させ、モデルの読み方に書く。"
 section: graph-model

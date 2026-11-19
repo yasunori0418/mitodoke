@@ -1,6 +1,6 @@
 ---
-id: "SDR-fcae2485-b7f5-4717-9c3a-4e585161efec"
-type: sara_adr
+id: "ADR-fcae2485-b7f5-4717-9c3a-4e585161efec"
+type: adr
 name: "index.md の節は item の section から生成する"
 description: "requirement・design・ubiquitous_term の index.md は、item が持つ必須の enum フィールド section ごとに節を分けて生成し、見出しと並び順は生成スクリプトの表に置く"
 section: doc-layout
@@ -13,7 +13,7 @@ origin: "epic #719 の grilling（2026-11-13）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 references:
-  - "SDR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
+  - "ADR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T14:22:22+09:00"

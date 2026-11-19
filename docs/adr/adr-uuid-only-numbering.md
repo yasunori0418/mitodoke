@@ -1,6 +1,6 @@
 ---
-id: "SDR-3e5b9994-a905-44d8-8256-2bd65b12b87e"
-type: sara_adr
+id: "ADR-3e5b9994-a905-44d8-8256-2bd65b12b87e"
+type: adr
 name: "ADR は UUID だけで採番する"
 section: ids-and-filenames
 status: stable
@@ -15,7 +15,7 @@ origin: "Issue #558 の分解（job adr-finish・2026-11-03）で確定。[ADR �
 justifies:
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
 supersedes:
-  - "SDR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
+  - "ADR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T00:12:45+09:00"

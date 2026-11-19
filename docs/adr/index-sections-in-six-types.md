@@ -1,6 +1,6 @@
 ---
-id: "SDR-4e92d0b5-7674-4956-854d-dd5da9cf42bb"
-type: sara_adr
+id: "ADR-4e92d0b5-7674-4956-854d-dd5da9cf42bb"
+type: adr
 name: "index.md の節は 6 つの型で item の section から生成する"
 description: "requirement・design・ubiquitous_term・adr・sara_adr・risk の index.md は、item が持つ必須の enum フィールド section ごとに節を分けて生成し、値は item に手で書く"
 section: doc-layout
@@ -13,9 +13,9 @@ origin: "epic #743 の grilling（2026-11-14）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 supersedes:
-  - "SDR-fcae2485-b7f5-4717-9c3a-4e585161efec"
+  - "ADR-fcae2485-b7f5-4717-9c3a-4e585161efec"
 references:
-  - "SDR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
+  - "ADR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T16:42:24+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-3f524795-70f3-4bca-ba25-ae1e40e94dd4"
-type: sara_adr
+id: "ADR-3f524795-70f3-4bca-ba25-ae1e40e94dd4"
+type: adr
 name: "test_case から test_plan へ follows を張る"
 description: "test_plan とテストをつなぐ辺を test_case から test_plan への新設 relation follows とし、test_case の親に test_plan を足す。"
 section: graph-model
@@ -13,7 +13,7 @@ origin: "epic #648 の grilling セッション（2026-11-08）で確定"
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-f3f9491f-d6f4-4742-82da-4933ad3d8db1"
+  - "ADR-f3f9491f-d6f4-4742-82da-4933ad3d8db1"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T23:31:56+09:00"

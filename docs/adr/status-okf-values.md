@@ -1,6 +1,6 @@
 ---
-id: "SDR-7967c58b-2d03-40d6-89b4-680be30fa5d1"
-type: sara_adr
+id: "ADR-7967c58b-2d03-40d6-89b4-680be30fa5d1"
+type: adr
 name: "status を OKF の 3 値にし全ての型に持たせる"
 description: "status を draft / stable / deprecated の 3 値にし、ADR 以外の型にも必須で持たせる"
 section: frontmatter-fields
@@ -13,7 +13,7 @@ origin: "epic #662 の grilling（2026-11-07）で確定。[提案を棄却し�
 justifies:
   - "QA-030f926b-5ae7-4543-b8cb-e66aae5e2b5e"
 supersedes:
-  - "SDR-d5304533-00ae-423b-a459-7c67c1cf093c"
+  - "ADR-d5304533-00ae-423b-a459-7c67c1cf093c"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"

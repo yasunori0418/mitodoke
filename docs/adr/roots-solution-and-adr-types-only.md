@@ -1,6 +1,6 @@
 ---
-id: "SDR-a0095ee8-570c-4f77-a6c9-bbc162a5c4cb"
-type: sara_adr
+id: "ADR-a0095ee8-570c-4f77-a6c9-bbc162a5c4cb"
+type: adr
 name: "root は solution と ADR 系の型だけにする"
 section: graph-model
 status: deprecated
@@ -18,9 +18,9 @@ origin: "epic #203 の grilling セッション（2026-08-08）で確定。ADR-0
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-c15921a9-7aea-407c-a34b-7465783b1af1"
-  - "SDR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-c15921a9-7aea-407c-a34b-7465783b1af1"
+  - "ADR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-07T01:29:00+09:00"

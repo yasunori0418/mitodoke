@@ -1,6 +1,6 @@
 ---
-id: "SDR-5ea31001-96f8-4324-a40b-647cdfa5cc9d"
-type: sara_adr
+id: "ADR-5ea31001-96f8-4324-a40b-647cdfa5cc9d"
+type: adr
 name: "ドキュメントは sara のナレッジグラフとして item に分割する"
 section: doc-layout
 status: stable

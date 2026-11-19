@@ -1,6 +1,6 @@
 ---
-id: "SDR-12bab183-d9d7-4210-a45b-c4e6568f297b"
-type: sara_adr
+id: "ADR-12bab183-d9d7-4210-a45b-c4e6568f297b"
+type: adr
 name: "フル ID は frontmatter だけに書き、item にはリンクで触れる"
 description: "フル ID の書き場所を frontmatter の id と relation リストに限り、H1 見出しは name だけにし、本文や specification などの文字列では item へ Markdown リンクで触れる。"
 section: ids-and-filenames
@@ -16,7 +16,7 @@ origin: "H1 見出しの ID の要否の見直し（2026-11-09）で確定。[�
 justifies:
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
 supersedes:
-  - "SDR-bd136f38-c991-46f9-ada9-06499d259a8b"
+  - "ADR-bd136f38-c991-46f9-ada9-06499d259a8b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T22:23:22+09:00"

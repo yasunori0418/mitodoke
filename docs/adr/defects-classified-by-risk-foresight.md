@@ -1,6 +1,6 @@
 ---
-id: "SDR-b0cf66eb-8df5-4fb0-b1ae-a3e7f4255189"
-type: sara_adr
+id: "ADR-b0cf66eb-8df5-4fb0-b1ae-a3e7f4255189"
+type: adr
 name: "欠陥を既存の RISK / TC に辿れたかで分類して数える"
 description: "欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。"
 section: risk-test-defect
@@ -13,7 +13,7 @@ origin: "epic #651 の grilling（2026-11-14）で確定"
 justifies:
   - "QA-87b7776a-9ece-42ac-9a56-78daacb42217"
 references:
-  - "SDR-9bec5976-67cd-407a-afa9-3d394a6204ca"
+  - "ADR-9bec5976-67cd-407a-afa9-3d394a6204ca"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T01:48:40+09:00"

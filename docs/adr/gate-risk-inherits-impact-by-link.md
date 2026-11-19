@@ -1,6 +1,6 @@
 ---
-id: "SDR-432a0189-5838-4b6f-93da-fd0f6067ddda"
-type: sara_adr
+id: "ADR-432a0189-5838-4b6f-93da-fd0f6067ddda"
+type: adr
 name: "自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする"
 description: "自動検証の形骸化を表す risk の `impact` は守備対象の regression から継承し、継承元はその regression を持つ risk への Markdown リンクで名指しする。"
 section: risk-test-defect
@@ -22,11 +22,11 @@ origin: "epic #692 の grilling（2026-11-08）で確定。[自動検証の形�
 justifies:
   - "QA-b14e0a14-b9c9-4cc6-9b7a-0ce95d30d289"
 supersedes:
-  - "SDR-c2989d44-2ba4-4a42-9f4f-35871405be65"
+  - "ADR-c2989d44-2ba4-4a42-9f4f-35871405be65"
 references:
-  - "SDR-0fd284d6-60dc-4c04-a413-3d7926ae10ac"
-  - "SDR-1a02013e-c57b-4079-9c72-8e9fe99e499a"
-  - "SDR-7178b787-cf37-4753-9cea-12a0d65df410"
+  - "ADR-0fd284d6-60dc-4c04-a413-3d7926ae10ac"
+  - "ADR-1a02013e-c57b-4079-9c72-8e9fe99e499a"
+  - "ADR-7178b787-cf37-4753-9cea-12a0d65df410"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:06:00+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-6d21ed34-a320-44ff-a8e4-ff57a6e76dff"
-type: sara_adr
+id: "ADR-6d21ed34-a320-44ff-a8e4-ff57a6e76dff"
+type: adr
 name: "ADR の issues を sources に移す"
 description: "ADR の外部参照の Issue を OKF の sources リストへ移し、origin は拡張キーとして残す"
 section: frontmatter-fields

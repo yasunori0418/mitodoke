@@ -1,6 +1,6 @@
 ---
-id: "SDR-35636015-710a-4cf8-b6ba-48ca047efed0"
-type: sara_adr
+id: "ADR-35636015-710a-4cf8-b6ba-48ca047efed0"
+type: adr
 name: "design の satisfies 対象に test_plan を含める"
 section: graph-model
 status: stable
@@ -18,8 +18,8 @@ origin: "epic #203 の grilling セッション（2026-08-08）で確定。ADR-0
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-34916a83-0cff-4524-a8ff-5a3195af52c3"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-34916a83-0cff-4524-a8ff-5a3195af52c3"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T22:44:41+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-3fe7901b-5cc0-4677-8761-fcdd4118450a"
-type: sara_adr
+id: "ADR-3fe7901b-5cc0-4677-8761-fcdd4118450a"
+type: adr
 name: "deprecated の item は index.md の末尾の節にまとめる"
 description: "index.md は status が deprecated の item を主題の並びと section の節から外し、末尾の「有効でない item」の節にファイル名順でまとめて出す"
 section: doc-layout
@@ -13,7 +13,7 @@ origin: "epic #743 の grilling（2026-11-14）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 references:
-  - "SDR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
+  - "ADR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T16:13:50+09:00"

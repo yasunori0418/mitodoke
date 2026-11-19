@@ -1,6 +1,6 @@
 ---
-id: "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
-type: sara_adr
+id: "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+type: adr
 name: "model.yaml で組み込みモデルを全面置換し、汎用の型名を使う"
 section: graph-model
 status: stable
@@ -12,8 +12,8 @@ origin: "epic #203 の grilling セッション（2026-07-31・2026-08-01）で�
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-c15921a9-7aea-407c-a34b-7465783b1af1"
-  - "SDR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
+  - "ADR-c15921a9-7aea-407c-a34b-7465783b1af1"
+  - "ADR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T09:24:32+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-f5443db0-6407-41c0-9ab5-55f22dc4de5e"
-type: sara_adr
+id: "ADR-f5443db0-6407-41c0-9ab5-55f22dc4de5e"
+type: adr
 name: "sara-id を廃止し sara init を包む起票ラッパーを使う"
 section: ids-and-filenames
 status: deprecated
@@ -15,7 +15,7 @@ origin: "epic #364 の着手前 grilling（2026-08-17）で確定。ADR-0053 §3
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
+  - "ADR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T09:24:32+09:00"

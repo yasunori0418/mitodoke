@@ -1,6 +1,6 @@
 ---
-id: "SDR-f3f9491f-d6f4-4742-82da-4933ad3d8db1"
-type: sara_adr
+id: "ADR-f3f9491f-d6f4-4742-82da-4933ad3d8db1"
+type: adr
 name: "risk の親に test_plan を含めない"
 section: risk-test-defect
 status: stable
@@ -18,8 +18,8 @@ origin: "epic #203 の grilling セッション（2026-08-08）で確定。ADR-0
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-34916a83-0cff-4524-a8ff-5a3195af52c3"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-34916a83-0cff-4524-a8ff-5a3195af52c3"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-03T22:55:03+09:00"

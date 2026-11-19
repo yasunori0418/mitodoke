@@ -1,6 +1,6 @@
 ---
-id: "SDR-a28f6eb7-f0ab-4a3c-9a94-c8a0d0a6a66f"
-type: sara_adr
+id: "ADR-a28f6eb7-f0ab-4a3c-9a94-c8a0d0a6a66f"
+type: adr
 name: "ID の書き場所と省略形の禁止は起票の機械化と契約テストで担保する"
 description: "フル ID の書き場所と 8 文字省略形の禁止を、起票ラッパーによる機械化と契約テスト link-text.sh の検出で担保する。"
 section: ids-and-filenames
@@ -13,9 +13,9 @@ origin: "epic #692 の完了後の残存調査（2026-11-09）で確定。[省�
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 supersedes:
-  - "SDR-4656dd7b-0ea4-48fb-a6c4-a8c96ad50103"
+  - "ADR-4656dd7b-0ea4-48fb-a6c4-a8c96ad50103"
 references:
-  - "SDR-bd136f38-c991-46f9-ada9-06499d259a8b"
+  - "ADR-bd136f38-c991-46f9-ada9-06499d259a8b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T22:05:39+09:00"

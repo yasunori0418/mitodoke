@@ -1,6 +1,6 @@
 ---
-id: "SDR-441fb006-a2f4-44f2-bc69-bb0eeee81893"
-type: sara_adr
+id: "ADR-441fb006-a2f4-44f2-bc69-bb0eeee81893"
+type: adr
 name: "ADR の規則を汎用とプロジェクト当てはめに分けて書く"
 section: doc-layout
 status: deprecated

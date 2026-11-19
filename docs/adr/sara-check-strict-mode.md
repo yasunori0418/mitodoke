@@ -1,6 +1,6 @@
 ---
-id: "SDR-bf25a81b-d588-4c7e-9365-fe514ee4d626"
-type: sara_adr
+id: "ADR-bf25a81b-d588-4c7e-9365-fe514ee4d626"
+type: adr
 name: "sara check を strict モードで回す"
 section: verification
 status: stable
@@ -18,8 +18,8 @@ origin: "epic #203 の移行完了（Batch 2・2026-08-08）を受けた残論�
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-a0095ee8-570c-4f77-a6c9-bbc162a5c4cb"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-a0095ee8-570c-4f77-a6c9-bbc162a5c4cb"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T22:44:41+09:00"

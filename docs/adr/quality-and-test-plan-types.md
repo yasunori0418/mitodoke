@@ -1,6 +1,6 @@
 ---
-id: "SDR-34916a83-0cff-4524-a8ff-5a3195af52c3"
-type: sara_adr
+id: "ADR-34916a83-0cff-4524-a8ff-5a3195af52c3"
+type: adr
 name: "テスト計画の型を品質方針の型から分けて設ける"
 section: graph-model
 status: stable
@@ -18,7 +18,7 @@ origin: "epic #203 の grilling セッション（2026-08-08）で確定。ADR-0
 justifies:
   - "QA-83707ee2-5937-405d-ba7c-2d19109155d0"
 references:
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T22:44:41+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-00554aea-e9c1-445a-bdf2-d64f6508fb0b"
-type: sara_adr
+id: "ADR-00554aea-e9c1-445a-bdf2-d64f6508fb0b"
+type: adr
 name: "用語は ubiquitous_term の item で管理し、一覧は生成した index.md が持つ"
 description: "用語は 1 語 1 ファイルの ubiquitous_term の item で管理し、語の一覧は `docs/ubiquitous-language/index.md` に生成して、`docs/glossary.md` と glossary-index の契約テストは廃止する"
 section: graph-model
@@ -14,7 +14,7 @@ justifies:
   - "QA-4a623664-650d-4a08-800f-691f4ea6ff91"
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 supersedes:
-  - "SDR-d3f88093-dc98-4703-af45-df5b27527ffa"
+  - "ADR-d3f88093-dc98-4703-af45-df5b27527ffa"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T16:29:14+09:00"

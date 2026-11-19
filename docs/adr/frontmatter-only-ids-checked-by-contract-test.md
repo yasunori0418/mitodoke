@@ -1,6 +1,6 @@
 ---
-id: "SDR-4b2212ca-92b5-419a-a0c4-6dd5a9413406"
-type: sara_adr
+id: "ADR-4b2212ca-92b5-419a-a0c4-6dd5a9413406"
+type: adr
 name: "frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ"
 description: "フル ID の書き場所と 8 文字省略形の禁止を、起票ラッパーによる機械化と契約テスト link-text.sh の検出で担保する。"
 section: ids-and-filenames
@@ -14,9 +14,9 @@ justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
 supersedes:
-  - "SDR-a28f6eb7-f0ab-4a3c-9a94-c8a0d0a6a66f"
+  - "ADR-a28f6eb7-f0ab-4a3c-9a94-c8a0d0a6a66f"
 references:
-  - "SDR-12bab183-d9d7-4210-a45b-c4e6568f297b"
+  - "ADR-12bab183-d9d7-4210-a45b-c4e6568f297b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T22:23:23+09:00"

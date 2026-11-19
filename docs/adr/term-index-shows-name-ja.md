@@ -1,6 +1,6 @@
 ---
-id: "SDR-376f1a7d-ecfd-4d44-b4ca-e2f23aa4e1ec"
-type: sara_adr
+id: "ADR-376f1a7d-ecfd-4d44-b4ca-e2f23aa4e1ec"
+type: adr
 name: "用語の index.md はリンク文字列に name_ja を添える"
 description: "用語の index.md は、name_ja を持つ語のリンク文字列を name（name_ja）にし、英語と日本語のどちらの正名からも語を引けるようにする"
 section: doc-layout
@@ -13,7 +13,7 @@ origin: "epic #719 の grilling（2026-11-13）で確定"
 justifies:
   - "QA-4a623664-650d-4a08-800f-691f4ea6ff91"
 references:
-  - "SDR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
+  - "ADR-52dccd7e-666c-46f8-8a8d-1a50dd0f721b"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T14:26:51+09:00"

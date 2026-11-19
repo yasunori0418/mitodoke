@@ -1,6 +1,6 @@
 ---
-id: "SDR-958fd2ec-836d-41ae-b67f-4d316ddabf4b"
-type: sara_adr
+id: "ADR-958fd2ec-836d-41ae-b67f-4d316ddabf4b"
+type: adr
 name: "item の一覧は生成した index.md だけが持つ"
 description: "型ごとの item の一覧は okf-index.sh が生成する index.md だけが持ち、手書きの文書は一覧を持たず、item を足したときは index.md を再生成するだけにする"
 section: doc-layout
@@ -13,7 +13,7 @@ origin: "epic #719 の grilling（2026-11-13）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 supersedes:
-  - "SDR-536848bb-8901-4e73-8c66-861de3f91bcd"
+  - "ADR-536848bb-8901-4e73-8c66-861de3f91bcd"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T16:43:01+09:00"

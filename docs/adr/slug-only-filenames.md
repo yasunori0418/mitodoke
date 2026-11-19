@@ -1,6 +1,6 @@
 ---
-id: "SDR-6c6c0681-4d5e-429e-8ee9-acf8dd94ad54"
-type: sara_adr
+id: "ADR-6c6c0681-4d5e-429e-8ee9-acf8dd94ad54"
+type: adr
 name: "item のファイル名は slug だけにする"
 description: "item のファイル名を `<slug>.md` にし、フル ID は frontmatter と H1 見出しだけに書き、散文は Markdown リンクで item を参照する。"
 section: ids-and-filenames
@@ -13,9 +13,9 @@ origin: "issue #674 の grilling（2026-11-08）で確定"
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 supersedes:
-  - "SDR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
+  - "ADR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
 references:
-  - "SDR-4656dd7b-0ea4-48fb-a6c4-a8c96ad50103"
+  - "ADR-4656dd7b-0ea4-48fb-a6c4-a8c96ad50103"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-08T20:13:24+09:00"

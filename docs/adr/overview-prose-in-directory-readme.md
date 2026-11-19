@@ -1,6 +1,6 @@
 ---
-id: "SDR-2c5c87e3-f502-4b26-aca3-7617053281fb"
-type: sara_adr
+id: "ADR-2c5c87e3-f502-4b26-aca3-7617053281fb"
+type: adr
 name: "手書きの概要は各ディレクトリの README.md に置く"
 description: "item から導けない全体像の散文は、その主題の item を置くディレクトリの README.md に置き、README.md は frontmatter と item の一覧を持たず、同じディレクトリの index.md を 1 本だけ指す"
 section: doc-layout
@@ -13,7 +13,7 @@ origin: "epic #719 の grilling（2026-11-13）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 supersedes:
-  - "SDR-536848bb-8901-4e73-8c66-861de3f91bcd"
+  - "ADR-536848bb-8901-4e73-8c66-861de3f91bcd"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T14:41:56+09:00"

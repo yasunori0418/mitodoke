@@ -1,6 +1,6 @@
 ---
-id: "SDR-536848bb-8901-4e73-8c66-861de3f91bcd"
-type: sara_adr
+id: "ADR-536848bb-8901-4e73-8c66-861de3f91bcd"
+type: adr
 name: "概要文書は item へのリンク集に縮退させる"
 section: doc-layout
 status: deprecated
@@ -12,7 +12,7 @@ origin: "epic #203 の grilling セッション（2026-07-31・2026-08-01）で�
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 references:
-  - "SDR-5ea31001-96f8-4324-a40b-647cdfa5cc9d"
+  - "ADR-5ea31001-96f8-4324-a40b-647cdfa5cc9d"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"

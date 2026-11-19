@@ -1,6 +1,6 @@
 ---
-id: "SDR-9bec5976-67cd-407a-afa9-3d394a6204ca"
-type: sara_adr
+id: "ADR-9bec5976-67cd-407a-afa9-3d394a6204ca"
+type: adr
 name: "欠陥 issue のクローズ時にテスト系 item の欠落を追補する"
 section: risk-test-defect
 status: stable
@@ -21,8 +21,8 @@ origin: "Issue #268（epic #203 残ブロッカー）の判断（2026-08-09）�
 justifies:
   - "QA-87b7776a-9ece-42ac-9a56-78daacb42217"
 references:
-  - "SDR-49733f2e-ed79-480d-bfb9-6361a7f95aed"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-49733f2e-ed79-480d-bfb9-6361a7f95aed"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-03T22:55:03+09:00"

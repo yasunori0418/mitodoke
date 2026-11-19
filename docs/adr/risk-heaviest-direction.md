@@ -1,6 +1,6 @@
 ---
-id: "SDR-1a02013e-c57b-4079-9c72-8e9fe99e499a"
-type: sara_adr
+id: "ADR-1a02013e-c57b-4079-9c72-8e9fe99e499a"
+type: adr
 name: "複数の失敗方向を持つ risk は最も重い方向で採点する"
 section: risk-test-defect
 status: stable
@@ -18,7 +18,7 @@ origin: "Issue #303 の着手前 grilling（2026-08-12）で確定。ADR-0052 §
 justifies:
   - "QA-b14e0a14-b9c9-4cc6-9b7a-0ce95d30d289"
 references:
-  - "SDR-0fd284d6-60dc-4c04-a413-3d7926ae10ac"
+  - "ADR-0fd284d6-60dc-4c04-a413-3d7926ae10ac"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"

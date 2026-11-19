@@ -1,6 +1,6 @@
 ---
-id: "SDR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
-type: sara_adr
+id: "ADR-e093c6b2-75fd-4c91-a8f0-5a89e005e4ed"
+type: adr
 name: "ADR も UUID で採番し、連番の旧 ADR は legacy_adr 型に凍結する"
 section: ids-and-filenames
 status: deprecated
@@ -12,7 +12,7 @@ origin: "Issue #499 の grilling（2026-11-01）で確定。ADR-0048 §4・ADR-0
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-1afa3a31-224d-492d-96d9-d3f6c9cb20cd"
+  - "ADR-1afa3a31-224d-492d-96d9-d3f6c9cb20cd"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"

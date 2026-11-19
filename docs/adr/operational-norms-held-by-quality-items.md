@@ -1,6 +1,6 @@
 ---
-id: "SDR-8777581f-a6d8-4564-8d01-48b4c4c47170"
-type: sara_adr
+id: "ADR-8777581f-a6d8-4564-8d01-48b4c4c47170"
+type: adr
 name: "sara の運用規範は quality の item が持ち、規約文書は図と索引に縮退させる"
 description: "sara の運用規範を規約文書の散文から 1 主張 1 本の quality item へ移し、規約文書は図と item への索引だけにする。"
 section: doc-layout
@@ -21,7 +21,7 @@ justifies:
   - "QA-6de13779-f0bc-4e47-8ffd-3d58de265762"
   - "QA-030f926b-5ae7-4543-b8cb-e66aae5e2b5e"
 supersedes:
-  - "SDR-441fb006-a2f4-44f2-bc69-bb0eeee81893"
+  - "ADR-441fb006-a2f4-44f2-bc69-bb0eeee81893"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T14:34:03+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-ba95c0c6-ea15-4e97-95a9-925ac04df58d"
-type: sara_adr
+id: "ADR-ba95c0c6-ea15-4e97-95a9-925ac04df58d"
+type: adr
 name: "sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する"
 description: "採番を `sara init` に任せ、薄い起票ラッパー `sara-new` が `<slug>.md` のファイル名規約の適用、`--description` の必須チェック、`generated` の付与を担う。"
 section: ids-and-filenames
@@ -20,9 +20,9 @@ justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
 supersedes:
-  - "SDR-f5443db0-6407-41c0-9ab5-55f22dc4de5e"
+  - "ADR-f5443db0-6407-41c0-9ab5-55f22dc4de5e"
 references:
-  - "SDR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
+  - "ADR-722ce265-2aaf-4a90-915d-32d26b7a38bb"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T09:15:32+09:00"

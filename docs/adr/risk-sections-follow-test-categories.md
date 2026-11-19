@@ -1,6 +1,6 @@
 ---
-id: "SDR-5cc4a493-1c96-4703-a2b1-19e43bf95a30"
-type: sara_adr
+id: "ADR-5cc4a493-1c96-4703-a2b1-19e43bf95a30"
+type: adr
 name: "risk の節はテストの区分と同じ語彙にする"
 description: "risk の section の値・節の並び順・見出しは dev/tests/test-categories.tsv のテストの区分と同じにし、enum と区分の一致を契約テストが確かめる"
 section: doc-layout
@@ -13,7 +13,7 @@ origin: "epic #743 の grilling（2026-11-14）で確定"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
 references:
-  - "SDR-4e92d0b5-7674-4956-854d-dd5da9cf42bb"
+  - "ADR-4e92d0b5-7674-4956-854d-dd5da9cf42bb"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T17:10:55+09:00"

@@ -1,6 +1,6 @@
 ---
-id: "SDR-49733f2e-ed79-480d-bfb9-6361a7f95aed"
-type: sara_adr
+id: "ADR-49733f2e-ed79-480d-bfb9-6361a7f95aed"
+type: adr
 name: "欠陥はグラフに置かず GitHub Issues で管理する"
 section: risk-test-defect
 status: stable
@@ -21,9 +21,9 @@ origin: "Issue #268（epic #203 残ブロッカー）の判断（2026-08-09）�
 justifies:
   - "QA-87b7776a-9ece-42ac-9a56-78daacb42217"
 references:
-  - "SDR-a0095ee8-570c-4f77-a6c9-bbc162a5c4cb"
-  - "SDR-bf25a81b-d588-4c7e-9365-fe514ee4d626"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-a0095ee8-570c-4f77-a6c9-bbc162a5c4cb"
+  - "ADR-bf25a81b-d588-4c7e-9365-fe514ee4d626"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"

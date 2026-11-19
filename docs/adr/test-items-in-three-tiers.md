@@ -1,6 +1,6 @@
 ---
-id: "SDR-7631120c-0006-4394-a9cc-32d2f386a67d"
-type: sara_adr
+id: "ADR-7631120c-0006-4394-a9cc-32d2f386a67d"
+type: adr
 name: "テスト系 item を CASE・TC・RISK の 3 段で起こす"
 description: "CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす"
 section: risk-test-defect
@@ -13,7 +13,7 @@ origin: "epic #719 の実行中の裁定（2026-11-13）で確定"
 justifies:
   - "QA-bf975ac7-1e84-4f75-9fe7-8d6154d69ba1"
 supersedes:
-  - "SDR-e444ba7f-eac7-4cac-bff8-c3d7910d836a"
+  - "ADR-e444ba7f-eac7-4cac-bff8-c3d7910d836a"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T16:29:14+09:00"

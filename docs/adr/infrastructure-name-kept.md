@@ -1,6 +1,6 @@
 ---
-id: "SDR-933a9191-f60e-45bc-bebc-bc09af8154cc"
-type: sara_adr
+id: "ADR-933a9191-f60e-45bc-bebc-bc09af8154cc"
+type: adr
 name: "infrastructure 型を改名しない"
 section: graph-model
 status: stable
@@ -18,8 +18,8 @@ origin: "epic #203 の grilling セッション（2026-08-08）で確定。ADR-0
 justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
 references:
-  - "SDR-29ef8bb4-9349-47db-9e79-926bc71bbdd0"
-  - "SDR-2457aa00-fab7-4c99-af53-2e6643c21c79"
+  - "ADR-29ef8bb4-9349-47db-9e79-926bc71bbdd0"
+  - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-03T22:55:03+09:00"

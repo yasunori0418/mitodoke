@@ -1,6 +1,6 @@
 ---
-id: "SDR-bb13e2a5-b2ce-4af9-9148-37f4e92ef050"
-type: sara_adr
+id: "ADR-bb13e2a5-b2ce-4af9-9148-37f4e92ef050"
+type: adr
 name: "requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す"
 description: "requirement に任意フィールド risk_exempt を設け、requirement 水準の risk を持たない理由を 1 文で書いた requirement を未カバーの一覧から外して免除として列挙する。"
 section: risk-test-defect
@@ -14,7 +14,7 @@ justifies:
   - "INF-659b139d-0cf8-4c65-b30d-93c5ee2dfc71"
   - "QA-d9cf5fcb-6363-49eb-9511-48b233c0c978"
 references:
-  - "SDR-eff65cfa-2fd4-449a-94b2-d4b9948b76e1"
+  - "ADR-eff65cfa-2fd4-449a-94b2-d4b9948b76e1"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T23:31:26+09:00"
