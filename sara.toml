@@ -1,0 +1,14 @@
+# sara（ドキュメントのナレッジグラフ検証 CLI）の設定。
+# 型定義は docs/model.yaml で組み込みモデルを全面置換する。
+
+model_schema = "docs/model.yaml"
+
+[repositories]
+# docs/ 配下を再帰スキャンする。frontmatter の無い .md は ParseResult::Skipped で
+# 静かに無視されるため、README.md / index.md / test-plan.md 等への除外設定は不要。
+paths = ["./docs"]
+
+[validation]
+# strict 有効。orphan（接続漏れ）を含む全 warning が error になり exit 1 を返す。
+# CI の sara job は required status check にはしない（検出は機械・判断は人）。
+strict_mode = true
