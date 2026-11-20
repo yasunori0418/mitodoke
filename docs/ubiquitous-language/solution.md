@@ -2,7 +2,7 @@
 id: "UBQ-88f15239-cdc1-46c4-867c-01c7ea37d78f"
 type: ubiquitous_term
 name: "solution"
-description: "製品が何であるかを述べる、仕様の連鎖の根になるモデルの型。"
+description: "リポジトリが作る製品が何であるかを述べるモデルの型。"
 name_ja: "解決策"
 section: model-types
 status: stable
