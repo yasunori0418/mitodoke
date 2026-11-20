@@ -26,3 +26,10 @@
 * [orphan（接続漏れ）](./orphan.md) - 上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item。
 * [relation](./relation.md) - item が frontmatter で別の item を指して張る、種類の付いた辺。
 * [upstream（上流）](./upstream.md) - ある item が向きが上流の relation で指し、前提にしている item。
+
+## 鮮度と確認
+
+* [generated](./generated.md) - item を最後に生成・更新した者と時刻を記録する frontmatter のプロパティ。
+* [reference time（基準時刻）](./reference-time.md) - item の鮮度を比べる基準にする、generated と verified から決まる時刻。
+* [stale（再確認待ち）](./stale.md) - 上流の item が自身の基準時刻より新しくなり、読み直しを待っている item の状態。
+* [verified](./verified.md) - item の内容を誰がいつ確認したかを、要素ごとに記録する frontmatter のプロパティ。
