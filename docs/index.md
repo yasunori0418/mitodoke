@@ -1,7 +1,7 @@
 # mitodoke のドキュメント
 
 * [解決策（`solution`）](./solution/index.md) - mitodoke が解く課題と、その解き方の全体像
-* [ユースケース（`use_case`）](./use-cases/index.md) - 利用者が mitodoke をどう使うかの場面
+* [要求（`use_case`）](./use-cases/index.md) - 利用者が mitodoke をどう使うかの場面
 * [要件（`requirement`）](./requirements/index.md) - mitodoke が満たす振る舞いの規範
 * [設計（`design`）](./design/index.md) - 要件をどう実現するかの設計判断
 * [品質（`quality`）](./quality/index.md) - 開発とリリースの品質を保つ規範

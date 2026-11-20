@@ -40,7 +40,7 @@ trap 'rm -rf "$work"' EXIT
 # 型ごとのディレクトリ: <docs/ からのディレクトリ>|<型>|<見出し>|<docs/index.md に載せる説明>
 TYPE_DIRS=(
   "solution|solution|解決策（\`solution\`）|mitodoke が解く課題と、その解き方の全体像"
-  "use-cases|use_case|ユースケース（\`use_case\`）|利用者が mitodoke をどう使うかの場面"
+  "use-cases|use_case|要求（\`use_case\`）|利用者が mitodoke をどう使うかの場面"
   "requirements|requirement|要件（\`requirement\`）|mitodoke が満たす振る舞いの規範"
   "design|design|設計（\`design\`）|要件をどう実現するかの設計判断"
   "quality|quality|品質（\`quality\`）|開発とリリースの品質を保つ規範"
