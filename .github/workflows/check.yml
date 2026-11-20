@@ -96,3 +96,6 @@ jobs:
 
       - name: Run link-text contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/link-text.sh
+
+      - name: Run term-avoid contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/term-avoid.sh
