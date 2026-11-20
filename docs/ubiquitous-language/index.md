@@ -23,7 +23,7 @@
 * [full ID（フル ID）](./full-id.md) - `<PREFIX>-<フル UUIDv4>` の形で item を一意に指す ID。
 * [item](./item.md) - ドキュメントグラフを構成する、frontmatter を持つ Markdown ファイル 1 つ。
 * [norm（規範）](./norm.md) - 何かを縛る規則を述べる、requirement・quality・test_plan の item の総称。
-* [orphan（接続漏れ）](./orphan.md) - 上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item。
+* [orphan（接続漏れ）](./orphan.md) - 上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item の状態。
 * [relation](./relation.md) - item が frontmatter で別の item を指して張る、種類の付いた辺。
 * [upstream（上流）](./upstream.md) - ある item が向きが上流の relation で指し、前提にしている item。
 
@@ -38,8 +38,8 @@
 
 * [reach rate（到達率）](./reach-rate.md) - ある型の item のうち、下流の連鎖が末端までつながっているものの割合。
 * [silence（沈黙性）](./silence.md) - 脅威が起きたときに、それに気付けるかどうかという性質。
-* [test asset（テスト資産）](./test-asset.md) - テストケースに対応する、実装されたテストのコードのファイルやリソース。
-* [uncovered（未カバー）](./uncovered.md) - 要件からテストへの連鎖が期待するつながりを欠いている item の状態。
+* [test asset（テスト資産）](./test-asset.md) - テストケースが対応する、単独で実行できるテストの単位。
+* [uncovered（未カバー）](./uncovered.md) - 検証へ向かう連鎖が期待するつながりを欠いている item の状態。
 
 ## 適用先の製品と人
 

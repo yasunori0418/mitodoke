@@ -16,11 +16,11 @@ generated:
 
 Relative to an item, the items it points to through relations whose direction is upstream.
 An upstream item states what the item takes as given, such as the requirement a design
-realizes or the risk a test condition reduces. When an upstream item changes, the item may
-need to be read again; whether it does is judged by a person.
+realizes or the risk a test condition reduces. When an upstream item changes, the item needs
+checking again; whether its content must change is judged by a person.
 
 ## 定義
 
 ある item から見て、向きが上流の relation で指している item。上流の item は、設計が実現する
 要件や、テスト条件が減らすリスクのように、その item が前提にすることを述べる。上流の item が
-変わると、その item は読み直しが要るかもしれない。要るかどうかは人間が判断する。
+変わると、その item は確認し直す必要がある。内容を変える必要があるかは人間が判断する。

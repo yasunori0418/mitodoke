@@ -2,7 +2,7 @@
 id: "UBQ-efc46003-0d42-4404-8f6f-e5a2691a326e"
 type: ubiquitous_term
 name: "orphan"
-description: "上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item。"
+description: "上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item の状態。"
 name_ja: "接続漏れ"
 avoid:
   - "張り忘れ"
@@ -17,9 +17,9 @@ generated:
 
 ## Definition
 
-An item that should hang from an upstream item but declares no relation whose direction is
-upstream. sara reports such an item as `Orphan item`. An orphan is resolved by adding the
-relation, or by adding the upstream item it should hang from.
+The state of an item that should hang from an upstream item but declares no relation whose
+direction is upstream. sara reports such an item as `Orphan item`. It is resolved by adding
+the relation, or by adding the upstream item the item should hang from.
 
 ## Avoid
 
@@ -28,9 +28,9 @@ relation, or by adding the upstream item it should hang from.
 
 ## 定義
 
-上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item。sara は
-これを `Orphan item` として報告する。relation を張るか、ぶら下がるべき上流の item を足して
-解消する。
+上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item の状態。
+sara はこの item を `Orphan item` として報告する。relation を張るか、ぶら下がるべき上流の item を
+足して解消する。
 
 ## 避ける表現
 
