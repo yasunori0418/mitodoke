@@ -11,6 +11,8 @@ argument-hint: "[台帳のパス（省略時は tmp-agents/terms.md）]"
 `term-record` が台帳に書いた語を、作業中のブランチで用語 item にする。item と、その語を使う文書が同じ PR で
 レビューされるように、PR を作る前に実行する。
 
+暫定のスキル。詳細化を検討する点は [dev/skills/README.md](../README.md) にある。
+
 - 台帳の書式: [../term-record/references/ledger-format.md](../term-record/references/ledger-format.md)
 - 用語 item の書式: [references/item-format.md](references/item-format.md)
 - コマンドの呼び出し方: [references/commands.md](references/commands.md)

@@ -9,6 +9,8 @@ license: MIT
 議論の中で語を研ぎ、決まった語を**台帳**に書き留める。台帳は item の材料で、item そのものではない。
 item にしてコミットするのは `/term-apply` で、PR を作る前に利用者が明示で起動する。
 
+暫定のスキル。詳細化を検討する点は [dev/skills/README.md](../README.md) にある。
+
 用語の正本は `docs/ubiquitous-language/` の用語 item（1 語 1 ファイル）で、`CONTEXT.md` や用語集のファイルは
 作らない。経緯は [用語を ubiquitous_term の item で管理する](../../../docs/adr/ubiquitous-term-type.md)。
 
