@@ -11,6 +11,12 @@
     nur = {
       url = "github:yasunori0418/nur-packages";
     };
+
+    # dev/skills/ のスキルを .claude/skills/ へ配置するのに使う。nur と同じく nixpkgs を follows で
+    # 寄せず、yasunori0418.cachix.org にあるビルド済み store path をそのまま使う。
+    layat = {
+      url = "github:yasunori0418/layat";
+    };
   };
 
   outputs =
@@ -20,6 +26,11 @@
         "x86_64-linux"
         "aarch64-linux"
         "aarch64-darwin"
+      ];
+      imports = [
+        inputs.layat.flakeModules.default
+        # dev/skills/ を .claude/skills/ へ配置する config（perSystem.layat.skills）。
+        ./layat.nix
       ];
       perSystem =
         { inputs', pkgs, ... }:
@@ -115,9 +126,13 @@
                 yq-go
                 # test-doc-matrix.sh が sara report matrix --format json を整形するのに使う。
                 jq
+                # dev/skills/ のスキルを .claude/skills/ へ配置する。
+                inputs'.layat.packages.layat
               ];
               shellHook = ''
                 export REPO_ROOT=$(git rev-parse --show-superproject-working-tree --show-toplevel)
+                # dev/skills/ を .claude/skills/ に配置する。競合したら待たずに skip する。
+                layat apply skills -f "$REPO_ROOT/dev" --no-wait
               '';
             };
 

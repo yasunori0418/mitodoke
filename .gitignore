@@ -1,2 +1,5 @@
 .envrc
 .direnv/
+# layat が dev/skills/ から配置する symlink。`/*` だと .claude/skills 自体が symlink のときに
+# untracked に出るため、パスごと ignore する。
+.claude/skills
