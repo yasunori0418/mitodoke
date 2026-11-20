@@ -14,7 +14,7 @@ argument-hint: "[台帳のパス（省略時は tmp-agents/terms.md）]"
 暫定のスキル。詳細化を検討する点は [dev/skills/README.md](../README.md) にある。
 
 - 台帳の書式: [../term-record/references/ledger-format.md](../term-record/references/ledger-format.md)
-- 用語 item の書式: [references/item-format.md](references/item-format.md)
+- 用語 item の書式: [../sara-docs/references/ubiquitous-language.md](../sara-docs/references/ubiquitous-language.md)
 - コマンドの呼び出し方: [references/commands.md](references/commands.md)
 
 ## 前提
@@ -45,7 +45,7 @@ argument-hint: "[台帳のパス（省略時は tmp-agents/terms.md）]"
 ### 2. item を起こす
 
 承認された語を 1 語ずつ item にする。コマンドは [references/commands.md](references/commands.md)、frontmatter と
-本文は [references/item-format.md](references/item-format.md) に従う。
+本文は [../sara-docs/references/ubiquitous-language.md](../sara-docs/references/ubiquitous-language.md) に従う。
 
 - 新しい語は `sara-new` で起票し、雛形の本文を 4 節の書式に書き直す。frontmatter と ID を手で書かない。
 - 既存の item を変える語は、そのファイルを編集する。本文を変えたら `generated` の `by` と `at` を更新する。

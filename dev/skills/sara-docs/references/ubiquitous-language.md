@@ -29,21 +29,33 @@ sara check --format json | jq -r '
 
 ## frontmatter と本文の様式
 
-- `name`: 英語の正名。英語の正名が一次になる
-- `name_ja`: 日本語の正名。英語のまま使う語では省く
-- `avoid`: 執筆で使わない綴りのリスト。綴りだけを書き、「〜と説明すること」のような説明は本文に書く。
-  他の語の正名として正しく使う綴り（`copy` / `mode` など）は入れない。入れると検出が偽陽性になる
+用語 item の書式の正本はこの節。`sara-new` が frontmatter を書くので、手で足すのは既存の item を変えるときだけ。
+
+- `name`: 英語の正名。英語の正名が一次になる。型やフィールドの名前なら `snake_case` の識別子にする
+- `description`: 日本語の 1 文の要約。定義の最初の文と同じ内容にする
+- `name_ja`: 日本語の正名。英語のまま使う語では、キーごと省く
+- `avoid`: 執筆で使わない綴りのリスト。綴りだけを書き、避ける理由と言い換えは本文に書く。
+  他の語の正名として正しく使う綴りは入れない。入れると検出が偽陽性になる。避ける綴りが無ければ、キーごと省く
+- `section`: 索引の節。`docs/model.yaml` の `ubiquitous_term` の enum の値
+- `status`: `stable`
 - relation は持たない。ADR や QA、REQ / DSG へ辺を張らない
 
-本文は `# <name>` の見出しの下に、次の 4 節をこの順で置く。`sara init` が
+本文は `# <name>` の見出しの下に、次の 4 節をこの順で置く。見出しは `name` そのものにする。`sara init` が
 生成する `## Overview` と `## Name (ja)` の雛形は消す。
 
 | 見出し | 書くこと |
 |---|---|
 | `## Definition` | 英語の定義 |
-| `## Avoid` | 避ける表現とその理由（英語）。無ければ「なし」 |
+| `## Avoid` | `- <綴り>: <避ける理由と言い換え>` の箇条書き（英語）。`avoid` を持たない語では節ごと省く |
 | `## 定義` | 日本語の定義 |
-| `## 避ける表現` | 避ける表現とその理由（日本語）。無ければ「なし」 |
+| `## 避ける表現` | `- <綴り>: <避ける理由と言い換え>` の箇条書き（日本語）。`avoid` を持たない語では節ごと省く |
+
+- 定義は、その語が何であるかを述べる。1 段落に収め、英語と日本語を同じ内容にする
+- モデルの型を表す語の定義は、フィールドと relation を写さずに `docs/model.yaml` を指す
+- 特定の製品の機能を例に使わない
+- ほかの item に触れるときは、ID を書かずにリンクで触れる
+
+実例は `docs/ubiquitous-language/stale.md`（`avoid` を持つ語）と `docs/ubiquitous-language/norm.md`（持たない語）。
 
 ## 執筆での使い方
 
@@ -53,9 +65,13 @@ sara check --format json | jq -r '
 
 ## 語が無いときに item を起こす
 
+議論の中で決まった語は、`term-record` スキルが台帳へ書き、`/term-apply` が PR の前にまとめて item にする。
+下のコマンドは、その中で使う起票の形。
+
+
 ```bash
 sara-new ubiquitous_term <slug> docs/ubiquitous-language -- \
-  --name '<英語の正名>' --description '<1 文の要約>' --section '<節の値>' \
+  --name '<英語の正名>' --description '<1 文の要約>' --section '<節の値>' --status stable \
   [--name-ja '<日本語の正名>'] [--avoid '<綴り>' ...]
 ```
 
