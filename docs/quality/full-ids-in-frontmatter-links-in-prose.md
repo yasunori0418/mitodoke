@@ -17,8 +17,8 @@ specification_ja: |
   しなければならない。散文での item の参照は、item の name を文字列にした Markdown リンクと
   しなければならない。
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:37:16+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-20T10:17:37+09:00"
 ---
 # フル ID は frontmatter だけに書き、散文では item にリンクで触れる
 
@@ -26,14 +26,14 @@ generated:
 
 | 用途 | 形式 | 例 |
 |---|---|---|
-| 正式 ID（frontmatter の `id:`・relation リスト）| `<PREFIX>-<フル UUIDv4>` | — |
+| フル ID（frontmatter の `id:`・relation リスト）| `<PREFIX>-<フル UUIDv4>` | — |
 | ファイル名 | `<slug>.md` | `retry-on-timeout.md` |
 | 散文中の参照 | `[item の name](相対パス)` | `[タイムアウトした処理は再試行する](../requirements/retry-on-timeout.md)` |
 
 フル ID を書くのは frontmatter の `id:` と relation リストだけにする。item 本文の H1 見出しは
 `# <name>` とし、ID を書かない。8 文字の省略形は使わない。散文で item に触れるときは Markdown
 リンクにし、リンク文字列にも ID を書かない。ID をそのまま grep すれば frontmatter の `id:` と
-relation に当たり、`sara query` へ渡しても同じものに当たる。省略形から正式 ID を探す手順は
+relation に当たり、`sara query` へ渡しても同じものに当たる。省略形からフル ID を探す手順は
 要らない。
 
 - `specification` / `specification_ja` / `origin` の文字列の中で item に触れるときも、

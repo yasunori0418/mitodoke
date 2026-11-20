@@ -13,7 +13,7 @@ satisfies:
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-20T10:16:19+09:00"
+  at: "2026-11-20T10:17:37+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -32,7 +32,7 @@ generated:
 | `sara-new` | `dev/scripts/sara-new.sh` を包む devShell のコマンド。`sara init` で採番し、`<slug>.md` へ配置して `generated` を足す |
 | `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバーを 7 節で列挙し、到達率を出す。実グラフへの実行は CI に載せていない |
 | `sara-fresh` | `dev/scripts/sara-fresh.sh` を包む devShell のコマンド。上流の `generated.at` が自身の基準時刻より新しい item、`--base <ref>` との差分で本文が変わったのに `generated.at` が変わっていない item、`generated.at` 以降の `human:` の `verified` を持たない high の risk を列挙する。結果は報告に留める |
-| `dev/tests/sara-gap.sh` | `sara-gap` が出す未カバーの 7 節と到達率の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item がギャップかは見ない（件数が動き続けるため契約にできない）|
+| `dev/tests/sara-gap.sh` | `sara-gap` が出す未カバーの 7 節と到達率の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item が未カバーかは見ない（件数が動き続けるため契約にできない）|
 | `dev/tests/sara-fresh.sh` | `sara-fresh` の 3 節の列挙と exit code の契約を検証する。グラフはテストが一時ディレクトリに作り、実物の `docs/model.yaml` を重ねる。`--base` の節は、一時ディレクトリに `git init` したリポジトリで確かめる |
 | `dev/tests/sara-new.sh` | `sara-new` の起票契約（採番・ファイル名規約の適用）を検証する。fixture は実物の `docs/model.yaml` を重ねて使う |
 | `dev/tests/adr-supersede.sh` | `supersedes` が指す ADR が `status: deprecated` かを frontmatter から検証する |
@@ -72,7 +72,7 @@ error となり `sara check` は exit 1 を返す（→ [sara check を strict �
 
 一方で main の required status check には登録しない。
 これは移行中の暫定措置ではなく「**検出は機械・判断は人**」という分担を保つための恒久判断で、
-張り忘れの修正が自明でないケース（item 新設を伴う等）を CI が赤いままレビューで扱える余地を
+接続漏れの修正が自明でないケース（item 新設を伴う等）を CI が赤いままレビューで扱える余地を
 残す。
 
 ## 出典
