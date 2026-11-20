@@ -14,3 +14,15 @@
 * [test_plan（テスト計画）](./test-plan.md) - テスト計画の活動で決めたことを述べるモデルの型。
 * [ubiquitous_term（用語）](./ubiquitous-term.md) - 用語 1 語の正名と避ける綴りを固定するモデルの型。
 * [use_case（要求）](./use-case.md) - 利用者が製品で何をしたいかを述べるモデルの型。
+
+## グラフと item
+
+* [artifact（成果物）](./artifact.md) - 品質について人間が検討・判断した結果として書き残すもの。
+* [document graph（ドキュメントグラフ）](./document-graph.md) - item を節、relation を辺とし、参照の正しさを機械的に検証するグラフ。
+* [downstream（下流）](./downstream.md) - ある item を向きが上流の relation で指し、その内容を前提にしている item。
+* [full ID（フル ID）](./full-id.md) - `<PREFIX>-<フル UUIDv4>` の形で item を一意に指す ID。
+* [item](./item.md) - ドキュメントグラフを構成する、frontmatter を持つ Markdown ファイル 1 つ。
+* [norm（規範）](./norm.md) - 何かを縛る規則を述べる、requirement・quality・test_plan の item の総称。
+* [orphan（接続漏れ）](./orphan.md) - 上流の item にぶら下がるべきなのに、向きが上流の relation を 1 本も張っていない item。
+* [relation](./relation.md) - item が frontmatter で別の item を指して張る、種類の付いた辺。
+* [upstream（上流）](./upstream.md) - ある item が向きが上流の relation で指し、前提にしている item。
