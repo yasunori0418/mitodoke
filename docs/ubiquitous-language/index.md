@@ -33,3 +33,10 @@
 * [reference time（基準時刻）](./reference-time.md) - item の鮮度を比べる基準にする、generated と verified から決まる時刻。
 * [stale（再確認待ち）](./stale.md) - 上流の item が自身の基準時刻より新しくなり、読み直しを待っている item の状態。
 * [verified](./verified.md) - item の内容を誰がいつ確認したかを、要素ごとに記録する frontmatter のプロパティ。
+
+## 検査の結果
+
+* [reach rate（到達率）](./reach-rate.md) - ある型の item のうち、下流の連鎖が末端までつながっているものの割合。
+* [silence（沈黙性）](./silence.md) - 脅威が起きたときに、それに気付けるかどうかという性質。
+* [test asset（テスト資産）](./test-asset.md) - テストケースに対応する、実装されたテストのコードのファイルやリソース。
+* [uncovered（未カバー）](./uncovered.md) - 要件からテストへの連鎖が期待するつながりを欠いている item の状態。
