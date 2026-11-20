@@ -14,12 +14,10 @@ generated:
 
 ## Definition
 
-A model type that states how the product realizes its requirements. A design that shapes
-how tests are run can also realize a test plan. Its fields and the relations it can carry
+A model type that states how the product realizes its requirements. Its fields and the relations it can carry
 are defined in `docs/model.yaml`. Its ID prefix DSG may be used as a short name.
 
 ## 定義
 
-製品が要件をどう実現するかを述べるモデルの型。テストの実行の仕組みを形づくる設計は、テスト
-計画を実現することもある。フィールドと張れる relation は `docs/model.yaml` が定義する。
+製品が要件をどう実現するかを述べるモデルの型。フィールドと張れる relation は `docs/model.yaml` が定義する。
 ID の prefix の DSG を略記として使ってよい。

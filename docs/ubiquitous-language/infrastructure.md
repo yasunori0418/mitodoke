@@ -15,12 +15,12 @@ generated:
 ## Definition
 
 A model type that states the technical foundation that supports developing, delivering,
-and running the product. A development foundation realizes qualities, and a runtime
-foundation realizes designs. Its fields and the relations it can carry are defined in
+and running the product, such as the build and test environment and the environment the
+product runs in. Its fields and the relations it can carry are defined in
 `docs/model.yaml`. Its ID prefix INF may be used as a short name.
 
 ## 定義
 
-製品の開発・提供・稼働を支える技術基盤を述べるモデルの型。開発の基盤は品質を、稼働の基盤は
-設計を実現する。フィールドと張れる relation は `docs/model.yaml` が定義する。ID の prefix の
+製品の開発・提供・稼働を支える技術基盤（ビルドとテストの環境や、製品が稼働する環境など）を
+述べるモデルの型。フィールドと張れる relation は `docs/model.yaml` が定義する。ID の prefix の
 INF を略記として使ってよい。

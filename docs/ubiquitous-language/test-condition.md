@@ -2,7 +2,7 @@
 id: "UBQ-e60261a5-0713-4a46-a3f0-6c1015a11df7"
 type: ubiquitous_term
 name: "test_condition"
-description: "リスクを検証テーマごとに分けたテスト条件を表すモデルの型。"
+description: "リスクを減らすためにテストが検証するテーマ 1 つを表すモデルの型。"
 name_ja: "テスト条件"
 avoid:
   - "TestCondition"

@@ -16,10 +16,10 @@ generated:
 
 ## Definition
 
-A model type that states what a user wants to do with the product. A use case says what
-the user wants to do, while a requirement states the conditions the product meets to
-answer it. Its fields and the relations it can carry are defined in `docs/model.yaml`.
-Its ID prefix UC may be used as a short name.
+A model type that states what a user wants to do with the product. A requirement, in
+contrast, states the conditions the product meets to answer it. Its fields and the
+relations it can carry are defined in `docs/model.yaml`. Its ID prefix UC may be used as a
+short name.
 
 ## Avoid
 
@@ -27,9 +27,9 @@ Its ID prefix UC may be used as a short name.
 
 ## 定義
 
-利用者が製品で何をしたいかを述べるモデルの型。要求は利用者が何をしたいかを述べ、要件は
-それに応えるために製品が満たす条件を述べる。フィールドと張れる relation は
-`docs/model.yaml` が定義する。ID の prefix の UC を略記として使ってよい。
+利用者が製品で何をしたいかを述べるモデルの型。これに対して要件は、それに応えるために製品が
+満たす条件を述べる。フィールドと張れる relation は `docs/model.yaml` が定義する。ID の prefix の
+UC を略記として使ってよい。
 
 ## 避ける表現
 

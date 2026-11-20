@@ -2,7 +2,7 @@
 id: "UBQ-af762fb2-e974-4c4a-a70d-e1679ee5f6c8"
 type: ubiquitous_term
 name: "quality"
-description: "テストの工程の外で、開発の進め方を縛る方針と規約を述べるモデルの型。"
+description: "テストの工程の外にある、開発の進め方を縛る方針と規約を述べるモデルの型。"
 name_ja: "品質"
 section: model-types
 status: stable
