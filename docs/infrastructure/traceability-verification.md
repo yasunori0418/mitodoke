@@ -12,8 +12,8 @@ satisfies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T01:01:01+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-20T10:27:39+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -21,8 +21,8 @@ generated:
 ## 構成
 
 `docs/` を [sara](https://github.com/cledouarec/sara)（Rust 製 CLI。個人 NUR 経由で dev flake
-へ入れる）のナレッジグラフとして扱い、要求・設計・リスク・テストの紐付けが一貫しているかを
-機械検証する。要求とリスクの紐付けの一貫性管理が主目的で、「仕様とテストの全体像把握」を支える。
+へ入れる）のナレッジグラフとして扱い、要件・設計・リスク・テストの紐付けが一貫しているかを
+機械検証する。要件とリスクの紐付けの一貫性管理が主目的で、「仕様とテストの全体像把握」を支える。
 
 | 部品 | 役割 |
 |---|---|
@@ -32,7 +32,7 @@ generated:
 | `sara-new` | `dev/scripts/sara-new.sh` を包む devShell のコマンド。`sara init` で採番し、`<slug>.md` へ配置して `generated` を足す |
 | `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバーを 7 節で列挙し、到達率を出す。実グラフへの実行は CI に載せていない |
 | `sara-fresh` | `dev/scripts/sara-fresh.sh` を包む devShell のコマンド。上流の `generated.at` が自身の基準時刻より新しい item、`--base <ref>` との差分で本文が変わったのに `generated.at` が変わっていない item、`generated.at` 以降の `human:` の `verified` を持たない high の risk を列挙する。結果は報告に留める |
-| `dev/tests/sara-gap.sh` | `sara-gap` が出す未カバーの 7 節と到達率の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item がギャップかは見ない（件数が動き続けるため契約にできない）|
+| `dev/tests/sara-gap.sh` | `sara-gap` が出す未カバーの 7 節と到達率の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item が未カバーかは見ない（件数が動き続けるため契約にできない）|
 | `dev/tests/sara-fresh.sh` | `sara-fresh` の 3 節の列挙と exit code の契約を検証する。グラフはテストが一時ディレクトリに作り、実物の `docs/model.yaml` を重ねる。`--base` の節は、一時ディレクトリに `git init` したリポジトリで確かめる |
 | `dev/tests/sara-new.sh` | `sara-new` の起票契約（採番・ファイル名規約の適用）を検証する。fixture は実物の `docs/model.yaml` を重ねて使う |
 | `dev/tests/adr-supersede.sh` | `supersedes` が指す ADR が `status: deprecated` かを frontmatter から検証する |
@@ -41,12 +41,12 @@ generated:
 | `dev/tests/link-text.sh` | リンク文字列の裸のタグと、リンク直後の name の繰り返しを検出する。文書とコードにある許可外の場所のフル ID と 8 文字省略形も検出する |
 | `dev/tests/test-doc-map.sh` | テスト資産 ⇔ CASE の 1:1 対応を検証する。区分と除外の正本は `dev/tests/` のデータファイルが持つ（CI に載せていない）|
 | `dev/tests/risk-matrix.sh` | risk の `level` が `likelihood` × `impact` のマトリクス導出と一致するかを検証する。マトリクスの正本は `dev/tests/risk-matrix.tsv`（CI に載せていない）|
-| `dev/tests/term-avoid.sh` | 用語 item の `avoid` にある綴りが docs・README・AGENTS.md の散文に無いことを検証する（CI に載せていない）|
+| `dev/tests/term-avoid.sh` | 用語 item の `avoid` にある綴りが docs・README・AGENTS.md の散文に無いことを検証する |
 | `dev/scripts/test-doc-matrix.sh` | テスト資産 ⇔ CASE ⇔ TC ⇔ RISK の対応表を Markdown で生成する（CI に載せていない）|
 
 `sara` job が実行する契約テストは、上の表の `dev/tests/` のうち「CI に載せていない」と書いていない
 もの。契約テストを同じ job へ載せるのは、テストが「人が思い出したときだけ動く」状態を避けるため。
-「CI に載せていない」と書いた 4 本は、用語・risk・テスト資産が 0 件のいまは exit 1 になるので
+「CI に載せていない」と書いた 3 本は、risk とテスト資産が 0 件のいまは exit 1 になるので
 載せていない。#6 で載せる。
 
 `sara` job は実物のグラフにも `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
@@ -72,7 +72,7 @@ error となり `sara check` は exit 1 を返す（→ [sara check を strict �
 
 一方で main の required status check には登録しない。
 これは移行中の暫定措置ではなく「**検出は機械・判断は人**」という分担を保つための恒久判断で、
-張り忘れの修正が自明でないケース（item 新設を伴う等）を CI が赤いままレビューで扱える余地を
+接続漏れの修正が自明でないケース（item 新設を伴う等）を CI が赤いままレビューで扱える余地を
 残す。
 
 ## 出典

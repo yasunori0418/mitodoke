@@ -310,6 +310,11 @@ item_types:
         display_name: Section
         field_type: !enum
           values:
+            - model-types
+            - graph
+            - freshness
+            - inspection
+            - adoption
             - core
             - input-output
             - modes

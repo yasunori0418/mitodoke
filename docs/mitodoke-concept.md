@@ -146,30 +146,30 @@ addressed to the tests that exercise the resulting software.
   -----------------------------------------------------------------------
   Artifact                            Purpose
   ----------------------------------- -----------------------------------
-  **Solution**                        Describes the concept, problem, or
+  **`solution`**                      Describes the concept, problem, or
                                       solution being pursued.
 
-  **UseCase**                         Describes a requirement or usage
+  **`use_case`**                      Describes a requirement or usage
                                       situation arising from the
                                       solution.
 
-  **Requirement**                     States what the software or system
+  **`requirement`**                   States what the software or system
                                       must satisfy.
 
-  **Design**                          Describes how the requirements are
+  **`design`**                        Describes how the requirements are
                                       addressed by the design.
 
-  **Risk**                            Captures risks arising from or
+  **`risk`**                          Captures risks arising from or
                                       associated with requirements and
                                       design decisions.
 
-  **TestCondition**                   Expresses a test perspective or
+  **`test_condition`**                Expresses a test perspective or
                                       condition derived from a risk.
 
-  **TestPlan**                        Defines the scope and approach for
+  **`test_plan`**                     Defines the scope and approach for
                                       testing a solution.
 
-  **Case**                            Represents a concrete test case
+  **`test_case`**                     Represents a concrete test case
                                       selected and implemented in
                                       relation to a test condition and
                                       test plan.
@@ -179,10 +179,10 @@ The model is intended to support traceability across these artifacts.
 The exact relationships and constraints are defined by the document
 schema and its validation rules.
 
-### 5.1 Risk is a required bridge to test conditions
+### 5.1 `risk` is a required bridge to test conditions
 
-A core invariant is that every **TestCondition** must be derived through
-a **Risk**.
+A core invariant is that every **`test_condition`** must be derived through
+a **`risk`**.
 
 This keeps test conditions connected to an explicit quality concern
 rather than allowing them to become an ungrounded list of test ideas.
@@ -193,26 +193,26 @@ be considered when deciding what testing is appropriate.
 
 ### 5.2 Test conditions and test plans have different roles
 
-A **TestCondition** describes a test perspective derived from a risk. It
+A **`test_condition`** describes a test perspective derived from a risk. It
 represents something to consider, not necessarily something that must
 always be executed.
 
-A **TestPlan** determines the scope and approach of testing. Based on
+A **`test_plan`** determines the scope and approach of testing. Based on
 that plan, people decide which conditions should be addressed and
-instantiate concrete **Cases**.
+instantiate concrete **`test_case`** items.
 
 The intended traceability is therefore indirect:
 
-**TestPlan → Case → TestCondition → Risk**
+**`test_plan` → `test_case` → `test_condition` → `risk`**
 
-A direct relationship requiring every TestPlan to enumerate every
-TestCondition would incorrectly imply that all identified conditions
+A direct relationship requiring every `test_plan` to enumerate every
+`test_condition` would incorrectly imply that all identified conditions
 must be executed by every plan.
 
-### 5.3 Case and test implementation traceability
+### 5.3 `test_case` and test implementation traceability
 
-The current convention associates a **Case** with its test-code
-resource, with a one-to-one relationship between a Case and a test-code
+The current convention associates a **`test_case`** with its test-code
+resource, with a one-to-one relationship between a `test_case` and a test-code
 file/resource as defined by the project contract.
 
 This provides traceability between the documented test intent and the
@@ -347,7 +347,7 @@ meaningful.
 -   replace human judgment, accountability, or execution responsibility;
 -   decide whether requirements, designs, risk assessments, or tests are
     substantively correct;
--   treat every TestCondition as a mandatory test execution;
+-   treat every `test_condition` as a mandatory test execution;
 -   equate a successful CI run with adequate test coverage or test
     effectiveness;
 -   become a general-purpose test runner or CI log management system;
@@ -363,10 +363,10 @@ The following principles summarize the product's intended direction.
     work; people remain accountable for quality decisions.
 2.  **Make reasoning traceable.** Connect problems, requirements,
     design, risks, test conditions, plans, and implemented cases.
-3.  **Require risk-grounded test conditions.** A TestCondition must be
-    connected to a Risk.
-4.  **Separate consideration from execution.** TestCondition describes a
-    perspective; TestPlan and Case describe selected testing work.
+3.  **Require risk-grounded test conditions.** A `test_condition` must be
+    connected to a `risk`.
+4.  **Separate consideration from execution.** `test_condition` describes a
+    perspective; `test_plan` and `test_case` describe selected testing work.
 5.  **Surface change impact.** Upstream changes should make potentially
     affected downstream decisions visible.
 6.  **Treat verification as a human act.** Automation must not silently

@@ -7,7 +7,7 @@ specification: |
   The reference time of an item SHALL be the latest of its `generated.at` and every
   `verified[].at` that is at or after its `generated.at`, whatever the actor. An item that
   declares a `refines`, `derives_from`, `satisfies`, `threatens`, `mitigates`, `covers` or
-  `follows` relation SHALL be enumerated as awaiting re-verification when the
+  `follows` relation SHALL be enumerated as stale when the
   `generated.at` of the item it points to is later than its own reference time;
   `justifies` and the peer relations SHALL NOT take part, and an item whose `status` is
   `deprecated` SHALL be left out on either end. Comparing the merge base of a base
@@ -22,7 +22,7 @@ specification_ja: |
   item の基準時刻は、その item の `generated.at` と、`generated.at` 以降の `verified[].at`
   （actor を問わない）のうち最も新しい時刻でなければならない。`refines`・`derives_from`・
   `satisfies`・`threatens`・`mitigates`・`covers`・`follows` の relation を宣言している item は、
-  指している item の `generated.at` が自身の基準時刻より新しいとき、再検証待ちとして列挙され
+  指している item の `generated.at` が自身の基準時刻より新しいとき、再確認待ちとして列挙され
   なければならない。`justifies` と peer の relation は対象にしてはならず、`status` が
   `deprecated` の item は両端のどちらでも除かなければならない。`git merge-base <base> HEAD` の
   コミットと作業ツリーを比べ、本文が変わったのに `generated.at` が変わっていない item は、
@@ -35,8 +35,8 @@ status: stable
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:37:16+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-20T10:17:37+09:00"
 ---
 # 上流より古い item と generated の更新漏れは機械的に列挙する
 
@@ -46,7 +46,7 @@ sara の構造の検査は、型・relation・接続性が正しいかを見る�
 古い前提のまま残っているかは見ない。本 item は `generated` と `verified` を使って、読み直しの
 要る item を 2 つの観点で列挙する。
 
-再検証待ちは上流の relation を辿って鮮度を比べる。下流の item の基準時刻より上流の
+再確認待ちは上流の relation を辿って鮮度を比べる。下流の item の基準時刻より上流の
 `generated.at` が新しければ挙げる。辿る relation・基準時刻・除く item の理由は
 [鮮度は上流の relation を辿って下流へ伝播させる](../adr/freshness-propagates-along-upstream-relations.md) が持つ。
 
