@@ -14,12 +14,10 @@ generated:
 ## Definition
 
 A model type that records one decision together with its background, rationale, and the
-alternatives it rejected. It stands outside the specification chain and connects to the
-items the decision justifies. Its fields and the relations it can carry are defined in
+alternatives it rejected. Its fields and the relations it can carry are defined in
 `docs/model.yaml`. Its ID prefix ADR may be used as a short name.
 
 ## 定義
 
-1 つの意思決定を、その背景・根拠・棄却した代替案とともに記録するモデルの型。仕様の連鎖の外に
-立ち、その決定が根拠を与える item へ接続する。フィールドと張れる relation は
-`docs/model.yaml` が定義する。ID の prefix の ADR を略記として使ってよい。
+1 つの意思決定を、その背景・根拠・棄却した代替案とともに記録するモデルの型。フィールドと
+張れる relation は `docs/model.yaml` が定義する。ID の prefix の ADR を略記として使ってよい。

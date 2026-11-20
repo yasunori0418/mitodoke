@@ -15,12 +15,12 @@ generated:
 ## Definition
 
 A model type that fixes the canonical English and Japanese names of one domain term, the
-spellings to avoid, and its definition. Writing across the repository follows it. It is a
-root that connects to no other item. Its fields and the relations it can carry are defined
-in `docs/model.yaml`. Its ID prefix UBQ may be used as a short name.
+spellings to avoid, and its definition. Writing across the repository follows it. Its
+fields and the relations it can carry are defined in `docs/model.yaml`. Its ID prefix UBQ
+may be used as a short name.
 
 ## 定義
 
 ドメインの用語 1 語について、英語と日本語の正名・避ける綴り・定義を固定するモデルの型。
-リポジトリ全体の執筆はこれに従う。ほかのどの item ともつながない根になる。フィールドと
-張れる relation は `docs/model.yaml` が定義する。ID の prefix の UBQ を略記として使ってよい。
+リポジトリ全体の執筆はこれに従う。フィールドと張れる relation は `docs/model.yaml` が定義する。
+ID の prefix の UBQ を略記として使ってよい。

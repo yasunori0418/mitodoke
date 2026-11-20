@@ -14,10 +14,11 @@ generated:
 
 ## Definition
 
-A model type that states how the product realizes its requirements. Its fields and the relations it can carry
-are defined in `docs/model.yaml`. Its ID prefix DSG may be used as a short name.
+A model type that states how the product realizes its requirements. Its fields and the
+relations it can carry are defined in `docs/model.yaml`. Its ID prefix DSG may be used as a
+short name.
 
 ## 定義
 
-製品が要件をどう実現するかを述べるモデルの型。フィールドと張れる relation は `docs/model.yaml` が定義する。
-ID の prefix の DSG を略記として使ってよい。
+製品が要件をどう実現するかを述べるモデルの型。フィールドと張れる relation は
+`docs/model.yaml` が定義する。ID の prefix の DSG を略記として使ってよい。

@@ -15,12 +15,12 @@ generated:
 ## Definition
 
 A model type that states a condition the product meets to answer a use case. The use case
-says what the user wants to do; the requirement says what the product must satisfy to
-answer it. Its fields and the relations it can carry are defined in
-`docs/model.yaml`. Its ID prefix REQ may be used as a short name.
+says what the user wants to do; the requirement states the conditions the product meets to
+answer it. Its fields and the relations it can carry are defined in `docs/model.yaml`. Its
+ID prefix REQ may be used as a short name.
 
 ## 定義
 
 要求に応えるために製品が満たす条件を述べるモデルの型。要求は利用者が何をしたいかを述べ、
-要件はそれに応えて製品が何を満たすかを述べる。フィールドと張れる relation は
+要件はそれに応えるために製品が満たす条件を述べる。フィールドと張れる relation は
 `docs/model.yaml` が定義する。ID の prefix の REQ を略記として使ってよい。

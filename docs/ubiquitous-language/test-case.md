@@ -15,10 +15,11 @@ generated:
 ## Definition
 
 A model type that represents one test asset that runs on its own, such as a test file or
-a test scenario. A test case is raised per test asset. Its fields and the relations it can carry are defined in `docs/model.yaml`.
-Its ID prefix CASE may be used as a short name.
+a test scenario. A test case is raised per test asset. Its fields and the relations it can
+carry are defined in `docs/model.yaml`. Its ID prefix CASE may be used as a short name.
 
 ## 定義
 
 テストファイルやテストシナリオのような、単独で実行できるテスト資産 1 つを表すモデルの型。
-テストケースはテスト資産ごとに起こす。フィールドと張れる relation は `docs/model.yaml` が定義する。ID の prefix の CASE を略記として使ってよい。
+テストケースはテスト資産ごとに起こす。フィールドと張れる relation は `docs/model.yaml` が
+定義する。ID の prefix の CASE を略記として使ってよい。

@@ -14,13 +14,11 @@ generated:
 
 ## Definition
 
-A model type that states what the product built in the repository is. It is the root of
-the chain that runs through use cases and requirements to designs, and qualities and test
-plans also start from it. Its fields and the relations it can carry are defined in
-`docs/model.yaml`. Its ID prefix SOL may be used as a short name.
+A model type that states what the product built in the repository is. Its fields and the
+relations it can carry are defined in `docs/model.yaml`. Its ID prefix SOL may be used as a
+short name.
 
 ## 定義
 
-リポジトリが作る製品が何であるかを述べるモデルの型。要求・要件を経て設計へ続く連鎖の根で、
-品質とテスト計画もここを起点にする。フィールドと張れる relation は `docs/model.yaml` が
-定義する。ID の prefix の SOL を略記として使ってよい。
+リポジトリが作る製品が何であるかを述べるモデルの型。フィールドと張れる relation は
+`docs/model.yaml` が定義する。ID の prefix の SOL を略記として使ってよい。
