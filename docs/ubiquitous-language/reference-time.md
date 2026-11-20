@@ -16,10 +16,11 @@ generated:
 
 The time against which an item's freshness is compared: the latest of its `generated.at`
 and the `verified[].at` values at or after `generated.at`, whoever the checker is. When an
-upstream item's `generated.at` is later than an item's reference time, the item is stale.
+upstream item's `generated.at` is later than an item's reference time, the item can become
+stale.
 
 ## 定義
 
 item の鮮度を比べる基準にする時刻。その item の `generated.at` と、`generated.at` 以降の
 `verified[].at`（確認したのが誰かを問わない）のうち最も新しい時刻とする。上流の item の
-`generated.at` がこの時刻より新しいとき、その item は再確認待ちになる。
+`generated.at` がこの時刻より新しいとき、その item は再確認待ちになりうる。
