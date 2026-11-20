@@ -199,7 +199,7 @@ always be executed.
 
 A **`test_plan`** determines the scope and approach of testing. Based on
 that plan, people decide which conditions should be addressed and
-instantiate concrete **Cases**.
+instantiate concrete **`test_case`** items.
 
 The intended traceability is therefore indirect:
 
