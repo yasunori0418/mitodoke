@@ -1,14 +1,14 @@
 ---
 name: sara-docs
-description: sara ドキュメントグラフの基盤知識・規約スキル。次のコンテキストが現れたら作業前に必ず読み込む — ① sara.toml と docs/model.yaml を持つリポジトリで docs/ 配下の item（YAML frontmatter に id / type / relation を持つ Markdown）を作成・編集・削除しようとしている。② REQ- / DSG- / RISK- / TC- / CASE- / TP- / QA- / INF- / UC- / SOL- / ADR- / SDR- / UBQ- 形式の ID、または threatens / mitigates / covers / follows / derives_from / satisfies / refines / justifies といった relation が依頼・ファイル・エラーに現れた。③ sara / sara-new / sara-gap / sara-fresh コマンドを実行しようとしている、または sara check の orphan・broken reference エラーを直そうとしている。④ 要求・設計・リスク・テスト条件・テストケース・ADR を「item として起こして」と依頼された。工程スキル（/test-plan・/test-analyze 等）が前提とする型・relation・ID・specification 規約の一次の参照先。sara を使わないリポジトリの Markdown ドキュメント一般は対象外。
+description: sara ドキュメントグラフの基盤知識・規約スキル。次のコンテキストが現れたら作業前に必ず読み込む — ① sara.toml と docs/model.yaml を持つリポジトリで docs/ 配下の item（YAML frontmatter に id / type / relation を持つ Markdown）を作成・編集・削除しようとしている。② REQ- / DSG- / RISK- / TC- / CASE- / TP- / QA- / INF- / UC- / SOL- / ADR- / UBQ- 形式の ID、または threatens / mitigates / covers / follows / derives_from / satisfies / refines / justifies といった relation が依頼・ファイル・エラーに現れた。③ sara / sara-new / sara-gap / sara-fresh コマンドを実行しようとしている、または sara check の orphan・broken reference エラーを直そうとしている。④ 要求・要件・設計・リスク・テスト条件・テストケース・ADR を「item として起こして」と依頼された。工程スキル（テスト計画・テスト分析など）が前提とする型・relation・ID・specification 規約の一次の参照先。sara を使わないリポジトリの Markdown ドキュメント一般は対象外。
 license: MIT
 ---
 
 # sara-docs: sara ドキュメントグラフの基盤規約
 
 sara（Requirements Knowledge Graph CLI）で管理する `docs/` の読み書きに共通する規約を
-1 箇所に集めた基盤スキル。工程スキル（/test-plan・/test-analyze 等）はこの規約を前提に
-書かれており、ここと矛盾する出力をしない。
+1 箇所に集めた基盤スキル。工程スキル（テスト計画・テスト分析など）はこの規約を前提にし、
+ここと矛盾する出力をしない。
 
 ## 前提
 
@@ -31,7 +31,6 @@ sara（Requirements Knowledge Graph CLI）で管理する `docs/` の読み書�
 | test_plan | `TP` | `docs/test-plan/` | solution（`derives_from`）|
 | infrastructure | `INF` | `docs/infrastructure/` | quality / design（`satisfies`）|
 | adr | `ADR` | `docs/adr/` | なし（分離型。`justifies` で 1 本以上接続）|
-| sara_adr | `SDR` | `docs/sara-adr/` | なし（adr と同じ。sara 品質管理機構の決定）|
 | risk | `RISK` | `docs/risks/` | requirement / design（`threatens`）|
 | test_condition | `TC` | `docs/test/…` | risk（`mitigates`）|
 | test_case | `CASE` | `docs/test/…` | test_condition（`covers`）/ test_plan（`follows`）|
@@ -39,11 +38,11 @@ sara（Requirements Knowledge Graph CLI）で管理する `docs/` の読み書�
 
 テスト系 item（TC / CASE）を `docs/test/` 配下でどう区分けするか（サブディレクトリの
 切り方）と、CASE の `resource`（テスト資産の正準表記）の規則はプロジェクト規約
-（CLAUDE.md 等）に委ねる。
+（AGENTS.md 等）に委ねる。
 
-親を持たない根は solution と ADR の 2 型（adr / sara_adr）と ubiquitous_term のみ。ubiquitous_term を除く
+親を持たない根は solution と adr と ubiquitous_term のみ。ubiquitous_term を除く
 他の型は upstream relation を 1 本以上張る
-（張り忘れは strict check の orphan error になる）。frontmatter は手書きせず
+（接続漏れは strict check の orphan error になる）。frontmatter は手書きせず
 **`sara-new` で生成する**（`sara init` を包んで採番とファイル名規約の適用まで行う。
 relation・型別フィールドはオプションで渡す。手順は
 [references/sara-cli.md](references/sara-cli.md)）。型・フィールドの正本は各リポジトリの
@@ -58,7 +57,7 @@ relation・型別フィールドはオプションで渡す。手順は
 - **本文を変えたら `generated` の `by` と `at` を更新する**（`at` は UTC オフセット付きの
   ISO 8601。`date --iso-8601=seconds` の値）。frontmatter だけの変更や改名では更新しない
 - 他のキー（`status` / `verified` / `stale_after` / `sources` / `resource`）の書き方は
-  各リポジトリの `docs/model.md` の「OKF 互換の frontmatter」節に従う
+  各リポジトリの `docs/model.yaml` のフィールド定義とそのコメントに従う
 
 用語（ubiquitous_term）の引き方・執筆での使い方・起こし方は
 [references/ubiquitous-language.md](references/ubiquitous-language.md)。
@@ -112,7 +111,7 @@ relation は**起こした側（下流）の frontmatter に宣言する**（`sa
   `unsatisfied_quality` = `infrastructure` に `satisfies` されていない `quality`、
   `exempt` = `risk_exempt` を持つ `requirement`（情報）、
   `reach` = `requirement`・`test_plan`・`quality` の到達率）。
-  exit 0 = ギャップなしで到達率がすべて 1 / 1 = ギャップありか到達率が 1 未満 / 2 = check 失敗。
+  exit 0 = 未カバーなしで到達率がすべて 1 / 1 = 未カバーありか到達率が 1 未満 / 2 = check 失敗。
 - **`sara-fresh`**: valid なグラフから、`generated` と `verified` で見て確かめ直しが要る item を 3 節で出す
   （`stale` = 上流の `generated.at` が自身の基準時刻より新しい item、
   `generated_not_updated` = `--base <ref>` を渡したときだけ出す節で、ref との merge-base から本文が変わったのに `generated.at` が変わっていない item、

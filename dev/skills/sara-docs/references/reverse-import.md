@@ -26,7 +26,7 @@ forward と逆に、実体に近い側から束ねながら遡る:
 
 ## 途中状態の扱い
 
-逆算の途中は構造的にギャップが残る。`covers` も `follows` も持たない CASE は親を持たないので、
+逆算の途中は構造的に未カバーが残る。`covers` も `follows` も持たない CASE は親を持たないので、
 strict check のエラーになる。`follows` だけを持ち `covers` が無い CASE は親を持つのでエラーにならず
 strict check を通るが、この場合も**束ねる先を起こすまでは commit 単位を跨がない**。
 `sara check` green を保てる単位（CASE + TC + risk + threatens を揃えた一塊）で進め、

@@ -22,11 +22,11 @@ sara-new risk lock-ordering docs/risks -- \
   --likelihood medium --impact high --level high
 ```
 
-- 返るのは機械可読の 2 行（`id:` = 採番された正式 ID、`file:` = 起票したファイルのパス）。
+- 返るのは機械可読の 2 行（`id:` = 採番されたフル ID、`file:` = 起票したファイルのパス）。
 - `--` 以降は `sara init` へそのまま渡る。型ごとのオプション（relation・固有フィールド）は
   `sara init <型> --help` で確認する。requirement / quality / test_plan の
   `--specification` / `--specification-ja`、
-  `requirement` / `design` / `ubiquitous_term` / `adr` / `sara_adr` / `risk` の `--section`、
+  `requirement` / `design` / `ubiquitous_term` / `adr` / `risk` の `--section`、
   test_case の `--resource` など、モデルの必須フィールドはここで渡す。
   `section` を持つ型で `--section`（`--section=…` でもよい）を省くと、`sara-new` は起票せず
   exit 2 で落ちる。値と index.md の見出しの対応は `dev/scripts/okf-index.sh` の表で確かめる
@@ -36,7 +36,7 @@ sara-new risk lock-ordering docs/risks -- \
   ファイルを作らない。
 - 起票した item の frontmatter の末尾（閉じの `---` の直前）に `generated` を付ける。`by` は
   `SARA_NEW_GENERATED_BY` の値、`at` は起票時の `date --iso-8601=seconds` の値（UTC オフセット付き）。
-- ADR は `adr` / `sara_adr` で起票する（`--status` と `--section` を渡す）。
+- ADR は `adr` で起票する（`--status` と `--section` を渡す）。
 - 生成後に本文（`# <name>` の見出し + 散文）を書き足し、`sara check` で green
   を確認する。
 - 既存 item のフィールド・relation の変更は `sara edit <フル ID> --<フィールド> ...`
@@ -51,7 +51,7 @@ sara check --format json   # items 配列（宣言辺つき）を機械可読で
 
 - item を書き込んだら必ず回す。green（exit 0）が完了条件。
 - strict 有効（`sara.toml` の `strict_mode = true`）なら orphan を含む全 warning が
-  error になる。orphan は「upstream relation の張り忘れ」を意味することが多い。
+  error になる。orphan は「upstream relation の接続漏れ」を意味することが多い。
 - `--format json` の `items[].relations`（relation 名 → 張り先 ID の配列）は**宣言辺
   （primary relation）のみ**で逆辺を持たない。逆引き（「この REQ を threatens している risk は?」）が要るときは
   `sara query -d` か `sara-gap` を使う。
@@ -77,7 +77,7 @@ rg -l REQ-2b0c2bb8-964f-4e36-a121-c6ea0d4be1c4 docs/   # 宣言・参照元の�
 ## report — 俯瞰
 
 ```bash
-sara report coverage   # 型ごとのカバー率
+sara report coverage   # 型ごとの coverage の集計（sara-gap の到達率とは別）
 sara report matrix     # トレーサビリティマトリクス（--format json で機械可読）
 ```
 
@@ -131,7 +131,7 @@ JSON 形状の異常は 2。
 sara 本体ではなく devShell 同梱の独立コマンド。valid なグラフに対してだけ動く
 （`sara check` が落ちる間は exit 2 で一覧を出さない）。工程スキルは着手点の特定に使う。
 
-## 別コマンド sara-fresh による再検証待ち・generated の更新漏れ・人の確認が無い high の risk の列挙
+## 別コマンド sara-fresh による再確認待ち・generated の更新漏れ・人の確認が無い high の risk の列挙
 
 ```bash
 sara-fresh                     # text: 節 1・節 3 の見出し + 各行
