@@ -4,16 +4,16 @@ type: requirement
 name: "契約の違反と報告は E_MITODOKE_ と W_MITODOKE_ のコードで表す"
 description: "契約の違反は E_MITODOKE_<契約名>、報告は W_MITODOKE_<契約名> のコードで表し、入力や環境の誤りには outturn の共通コードを使う。"
 specification: |
-  mitodoke SHALL code a finding against a contract as E_MITODOKE_<contract name> when its
-  strength is failure, and as W_MITODOKE_<contract name> when its strength is report. The same
-  finding SHALL carry the same contract name under either strength, so that the strength setting
-  switches only the prefix. For an input or environment error (exit code 2), mitodoke SHALL use
+  mitodoke SHALL code a finding against a contract as E_MITODOKE_<contract name> when the
+  strength applied to it in the run is failure, and as W_MITODOKE_<contract name> when the
+  strength applied to it is report. The same finding SHALL carry the same contract name under
+  either strength, so that the strength setting switches only the prefix. For an input or environment error (exit code 2), mitodoke SHALL use
   the common codes of outturn, such as E_INPUT and E_IO. mitodoke SHALL NOT use E_PRECONDITION
   for a violation found by check.
 specification_ja: |
-  mitodoke は、契約に対する指摘を、強さが失敗のときは E_MITODOKE_<契約名> で、報告のときは
-  W_MITODOKE_<契約名> で表さなければならない。同じ指摘は、どちらの強さでも同じ契約名を持たなければ
-  ならず、強さの設定で切り替わるのは接頭辞だけでなければならない。入力や環境の誤り（exit code 2）
+  mitodoke は、契約に対する指摘を、その実行で指摘に働く強さが失敗のときは E_MITODOKE_<契約名>
+  で、報告のときは W_MITODOKE_<契約名> で表さなければならない。同じ指摘は、どちらの強さでも
+  同じ契約名を持たなければならず、強さの設定で切り替わるのは接頭辞だけでなければならない。入力や環境の誤り（exit code 2）
   には、mitodoke は E_INPUT・E_IO など outturn の共通コードを使わなければならない。mitodoke は、
   check が見つけた違反に E_PRECONDITION を使ってはならない。
 section: json-output
@@ -22,15 +22,15 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:34:00+09:00"
+  at: "2026-11-21T16:45:19+09:00"
 ---
 # 契約の違反と報告は E_MITODOKE_ と W_MITODOKE_ のコードで表す
 
 ## 仕様
 
-契約の違反と報告は、ツール別のコードで表す。強さが失敗の指摘は `E_MITODOKE_<契約名>`、報告の
-指摘は `W_MITODOKE_<契約名>` になる。同じ指摘は契約名を共通にし、強さの設定で接頭辞だけが
-切り替わる。
+契約の違反と報告は、ツール別のコードで表す。その実行で働く強さが失敗の指摘は
+`E_MITODOKE_<契約名>`、報告の指摘は `W_MITODOKE_<契約名>` になる。同じ指摘は契約名を共通にし、
+強さの設定で接頭辞だけが切り替わる。
 
 入力や環境の誤り（exit code 2）には、outturn の共通コード（`E_INPUT`・`E_IO` など）を使う。
 `check` の違反にも、`E_PRECONDITION` は使わない。
