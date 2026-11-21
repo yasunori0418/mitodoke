@@ -7,17 +7,13 @@ specification: |
   The configuration file SHALL hold the location of each type, including custom types.
   mitodoke SHALL check, as a structural contract, that the location of every item matches the
   location that the configuration file holds for the item's type, and SHALL detect a test_case
-  placed outside `docs/test/` as a mismatch. For test_condition and test_case items, the
-  test-category directory below the location of the type SHALL follow the test categories
-  that the configuration file defines. mitodoke SHALL determine the headings of the index for
-  each type from the same table of locations.
+  placed outside `docs/test/` as a mismatch. mitodoke SHALL determine the headings of the index
+  for each type from the same table of locations.
 specification_ja: |
   設定ファイルは、独自の型を含む型ごとの置き場所を持たなければならない。mitodoke は、すべての item
   の置き場所が、設定ファイルがその item の型に持つ置き場所と一致することを構造の契約として
   確かめなければならず、`docs/test/` の外に置いた test_case を不一致として見つけなければ
-  ならない。test_condition と test_case の item では、型の置き場所の下にある区分のディレクトリは、
-  設定ファイルが定めるテストの区分に従わなければならない。mitodoke は、型ごとの index の見出しを
-  同じ置き場所の表から決めなければならない。
+  ならない。mitodoke は、型ごとの index の見出しを同じ置き場所の表から決めなければならない。
 section: model-config
 status: stable
 derives_from:
@@ -33,10 +29,11 @@ generated:
 - 設定ファイルは、独自の型を含む型ごとの置き場所を持つ
 - item の置き場所が、その型に設定した置き場所と一致することを、構造の契約として確かめる。
   `docs/test/` の外に置いた test_case も、この一致で見つける
-- test_condition と test_case の型の置き場所の下にある区分のディレクトリは、
-  [テストの区分は設定で決め、置き場所・risk の section・index の見出しを導く](test-categories-from-config.md)
-  に従う
 - 型ごとの index の見出しも、同じ置き場所の表から決める
+
+test_condition と test_case を置く区分のディレクトリは、
+[テストの区分は設定で決め、置き場所・risk の section・index の見出しを導く](test-categories-from-config.md)
+が定める。
 
 ## 出典
 

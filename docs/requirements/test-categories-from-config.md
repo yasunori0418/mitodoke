@@ -8,12 +8,14 @@ specification: |
   file SHALL define the test categories as a single list. test_condition and test_case items
   SHALL be placed under `docs/test/<category>/`, where `<category>` is a test category in that
   list. mitodoke SHALL derive from the same list the directories of test_condition and
-  test_case items, the values of the `section` field of risk, and the headings of the index.
+  test_case items, the values of the `section` field of risk, and the headings of the index for
+  each test category.
 specification_ja: |
   mitodoke はテストの区分を製品の概念として扱わなければならず、設定ファイルはテストの区分を
   1 つの一覧として定めなければならない。test_condition と test_case の item は、その一覧にある
   区分の `docs/test/<区分>/` に置かなければならない。mitodoke は、同じ一覧から、test_condition と
-  test_case の item のディレクトリ、risk の `section` の値、index の見出しを導かなければならない。
+  test_case の item のディレクトリ、risk の `section` の値、区分ごとの index の見出しを導かなければ
+  ならない。
 section: model-config
 status: stable
 derives_from:
@@ -30,8 +32,8 @@ generated:
 
 - test_condition と test_case の item は、一覧にある区分の `docs/test/<区分>/` に置く
 - risk の `section` の値にも、テストの区分を使う
-- test_condition と test_case のディレクトリ、risk の `section` の値、index の見出しは、すべて同じ
-  一覧から導く
+- test_condition と test_case のディレクトリ、risk の `section` の値、区分ごとの index の見出しは、
+  すべて同じ一覧から導く
 
 ## 出典
 
