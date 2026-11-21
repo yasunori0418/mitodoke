@@ -8,21 +8,21 @@ specification: |
   mitodoke SHALL read the configuration file in the working directory and SHALL NOT search
   parent directories for it. When a subcommand writes a result envelope, mitodoke SHALL record
   the absolute path of the working directory at execution time and the absolute path of the
-  configuration file it read in the top-level info of the envelope. This is the form in which
-  mitodoke satisfies the standalone requirement of section 8 of outturn.
+  configuration file it read in the top-level info of the envelope. mitodoke SHALL satisfy the
+  standalone requirement of section 8 of outturn in this form.
 specification_ja: |
   mitodoke は、--config で指定された設定ファイルを読まなければならない。--config を省いたときは、
   作業ディレクトリの設定ファイルを読まなければならず、上のディレクトリへ探してはならない。
   サブコマンドが結果エンベロープを出すとき、mitodoke は、実行時の作業ディレクトリの絶対パスと、
   読んだ設定ファイルの絶対パスを、エンベロープのトップレベルの info に記録しなければならない。
-  これが、mitodoke が outturn の §8 の standalone を満たす形である。
+  mitodoke は、outturn の §8 の standalone を、この形で満たさなければならない。
 section: json-output
 status: stable
 derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:53:25+09:00"
+  at: "2026-11-21T16:58:51+09:00"
 ---
 # 設定ファイルは作業ディレクトリから読み、作業ディレクトリと設定ファイルのパスを info に記録する
 
