@@ -51,11 +51,6 @@ relation も辿る。宣言の無い独自の relation は辿らない。
 
 ## 棄却した代替案
 
-### 独自の relation をすべて自動で辿る
-
-上流を向く relation でも、再確認待ちを伝播させたくないものがある。すべてを自動で辿ると、
-そうした relation を判定から外す手段が無くなる。
-
 ### 独自の relation には sara の構造の検査だけを働かせる
 
 mitodoke の検査は組み込みの型と relation だけを見て、独自の relation には参照先の有無・循環・
