@@ -6,12 +6,14 @@ description: "specification は英語で必須とし、設定で選んだほか�
 specification: |
   The `specification` field of requirement, quality and test_plan items SHALL be required and
   SHALL be written in English. The configuration file SHALL allow selecting additional
-  languages, and for each selected language mitodoke SHALL generate the fields
-  `specification_<language>` and `name_<language>` into the model.
+  languages, and for each selected language mitodoke SHALL generate into the model the field
+  `specification_<language>` of requirement, quality and test_plan and the field
+  `name_<language>` of ubiquitous_term.
 specification_ja: |
   requirement・quality・test_plan の item の `specification` フィールドは必須でなければならず、
   英語で書かなければならない。設定ファイルはほかの言語を選べなければならず、mitodoke は選んだ
-  言語ごとに `specification_<言語>` と `name_<言語>` のフィールドをモデルへ生成しなければならない。
+  言語ごとに、requirement・quality・test_plan の `specification_<言語>` と、ubiquitous_term の
+  `name_<言語>` のフィールドをモデルへ生成しなければならない。
 section: model-config
 status: stable
 derives_from:
@@ -25,8 +27,8 @@ generated:
 ## 仕様
 
 - requirement・quality・test_plan の `specification` は必須で、英語で書く
-- ほかの言語は設定ファイルで選ぶ。mitodoke は、選んだ言語ごとに `specification_<言語>` と
-  `name_<言語>` のフィールドをモデルへ生成する
+- ほかの言語は設定ファイルで選ぶ。mitodoke は、選んだ言語ごとに、requirement・quality・test_plan
+  の `specification_<言語>` と、ubiquitous_term の `name_<言語>` のフィールドをモデルへ生成する
 
 ## 出典
 

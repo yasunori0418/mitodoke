@@ -38,7 +38,7 @@ mitodoke を製品にするにあたり、この二言語の書き方をどう�
 ## 決定
 
 `specification` は英語で必須にする。ほかの言語は設定で選び、`specification_<言語>` と
-`name_<言語>` のフィールドを生成する。
+`name_<言語>`（`ubiquitous_term` の `name_ja` に当たるもの）のフィールドを生成する。
 
 ## 根拠
 
