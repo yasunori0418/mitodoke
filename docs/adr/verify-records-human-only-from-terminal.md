@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q8）で確定"
 justifies:
   - "REQ-47318ae1-da64-4e9e-9345-60f39648ff05"
+references:
+  - "ADR-b9a7b27b-57ea-41cc-9509-126bea9d6d3e"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:30:36+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # verify は、端末で人が確認を入力したときだけ確認の記録を書く
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](non-human-verified-accepted-not-counted-as-human.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q8）で確定
 
 ## 背景

@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q15）で確定"
 justifies:
   - "REQ-7ec90232-7ec2-414a-a95e-af8d6994340b"
+references:
+  - "ADR-22a2cfdf-7f6f-4315-9a73-d3067684cf8b"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:29:34+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # Nix flake を主な配布にし、sara の CLI を同じタグで一緒に配る
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [Rust で書き、sara-core を crate として組み込む](rust-cli-embedding-sara-core.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q15）で確定
 
 ## 背景

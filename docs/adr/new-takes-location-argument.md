@@ -14,15 +14,16 @@ justifies:
   - "REQ-a69171a6-7587-4d92-8fce-1cf84d62b36f"
 references:
   - "ADR-ba95c0c6-ea15-4e97-95a9-925ac04df58d"
+  - "ADR-f900c722-23d9-4dcb-8407-97b4eb98b92a"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:30:36+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # new は置き場所を引数で受け取り、型ごとの置き場所と比べる
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: [sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する](sara-new-wrapper-applies-slug-filename.md), GitHub Issue #4
+- 関連: [sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する](sara-new-wrapper-applies-slug-filename.md), [型と置き場所の一致を構造の契約にし、型ごとの置き場所を設定に持つ](type-location-match-is-structural-contract.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q37）で確定
 
 ## 背景
