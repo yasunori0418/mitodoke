@@ -18,7 +18,7 @@ references:
   - "ADR-bab72f31-7cb1-47a3-bb2d-7876757d86fb"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:33:02+09:00"
+  at: "2026-11-21T16:49:27+09:00"
 ---
 # OKF より厳しい 5 つの制約を構造の契約に引き継ぐ
 
