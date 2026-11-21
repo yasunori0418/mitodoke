@@ -2,7 +2,7 @@
 id: "ADR-c291c77e-7e40-4b89-a2c2-0dfec4c911f9"
 type: adr
 name: "OKF より厳しい 5 つの制約を構造の契約に引き継ぐ"
-description: "写した ADR が OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。"
+description: "写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。"
 section: inspection
 status: stable
 sources:
@@ -29,7 +29,8 @@ generated:
 
 ## 背景
 
-写した ADR は、OKF v0.2 の frontmatter に、次の 5 つの必須化と制約を加えている。
+写した文書管理の仕組み（ADR・規範・契約テスト）は、OKF v0.2 の frontmatter に、次の 5 つの
+必須化と制約を加えている。
 
 - `verified` はリストでなければ違反にする。OKF は、1 つの mapping を 1 要素のリストとして扱う
   ことを、読み手の義務にしている
