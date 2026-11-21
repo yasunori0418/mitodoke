@@ -4,15 +4,15 @@ type: requirement
 name: "設定ファイル・環境変数・コードの接頭辞の名前は製品名から決める"
 description: "製品名を含むコマンド・設定ファイル・環境変数・エラーと警告のコード・crate と製品が自身のために定める flake の出力の名前は、製品名 mitodoke から決める"
 specification: |
-  The only product name that the product's names carry SHALL be `mitodoke`, and those names
-  SHALL NOT carry any other product name, including a former one. The name of the command,
+  Every name by which the product refers to itself SHALL carry `mitodoke` as the product
+  name and SHALL NOT carry a former name of the product. The name of the command,
   the name of the configuration file, the name of the crate and the names of the flake
   outputs that the product defines for itself SHALL use the lowercase form `mitodoke`. The
   names of the product's environment variables and the product-specific prefixes of its
   error and warning codes SHALL use the uppercase form `MITODOKE`.
 specification_ja: |
-  製品の名前に含める製品名は `mitodoke` だけでなければならず、これらの名前に旧名を含む
-  ほかの製品名を含めてはならない。コマンドの名前、設定ファイルの名前、crate の名前、製品が
+  製品が自身を指す名前は、製品名として `mitodoke` を含まなければならず、製品の旧名を含めては
+  ならない。コマンドの名前、設定ファイルの名前、crate の名前、製品が
   自身のために定める flake の出力の名前は、小文字の `mitodoke` を使わなければならない。製品の
   環境変数の名前と、エラーと警告のコードの製品に固有の接頭辞は、大文字の `MITODOKE` を使わ
   なければならない。
@@ -22,13 +22,13 @@ derives_from:
   - "UC-a81ec7f7-0fb1-4ada-ae7c-0a20cdc0b074"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:50:32+09:00"
+  at: "2026-11-21T16:53:12+09:00"
 ---
 # 設定ファイル・環境変数・コードの接頭辞の名前は製品名から決める
 
 ## 仕様
 
-製品の名前に含める製品名は `mitodoke` だけにし、旧名を含むほかの製品名を使わない。
+製品が自身を指す名前には、製品名として `mitodoke` を使い、製品の旧名を使わない。
 
 - 小文字の `mitodoke` を使う名前: コマンド（`mitodoke <サブコマンド>`）、設定ファイル
   （`mitodoke.yaml`）、crate、製品が自身のために定める flake の出力
