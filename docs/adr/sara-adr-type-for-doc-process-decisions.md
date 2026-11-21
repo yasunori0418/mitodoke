@@ -3,7 +3,7 @@ id: "ADR-c15921a9-7aea-407c-a34b-7465783b1af1"
 type: adr
 name: "sara 品質管理機構の決定は sara_adr 型に分ける"
 section: graph-model
-status: stable
+status: deprecated
 sources:
   - id: "issue-499"
     resource: "https://github.com/yasunori0418/layat/issues/499"
@@ -20,7 +20,11 @@ generated:
 ---
 # sara 品質管理機構の決定は sara_adr 型に分ける
 
-- ステータス: stable
+> **廃止（2026-11-17）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [組み込みの型を 12 型にし、すべて必須にする](twelve-builtin-types-all-required.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-01
 - 関連: GitHub Issue #499, #500, `docs/adr/README.md`
 - 起点: Issue #499 の grilling（2026-11-01）で確定
