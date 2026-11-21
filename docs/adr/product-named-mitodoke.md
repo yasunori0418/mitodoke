@@ -14,7 +14,7 @@ justifies:
   - "REQ-d7a8bbab-8ca2-4d3e-b20b-0f845c370283"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:45:54+09:00"
+  at: "2026-11-21T16:50:32+09:00"
 ---
 # 製品名を mitodoke にする
 
@@ -66,7 +66,8 @@ GitHub・Web 検索のどこにも重ならない。
 
 当初の名前。同じ名前の製品は無いが、綴りの近い企業 qashqade と、Cascade という名前の製品が
 複数ある。利用者は `qascade` 以外の候補を求め、`qascade` も候補に残したまま比べた。cascade の
-観点を外して比べ直すと、Quality と Cascade という名前の由来を加点に使えなくなる。
+観点を外して比べ直すと、名前の由来のうち Cascade の側（cascade の比喩と変更の波及）を加点に
+使えなくなる。
 
 ### `reviewdue`
 
