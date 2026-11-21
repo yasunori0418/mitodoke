@@ -3,6 +3,8 @@
 ## モデルの型
 
 * [adr](./adr.md) - 1 つの意思決定とその背景・根拠を記録するモデルの型。
+* [built-in type（組み込みの型）](./built-in-type.md) - どの製品のモデルにも最初から含まれる 12 の型の 1 つ。
+* [custom type（独自の型）](./custom-type.md) - 製品が、組み込みの型に加えて、設定でモデルに足す型。
 * [design（設計）](./design.md) - 要件をどう実現するかを述べるモデルの型。
 * [infrastructure（基盤）](./infrastructure.md) - 製品の開発・提供・稼働を支える技術基盤を述べるモデルの型。
 * [quality（品質）](./quality.md) - テストの工程の外にある、開発の進め方を縛る方針と規約を述べるモデルの型。
@@ -30,18 +32,24 @@
 ## 鮮度と確認
 
 * [generated](./generated.md) - item を最後に生成・更新した者と時刻を記録する frontmatter のプロパティ。
+* [human verification（人の確認）](./human-verification.md) - 人が item の内容を確かめたことの記録で、`verified` の要素のうち、`by` が `human:` で始まり、`at` がその item の `generated.at` 以降のもの。
 * [reference time（基準時刻）](./reference-time.md) - item の鮮度を比べる基準にする、generated と verified から決まる時刻。
 * [stale（再確認待ち）](./stale.md) - 上流の item が自身の基準時刻より新しくなり、読み直しを待っている item の状態。
 * [verified](./verified.md) - item の内容を誰がいつ確認したかを、要素ごとに記録する frontmatter のプロパティ。
 
 ## 検査の結果
 
+* [inspection strength（検査の強さ）](./inspection-strength.md) - 検査の指摘をどう扱うかを決める設定の値。
+* [missing connection（つながりの欠け）](./missing-connection.md) - 検査の 3 つの分類の 1 つで、検証へ向かう連鎖が期待する relation を欠いた item を見つけるもの。
 * [reach rate（到達率）](./reach-rate.md) - ある型の item のうち、下流の連鎖が末端までつながっているものの割合。
+* [review obligation（見直しの義務）](./review-obligation.md) - 検査の 3 つの分類の 1 つで、人が読み直すか確かめるかをまだ済ませていない item を見つけるもの。
 * [silence（沈黙性）](./silence.md) - 脅威が起きたときに、それに気付けるかどうかという性質。
+* [structural contract（構造の契約）](./structural-contract.md) - 検査の 3 つの分類の 1 つで、item とドキュメントグラフの形が整っているかを確かめるもの。
 * [test asset（テスト資産）](./test-asset.md) - テストケースが対応する、単独で実行できるテストの単位。
 * [uncovered（未カバー）](./uncovered.md) - 検証へ向かう連鎖が期待するつながりを欠いている item の状態。
 
 ## 適用先の製品と人
 
 * [product（製品）](./product.md) - 規範を当てはめるリポジトリが作るもの。
+* [test category（テストの区分）](./test-category.md) - 製品のテストを分ける単位で、製品が自分で、設定の 1 つの一覧として決めるもの。
 * [user（利用者）](./user.md) - 製品を使う人。
