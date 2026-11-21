@@ -23,7 +23,7 @@ generated:
 
 - ステータス: stable
 - 日付: 2026-11-21
-- 関連: GitHub Issue #4, GitHub Issue #46
+- 関連: GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q20）で確定し、2026-11-21 に配り方を改めた
 
 ## 背景
