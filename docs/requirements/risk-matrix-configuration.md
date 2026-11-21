@@ -7,7 +7,8 @@ specification: |
   The `level` of a risk SHALL be the level that the derivation table gives for its
   `likelihood` and `impact`. mitodoke SHALL use the derivation table that the configuration
   file defines, and SHALL use the default table when the configuration file defines none. The
-  default table SHALL be the table of the norm on deriving the level of a risk, which maps each
+  default table SHALL be the table of the norm on deriving the level of a risk
+  (`docs/quality/risk-level-derived-from-likelihood-and-impact.md`), which maps each
   of the nine pairs of `likelihood` and `impact` to a `level`. The configuration file SHALL be
   able to change only the mapping from a pair of `likelihood` and `impact` to a `level`. The
   sets of values of `likelihood`, `impact` and `level` (low, medium and high) SHALL be fixed by
