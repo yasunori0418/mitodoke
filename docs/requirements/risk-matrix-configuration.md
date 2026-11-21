@@ -7,20 +7,21 @@ specification: |
   The `level` of a risk SHALL be the level that the derivation table gives for its
   `likelihood` and `impact`. mitodoke SHALL use the derivation table that the configuration
   file defines, and SHALL use the default table when the configuration file defines none. The
-  default table SHALL be the table of the norm on deriving the level of a risk
-  (`docs/quality/risk-level-derived-from-likelihood-and-impact.md`), which maps each
-  of the nine pairs of `likelihood` and `impact` to a `level`. The configuration file SHALL be
-  able to change only the mapping from a pair of `likelihood` and `impact` to a `level`. The
-  sets of values of `likelihood`, `impact` and `level` (low, medium and high) SHALL be fixed by
-  the product and SHALL NOT be changed by the configuration file.
+  default table SHALL be the table of the norm
+  [risk の level は likelihood と impact から導き、手で決めない](../quality/risk-level-derived-from-likelihood-and-impact.md),
+  which maps each of the nine pairs of `likelihood` and `impact` to a `level`. The
+  configuration file SHALL be able to change only the mapping from a pair of `likelihood` and
+  `impact` to a `level`. The sets of values of `likelihood`, `impact` and `level` (low, medium
+  and high) SHALL be fixed by the product and SHALL NOT be changed by the configuration file.
 specification_ja: |
   risk の `level` は、導出表がその `likelihood` と `impact` に対応させる値でなければならない。
   mitodoke は、設定ファイルが定める導出表を使わなければならず、設定ファイルが導出表を定めて
-  いなければ既定の表を使わなければならない。既定の表は、risk の level の導出を定める規範の表で、
-  `likelihood` と `impact` の 9 通りの組のそれぞれを `level` に対応させるものでなければならない。
-  設定ファイルで変えられるのは、`likelihood` と `impact` の組から `level` への対応だけで
-  なければならない。`likelihood`・`impact`・`level` の値の集合（low・medium・high）は製品で
-  固定しなければならず、設定ファイルで変えてはならない。
+  いなければ既定の表を使わなければならない。既定の表は、規範
+  [risk の level は likelihood と impact から導き、手で決めない](../quality/risk-level-derived-from-likelihood-and-impact.md)
+  の表で、`likelihood` と `impact` の 9 通りの組のそれぞれを `level` に対応させるもので
+  なければならない。設定ファイルで変えられるのは、`likelihood` と `impact` の組から `level` への
+  対応だけでなければならない。`likelihood`・`impact`・`level` の値の集合（low・medium・high）は
+  製品で固定しなければならず、設定ファイルで変えてはならない。
 section: model-config
 status: stable
 derives_from:
