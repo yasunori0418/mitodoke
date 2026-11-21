@@ -57,4 +57,4 @@ mitodoke を入れて `mitodoke check` を実行する composite action を、mi
 
 ### 再利用できる workflow を配る
 
-上と同じ理由で採らない。Nix を使わない適用先の製品が現れたときに改めて考える。
+上と同じ理由で採らない。
