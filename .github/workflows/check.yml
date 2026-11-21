@@ -87,15 +87,15 @@ jobs:
       - name: Run okf-frontmatter contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/okf-frontmatter.sh
 
+      - name: Run link-text contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/link-text.sh
+
+      - name: Run term-avoid contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/term-avoid.sh
+
       - name: Run okf-index contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/okf-index.sh
 
       # コミット済みの docs/ 配下の index.md が、okf-index.sh の生成結果と一致すること。
       - name: Check generated index.md
         run: nix develop '.?dir=dev#sara' -c bash dev/scripts/okf-index.sh --check
-
-      - name: Run link-text contract test
-        run: nix develop '.?dir=dev#sara' -c bash dev/tests/link-text.sh
-
-      - name: Run term-avoid contract test
-        run: nix develop '.?dir=dev#sara' -c bash dev/tests/term-avoid.sh
