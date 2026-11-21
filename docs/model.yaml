@@ -101,6 +101,12 @@ item_types:
             - modules
             - errors
             - dependencies
+            - product-scope
+            - model-config
+            - inspection
+            - commands
+            - json-output
+            - distribution
         required: true
       - *status_field
       - *stale_after_field
@@ -132,6 +138,7 @@ item_types:
             - core-logic
             - module-integration
             - test-strategy
+            - product-scope
         required: true
       - *status_field
       - *stale_after_field
@@ -259,6 +266,13 @@ item_types:
             - authoring
             - doc-layout
             - risk-test-defect
+            - product-scope
+            - model-config
+            - inspection
+            - commands
+            - json-output
+            - distribution
+            - migration-records
         required: true
       # deprecated は supersedes で後継に置き換えられた ADR と、提案を棄却した ADR に付ける。
       - *status_field
