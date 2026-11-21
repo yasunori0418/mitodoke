@@ -40,7 +40,9 @@ index の見出しやテストの区分の表に重ねて書くことになる�
 （[組み込みの型を 12 型にし、すべて必須にする](twelve-builtin-types-all-required.md)）。
 
 生成した model.yaml はコミットし、設定ファイルから生成し直した結果と差分が無いことを CI で
-確かめる。
+確かめる。sara.toml も同じく設定ファイルから生成して確かめる（形式とあわせて
+[設定ファイルを mitodoke.yaml にし、独自の定義は sara の model.yaml と同じ書き方にする](config-file-mitodoke-yaml.md)
+で決めた）。
 
 ## 根拠
 

@@ -28,7 +28,6 @@ sara の model.yaml と同じ書き方で書ける。
 
 - フィールドの型は、sara の model.yaml と同じく `field_type: !enum` や `!list text` のような
   YAML のタグで書ける
-- mitodoke は、独自の定義のために sara と別の書き方を持たない
 
 ## 出典
 
