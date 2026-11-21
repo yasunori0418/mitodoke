@@ -24,9 +24,9 @@ usage: sara-new <type> <slug> <dir> -- --description <要約> [<sara init option
                          claude-code/<モデル ID>）
 
 例:
-  sara-new requirement lock-ordering docs/requirements -- --description "lock の取得順を固定する" --section placement-rollback
+  sara-new requirement lock-ordering docs/requirements -- --description "lock の取得順を固定する" --section commands
   sara-new test-case engine-lock docs/test/atomicity -- --name "engine の lock" --description "…"
-  sara-new adr lock-ordering docs/adr -- --status stable --description "…" --section atomicity
+  sara-new adr lock-ordering docs/adr -- --status stable --description "…" --section commands
 
 出力（機械可読の 2 行）:
   id:   採番された正式 ID

@@ -133,7 +133,7 @@ cat > "$fixture/docs/ubiquitous-language/term.md" <<'EOF'
 id: "UBQ-44444444-4444-4444-8444-444444444444"
 type: ubiquitous_term
 name: "term"
-section: core
+section: model-types
 status: stable
 ---
 # UBQ-44444444-4444-4444-8444-444444444444: term
@@ -148,7 +148,7 @@ cat > "$fixture/docs/ubiquitous-language/a-mode.md" <<'EOF'
 id: "UBQ-66666666-6666-4666-8666-666666666666"
 type: ubiquitous_term
 name: "a mode"
-section: modes
+section: graph
 status: stable
 ---
 # UBQ-66666666-6666-4666-8666-666666666666: a mode
@@ -161,7 +161,7 @@ id: "UBQ-77777777-7777-4777-8777-777777777777"
 type: ubiquitous_term
 name: "z core"
 name_ja: "中核[語]"
-section: core
+section: model-types
 status: stable
 ---
 # UBQ-77777777-7777-4777-8777-777777777777: z core
@@ -169,13 +169,13 @@ status: stable
 A core term.
 EOF
 
-# ubiquitous_term と同じ値 errors を持つ requirement。見出しは型ごとの表から引く。
+# ubiquitous_term と同じ値 inspection を持つ requirement。見出しは型ごとの表から引く。
 cat > "$fixture/docs/requirements/error.md" <<'EOF'
 ---
 id: "REQ-88888888-8888-4888-8888-888888888888"
 type: requirement
 name: "エラーの要件"
-section: errors
+section: inspection
 status: stable
 specification: |
   The fixture SHALL keep this requirement.
@@ -307,12 +307,12 @@ fi
 want_terms=$(cat <<'EOF'
 # 用語（`ubiquitous_term`）
 
-## Core placement abstraction
+## モデルの型
 
 * [term](./term.md) - The term definition.
 * [z core（中核\[語\]）](./z-core.md) - A core term.
 
-## Placement modes
+## グラフと item
 
 * [a mode](./a-mode.md) - A mode.
 EOF
@@ -327,13 +327,13 @@ fi
 want_reqs=$(cat <<'EOF'
 # 要件（`requirement`）
 
-## エラー仕様
+## 検査
 
 * [エラーの要件](./error.md) - エラーの説明。
 EOF
 )
 if [ "$(cat "$fixture/docs/requirements/index.md")" = "$want_reqs" ]; then
-  pass "見出しは型ごとの表から引く（ubiquitous_term と同じ値 errors でも requirement の見出しになる）"
+  pass "見出しは型ごとの表から引く（ubiquitous_term と同じ値 inspection でも requirement の見出しになる）"
 else
   fault "(5) docs/requirements/index.md の節分けが食い違う"
   sed 's/^/    /' "$fixture/docs/requirements/index.md"
@@ -443,7 +443,7 @@ fi
 want_dep_reqs=$(cat <<'EOF'
 # 要件（`requirement`）
 
-## エラー仕様
+## 検査
 
 * [エラーの要件](./error.md) - エラーの説明。
 * [下書きの要件](./z-draft.md) - 下書きの説明。
@@ -513,8 +513,8 @@ fi
 # model.yaml の写しの requirement の enum に値を 1 つ足し、sara check は通るが生成器の表に無い値を作る。
 unknown="$work/unknown"
 cp -r "$fixture" "$unknown"
-sed -i 's/^            - dependencies$/&\n            - zz-unlisted-section/' "$unknown/docs/model.yaml"
-sed 's/^section: errors$/section: zz-unlisted-section/; s/8888-888888888888/8888-888888888889/' \
+sed -i '/^  - id: requirement$/,/^  - id: design$/ s/^            - distribution$/&\n            - zz-unlisted-section/' "$unknown/docs/model.yaml"
+sed 's/^section: inspection$/section: zz-unlisted-section/; s/8888-888888888888/8888-888888888889/' \
   "$fixture/docs/requirements/error.md" > "$unknown/docs/requirements/unlisted.md"
 cp "$unknown/docs/requirements/index.md" "$work/unknown-before.md"
 (cd "$unknown" && bash "$generator") > "$work/unknown.out" 2> "$work/unknown.err"
