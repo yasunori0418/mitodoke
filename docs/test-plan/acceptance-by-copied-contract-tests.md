@@ -11,10 +11,9 @@ specification: |
   id: and file: printed on creating an item, and SHALL check a finding that yields exit code 1 as
   an item whose status is failed. The acceptance tests SHALL NOT require the headings and the
   line format of the text output to match the copied fixtures. The sections of the copied tests
-  that replace sara with a fake one SHALL be excluded from the acceptance tests. The acceptance
-  tests SHALL check that a single reporting subcommand returns exit code 1 when it has findings;
-  whether check fails or reports according to the strength setting is a separate matter that
-  these acceptance tests do not check.
+  that replace sara with a fake one SHALL be excluded from the acceptance tests. Whether check
+  fails or reports according to the strength setting is treated separately, and the acceptance
+  tests SHALL check that a single reporting subcommand returns exit code 1 when it has findings.
 specification_ja: |
   テストプロセスは、写した契約テストを mitodoke の CLI の受け入れテストに使い、サブコマンドを写した
   fixture と同じ期待で確かめなければならない。受け入れテストは、outturn のエンベロープの
@@ -22,15 +21,15 @@ specification_ja: |
   起票で出す id: と file: の 2 行を確かめなければならず、exit code 1 になる該当を status が failed
   の item として確かめなければならない。受け入れテストは、text 出力の見出しと行の形式を、写した
   fixture と揃うことを求めてはならない。写した契約テストのうち、偽の sara に差し替える節は、受け入れ
-  テストから外さなければならない。受け入れテストは、単体の報告のサブコマンドが該当ありで exit code 1
-  を返すことを確かめなければならない。check が強さの設定で失敗か報告かを決めることは、これとは別に
-  扱い、この受け入れテストでは確かめない。
+  テストから外さなければならない。check が強さの設定で失敗か報告かを決めることは別に扱い、
+  受け入れテストは、単体の報告のサブコマンドが該当ありで exit code 1 を返すことを確かめなければ
+  ならない。
 status: stable
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:45:19+09:00"
+  at: "2026-11-21T17:06:53+09:00"
 ---
 # CLI の受け入れは、写した契約テストで確かめる
 
