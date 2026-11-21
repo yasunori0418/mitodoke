@@ -11,8 +11,7 @@ specification: |
   model (generate model.yaml from the configuration), verify (record human verification), export
   (output the item list as JSON), and check (inspect). index and model SHALL provide a --check
   option that verifies the generated result does not differ from the committed file. The
-  reporting and generating subcommands (gap, fresh, index, matrix, and model) SHALL provide a
-  --json option. check SHALL run the structural contracts, the missing-connection inspection, and
+  reporting and generating subcommands SHALL provide a --json option. check SHALL run the structural contracts, the missing-connection inspection, and
   the review-obligation inspection together, and SHALL decide for each finding whether to fail or
   to report according to the configured strength.
 specification_ja: |
@@ -21,8 +20,8 @@ specification_ja: |
   報告）、index（index.md の生成）、matrix（テスト資産とテストケース・テスト条件・リスクの対応表の
   生成）、model（設定からの model.yaml の生成）、verify（人の確認の記録）、export（item の一覧の JSON
   の出力）、check（検査）。index と model は、生成した結果とコミットされたファイルに差分が無いことを
-  確かめる --check を持たなければならない。報告と生成のサブコマンド（gap・fresh・index・matrix・
-  model）は --json を持たなければならない。check は、構造の契約・つながりの欠け・見直しの義務の検査を
+  確かめる --check を持たなければならない。報告と生成のサブコマンドは
+  --json を持たなければならない。check は、構造の契約・つながりの欠け・見直しの義務の検査を
   まとめて実行し、指摘ごとに失敗にするか報告にするかを設定の強さで決めなければならない。
 section: commands
 status: stable
@@ -54,7 +53,7 @@ generated:
 | `mitodoke check` | 検査 |
 
 - `index` と `model` は、生成した結果とコミットされたファイルに差分が無いことを確かめる `--check` を持つ
-- 報告と生成のサブコマンド（`gap`・`fresh`・`index`・`matrix`・`model`）は `--json` を持つ。出力の形はこの item では定めない
+- 報告と生成のサブコマンドは `--json` を持つ。出力の形はこの item では定めない
 - `check` は、構造の契約・つながりの欠け・見直しの義務の検査をまとめて実行し、指摘ごとに失敗にするか報告にするかを設定の強さで決める
 
 ## 出典
