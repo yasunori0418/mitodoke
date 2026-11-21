@@ -2,7 +2,7 @@
 id: "ADR-af43255d-2fd6-4351-917f-ed9bf9d9ae0e"
 type: adr
 name: "宣言の無い frontmatter のキーを構造の契約の違反にする"
-description: "model で宣言されていない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。"
+description: "sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。"
 section: inspection
 status: stable
 sources:
@@ -14,7 +14,7 @@ justifies:
   - "REQ-9c54aa84-e2db-42d7-87af-f1fec5c64a63"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:54:53+09:00"
+  at: "2026-11-21T16:57:51+09:00"
 ---
 # 宣言の無い frontmatter のキーを構造の契約の違反にする
 
