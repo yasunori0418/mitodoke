@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q25）で確定"
 justifies:
   - "REQ-058df54b-eeb6-4074-9c9f-c303bd6d3273"
+references:
+  - "ADR-f3d7ea3d-2959-41ec-8170-9678815196d0"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:29:25+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [検査・起票・生成を 1 つの CLI のサブコマンドとして持つ](single-cli-with-subcommands.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q25）で確定
 
 ## 背景

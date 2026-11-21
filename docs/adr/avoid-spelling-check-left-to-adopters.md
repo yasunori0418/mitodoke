@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q12）で確定"
 justifies:
   - "REQ-f78bd468-dd61-4564-9287-aec3a8ad6ba4"
+references:
+  - "ADR-aa5502df-77b9-41cc-94e9-1480ab6500ce"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:49:27+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # 避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [export は sara 0.12 の items\[\] の形を写して固定し、OKF のキーを加える](export-shape-fixed-from-sara-items.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q12）で確定
 
 ## 背景

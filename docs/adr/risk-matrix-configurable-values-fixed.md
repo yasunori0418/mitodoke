@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q33）で確定"
 justifies:
   - "REQ-cfa09935-9066-433a-a3ef-05ca83ad9a22"
+references:
+  - "ADR-7f1ac4f7-75b3-4837-9825-025a23f1673b"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:32:38+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # level の導出表を設定で変えられるようにし、値の集合は固定する
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](default-strength-fail-structure-report-gaps.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q33）で確定
 
 ## 背景

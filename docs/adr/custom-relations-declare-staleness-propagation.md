@@ -14,15 +14,16 @@ justifies:
   - "REQ-73e736ca-7c31-4c0a-9448-80fb29347f1d"
 references:
   - "ADR-dfff5637-f0a4-4e5d-a57e-f4dd1e7dbb42"
+  - "ADR-c5dd9c1d-aaa0-44fd-b1d8-e0544f01b0dd"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:29:32+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # 再確認待ちは、設定で宣言した独自の relation も辿る
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: [鮮度は上流の relation を辿って下流へ伝播させる](freshness-propagates-along-upstream-relations.md), GitHub Issue #4
+- 関連: [鮮度は上流の relation を辿って下流へ伝播させる](freshness-propagates-along-upstream-relations.md), [独自の型・relation・フィールドは追加だけを許す](custom-definitions-additive-only.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q18）で確定
 
 ## 背景

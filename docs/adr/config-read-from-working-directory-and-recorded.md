@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q46・Q49）で確定"
 justifies:
   - "REQ-ecc41a24-b465-4ab9-ba1b-e56dc5f8a17c"
+references:
+  - "ADR-f2d8d15d-b62b-4a7a-ace0-d3a6fbeab30e"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:32:17+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # 設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [設定ファイルを mitodoke.yaml にし、独自の定義は sara の model.yaml と同じ書き方にする](config-file-mitodoke-yaml.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q46・Q49）で確定
 
 ## 背景

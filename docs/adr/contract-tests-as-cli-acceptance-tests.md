@@ -12,15 +12,17 @@ sources:
 origin: "2026-11-17 の grilling（Q19）で確定"
 justifies:
   - "TP-cf0c38d2-8929-4a69-adef-8d2dc63115df"
+references:
+  - "ADR-7bef3ffc-d2db-4da1-98d0-3678f57c3ea6"
 generated:
-  by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:36:15+09:00"
+  by: "claude-code/claude-fable-5-2"
+  at: "2026-11-21T18:24:29+09:00"
 ---
 # 写した契約テストを CLI の受け入れテストにする
 
 - ステータス: stable
 - 日付: 2026-11-17
-- 関連: GitHub Issue #4
+- 関連: [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](subcommands-split-by-function.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q19）で確定
 
 ## 背景
