@@ -19,7 +19,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:35:03+09:00"
+  at: "2026-11-21T16:45:19+09:00"
 ---
 # export は文書 1 件を item とし、sara 0.12 の items[] の形に OKF のキーを加えて出す
 
@@ -32,7 +32,7 @@ generated:
 この形は mitodoke の形として固定する。sara を上げて sara の形が変わっても、`export` の形は
 自動では変わらない。変えるかどうかは、mitodoke の側で決める。
 
-JSON のキーの名前と relation の表し方の細部は、この要求では定めない。
+写した形を `info` の下に置くときのキーの名前と、relation の表し方の細部は、この要求では定めない。
 
 ## 出典
 
