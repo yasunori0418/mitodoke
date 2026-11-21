@@ -110,7 +110,7 @@ field() { printf '%s\n' "$stdout_capture" | sed -n "s/^$1:[[:space:]]*//p"; }
 desc=(--description "起票テスト")
 # section を持つ型（requirement）の起票に渡す節の値。§12 は省略の拒否を確かめるために外す。
 # 偽の sara の節は仮ファイルに section を書かないので渡さない。
-sec=(--section cli)
+sec=(--section commands)
 generated_by="claude-code/sara-new-test"
 export SARA_NEW_GENERATED_BY="$generated_by"
 
@@ -613,7 +613,7 @@ fi
 
 # --section <値> と --section=<値> のどちらの綴りでも起票でき、その値が入る。
 sec_n=0
-for spelling in "--section|cli" "--section=cli"; do
+for spelling in "--section|commands" "--section=commands"; do
   if [[ "$spelling" == *"|"* ]]; then
     sec_spelled=("${spelling%%|*}" "${spelling#*|}")
   else
@@ -622,7 +622,7 @@ for spelling in "--section|cli" "--section=cli"; do
   sec_n=$((sec_n + 1))
   run_sara_new "$repo12" sara-new requirement "with-section-$sec_n" docs/requirements -- "${sec_spelled[@]}" "${desc[@]}"
   sec_file="$(field file)"
-  if [[ "$status_capture" -eq 0 ]] && grep -q '^section: cli$' "$repo12/$sec_file" 2>/dev/null; then
+  if [[ "$status_capture" -eq 0 ]] && grep -q '^section: commands$' "$repo12/$sec_file" 2>/dev/null; then
     pass "--section の綴り '$spelling' で起票でき、section が入る"
   else
     fault "--section の綴り '$spelling' で起票でき、section が入る（exit=$status_capture file=$sec_file stderr: $stderr_capture）"

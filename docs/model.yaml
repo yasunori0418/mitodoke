@@ -78,29 +78,6 @@ item_types:
         display_name: Section
         field_type: !enum
           values:
-            - architecture
-            - lib-api
-            - lib-mkmanifest
-            - lib-markers
-            - lib-mkapplycommand
-            - lib-input-validation
-            - cli
-            - cli-entrypoint
-            - cli-subcommands
-            - cli-output
-            - cli-json
-            - cli-flow
-            - cli-reproducibility
-            - entries-schema
-            - manifest-schema
-            - placement-symlink
-            - placement-rollback
-            - placement-copy
-            - generations
-            - root-resolution
-            - modules
-            - errors
-            - dependencies
             - product-scope
             - model-config
             - inspection
@@ -132,12 +109,6 @@ item_types:
         display_name: Section
         field_type: !enum
           values:
-            - project-layout
-            - layers
-            - flake-outputs
-            - core-logic
-            - module-integration
-            - test-strategy
             - product-scope
         required: true
       - *status_field
@@ -329,12 +300,6 @@ item_types:
             - freshness
             - inspection
             - adoption
-            - core
-            - input-output
-            - modes
-            - kinds
-            - state
-            - errors
         required: true
       - *status_field
       - *stale_after_field

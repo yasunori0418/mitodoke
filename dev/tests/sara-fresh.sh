@@ -83,7 +83,7 @@ req_spec='specification: |
   The fixture SHALL keep this requirement.
 specification_ja: |
   fixture はこの要求を保たなければならない。
-section: architecture'
+section: product-scope'
 
 SOL="SOL-5011a001-0000-4000-8000-000000000001"
 UC="UC-0ca11001-0000-4000-8000-000000000002"
@@ -326,7 +326,7 @@ generated:
   at: "2026-04-15T00:00:00+09:00"
 YAML
   item "$repo" dsg-old "$DSG_OLD" design "要求より古い設計" <<YAML
-section: core-logic
+section: product-scope
 status: stable
 satisfies:
   - "$REQ_FRESH"
