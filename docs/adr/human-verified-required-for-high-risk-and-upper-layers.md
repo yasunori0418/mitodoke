@@ -12,6 +12,7 @@ sources:
 origin: "issue #80 の grilling（2026-11-22）で確定。level が high の risk に人の verified を求める ADR を書き直した"
 justifies:
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
+  - "REQ-f27d4510-f215-403e-beda-b39fa824e368"
 supersedes:
   - "ADR-f27192ea-3ca8-4794-8a6a-805dd8ab323d"
 references:

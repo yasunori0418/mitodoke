@@ -13,6 +13,7 @@ origin: "issue #80 の grilling（2026-11-22）で確定"
 justifies:
   - "QA-3996a09e-f103-4b91-94b3-82764f97aa0c"
   - "QA-96fe5f3e-37bb-4094-bcf8-b9eeddbcf45b"
+  - "REQ-73949e27-20a9-4df4-9265-a7d7048d22fe"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:39:58+09:00"

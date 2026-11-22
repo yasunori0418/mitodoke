@@ -12,6 +12,7 @@ sources:
 origin: "issue #80 の grilling（2026-11-22）で確定。棄却した提案の要件と設計は提案の形の題で deprecated にして残す ADR を書き直した"
 justifies:
   - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
+  - "REQ-05cc6e6a-6440-429f-8447-16bd7b192d9c"
 supersedes:
   - "ADR-fb902413-ff78-45b2-9ddd-3fc25f493208"
 references:

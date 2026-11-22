@@ -12,6 +12,7 @@ sources:
 origin: "issue #80 の grilling（2026-11-22）で確定"
 justifies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
+  - "REQ-f27d4510-f215-403e-beda-b39fa824e368"
 references:
   - "ADR-996af7b5-ed7c-4bb6-826f-0de50052f53e"
   - "ADR-05ab6fb0-899b-46e7-a853-82ed1b6857ff"
