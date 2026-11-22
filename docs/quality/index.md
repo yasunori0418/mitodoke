@@ -14,6 +14,7 @@
 * [solution の確認の問い](./review-questions-for-solution.md) - solution に人の確認を記録する前に人が答える、3 つの確認の問い。
 * [use_case の確認の問い](./review-questions-for-use-case.md) - use_case に人の確認を記録する前に人が答える、3 つの確認の問い。
 * [risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る](./risk-attaches-to-requirement-by-default.md) - risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る
+* [risk は ISO/IEC 25010:2023 の品質特性を 1 つ持ち、リスクを持たない特性は対象外の宣言を除いて列挙する](./risk-carries-one-quality-characteristic.md) - risk は ISO/IEC 25010:2023 の 9 つの品質特性から 1 つを quality_characteristic に持ち、有効な risk を持たない特性は、理由付きの対象外の宣言を除いて機械的に列挙する。
 * [risk の level は likelihood と impact から導き、手で決めない](./risk-level-derived-from-likelihood-and-impact.md) - risk の likelihood と impact を決まった尺度で採点し、level はその 2 つから導く
 * [sara は必要なときに上げ、組み込む版と配る版を同じタグに揃える](./sara-version-upgrade-policy.md) - sara のタグを上げる時機と、上げるときに組み込む版と配る版を同じタグに揃えて確かめる手順を定める。
 * [specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える](./specification-shall-family-and-matching-auxiliaries.md) - specification は SHALL 系で書き、specification_ja は同じ強度の規範助動詞で終える

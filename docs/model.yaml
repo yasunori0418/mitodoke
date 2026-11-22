@@ -358,6 +358,22 @@ item_types:
             - low
         required: true
         placeholder: medium
+      # ISO/IEC 25010:2023 の 9 つの品質特性のうち、この risk が脅かす 1 つ。
+      # 2 つの特性にまたがるリスクは risk を分ける。
+      - name: quality_characteristic
+        display_name: Quality Characteristic
+        field_type: !enum
+          values:
+            - functional_suitability
+            - performance_efficiency
+            - compatibility
+            - interaction_capability
+            - reliability
+            - security
+            - maintainability
+            - flexibility
+            - safety
+        required: true
       # index.md の節。値と並び順は dev/tests/test-categories.tsv の区分と同じにする。
       - name: section
         display_name: Section

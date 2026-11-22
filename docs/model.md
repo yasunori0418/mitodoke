@@ -62,6 +62,7 @@ type になる。使えるプレースホルダは `{prefix}` / `{id}` / `{seq[:
 | `adr` | `origin` | 起点となったセッション等の散文。任意 |
 | `adr` | `sources` | 起点となった GitHub Issue 等の出典。書き方は「OKF 互換の frontmatter」節 |
 | `risk` | `likelihood` / `impact` / `level` | `high` / `medium` / `low`。採点規約と `level` の導出は [risk の level は likelihood と impact から導き、手で決めない](quality/risk-level-derived-from-likelihood-and-impact.md) |
+| `risk` | `quality_characteristic` | ISO/IEC 25010:2023 の 9 つの品質特性のうち、この risk が脅かす 1 つ。必須の enum。2 つの特性にまたがるリスクは risk を分ける。値と日本語名の対応は [risk は ISO/IEC 25010:2023 の品質特性を 1 つ持ち、リスクを持たない特性は対象外の宣言を除いて列挙する](quality/risk-carries-one-quality-characteristic.md) が持つ |
 | `test_case` | `resource` | 対応するテスト資産の正準表記（単一値）|
 | `ubiquitous_term` | `name_ja` | 日本語の正名。英語のまま使う語では省く。英語の正名は sara の組み込みフィールドの `name` に置く |
 | `ubiquitous_term` | `avoid` | 執筆で使わない綴りのリスト。任意。綴りだけを書き、説明は本文に置く |

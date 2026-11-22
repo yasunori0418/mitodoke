@@ -19,6 +19,7 @@ sara-new risk lock-ordering docs/risks -- \
   --description "<item の 1 文の要約>" \
   --section "<テストの区分>" \
   --threatens "<REQ / DSG のフル ID>" \
+  --quality-characteristic reliability \
   --likelihood medium --impact high --level high
 ```
 
@@ -33,6 +34,9 @@ sara-new risk lock-ordering docs/risks -- \
   （`risk` は `dev/tests/test-categories.tsv`）。
 - `stale_after` を必須にする型（`solution`）で `--stale-after`（`--stale-after=…` でもよい）を省くと、`sara-new` は
   起票せず exit 2 で落ちる。`sara init` が `TBD` を書くためである。
+- `quality_characteristic` を持つ型（`risk`）で `--quality-characteristic`（`--quality-characteristic=…` でもよい）を
+  省くと、`sara-new` は起票せず exit 2 で落ちる。`sara init` が enum の先頭の値を入れるためである。取りうる値は
+  `docs/model.yaml` にある `risk` の `quality_characteristic` の enum。
 - `--` 以降に `--description`（`-d` / `--description=…` でもよい）が無ければ、起票せず exit 2 で
   落ちる。環境変数 `SARA_NEW_GENERATED_BY` が空か未設定のときも exit 2 で落ちる。どちらも
   ファイルを作らない。

@@ -314,6 +314,7 @@ threatens:
 likelihood: medium
 impact: medium
 level: medium
+quality_characteristic: reliability
 generated:
   by: "claude-code/fixture"
   at: "2026-03-20T00:00:00+09:00"
@@ -387,6 +388,7 @@ threatens:
 likelihood: $level
 impact: $level
 level: $level
+quality_characteristic: reliability
 generated:
   by: "claude-code/fixture"
   at: "2026-05-01T01:00:00+09:00"$verified

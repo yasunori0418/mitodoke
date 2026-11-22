@@ -9,6 +9,7 @@ threatens:
 likelihood: medium
 impact: medium
 level: medium
+quality_characteristic: reliability
 ---
 # RISK-33330003: design を脅かすリスク
 

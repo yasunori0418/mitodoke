@@ -70,6 +70,7 @@
 * [複数の失敗方向を持つ risk は最も重い方向で採点する](./risk-heaviest-direction.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決めた。1 つのrisk が複数の失敗の仕方を持ち、方向によって回復できる度合いが違うとき、どの方向で採点するかを決める必要があった。 (stable)
 * [risk の impact を検出後の回復可能性で採点する](./risk-impact-as-recoverability.md) - risk の `impact` の high 行は、「ユーザー環境・実データの破壊」と「沈黙の不整合を残すこと」を並べていた。気づかれないまま通る脅威は、開発の中に留まるものでも high を採る読み方だった。 (stable)
 * [risk の親に test_plan を含めない](./risk-parent-excludes-test-plan.md) - test_plan を設けた（[テスト計画の型を品質方針の型から分けて設ける](quality-and-test-plan-types.md)）ことで、risk の親に test_plan を加えるかどうかを決める必要があった。テスト計画はどの risk を扱うかを述べるので、両者には関係がある。 (stable)
+* [risk に ISO/IEC 25010:2023 の品質特性を 1 つ必須で持たせる](./risk-quality-characteristic.md) - risk に ISO/IEC 25010:2023 の 9 つの品質特性で固定した enum の quality_characteristic を必須で持たせ、リスクを持たない特性を、対象外の宣言を除いて報告する。 (stable)
 * [沈黙性を risk のスコア軸にせず本文に書く](./silence-not-a-score-axis.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決め、`impact` から沈黙の不整合を外した。気づけるかどうかは脅威の性質として重要な情報で、捨てるには惜しい。これをどこに残すかを決める必要があった。 (stable)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (stable)
 

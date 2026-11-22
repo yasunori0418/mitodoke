@@ -688,4 +688,45 @@ else
   fault "stale_after を必須にしない型（use_case）は --stale-after なしで起票できる（exit=$status_capture file=$nostale_uc_file stderr: $stderr_capture）"
 fi
 
+
+# --- 14. risk の --quality-characteristic --------------------------------------
+#
+# sara init は --quality-characteristic が無くても enum の先頭の値を入れるため、sara-new が省略を拒否する。
+
+repo14="$work/quality-characteristic"
+make_repo "$repo14"
+risk_sec=(--section engine-core)
+
+run_sara_new "$repo14" sara-new risk no-quality-characteristic docs/risks -- "${risk_sec[@]}" "${desc[@]}"
+noqc_files="$(find "$repo14/docs" -name '*.md' -type f | wc -l)"
+noqc_tmp="$(find "$repo14/docs" -name '.sara-new-*' | wc -l)"
+if [[ "$status_capture" -eq 2 && "$stderr_capture" == *"--quality-characteristic"* && "$stderr_capture" == *"docs/model.yaml"* ]]; then
+  pass "risk を --quality-characteristic なしで起票すると exit 2 で拒否し、理由を出す"
+else
+  fault "risk を --quality-characteristic なしで起票すると exit 2 で拒否し、理由を出す（exit=$status_capture stderr: $stderr_capture）"
+fi
+if [[ "$noqc_files" -eq 0 && "$noqc_tmp" -eq 0 ]]; then
+  pass "--quality-characteristic の省略を拒否したとき、ファイルも一時ディレクトリも残さない"
+else
+  fault "--quality-characteristic の省略を拒否したとき、ファイルも一時ディレクトリも残さない（md $noqc_files 件 / tmp $noqc_tmp 件）"
+fi
+
+# --quality-characteristic <値> と --quality-characteristic=<値> のどちらの綴りでも起票でき、その値が入る。
+qc_n=0
+for spelling in "--quality-characteristic|security" "--quality-characteristic=security"; do
+  if [[ "$spelling" == *"|"* ]]; then
+    qc_spelled=("${spelling%%|*}" "${spelling#*|}")
+  else
+    qc_spelled=("$spelling")
+  fi
+  qc_n=$((qc_n + 1))
+  run_sara_new "$repo14" sara-new risk "with-quality-characteristic-$qc_n" docs/risks -- "${qc_spelled[@]}" "${risk_sec[@]}" "${desc[@]}"
+  qc_file="$(field file)"
+  if [[ "$status_capture" -eq 0 ]] && grep -q '^quality_characteristic: security$' "$repo14/$qc_file" 2>/dev/null; then
+    pass "--quality-characteristic の綴り '$spelling' で risk を起票でき、quality_characteristic が入る"
+  else
+    fault "--quality-characteristic の綴り '$spelling' で risk を起票でき、quality_characteristic が入る（exit=$status_capture file=$qc_file stderr: $stderr_capture）"
+  fi
+done
+
 exit "$fail"
