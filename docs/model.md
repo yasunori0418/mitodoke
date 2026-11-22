@@ -129,14 +129,16 @@ verified:
 item の**基準時刻**はその item の `generated.at` と、`generated.at` 以降の `verified[].at`
 （actor を問わない）のうち最も新しい時刻とする。`verified` が無い item では `generated.at` が基準時刻になる。
 
-`generated` と `verified` は文書の鮮度と信頼を確かめる 3 つの確認に使われる。どれも結果を報告に留める。
+`generated` と `verified` は文書の鮮度と信頼を確かめる 4 つの確認に使われる。どれも結果を報告に留める。
 
 - 再確認待ち: 上流の relation のうち `justifies` を除く 7 種で指している item の `generated.at` が、
   自身の基準時刻より新しい item を挙げる。peer の relation は対象にしない（→ [上流より古い item と generated の更新漏れは機械的に列挙する](quality/stale-items-enumerated-mechanically.md)）
 - `generated` の更新漏れ: base との差分で本文が変わったのに `generated.at` が変わっていない item を挙げる
   （→ 同上）
 - 人の確認が無い high の risk: `level` が high の risk のうち、`generated.at` 以降の `human:` の `verified` を
-  持たないものを挙げる（→ [level が high の risk は人が確かめた記録を持つ](quality/high-risk-verified-by-human.md)）
+  持たないものを挙げる（→ [level が high の risk と、有効な solution と use_case は人が確かめた記録を持つ](quality/high-risk-verified-by-human.md)）
+- 人の確認が無い `solution` と `use_case`: 有効な（`status` が `deprecated` でないもの。`draft` を含む） `solution` と `use_case` のうち、
+  `generated.at` 以降の `human:` の `verified` を持たないものを挙げる（→ 同上）
 
 再確認待ちと人の確認が無い high の risk は、devShell の `sara-fresh` が列挙する。`generated` の更新漏れは、`--base <ref>` を渡した `sara-fresh` が列挙する。
 

@@ -6,7 +6,7 @@
 * [ドキュメントグラフのトレーサビリティは機械的に検証する](./document-graph-mechanically-verified.md) - 文書間の参照が指す先を失う、というずれ方は「気づいた人が直す」運用では検出できない。存在しない ID への参照・ID の重複・循環は、人が読んで気づく類の誤りではないため、機械検証に置く。
 * [フル ID は frontmatter だけに書き、散文では item にリンクで触れる](./full-ids-in-frontmatter-links-in-prose.md) - ID はフル UUIDv4 で frontmatter だけに書き、ファイル名は slug とし、散文では name を文字列にしたリンクで item に触れる
 * [用語の正名は用語 item が固定し、執筆はそれに従う](./glossary-fixes-canonical-terms.md) - 同じ概念が箇所ごとに違う語で呼ばれると、読み手は同じものを指しているのか判断できず、検索も当たらなくなる。正名を 1 箇所で固定し、執筆はそこに従う。
-* [level が high の risk は人が確かめた記録を持つ](./high-risk-verified-by-human.md) - level が high の risk は、generated.at 以降に人が内容を確かめた verified を持つ
+* [level が high の risk と、有効な solution と use_case は人が確かめた記録を持つ](./high-risk-verified-by-human.md) - level が high の risk と、status が deprecated でない solution と use_case は、generated.at 以降に人が内容を確かめた verified を持つ
 * [規範の型は、それが誰を縛るかで決める](./norm-type-by-who-it-binds.md) - 規範の型は、それが誰を縛るかで requirement・quality・test_plan から選ぶ
 * [規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ](./normative-items-placement-and-authoring.md) - 規範を手書きの文書と item の両方に書くと二重管理になり、改訂で片方だけが古くなる。規範の所在をグラフ側に一本化し、型ごとの item の一覧はグラフから生成した index.md が持つ。各ディレクトリの手書きの README.md は、item から導けない全体像の散文だけを持つ。この分担は文書の分量ではなく**どちらを正とするか**の宣言であり、README.md へ仕様や item の一覧を書き足すことは規範の複製にあたる。
 * [文書管理の規範と決定は mitodoke のリポジトリで変える](./norms-and-decisions-changed-in-mitodoke.md) - 写した時点から、文書管理の規範と決定を mitodoke のリポジトリだけで変えることを定める。
