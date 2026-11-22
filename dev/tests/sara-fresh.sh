@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# sara-fresh（再検証待ちの item・generated の更新漏れ・人の確認が無い high の risk の列挙コマンド）の検証。
+# sara-fresh（再検証待ちの item・generated の更新漏れ・人の確認が無い high の risk と solution・use_case・
+# stale_after の期限切れと間隔の超過の列挙コマンド）の検証。
 # item と sara.toml は一時ディレクトリに作り、実物の docs/model.yaml を重ねる。
 #
 # 実行:
@@ -25,6 +26,9 @@ if [[ ! -f "$model_yaml" ]]; then
   fault "docs/model.yaml を解決できない（model.yaml=$model_yaml）"
   exit 1
 fi
+
+# 現在時刻を固定し、fixture の stale_after が実時間の経過で期限切れにならないようにする。
+export SARA_FRESH_NOW="2026-07-01T00:00:00+09:00"
 
 run_fresh() {
   stdout_capture="$("$@" 2>/dev/null)" && status_capture=0 || status_capture=$?
@@ -398,13 +402,29 @@ YAML
 h_stale='## 再検証待ち（上流の generated.at が基準時刻より新しい item）'
 h_risk='## human: の verified が無い high の risk'
 h_validation='## human: の verified が無い solution と use_case'
+h_expired='## stale_after の期限切れ（stale_after が現在時刻より前の item）'
+h_interval='## stale_after の間隔の超過（stale_after が起点 + 間隔の日数より先の item）'
 
-# 欠けの無いグラフの準備: 有効な solution と use_case に、generated.at 以降の human: の verified を持たせる。
+# 型と日数の TSV を <パス> に書く。1 行目はヘッダで、残りの引数は「型:日数」。
+write_intervals() {
+  local path=$1 pair
+  shift
+  mkdir -p "$(dirname "$path")"
+  {
+    printf 'type\tdays\n'
+    for pair in "$@"; do printf '%s\t%s\n' "${pair%%:*}" "${pair#*:}"; done
+  } >"$path"
+}
+
+# 欠けの無いグラフの準備: 有効な solution と use_case に、generated.at 以降の human: の verified と、
+# 現在時刻より後で起点から 90 日以内の stale_after を持たせ、既定のパスに solution の間隔の TSV を置く。
 verify_upper() {
   local f
   for f in sol sol-new uc uc-new; do
     sed -i 's|^generated:$|verified:\n  - by: "human:fixture"\n    at: "2026-06-20T00:00:00+09:00"\ngenerated:|' "$1/docs/$f.md"
+    sed -i '/^stale_after:/d; s|^status: \(.*\)$|status: \1\nstale_after: "2026-09-01T00:00:00+09:00"|' "$1/docs/$f.md"
   done
+  write_intervals "$1/dev/tests/stale-after-intervals.tsv" solution:90
 }
 
 base="$work/base"
@@ -416,7 +436,7 @@ run_fresh env SARA_FRESH_ROOT="$base" sara-fresh
 out="$stdout_capture"
 
 assert_eq "列挙があれば exit 1" 1 "$status_capture"
-assert_eq "見出しを 3 つ、この順に出す" "$(printf '%s\n' "$h_stale" "$h_risk" "$h_validation")" "$(grep '^## ' <<<"$out")"
+assert_eq "見出しを 5 つ、この順に出す" "$(printf '%s\n' "$h_stale" "$h_risk" "$h_validation" "$h_expired" "$h_interval")" "$(grep '^## ' <<<"$out")"
 
 sec_stale="$(section_body "$h_stale" "$out")"
 assert_has "上流が新しい下流を挙げる" "^$REQ_STALE"$'\t' "$sec_stale"
@@ -464,7 +484,7 @@ run_fresh env SARA_FRESH_ROOT="$base" sara-fresh --json
 json="$stdout_capture"
 
 assert_eq "--json でも exit code は同じ（列挙あり = 1）" 1 "$status_capture"
-assert_eq "--json は stale・unverified_high_risk・unverified_validation のキーを持つ" "stale,unverified_high_risk,unverified_validation" \
+assert_eq "--json は 5 つの節のキーを持つ" "expired,stale,stale_after_beyond_interval,unverified_high_risk,unverified_validation" \
   "$(jq -r 'keys | join(",")' <<<"$json" 2>/dev/null)"
 assert_eq "stale の要素のキーは file / id / name / upstreams" '["file,id,name,upstreams"]' \
   "$(jq -c '[.stale[] | keys | join(",")] | unique' <<<"$json" 2>/dev/null)"
@@ -508,6 +528,89 @@ run_fresh env SARA_FRESH_ROOT="$validation" sara-fresh --json
 assert_eq "エージェントの確認だけの solution と、generated.at より前の人の確認だけの use_case を挙げ、同じ時刻の人の確認を持つ use_case は挙げない" \
   "$SOL_NEW,$UC_NEW" "$(jq -r '[.unverified_validation[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
 
+# --- 3c. stale_after の期限切れ ------------------------------------------------
+
+assert_eq "期限の切れた item も間隔の TSV も無いグラフでは 2 節とも空" "0:0" \
+  "$(jq -r '"\(.expired | length):\(.stale_after_beyond_interval | length)"' <<<"$json" 2>/dev/null)"
+
+# 現在時刻（2026-06-30T15:00:00Z）より前・同じ時刻・deprecated・solution 以外の型の stale_after を置く。
+expiry="$work/expiry"
+make_graph "$expiry"
+sed -i 's|^stale_after: .*|stale_after: "2026-06-30T23:59:59+09:00"|' "$expiry/docs/sol.md"
+sed -i 's|^stale_after: .*|stale_after: "2026-06-30T15:00:00Z"|' "$expiry/docs/sol-new.md"
+sed -i 's|^status: deprecated$|status: deprecated\nstale_after: "2026-01-01T00:00:00+09:00"|' "$expiry/docs/uc-dep.md"
+sed -i 's|^status: stable$|status: stable\nstale_after: "2026-05-01T00:00:00+09:00"|' "$expiry/docs/req-fresh.md"
+run_fresh env SARA_FRESH_ROOT="$expiry" sara-fresh
+assert_eq "stale_after が現在時刻より前の有効な item を型を問わず ID 順に挙げ、同じ時刻と deprecated は挙げない" \
+  "$REQ_FRESH"$'\t'"上流より新しい要求"$'\t'"docs/req-fresh.md"$'\n'"$SOL"$'\t'"根"$'\t'"docs/sol.md" \
+  "$(section_body "$h_expired" "$stdout_capture" | grep -v '^$')"
+run_fresh env SARA_FRESH_ROOT="$expiry" SARA_FRESH_NOW="2026-05-02T00:00:00+09:00" sara-fresh --json
+assert_eq "SARA_FRESH_NOW で現在時刻を差し替える" "$REQ_FRESH" \
+  "$(jq -r '[.expired[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
+run_fresh env -u SARA_FRESH_NOW SARA_FRESH_ROOT="$expiry" sara-fresh --json
+assert_eq "SARA_FRESH_NOW が無ければ実際の現在時刻と比べる（2026-06-30 の期限はどれも切れている）" "$REQ_FRESH,$SOL,$SOL_NEW" \
+  "$(jq -r '[.expired[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
+run_fresh env SARA_FRESH_ROOT="$expiry" SARA_FRESH_NOW="2026-05-02T00:00:00+09:00" sara-fresh --json
+assert_eq "--json の expired の要素のキーは file / id / name" '["file,id,name"]' \
+  "$(jq -c '[.expired[] | keys | join(",")] | unique' <<<"$stdout_capture" 2>/dev/null)"
+
+# --- 3d. stale_after の間隔の超過 ----------------------------------------------
+
+SOL_ORIGIN="SOL-5011a003-0000-4000-8000-000000000055"
+SOL_DEP="SOL-5011a004-0000-4000-8000-000000000056"
+interval="$work/interval"
+make_graph "$interval"
+# 起点は generated.at（2026-01-01）。ちょうど 90 日後は挙げない。
+sed -i 's|^stale_after: .*|stale_after: "2026-04-01T00:00:00+09:00"|' "$interval/docs/sol.md"
+# 起点は generated.at 以降の最新の human: の verified（2026-06-20）。エージェントの確認と generated.at より前の確認は起点を動かさない。
+sed -i 's|^stale_after: .*|stale_after: "2026-09-18T00:00:01+09:00"|' "$interval/docs/sol-new.md"
+sed -i 's|^generated:$|verified:\n  - by: "human:fixture"\n    at: "2026-05-01T00:00:00+09:00"\n  - by: "human:fixture"\n    at: "2026-06-20T00:00:00+09:00"\n  - by: "claude-code/fixture"\n    at: "2026-08-01T00:00:00+09:00"\ngenerated:|' "$interval/docs/sol-new.md"
+item "$interval" sol-origin "$SOL_ORIGIN" solution "人の確認で起点が進んだ根" <<'YAML'
+status: stable
+stale_after: "2026-08-30T00:00:00+09:00"
+generated:
+  by: "human:fixture"
+  at: "2026-01-01T00:00:00+09:00"
+verified:
+  - by: "human:fixture"
+    at: "2026-06-01T00:00:00+09:00"
+YAML
+item "$interval" sol-dep "$SOL_DEP" solution "廃止した根" <<'YAML'
+status: deprecated
+stale_after: "2030-01-01T00:00:00+09:00"
+generated:
+  by: "human:fixture"
+  at: "2026-01-01T00:00:00+09:00"
+YAML
+# 間隔の行の無い型は検査しない。
+sed -i 's|^status: stable$|status: stable\nstale_after: "2030-01-01T00:00:00+09:00"|' "$interval/docs/uc.md"
+write_intervals "$work/intervals-solution.tsv" solution:90
+
+run_fresh env SARA_FRESH_ROOT="$interval" SARA_FRESH_INTERVALS="$work/intervals-solution.tsv" sara-fresh
+assert_eq "stale_after が起点 + N 日より先の有効な item だけを挙げる" \
+  "$SOL_NEW"$'\t'"新しい根"$'\t'"docs/sol-new.md" \
+  "$(section_body "$h_interval" "$stdout_capture" | grep -v '^$')"
+run_fresh env SARA_FRESH_ROOT="$interval" SARA_FRESH_INTERVALS="$work/intervals-solution.tsv" sara-fresh --json
+assert_eq "--json の stale_after_beyond_interval の要素のキーは file / id / name" '["file,id,name"]' \
+  "$(jq -c '[.stale_after_beyond_interval[] | keys | join(",")] | unique' <<<"$stdout_capture" 2>/dev/null)"
+write_intervals "$work/intervals-use-case.tsv" solution:90 use_case:30
+run_fresh env SARA_FRESH_ROOT="$interval" SARA_FRESH_INTERVALS="$work/intervals-use-case.tsv" sara-fresh --json
+assert_eq "行を足した型は検査する" "$SOL_NEW,$UC" \
+  "$(jq -r '[.stale_after_beyond_interval[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
+
+# 既定のパスの TSV を読み、SARA_FRESH_INTERVALS はそれに代わり、ファイルが無ければ検査しない。
+write_intervals "$interval/dev/tests/stale-after-intervals.tsv" solution:90
+run_fresh env SARA_FRESH_ROOT="$interval" sara-fresh --json
+assert_eq "既定のパスの間隔の TSV を読む" "$SOL_NEW" \
+  "$(jq -r '[.stale_after_beyond_interval[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
+write_intervals "$work/intervals-header-only.tsv"
+run_fresh env SARA_FRESH_ROOT="$interval" SARA_FRESH_INTERVALS="$work/intervals-header-only.tsv" sara-fresh --json
+assert_eq "SARA_FRESH_INTERVALS のヘッダだけの TSV が既定のパスに代わる" "0" \
+  "$(jq -r '.stale_after_beyond_interval | length' <<<"$stdout_capture" 2>/dev/null)"
+run_fresh env SARA_FRESH_ROOT="$interval" SARA_FRESH_INTERVALS="$work/no-such.tsv" sara-fresh --json
+assert_eq "SARA_FRESH_INTERVALS のファイルが無ければ間隔を検査しない" "0" \
+  "$(jq -r '.stale_after_beyond_interval | length' <<<"$stdout_capture" 2>/dev/null)"
+
 # --- 4. 列挙が空なら exit 0 ----------------------------------------------------
 
 clean="$work/clean"
@@ -517,11 +620,35 @@ verify_upper "$clean"
 
 run_fresh env SARA_FRESH_ROOT="$clean" sara-fresh
 assert_eq "列挙が空なら exit 0" 0 "$status_capture"
-assert_eq "空の節は「なし」と出す" 3 "$(grep -c '^なし$' <<<"$stdout_capture")"
+assert_eq "空の節は「なし」と出す" 5 "$(grep -c '^なし$' <<<"$stdout_capture")"
 
 run_fresh env SARA_FRESH_ROOT="$clean" sara-fresh --json
-assert_eq "--json でも列挙が空なら exit 0 で 3 配列が空" '0:{"stale":[],"unverified_high_risk":[],"unverified_validation":[]}' \
+assert_eq "--json でも列挙が空なら exit 0 で 5 配列が空" '0:{"stale":[],"unverified_high_risk":[],"unverified_validation":[],"expired":[],"stale_after_beyond_interval":[]}' \
   "$status_capture:$(jq -c '.' <<<"$stdout_capture" 2>/dev/null)"
+
+# 欠けの無いグラフで、人の確認の欠けだけが残っても exit 1 になる。
+only_unverified="$work/only-unverified"
+make_graph "$only_unverified"
+rm "$only_unverified"/docs/{req-stale,req-ver-before,req-two,risk-old,tc-old,case-old,dsg-old,uc-old,risk-none,risk-agent,risk-human-before}.md
+verify_upper "$only_unverified"
+sed -i '/^verified:$/,/^    at:/d' "$only_unverified/docs/uc-new.md"
+run_fresh env SARA_FRESH_ROOT="$only_unverified" sara-fresh --json
+assert_eq "人の確認の無い use_case だけで exit 1" "1:$UC_NEW" \
+  "$status_capture:$(jq -r '[.stale, .unverified_high_risk, .expired, .stale_after_beyond_interval, .unverified_validation | .[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
+
+# 欠けの無いグラフで、期限切れだけ・間隔の超過だけが残っても exit 1 になる。
+only_expired="$work/only-expired"
+make_graph "$only_expired"
+rm "$only_expired"/docs/{req-stale,req-ver-before,req-two,risk-old,tc-old,case-old,dsg-old,uc-old,risk-none,risk-agent,risk-human-before}.md
+verify_upper "$only_expired"
+sed -i 's|^stale_after: .*|stale_after: "2026-06-01T00:00:00+09:00"|' "$only_expired/docs/sol.md"
+run_fresh env SARA_FRESH_ROOT="$only_expired" sara-fresh --json
+assert_eq "期限切れだけで exit 1" "1:1:0" \
+  "$status_capture:$(jq -r '"\(.expired | length):\(.stale_after_beyond_interval | length)"' <<<"$stdout_capture" 2>/dev/null)"
+sed -i 's|^stale_after: .*|stale_after: "2026-12-31T00:00:00+09:00"|' "$only_expired/docs/sol.md"
+run_fresh env SARA_FRESH_ROOT="$only_expired" sara-fresh --json
+assert_eq "間隔の超過だけで exit 1" "1:0:1" \
+  "$status_capture:$(jq -r '"\(.expired | length):\(.stale_after_beyond_interval | length)"' <<<"$stdout_capture" 2>/dev/null)"
 
 # --- 5. exit 2 -----------------------------------------------------------------
 
@@ -571,6 +698,17 @@ expect_exit2 "verified の at を時刻として読めない item" env SARA_FRES
 assert_has "verified の at を読めない item のファイル名を stderr に挙げる" '^  \./docs/req-ver-after\.md: verified の at' \
   "$(env SARA_FRESH_ROOT="$bad_verified_at" sara-fresh 2>&1 >/dev/null)"
 
+bad_stale_after="$work/bad-stale-after"
+make_graph "$bad_stale_after"
+sed -i 's|^stale_after: .*|stale_after: "TBD"|' "$bad_stale_after/docs/sol.md"
+expect_exit2 "stale_after を時刻として読めない item" env SARA_FRESH_ROOT="$bad_stale_after" sara-fresh
+assert_has "stale_after を読めない item のファイル名を stderr に挙げる" '^  \./docs/sol\.md: stale_after' \
+  "$(env SARA_FRESH_ROOT="$bad_stale_after" sara-fresh 2>&1 >/dev/null)"
+
+expect_exit2 "時刻として読めない SARA_FRESH_NOW" env SARA_FRESH_ROOT="$base" SARA_FRESH_NOW="tomorrow" sara-fresh
+assert_has "読めない SARA_FRESH_NOW は stderr でその旨を知らせる" 'SARA_FRESH_NOW' \
+  "$(env SARA_FRESH_ROOT="$base" SARA_FRESH_NOW="tomorrow" sara-fresh 2>&1 >/dev/null)"
+
 # 偽の sara で JSON の形の異常を再現する。shebang はサンドボックスに /usr/bin/env が無いため実行中の bash の絶対パスを埋め込む。
 fake_sara() {
   {
@@ -598,7 +736,7 @@ expect_exit2 "exit 0 でも valid: false の JSON" env SARA_FRESH_ROOT="$base" S
 
 fake_sara "$work/fake-empty" '{"items": [], "valid": true}'
 run_fresh env SARA_FRESH_ROOT="$base" SARA_FRESH_SARA="$work/fake-empty" sara-fresh --json
-assert_eq "item が 0 件なら exit 0" '0:{"stale":[],"unverified_high_risk":[],"unverified_validation":[]}' \
+assert_eq "item が 0 件なら exit 0" '0:{"stale":[],"unverified_high_risk":[],"unverified_validation":[],"expired":[],"stale_after_beyond_interval":[]}' \
   "$status_capture:$(jq -c '.' <<<"$stdout_capture" 2>/dev/null)"
 
 # --- 6. 走査先をリポジトリルート基準で解決する ---------------------------------
@@ -631,9 +769,9 @@ g add -A
 g commit -q -m base
 run_fresh env SARA_FRESH_ROOT="$grepo" sara-fresh --base main
 assert_eq "--base で全節が空なら exit 0" 0 "$status_capture"
-assert_eq "--base で空の 4 節は「なし」と出す" 4 "$(grep -c '^なし$' <<<"$stdout_capture")"
+assert_eq "--base で空の 6 節は「なし」と出す" 6 "$(grep -c '^なし$' <<<"$stdout_capture")"
 run_fresh env SARA_FRESH_ROOT="$grepo" sara-fresh --base main --json
-assert_eq "--base の --json で全節が空なら exit 0 で 4 配列が空" '0:{"stale":[],"generated_not_updated":[],"unverified_high_risk":[],"unverified_validation":[]}' \
+assert_eq "--base の --json で全節が空なら exit 0 で 6 配列が空" '0:{"stale":[],"generated_not_updated":[],"unverified_high_risk":[],"unverified_validation":[],"expired":[],"stale_after_beyond_interval":[]}' \
   "$status_capture:$(jq -c '.' <<<"$stdout_capture" 2>/dev/null)"
 printf '本文を足した。\n' >>"$grepo/docs/req-fresh.md"
 run_fresh env SARA_FRESH_ROOT="$grepo" sara-fresh --base main
@@ -696,7 +834,7 @@ printf '未コミットの改名で本文も変えた。\n' >>"$diffrepo/docs/tc
 run_fresh env SARA_FRESH_ROOT="$diffrepo" sara-fresh --base main
 out="$stdout_capture"
 assert_eq "--base で更新漏れがあれば exit 1" 1 "$status_capture"
-assert_eq "--base では見出しを 4 つ、節の番号順に出す" "$(printf '%s\n' "$h_stale" "$h_gen" "$h_risk" "$h_validation")" "$(grep '^## ' <<<"$out")"
+assert_eq "--base では見出しを 6 つ、節の番号順に出す" "$(printf '%s\n' "$h_stale" "$h_gen" "$h_risk" "$h_validation" "$h_expired" "$h_interval")" "$(grep '^## ' <<<"$out")"
 
 sec_gen="$(section_body "$h_gen" "$out")"
 assert_has "本文を変えて generated.at を据え置いた item を挙げる" "^$REQ_STALE"$'\t' "$sec_gen"
@@ -721,7 +859,7 @@ assert_eq "節 2 の行は <フル ID>\\t<name>\\t<file> の形" \
 
 run_fresh env SARA_FRESH_ROOT="$diffrepo" sara-fresh --base main --json
 json="$stdout_capture"
-assert_eq "--base の --json は generated_not_updated のキーを足す" "generated_not_updated,stale,unverified_high_risk,unverified_validation" \
+assert_eq "--base の --json は generated_not_updated のキーを足す" "expired,generated_not_updated,stale,stale_after_beyond_interval,unverified_high_risk,unverified_validation" \
   "$(jq -r 'keys | join(",")' <<<"$json" 2>/dev/null)"
 assert_eq "generated_not_updated は 5 件を ID 順に並べる" "$REQ_STALE,$REQ_DEP_UP,$RISK_OLD,$TC_OLD,$UC_NEW" \
   "$(jq -r '[.generated_not_updated[].id] | join(",")' <<<"$json" 2>/dev/null)"
@@ -729,7 +867,7 @@ assert_eq "generated_not_updated の要素のキーは file / id / name" '["file
   "$(jq -c '[.generated_not_updated[] | keys | join(",")] | unique' <<<"$json" 2>/dev/null)"
 
 run_fresh env SARA_FRESH_ROOT="$diffrepo" sara-fresh
-assert_eq "--base が無ければ節 2 を出さない" "$(printf '%s\n' "$h_stale" "$h_risk" "$h_validation")" "$(grep '^## ' <<<"$stdout_capture")"
+assert_eq "--base が無ければ節 2 を出さない" "$(printf '%s\n' "$h_stale" "$h_risk" "$h_validation" "$h_expired" "$h_interval")" "$(grep '^## ' <<<"$stdout_capture")"
 
 expect_exit2 "解決できない --base の ref" env SARA_FRESH_ROOT="$diffrepo" sara-fresh --base no-such-ref
 assert_has "解決できない ref は stderr に ref を挙げる" 'no-such-ref' \

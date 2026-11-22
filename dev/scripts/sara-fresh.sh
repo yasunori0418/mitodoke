@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# 上流より古い item、generated の更新漏れ、人の確認が無い high の risk を列挙する。
+# 上流より古い item、generated の更新漏れ、人の確認が無い high の risk と solution・use_case、
+# stale_after の期限切れと間隔の超過を列挙する。
 #
 #   sara-fresh [--json] [--base <ref>]
 #
 # exit code は 0 = 列挙なし / 1 = 列挙あり / 2 = 引数の誤り・sara check の失敗・JSON の形の異常・
-# frontmatter を読めない item・--base の ref を解決できないか merge-base が無い。
+# frontmatter を読めない item・SARA_FRESH_NOW を時刻として読めない・--base の ref を解決できないか merge-base が無い。
 
 set -euo pipefail
 
@@ -21,14 +22,21 @@ sara ドキュメントグラフの item を generated / verified で確かめ�
      新規と削除の item は比べず、改名した item は同じ ID を持つ旧パスの内容と比べる
   3. level が high の risk のうち、generated.at 以降の human: の verified を持たないもの
   4. solution と use_case のうち、generated.at 以降の human: の verified を持たないもの
+  5. stale_after が現在時刻より前の item（期限切れ）
+  6. 間隔の TSV に行のある型の item のうち、stale_after が「起点 + N 日」より先のもの（間隔の超過）。
+     起点は generated.at 以降の最新の human: の verified の時刻で、無ければ generated.at
 
 基準時刻は generated.at と、generated.at 以降の verified[].at のうち最も新しい時刻。
 status が deprecated の item はどの節でも扱わない。
+現在時刻は SARA_FRESH_NOW（UTC オフセット付きの ISO 8601）で差し替えられる。間隔は型と日数の 2 列の
+TSV（1 行目はヘッダ）から読む。パスは既定で <リポジトリの根>/dev/tests/stale-after-intervals.tsv で、
+SARA_FRESH_INTERVALS で差し替えられる。ファイルが無ければ節 6 の検査をしない。
 
 exit code:
   0  出力したどの節も空
   1  いずれかの節が空でない
   2  引数の誤り・sara check の失敗・JSON の形の異常・frontmatter を読めない item・
+     SARA_FRESH_NOW を時刻として読めない・
      --base の ref を解決できないか HEAD との merge-base が無い
 EOF
 }
@@ -81,6 +89,13 @@ if [ "$base_set" -eq 1 ]; then
   fi
 fi
 
+# 型ごとの stale_after の間隔の TSV。ファイルが無ければ間隔を検査しない。
+intervals_file=${SARA_FRESH_INTERVALS:-$repo_root/dev/tests/stale-after-intervals.tsv}
+intervals=''
+if [ -f "$intervals_file" ]; then
+  intervals=$(<"$intervals_file")
+fi
+
 # sara 呼び出しの seam（テストが JSON の形の異常を再現するため）。
 sara_cmd=${SARA_FRESH_SARA:-sara}
 
@@ -125,7 +140,8 @@ if [ "${#files[@]}" -gt 0 ]; then
 fi
 
 # frontmatter は item 数に比例して大きく、引数長の上限を超えるため、ファイルとして渡す。
-if ! result=$(printf '%s' "$graph" | jq --slurpfile fm <(printf '%s\n' "$frontmatter") '
+if ! result=$(printf '%s' "$graph" | jq --slurpfile fm <(printf '%s\n' "$frontmatter") \
+  --arg now_raw "${SARA_FRESH_NOW-}" --arg intervals "$intervals" '
   # UTC オフセット付きの ISO 8601 を epoch 秒へ直す。読めない値は null。
   def epoch:
     if type != "string" then null
@@ -139,14 +155,19 @@ if ! result=$(printf '%s' "$graph" | jq --slurpfile fm <(printf '%s\n' "$frontma
     end;
   def upstream_relations: ["refines", "derives_from", "satisfies", "threatens", "mitigates", "covers", "follows"];
 
-  ($fm | map({key: .file, value: .}) | from_entries) as $by_file
+  ($now_raw | if . == "" then now else epoch end) as $now_ep
+  | ([$intervals | split("\n") | .[1:][] | split("\t") | select(.[0] != "")
+      | {key: .[0], value: (.[1] | tonumber)}] | from_entries) as $interval_days
+  | ($fm | map({key: .file, value: .}) | from_entries) as $by_file
   | [.items[]
      | select(.fields.status? != "deprecated")
      | ($by_file[.file] // {}) as $f
      | . + {
          gen_at: $f.generated.at?,
          gen_ep: ($f.generated.at? | epoch),
-         verified_raw: $f.verified
+         verified_raw: $f.verified,
+         stale_at: .fields.stale_after?,
+         stale_ep: (.fields.stale_after? | epoch)
        }
      | . + {verified: (if (.verified_raw | type) == "array"
                        then [.verified_raw[] | {by: (.by? // ""), at: .at?, ep: (.at? | epoch)}]
@@ -154,9 +175,11 @@ if ! result=$(printf '%s' "$graph" | jq --slurpfile fm <(printf '%s\n' "$frontma
   | [$items[]
      | (if .gen_ep == null then "\(.file): generated.at を時刻として読めない（実際: \(.gen_at // "無し")）" else empty end),
        (if .verified_raw != null and .verified == null then "\(.file): verified がリストでない" else empty end),
-       (.file as $file | .verified // [] | .[] | select(.ep == null) | "\($file): verified の at を時刻として読めない（実際: \(.at // "無し")）")
+       (.file as $file | .verified // [] | .[] | select(.ep == null) | "\($file): verified の at を時刻として読めない（実際: \(.at // "無し")）"),
+       (if .stale_at != null and .stale_ep == null then "\(.file): stale_after を時刻として読めない（実際: \(.stale_at)）" else empty end)
     ] as $errors
-  | if ($errors | length) > 0 then {errors: $errors}
+  | if $now_ep == null then {now_error: $now_raw}
+    elif ($errors | length) > 0 then {errors: $errors}
     else
       ($items | map(.gen_ep as $g | . + {base_ep: ([$g] + [(.verified // [])[] | .ep | select(. >= $g)]) | max})
        | map({key: .id, value: .}) | from_entries) as $by_id
@@ -180,10 +203,25 @@ if ! result=$(printf '%s' "$graph" | jq --slurpfile fm <(printf '%s\n' "$frontma
           | select(.type == "solution" or .type == "use_case")
           | .gen_ep as $g
           | select([(.verified // [])[] | select((.by | startswith("human:")) and .ep >= $g)] | length == 0)
+          | row] | sort_by(.id)),
+        expired: ([$by_id[]
+          | select(.stale_ep != null and .stale_ep < $now_ep)
+          | row] | sort_by(.id)),
+        stale_after_beyond_interval: ([$by_id[]
+          | .type as $t
+          | select(.stale_ep != null and ($interval_days | has($t)))
+          | .gen_ep as $g
+          | ([$g] + [(.verified // [])[] | select((.by | startswith("human:")) and .ep >= $g) | .ep] | max) as $origin
+          | select(.stale_ep > $origin + $interval_days[$t] * 86400)
           | row] | sort_by(.id))
       }
     end'); then
   echo "sara-fresh: sara check の JSON と frontmatter を突き合わせられない" >&2
+  exit 2
+fi
+
+if printf '%s' "$result" | jq -e 'has("now_error")' >/dev/null; then
+  echo "sara-fresh: SARA_FRESH_NOW を時刻として読めない: ${SARA_FRESH_NOW-}" >&2
   exit 2
 fi
 
@@ -250,7 +288,7 @@ if [ "$base_set" -eq 1 ]; then
   # result は引数長の上限を超えうるため標準入力で渡す。
   result=$(printf '%s' "$result" | jq --rawfile rows <(printf '%s' "$rows") '
     ([$rows | split("\n")[] | select(. != "") | split("\t") | {id: .[0], name: .[1], file: .[2]}] | sort_by(.id)) as $gen
-    | {stale, generated_not_updated: $gen, unverified_high_risk, unverified_validation}')
+    | {stale, generated_not_updated: $gen, unverified_high_risk, unverified_validation, expired, stale_after_beyond_interval}')
 fi
 
 if [ "$json_out" -eq 1 ]; then
@@ -273,9 +311,16 @@ else
     + [""]
     + section("human: の verified が無い solution と use_case";
       [.unverified_validation[] | "\(.id)\t\(.name)\t\(.file)"])
+    + [""]
+    + section("stale_after の期限切れ（stale_after が現在時刻より前の item）";
+      [.expired[] | "\(.id)\t\(.name)\t\(.file)"])
+    + [""]
+    + section("stale_after の間隔の超過（stale_after が起点 + 間隔の日数より先の item）";
+      [.stale_after_beyond_interval[] | "\(.id)\t\(.name)\t\(.file)"])
     | .[]'
 fi
 
-if printf '%s' "$result" | jq -e '[.stale, .generated_not_updated // [], .unverified_high_risk, .unverified_validation | length] | add > 0' >/dev/null; then
+if printf '%s' "$result" | jq -e '[.stale, .generated_not_updated // [], .unverified_high_risk, .unverified_validation,
+  .expired, .stale_after_beyond_interval | length] | add > 0' >/dev/null; then
   exit 1
 fi
