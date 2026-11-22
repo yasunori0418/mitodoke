@@ -261,6 +261,41 @@ AI を活用した開発では、実用上可能な範囲で、E2E
 -   具体的な必要性がないまま SARA を再実装すること。
 -   コアモデルに特定のプログラミング言語、テストフレームワーク、アプリケーションアーキテクチャを要求すること。
 
+### テストプロセスとホリスティックテスティングとの対応
+
+mitodoke は ISTQB CTFL v4.0.1 のテストプロセスと、[ホリスティックテスティング](https://janetgregory.ca/testing-from-a-holistic-point-of-view/)に沿います。日本語の用語は JSTQB FL シラバス 2023V4.0.J02 から採ります。グラフが持つのは規範で、出来事は持ちません。そのため、テストの実行や進捗のように出来事を扱う活動は、グラフの外に置きます。
+
+ISTQB のテストプロセスの活動は、mitodoke の次の要素に当たります。
+
+| ISTQB の活動 | mitodoke |
+|---|---|
+| テスト計画 | `test_plan`、`risk`、対象外の品質特性の宣言 |
+| モニタリングとコントロール | グラフの外。未カバーと鮮度の報告が材料になる |
+| テスト分析 | `risk`、`test_condition`、`human_judgement`。テストベースのレビューは確認の問いと人の確認 |
+| テスト設計・テスト実装 | `test_case` 1 本に畳む |
+| テスト実行 | グラフの外（CI のログ） |
+| テスト完了 | グラフの外。教訓だけを、欠陥とフィードバックの追補で上流に戻す |
+
+ホリスティックテスティングの段階は、mitodoke の次の要素に当たります。
+
+| ホリスティックテスティングの段階 | mitodoke |
+|---|---|
+| Discovery | `solution`、`use_case`（`deprecated` を含む）、確認の問い、`stale_after` |
+| Planning | `test_plan`、`risk` の品質特性、対象外の宣言 |
+| Understanding | `requirement`、`design`、`risk`、`test_condition` |
+| Building | 自動の `test_case` |
+| Deploying・Releasing | `test_plan` に従う `test_case`。実行の記録は外 |
+| Observability | 計装の `requirement`。観測の結果は外 |
+| Learning | フィードバックを受けて確認の問いで読み直す `quality` の規範 |
+
+適合しない点は次の 3 つです。
+
+-   「`test_condition` は必ず `risk` を経由する」（§5.1）は、ISTQB より厳しい独自の規則である。ISTQB はテスト条件をテストベースから導き、リスクは定義と優先順位付けで考慮する
+-   ループの右側は、ISTQB の Foundation Level に根拠が無い（本番環境でのテストへの言及が無い）。根拠はホリスティックテスティングだけである
+-   実行・進捗・完了の記録は持たない
+
+品質特性の参照には注記があります。ISTQB CTFL v4.0.1 が引く ISO/IEC 25010 は 2023 年版で、JSTQB FL シラバス 2023V4.0.J02 が引くのは 2011 年版です。`risk` の品質特性は 2023 年版の 9 つの特性で表し、日本語名は JIS X 25010（2023 年版に対応する改正）から採ります。この差は参照する版の違いで、適合しない点には数えません。
+
 ## 11. 設計原則
 
 以下は、mitodoke が目指す方向性をまとめた原則です。
