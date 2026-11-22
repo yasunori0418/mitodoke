@@ -20,6 +20,7 @@ sara ドキュメントグラフの item を generated / verified で確かめ�
      行から、"# " で始まる H1 の行・"- ステータス:" で始まる行・空白だけの差を除いたもの。
      新規と削除の item は比べず、改名した item は同じ ID を持つ旧パスの内容と比べる
   3. level が high の risk のうち、generated.at 以降の human: の verified を持たないもの
+  4. solution と use_case のうち、generated.at 以降の human: の verified を持たないもの
 
 基準時刻は generated.at と、generated.at 以降の verified[].at のうち最も新しい時刻。
 status が deprecated の item はどの節でも扱わない。
@@ -174,6 +175,11 @@ if ! result=$(printf '%s' "$graph" | jq --slurpfile fm <(printf '%s\n' "$frontma
           | select(.type == "risk" and .fields.level? == "high")
           | .gen_ep as $g
           | select([(.verified // [])[] | select((.by | startswith("human:")) and .ep >= $g)] | length == 0)
+          | row] | sort_by(.id)),
+        unverified_validation: ([$by_id[]
+          | select(.type == "solution" or .type == "use_case")
+          | .gen_ep as $g
+          | select([(.verified // [])[] | select((.by | startswith("human:")) and .ep >= $g)] | length == 0)
           | row] | sort_by(.id))
       }
     end'); then
@@ -244,7 +250,7 @@ if [ "$base_set" -eq 1 ]; then
   # result は引数長の上限を超えうるため標準入力で渡す。
   result=$(printf '%s' "$result" | jq --rawfile rows <(printf '%s' "$rows") '
     ([$rows | split("\n")[] | select(. != "") | split("\t") | {id: .[0], name: .[1], file: .[2]}] | sort_by(.id)) as $gen
-    | {stale, generated_not_updated: $gen, unverified_high_risk}')
+    | {stale, generated_not_updated: $gen, unverified_high_risk, unverified_validation}')
 fi
 
 if [ "$json_out" -eq 1 ]; then
@@ -264,9 +270,12 @@ else
     + [""]
     + section("human: の verified が無い high の risk";
       [.unverified_high_risk[] | "\(.id)\t\(.name)\t\(.file)"])
+    + [""]
+    + section("human: の verified が無い solution と use_case";
+      [.unverified_validation[] | "\(.id)\t\(.name)\t\(.file)"])
     | .[]'
 fi
 
-if printf '%s' "$result" | jq -e '[.stale, .generated_not_updated // [], .unverified_high_risk | length] | add > 0' >/dev/null; then
+if printf '%s' "$result" | jq -e '[.stale, .generated_not_updated // [], .unverified_high_risk, .unverified_validation | length] | add > 0' >/dev/null; then
   exit 1
 fi

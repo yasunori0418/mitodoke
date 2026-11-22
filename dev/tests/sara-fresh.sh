@@ -397,6 +397,15 @@ YAML
 
 h_stale='## 再検証待ち（上流の generated.at が基準時刻より新しい item）'
 h_risk='## human: の verified が無い high の risk'
+h_validation='## human: の verified が無い solution と use_case'
+
+# 欠けの無いグラフの準備: 有効な solution と use_case に、generated.at 以降の human: の verified を持たせる。
+verify_upper() {
+  local f
+  for f in sol sol-new uc uc-new; do
+    sed -i 's|^generated:$|verified:\n  - by: "human:fixture"\n    at: "2026-06-20T00:00:00+09:00"\ngenerated:|' "$1/docs/$f.md"
+  done
+}
 
 base="$work/base"
 make_graph "$base"
@@ -407,7 +416,7 @@ run_fresh env SARA_FRESH_ROOT="$base" sara-fresh
 out="$stdout_capture"
 
 assert_eq "列挙があれば exit 1" 1 "$status_capture"
-assert_eq "見出しを 2 つ、この順に出す" "$(printf '%s\n' "$h_stale" "$h_risk")" "$(grep '^## ' <<<"$out")"
+assert_eq "見出しを 3 つ、この順に出す" "$(printf '%s\n' "$h_stale" "$h_risk" "$h_validation")" "$(grep '^## ' <<<"$out")"
 
 sec_stale="$(section_body "$h_stale" "$out")"
 assert_has "上流が新しい下流を挙げる" "^$REQ_STALE"$'\t' "$sec_stale"
@@ -455,7 +464,7 @@ run_fresh env SARA_FRESH_ROOT="$base" sara-fresh --json
 json="$stdout_capture"
 
 assert_eq "--json でも exit code は同じ（列挙あり = 1）" 1 "$status_capture"
-assert_eq "--json は stale と unverified_high_risk のキーを持つ" "stale,unverified_high_risk" \
+assert_eq "--json は stale・unverified_high_risk・unverified_validation のキーを持つ" "stale,unverified_high_risk,unverified_validation" \
   "$(jq -r 'keys | join(",")' <<<"$json" 2>/dev/null)"
 assert_eq "stale の要素のキーは file / id / name / upstreams" '["file,id,name,upstreams"]' \
   "$(jq -c '[.stale[] | keys | join(",")] | unique' <<<"$json" 2>/dev/null)"
@@ -475,18 +484,43 @@ assert_eq "unverified_high_risk の ID は 3 件を ID 順に並べる" "$RISK_N
 assert_eq "--json の file は docs/ 前置" "docs/risk-none.md" \
   "$(jq -r '.unverified_high_risk[0].file' <<<"$json" 2>/dev/null)"
 
+# --- 3b. human: の verified が無い solution と use_case ------------------------
+
+sec_validation="$(section_body "$h_validation" "$out")"
+assert_eq "verified の無い有効な solution と use_case を ID 順に挙げ、deprecated の use_case は挙げない" \
+  "$(printf '%s\n' "$SOL" "$SOL_NEW" "$UC" "$UC_NEW" "$UC_OLD")" "$(cut -f1 <<<"$sec_validation")"
+assert_eq "人の確認の節の行は <フル ID>\\t<name>\\t<file> の形" \
+  "$SOL"$'\t'"根"$'\t'"docs/sol.md" "$(grep "^$SOL" <<<"$sec_validation")"
+assert_eq "--json の unverified_validation は text と同じ 5 件で、要素のキーは file / id / name" \
+  "$SOL,$SOL_NEW,$UC,$UC_NEW,$UC_OLD:[\"file,id,name\"]" \
+  "$(jq -r '"\([.unverified_validation[].id] | join(",")):\([.unverified_validation[] | keys | join(",")] | unique | tojson)"' <<<"$json" 2>/dev/null)"
+
+# 人の確認を持たせたうえで、エージェントの確認だけの solution と、generated.at より前の人の確認だけの use_case を作る。
+validation="$work/validation"
+make_graph "$validation"
+verify_upper "$validation"
+sed -i 's|^generated:$|verified:\n  - by: "human:fixture"\n    at: "2026-06-20T00:00:00+09:00"\ngenerated:|' "$validation/docs/uc-old.md"
+sed -i 's|^  - by: "human:fixture"$|  - by: "claude-code/fixture"|' "$validation/docs/sol-new.md"
+sed -i 's|^    at: "2026-06-20T00:00:00+09:00"$|    at: "2026-03-01T00:00:00+09:00"|' "$validation/docs/uc-new.md"
+# generated.at（2026-03-01T00:00:00+09:00）と同じ時刻の人の確認は、確認として数える。
+sed -i 's|^    at: "2026-06-20T00:00:00+09:00"$|    at: "2026-02-28T15:00:00Z"|' "$validation/docs/uc.md"
+run_fresh env SARA_FRESH_ROOT="$validation" sara-fresh --json
+assert_eq "エージェントの確認だけの solution と、generated.at より前の人の確認だけの use_case を挙げ、同じ時刻の人の確認を持つ use_case は挙げない" \
+  "$SOL_NEW,$UC_NEW" "$(jq -r '[.unverified_validation[].id] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
+
 # --- 4. 列挙が空なら exit 0 ----------------------------------------------------
 
 clean="$work/clean"
 make_graph "$clean"
 rm "$clean"/docs/{req-stale,req-ver-before,req-two,risk-old,tc-old,case-old,dsg-old,uc-old,risk-none,risk-agent,risk-human-before}.md
+verify_upper "$clean"
 
 run_fresh env SARA_FRESH_ROOT="$clean" sara-fresh
 assert_eq "列挙が空なら exit 0" 0 "$status_capture"
-assert_eq "空の節は「なし」と出す" 2 "$(grep -c '^なし$' <<<"$stdout_capture")"
+assert_eq "空の節は「なし」と出す" 3 "$(grep -c '^なし$' <<<"$stdout_capture")"
 
 run_fresh env SARA_FRESH_ROOT="$clean" sara-fresh --json
-assert_eq "--json でも列挙が空なら exit 0 で 2 配列が空" '0:{"stale":[],"unverified_high_risk":[]}' \
+assert_eq "--json でも列挙が空なら exit 0 で 3 配列が空" '0:{"stale":[],"unverified_high_risk":[],"unverified_validation":[]}' \
   "$status_capture:$(jq -c '.' <<<"$stdout_capture" 2>/dev/null)"
 
 # --- 5. exit 2 -----------------------------------------------------------------
@@ -564,7 +598,7 @@ expect_exit2 "exit 0 でも valid: false の JSON" env SARA_FRESH_ROOT="$base" S
 
 fake_sara "$work/fake-empty" '{"items": [], "valid": true}'
 run_fresh env SARA_FRESH_ROOT="$base" SARA_FRESH_SARA="$work/fake-empty" sara-fresh --json
-assert_eq "item が 0 件なら exit 0" '0:{"stale":[],"unverified_high_risk":[]}' \
+assert_eq "item が 0 件なら exit 0" '0:{"stale":[],"unverified_high_risk":[],"unverified_validation":[]}' \
   "$status_capture:$(jq -c '.' <<<"$stdout_capture" 2>/dev/null)"
 
 # --- 6. 走査先をリポジトリルート基準で解決する ---------------------------------
@@ -590,15 +624,16 @@ g() { git -C "$grepo" -c user.name=fixture -c user.email=fixture@example.invalid
 grepo="$work/diffclean"
 make_graph "$grepo"
 rm "$grepo"/docs/{req-stale,req-ver-before,req-two,risk-old,tc-old,case-old,dsg-old,uc-old,risk-none,risk-agent,risk-human-before}.md
+verify_upper "$grepo"
 printf '\n本文 の 行。\n' >>"$grepo/docs/req-fresh.md"
 g init -q -b main
 g add -A
 g commit -q -m base
 run_fresh env SARA_FRESH_ROOT="$grepo" sara-fresh --base main
 assert_eq "--base で全節が空なら exit 0" 0 "$status_capture"
-assert_eq "--base で空の 3 節は「なし」と出す" 3 "$(grep -c '^なし$' <<<"$stdout_capture")"
+assert_eq "--base で空の 4 節は「なし」と出す" 4 "$(grep -c '^なし$' <<<"$stdout_capture")"
 run_fresh env SARA_FRESH_ROOT="$grepo" sara-fresh --base main --json
-assert_eq "--base の --json で全節が空なら exit 0 で 3 配列が空" '0:{"stale":[],"generated_not_updated":[],"unverified_high_risk":[]}' \
+assert_eq "--base の --json で全節が空なら exit 0 で 4 配列が空" '0:{"stale":[],"generated_not_updated":[],"unverified_high_risk":[],"unverified_validation":[]}' \
   "$status_capture:$(jq -c '.' <<<"$stdout_capture" 2>/dev/null)"
 printf '本文を足した。\n' >>"$grepo/docs/req-fresh.md"
 run_fresh env SARA_FRESH_ROOT="$grepo" sara-fresh --base main
@@ -661,7 +696,7 @@ printf '未コミットの改名で本文も変えた。\n' >>"$diffrepo/docs/tc
 run_fresh env SARA_FRESH_ROOT="$diffrepo" sara-fresh --base main
 out="$stdout_capture"
 assert_eq "--base で更新漏れがあれば exit 1" 1 "$status_capture"
-assert_eq "--base では見出しを 3 つ、節の番号順に出す" "$(printf '%s\n' "$h_stale" "$h_gen" "$h_risk")" "$(grep '^## ' <<<"$out")"
+assert_eq "--base では見出しを 4 つ、節の番号順に出す" "$(printf '%s\n' "$h_stale" "$h_gen" "$h_risk" "$h_validation")" "$(grep '^## ' <<<"$out")"
 
 sec_gen="$(section_body "$h_gen" "$out")"
 assert_has "本文を変えて generated.at を据え置いた item を挙げる" "^$REQ_STALE"$'\t' "$sec_gen"
@@ -686,7 +721,7 @@ assert_eq "節 2 の行は <フル ID>\\t<name>\\t<file> の形" \
 
 run_fresh env SARA_FRESH_ROOT="$diffrepo" sara-fresh --base main --json
 json="$stdout_capture"
-assert_eq "--base の --json は generated_not_updated のキーを足す" "generated_not_updated,stale,unverified_high_risk" \
+assert_eq "--base の --json は generated_not_updated のキーを足す" "generated_not_updated,stale,unverified_high_risk,unverified_validation" \
   "$(jq -r 'keys | join(",")' <<<"$json" 2>/dev/null)"
 assert_eq "generated_not_updated は 5 件を ID 順に並べる" "$REQ_STALE,$REQ_DEP_UP,$RISK_OLD,$TC_OLD,$UC_NEW" \
   "$(jq -r '[.generated_not_updated[].id] | join(",")' <<<"$json" 2>/dev/null)"
@@ -694,7 +729,7 @@ assert_eq "generated_not_updated の要素のキーは file / id / name" '["file
   "$(jq -c '[.generated_not_updated[] | keys | join(",")] | unique' <<<"$json" 2>/dev/null)"
 
 run_fresh env SARA_FRESH_ROOT="$diffrepo" sara-fresh
-assert_eq "--base が無ければ節 2 を出さない" "$(printf '%s\n' "$h_stale" "$h_risk")" "$(grep '^## ' <<<"$stdout_capture")"
+assert_eq "--base が無ければ節 2 を出さない" "$(printf '%s\n' "$h_stale" "$h_risk" "$h_validation")" "$(grep '^## ' <<<"$stdout_capture")"
 
 expect_exit2 "解決できない --base の ref" env SARA_FRESH_ROOT="$diffrepo" sara-fresh --base no-such-ref
 assert_has "解決できない ref は stderr に ref を挙げる" 'no-such-ref' \
