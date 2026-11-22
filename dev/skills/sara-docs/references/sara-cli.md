@@ -31,6 +31,8 @@ sara-new risk lock-ordering docs/risks -- \
   `section` を持つ型で `--section`（`--section=…` でもよい）を省くと、`sara-new` は起票せず
   exit 2 で落ちる。値と index.md の見出しの対応は `dev/scripts/okf-index.sh` の表で確かめる
   （`risk` は `dev/tests/test-categories.tsv`）。
+- `stale_after` を必須にする型（`solution`）で `--stale-after`（`--stale-after=…` でもよい）を省くと、`sara-new` は
+  起票せず exit 2 で落ちる。`sara init` が `TBD` を書くためである。
 - `--` 以降に `--description`（`-d` / `--description=…` でもよい）が無ければ、起票せず exit 2 で
   落ちる。環境変数 `SARA_NEW_GENERATED_BY` が空か未設定のときも exit 2 で落ちる。どちらも
   ファイルを作らない。

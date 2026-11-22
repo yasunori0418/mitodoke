@@ -26,7 +26,7 @@
 * [ADR の issues を sources に移す](./adr-issues-to-sources.md) - ADR の外部参照の Issue を OKF の sources リストへ移し、origin は拡張キーとして残す (stable)
 * [adr の status_note を持たない](./adr-status-note-removed.md) - ADR のステータス行には「採用（2026-06-14 改訂: … → ADR-0015）」のようなカッコ書きの改訂注記が付いていた。enum の値に収まらないので、frontmatter に `status_note` フィールドを設けて受け皿にしていた。 (stable)
 * [item にできない外部参照は text フィールドへ逃がす](./external-references-as-text-fields.md) - ADR は GitHub の Issue や、決定の起点になったセッションを参照する。これらは sara の item ではないので、relation では表せない。relation の参照先は実在する item でなければならず、実在しない ID は破損した参照として検出される。 (stable)
-* [item に生成者・確認の記録・期限を持たせる](./generated-verified-stale-after.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after を任意で持たせ、入れ子キーの形を契約テストで確かめる (stable)
+* [item に生成者・確認の記録・期限のフィールドを持たせる](./generated-verified-stale-after-fields.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after の形を決め、入れ子キーの形を契約テストで確かめる (stable)
 * [OKF v0.2 と互換の frontmatter キーを item に足す](./okf-compatible-frontmatter.md) - OKF v0.2 と互換の frontmatter キーを sara の item に足す方針と、バンドル単位の適合を追わない範囲を決める (stable)
 * [status を OKF の 3 値にし全ての型に持たせる](./status-okf-values.md) - status を draft / stable / deprecated の 3 値にし、ADR 以外の型にも必須で持たせる (stable)
 * [test_case の target を resource に改名する](./test-case-resource-field.md) - test_case のテスト資産の正準表記を OKF の resource キーで持ち、値はリポジトリ根からのパスのままにする (stable)
@@ -37,6 +37,7 @@
 * [generated の更新漏れは PR の差分で確かめる](./generated-update-checked-in-pr-diff.md) - base との差分で本文が変わったのに generated.at が変わっていない item を挙げ、全履歴と時刻は比べない (stable)
 * [level が high の risk と、有効な solution と use_case に人の verified を求める](./human-verified-required-for-high-risk-and-upper-layers.md) - level が high の risk と、status が deprecated でない solution と use_case 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない。 (stable)
 * [sara check を strict モードで回す](./sara-check-strict-mode.md) - `sara check` は接続漏れを warning に留める設定で導入された。移行の途中では、まだ親を持たない item が正常に存在し、接続漏れを error にすると移行そのものが止まるためである。 (stable)
+* [solution に stale_after を必須にし、期限までの間隔を 90 日以内にする](./solution-requires-stale-after-within-interval.md) - solution に stale_after を必須にし、期限切れと、人の確認の時刻から 90 日より先の期限を報告して、人の確認と書き換えの両方で期限を延ばす。 (stable)
 
 ## ADR と規範文の書き方
 
@@ -144,6 +145,7 @@
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)
 * [ID はフル UUID に統一し 8 文字省略形を使わない](./full-uuid-ids-no-short-form.md) - item の正式 ID はフル UUIDv4 だが、ファイル名と散文中の参照には前方 8 文字の省略形を使っていた。フル UUID は人が読めないという前提への対処だった。 (deprecated)
 * [自動検証の形骸化は守備対象の impact を継承する](./gate-risk-inherits-impact.md) - 自動検証が気づかれないまま形骸化する risk（テストは緑なのに何も確認していない類）は、その自動検証自身が開発の中で完結する。`impact` を回復可能性で採点し（[risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md)）、沈黙性を軸から外す（[沈黙性を risk のスコア軸にせず本文に書く](silence-not-a-score-axis.md)）と、この類型はそのまま読めば low になる。 (deprecated)
+* [item に生成者・確認の記録・期限を持たせる](./generated-verified-stale-after.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after を任意で持たせ、入れ子キーの形を契約テストで確かめる (deprecated)
 * [level が high の risk に人の verified を求める](./human-verified-required-for-high-risk.md) - level が high の risk 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない (deprecated)
 * [ID の書き場所と省略形の禁止は起票の機械化と契約テストで担保する](./id-placement-enforced-by-contract-test.md) - フル ID の書き場所と 8 文字省略形の禁止を、起票ラッパーによる機械化と契約テスト link-text.sh の検出で担保する。 (deprecated)
 * [index.md の節は item の section から生成する](./index-sections-from-item-section.md) - requirement・design・ubiquitous_term の index.md は、item が持つ必須の enum フィールド section ごとに節を分けて生成し、見出しと並び順は生成スクリプトの表に置く (deprecated)

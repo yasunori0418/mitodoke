@@ -18,6 +18,7 @@ usage: sara-new <type> <slug> <dir> -- --description <要約> [<sara init option
   --     以降を sara init へそのまま渡す（--name / --specification …）。
          --description（-d）は必須
          section を持つ型（requirement / design / ubiquitous_term …）では --section も必須
+         stale_after を必須にする型（solution）では --stale-after も必須
 
 環境変数:
   SARA_NEW_GENERATED_BY  generated.by に書く actor（必須。例: human:<GitHub ID> /
@@ -146,6 +147,21 @@ if awk 'NR == 1 && $0 == "---" { open = 1; next } open && $0 == "---" { exit } o
   done
   if [ "$has_section" -eq 0 ]; then
     echo "sara-new: 型 $type は -- 以降に --section <節の値> が要る（取りうる値は docs/model.yaml にある $type の section の enum）" >&2
+    exit 2
+  fi
+fi
+
+# sara init は必須の stale_after が無いと TBD を書くため、stale_after を必須にする型（solution）では省略を拒否する。
+# 必須かは、仮ファイルの frontmatter に stale_after: の行があるかで判断する（任意の型では指定したときだけ行が出る）。
+if awk 'NR == 1 && $0 == "---" { open = 1; next } open && $0 == "---" { exit } open && /^stale_after:/ { found = 1; exit } END { exit found ? 0 : 1 }' "$tmp_file"; then
+  has_stale_after=0
+  for arg in "$@"; do
+    case "$arg" in
+      --stale-after | --stale-after=*) has_stale_after=1 ;;
+    esac
+  done
+  if [ "$has_stale_after" -eq 0 ]; then
+    echo "sara-new: 型 $type は -- 以降に --stale-after <UTC オフセット付きの ISO 8601 の時刻> が要る" >&2
     exit 2
   fi
 fi

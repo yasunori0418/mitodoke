@@ -23,12 +23,12 @@ item_types:
             - deprecated
         required: true
         placeholder: stable
-      # OKF の `stale_after`。値の形は sara でなく dev/tests/okf-frontmatter.sh が確かめる。
-      - &stale_after_field
-        name: stale_after
+      # OKF の `stale_after`。solution だけが必須にする。期限と間隔の規範は
+      # docs/quality/stale-items-enumerated-mechanically.md が持つ。
+      - name: stale_after
         display_name: Stale After
         field_type: date
-        required: false
+        required: true
     allowed_targets: []
 
   # ユーザーがどう使うか。docs/use-cases/。
@@ -40,7 +40,12 @@ item_types:
       - solution
     fields:
       - *status_field
-      - *stale_after_field
+      # OKF の `stale_after`。値の形は sara でなく dev/tests/okf-frontmatter.sh が確かめる。
+      - &stale_after_field
+        name: stale_after
+        display_name: Stale After
+        field_type: date
+        required: false
     allowed_targets:
       - relation: refines
         targets:

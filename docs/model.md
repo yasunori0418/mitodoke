@@ -52,7 +52,7 @@ type になる。使えるプレースホルダは `{prefix}` / `{id}` / `{seq[:
 | 型 | フィールド | 読み方 |
 |---|---|---|
 | 全て | `status` | `draft` / `stable` / `deprecated` の 3 値。必須 |
-| 全て | `stale_after` | 期限の時刻。任意。値の形は sara でなく `dev/tests/okf-frontmatter.sh` が確かめる |
+| 全て | `stale_after` | 期限の時刻。`solution` では必須、ほかの型では任意。値の形は sara でなく `dev/tests/okf-frontmatter.sh` が確かめる |
 | `requirement` / `quality` / `test_plan` | `specification` | 英語の規範文。RFC2119 キーワードを含める |
 | `requirement` / `quality` / `test_plan` | `specification_ja` | `specification` と対になる日本語の規範文。sara はこのフィールドを検査しない |
 | `requirement` / `design` / `ubiquitous_term` / `adr` / `risk` | `section` | 型ごとの index.md で item を載せる節。必須の enum で、取りうる値は `docs/model.yaml` が持つ。見出しの文言と節の並び順は `dev/scripts/okf-index.sh` の表が持ち、表に無い値があると生成が exit 2 で止まる。値を足すときは両方を直す。ただし `risk` の値はテストの区分と同じで、見出しと並び順は `dev/tests/test-categories.tsv` が持つ |
@@ -99,7 +99,7 @@ item は Open Knowledge Format（OKF）v0.2 と互換のキーを持つ。対応
 | `status` | 全て | `draft`（検討中でまだ有効でない）/ `stable`（有効）/ `deprecated`（もう有効でない。`requirement` / `design` では棄却した提案の記録も表す）の 3 値 |
 | `generated` | 全て | `by`（actor）と `at`（時刻）の組 |
 | `verified` | 全て | `generated` と同じ形の要素のリスト。任意 |
-| `stale_after` | 全て | 期限の時刻。任意 |
+| `stale_after` | 全て | 期限の時刻。`solution` では必須、ほかの型では任意 |
 | `sources` | `adr` | `id` / `resource` / `title` の組のリスト |
 | `resource` | `test_case` | 対応するテスト資産の正準表記 |
 
@@ -144,8 +144,13 @@ item の**基準時刻**はその item の `generated.at` と、`generated.at` �
 
 ### `stale_after`
 
-UTC オフセット付きの ISO 8601 の時刻を書く。外部ツールの版や公開状況など、期限のある事実を含む
-item にだけ書き手が付ける。
+UTC オフセット付きの ISO 8601 の時刻を書く。`solution` では必須で、ほかの型では外部ツールの版や
+公開状況など、期限のある事実を含む item にだけ書き手が付ける。
+
+時刻を過ぎた有効な item（`status` が `deprecated` でないもの。`draft` を含む）は[期限切れ](ubiquitous-language/expired.md)になる。期限切れが解けるのは、人が
+`stale_after` を先の時刻に書き換えたときだけである。`solution` の `stale_after` は、`generated.at` 以降で
+最も新しい `human:` の `verified` の時刻（無ければ `generated.at`）から 90 日以内に置く。期限を延ばすには、
+人の確認の記録と `stale_after` の書き換えの両方が要る（→ [上流より古い item と generated の更新漏れは機械的に列挙する](quality/stale-items-enumerated-mechanically.md)）。
 
 ### `sources`
 

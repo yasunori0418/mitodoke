@@ -132,6 +132,7 @@ TOML
 
   item "$repo" sol "$SOL" solution "根" <<'YAML'
 status: stable
+stale_after: "2027-01-01T00:00:00+09:00"
 generated:
   by: "human:fixture"
   at: "2026-01-01T00:00:00+09:00"
@@ -360,6 +361,7 @@ generated:
 YAML
   item "$repo" sol-new "$SOL_NEW" solution "新しい根" <<'YAML'
 status: stable
+stale_after: "2027-06-01T00:00:00+09:00"
 generated:
   by: "human:fixture"
   at: "2026-06-01T00:00:00+09:00"
