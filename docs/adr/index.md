@@ -44,7 +44,7 @@
 * [ADR は単独で覆せる 1 つの決定だけを書く](./adr-one-decision-granularity.md) - layat の ADR は、1 本に複数の決定を束ねて書いてきた。後から 1 つの決定だけを変えると、元の ADR に改訂注記を足して「この節だけが変わった」と示すしかない。改訂を 4 回以上受けた ADR は 13 本あり、どの決定がいまも有効かは注記を順に読んで組み立て直さないと分からなくなっていた。 (stable)
 * [ADR の失効は supersedes と 廃止 で表す](./adr-supersedes-and-deprecated-status.md) - `docs/model.yaml` は、ADR 間の関係として節単位の部分改訂を表す `revises` だけを持っていた。文書丸ごとの失効を表す `supersedes` と、ステータスの `廃止` は持たなかった。当時は丸ごと失効したADR の実例が無く、実例の無い関係を先に置くと部分改訂に誤用されると考えたためである。 (stable)
 * [item の出典は分割した時点のパスのまま残す](./provenance-keeps-split-time-paths.md) - item の `## 出典` にある分割した時点の文書のパスは書き換えず、出典の読み方は `docs/model.md` の 1 か所に置く (stable)
-* [棄却した提案の要件と設計は提案の形の題で deprecated にして残す](./rejected-proposals-deprecated.md) - 棄却した提案を記録する要件と設計は、提案の形の題と本文に棄却の記述を添え、status を deprecated にして残す。 (stable)
+* [棄却した提案の要求・要件・設計は提案の形の題で deprecated にして残す](./rejected-proposals-deprecated-including-use-cases.md) - 棄却した提案と作らないと決めた機能を記録する use_case・requirement・design は、提案の形の題と本文に棄却の記述を添え、status を deprecated にして残す。 (stable)
 * [specification の必須の強度を SHALL 系の綴りに固定する](./specification-shall-family-fixed.md) - specification の必須の強度は SHALL 系だけで書き、specification_ja は同じ強度の規範助動詞で終える。 (stable)
 
 ## 文書の配置と index.md の生成
@@ -150,6 +150,7 @@
 * [ID の書き場所と省略形の禁止は起票の機械化と契約テストで担保する](./id-placement-enforced-by-contract-test.md) - フル ID の書き場所と 8 文字省略形の禁止を、起票ラッパーによる機械化と契約テスト link-text.sh の検出で担保する。 (deprecated)
 * [index.md の節は item の section から生成する](./index-sections-from-item-section.md) - requirement・design・ubiquitous_term の index.md は、item が持つ必須の enum フィールド section ごとに節を分けて生成し、見出しと並び順は生成スクリプトの表に置く (deprecated)
 * [概要文書は item へのリンク集に縮退させる](./overview-docs-as-link-index.md) - [ドキュメントは sara のナレッジグラフとして item に分割する](docs-as-sara-knowledge-graph.md) と決めたので、`docs/spec.md`・`docs/design.md`・`docs/concept.md` の規範的な内容は item へ移る。元の 3 文書をどう扱うかを決める必要があった。 (deprecated)
+* [棄却した提案の要件と設計は提案の形の題で deprecated にして残す](./rejected-proposals-deprecated.md) - 棄却した提案を記録する要件と設計は、提案の形の題と本文に棄却の記述を添え、status を deprecated にして残す。 (deprecated)
 * [root は solution と ADR 系の型だけにする](./roots-solution-and-adr-types-only.md) - sara の接続漏れの判定は、item が `direction: upstream` の relation を実際に 1 本でも張っているかだけで決まる。型単位・item 単位で接続漏れの warning を抑止する設定は無い。 (deprecated)
 * [sara 品質管理機構の決定は sara_adr 型に分ける](./sara-adr-type-for-doc-process-decisions.md) - `docs/adr/` には、layat 本体の設計判断と、sara による品質管理機構（`docs/model.yaml`・グラフの検証・起票ラッパー・item の運用規約）の設計判断が混在していた。後者は layat に固有ではなく、#500 で別のリポジトリへ切り出す予定がある。 (deprecated)
 * [sara-id を廃止し sara init を包む起票ラッパーを使う](./sara-new-wrapper-replaces-sara-id.md) - `sara-id` は devShell 同梱の採番コマンドで、UUIDv4 の採番・8 文字の重複の確認・省略形の出力・型名からprefix への写像・ファイル名素材の組み立てを担っていた。item ファイルの作成は `sara init` が担当した。 (deprecated)
