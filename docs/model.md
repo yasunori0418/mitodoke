@@ -1,6 +1,6 @@
 # sara モデル（docs/model.yaml）の読み方
 
-`docs/model.yaml` は sara（https://github.com/cledouarec/sara）が `docs/` をナレッジグラフとして
+`docs/model.yaml` は [sara](https://github.com/cledouarec/sara)が `docs/` をナレッジグラフとして
 検証するための型定義で、sara の組み込みモデルを全面的に置き換える（部分マージはされない）。
 この文書は YAML だけでは読み取りにくい型・ID・フィールド・関係の意味を説明する。
 
