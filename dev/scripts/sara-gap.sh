@@ -11,7 +11,7 @@ usage() {
   cat >&2 <<'EOF'
 usage: sara-gap [--json]
 
-sara ドキュメントグラフの未カバーと到達率を 7 節で出す:
+sara ドキュメントグラフの未カバーと到達率を 11 節で出す:
   1. threatens も risk_exempt も無い requirement
   2. mitigates されていない risk
   3. covers されていない test_condition
@@ -19,10 +19,19 @@ sara ドキュメントグラフの未カバーと到達率を 7 節で出す:
   5. infrastructure に satisfies されていない quality
   6. risk_exempt を持つ requirement（情報）
   7. 到達率
+  8. 有効な requirement を持たない use_case
+  9. 親の use_case がすべて deprecated の requirement
+  10. 有効な risk を持たず、対象外にもしていない品質特性（ISO/IEC 25010:2023 の 9 特性）
+  11. human_judgement を持つ test_condition（情報）
+
+節 8〜11 は status が deprecated の item を除いて数える（draft は含む）。
+対象外の品質特性は、特性と理由の 2 列の TSV（1 行目はヘッダ）から読む。パスは既定で
+<リポジトリの根>/dev/tests/quality-characteristic-exclusions.tsv で、SARA_GAP_EXCLUSIONS で
+差し替えられる。ファイルが無ければ対象外なしとして扱う。
 
 exit code:
-  0  節 1〜5 が空で、到達率がすべて 1
-  1  節 1〜5 のいずれかが空でない、または到達率のいずれかが 1 未満
+  0  節 1〜5・8〜10 が空で、到達率がすべて 1
+  1  節 1〜5・8〜10 のいずれかが空でない、または到達率のいずれかが 1 未満
   2  sara check の失敗・JSON 形状の異常
 EOF
 }
@@ -53,6 +62,13 @@ cd "$repo_root" || {
   exit 2
 }
 
+# 対象外の品質特性の TSV。ファイルが無ければ対象外なし。
+exclusions_file=${SARA_GAP_EXCLUSIONS:-$repo_root/dev/tests/quality-characteristic-exclusions.tsv}
+exclusions=''
+if [ -f "$exclusions_file" ]; then
+  exclusions=$(<"$exclusions_file")
+fi
+
 # sara 呼び出しの seam（テストが JSON 形状異常を決定論的に再現するため）。
 sara_cmd=${SARA_GAP_SARA:-sara}
 
@@ -77,10 +93,12 @@ fi
 # 宣言辺（relations.<型> の ID 配列）から張り先の集合を作り、各段の未カバーを
 # 逆引きする 1 パス。relations を持たない item もあるので欠落は空配列に倒す。
 # file はリポジトリルート相対で ./ が前置されるので剥がす。
-gaps=$(printf '%s' "$graph" | jq '
+gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
   def targets(t): [.items[] | (.relations[t]? // [])[]] | unique;
   def row: {id, name, file: (.file | ltrimstr("./"))};
   def has_exempt: (.fields.risk_exempt? // "") != "";
+  def valid: .fields.status? != "deprecated";
+  def has_judgement: (.fields.human_judgement? // "") != "";
   def reach_of(f): length as $total | ([.[] | select(f)] | length) as $reached
     | {total: $total, reached: $reached, ratio: (if $total == 0 then 1 else $reached / $total end)};
   targets("threatens") as $threatened
@@ -95,6 +113,10 @@ gaps=$(printf '%s' "$graph" | jq '
       | (.relations.mitigates? // [])[]] | unique) as $case_backed_risks
   | ([.items[] | select(.type == "risk") | select(.id as $i | $case_backed_risks | index($i))
       | (.relations.threatens? // [])[]] | unique) as $chained_reqs
+  | ([.items[] | select(.type == "use_case") | {key: .id, value: valid}] | from_entries) as $uc_valid
+  | ([.items[] | select(.type == "requirement") | select(valid) | (.relations.derives_from? // [])[]] | unique) as $valid_req_parents
+  | ([$exclusions | split("\n") | .[1:][] | split("\t")[0] | select(. != "")]) as $excluded
+  | ([.items[] | select(.type == "risk" and valid) | .fields.quality_characteristic? // empty] | unique) as $risked
   | {
       unthreatened: ([.items[]
         | select(.type == "requirement")
@@ -114,6 +136,20 @@ gaps=$(printf '%s' "$graph" | jq '
         | select(.type == "quality")
         | select(.id as $i | ($inf_satisfied | index($i)) | not) | row] | sort_by(.id)),
       exempt: ([.items[] | select(.type == "requirement") | select(has_exempt) | row] | sort_by(.id)),
+      use_case_without_requirement: ([.items[]
+        | select(.type == "use_case" and valid)
+        | select(.id as $i | ($valid_req_parents | index($i)) | not) | row] | sort_by(.id)),
+      requirement_under_deprecated_use_case: ([.items[]
+        | select(.type == "requirement" and valid)
+        | [(.relations.derives_from? // [])[] | . as $p | select($uc_valid | has($p)) | $uc_valid[$p]] as $parents
+        | select(($parents | length) > 0 and ($parents | all(. == false))) | row] | sort_by(.id)),
+      # 9 特性の正本は docs/model.yaml の risk の quality_characteristic の enum。enum を変えたらここも合わせる。
+      quality_characteristic_without_risk: [
+        "functional_suitability", "performance_efficiency", "compatibility", "interaction_capability",
+        "reliability", "security", "maintainability", "flexibility", "safety"
+        | select(. as $c | ($risked | index($c)) == null and ($excluded | index($c)) == null)],
+      human_judgement: ([.items[]
+        | select(.type == "test_condition" and valid and has_judgement) | row] | sort_by(.id)),
       reach: {
         requirement: ([.items[] | select(.type == "requirement") | select(has_exempt | not)]
           | reach_of(.id as $i | $chained_reqs | index($i))),
@@ -147,11 +183,22 @@ else
     + ["## 到達率"]
     + (.reach as $r | ["requirement", "test_plan", "quality"]
        | map(. as $k | $r[$k] | "\($k)\t\(.reached)/\(.total)\t\((.ratio * 1000 | floor) / 10)%"))
+    + [""]
+    + section("有効な requirement を持たない use_case"; .use_case_without_requirement)
+    + [""]
+    + section("親の use_case がすべて deprecated の requirement"; .requirement_under_deprecated_use_case)
+    + [""]
+    + ["## 有効な risk を持たない品質特性"]
+    + (if (.quality_characteristic_without_risk | length) == 0 then ["なし"] else .quality_characteristic_without_risk end)
+    + [""]
+    + section("human_judgement を持つ test_condition（情報）"; .human_judgement)
     | .[]'
 fi
 
 if printf '%s' "$gaps" | jq -e '
-  ([.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality | length] | add) > 0
+  ([.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality,
+    .use_case_without_requirement, .requirement_under_deprecated_use_case,
+    .quality_characteristic_without_risk | length] | add) > 0
   or ([.reach[].ratio] | any(. < 1))' >/dev/null; then
   exit 1
 fi

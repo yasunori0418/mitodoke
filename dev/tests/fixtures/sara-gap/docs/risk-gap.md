@@ -9,6 +9,7 @@ threatens:
 likelihood: medium
 impact: medium
 level: medium
+quality_characteristic: reliability
 ---
 # RISK-22220002: TC が無いリスク
 

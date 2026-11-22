@@ -18,6 +18,8 @@ usage: sara-new <type> <slug> <dir> -- --description <要約> [<sara init option
   --     以降を sara init へそのまま渡す（--name / --specification …）。
          --description（-d）は必須
          section を持つ型（requirement / design / ubiquitous_term …）では --section も必須
+         stale_after を必須にする型（solution）では --stale-after も必須
+         quality_characteristic を持つ型（risk）では --quality-characteristic も必須
 
 環境変数:
   SARA_NEW_GENERATED_BY  generated.by に書く actor（必須。例: human:<GitHub ID> /
@@ -146,6 +148,36 @@ if awk 'NR == 1 && $0 == "---" { open = 1; next } open && $0 == "---" { exit } o
   done
   if [ "$has_section" -eq 0 ]; then
     echo "sara-new: 型 $type は -- 以降に --section <節の値> が要る（取りうる値は docs/model.yaml にある $type の section の enum）" >&2
+    exit 2
+  fi
+fi
+
+# sara init は --quality-characteristic が無くても enum の先頭の値を入れるため、quality_characteristic を持つ型（risk）では
+# 省略を拒否する。型が持つかは、仮ファイルの frontmatter に quality_characteristic: の行があるかで判断する。
+if awk 'NR == 1 && $0 == "---" { open = 1; next } open && $0 == "---" { exit } open && /^quality_characteristic:/ { found = 1; exit } END { exit found ? 0 : 1 }' "$tmp_file"; then
+  has_quality_characteristic=0
+  for arg in "$@"; do
+    case "$arg" in
+      --quality-characteristic | --quality-characteristic=*) has_quality_characteristic=1 ;;
+    esac
+  done
+  if [ "$has_quality_characteristic" -eq 0 ]; then
+    echo "sara-new: 型 $type は -- 以降に --quality-characteristic <品質特性> が要る（取りうる値は docs/model.yaml にある $type の quality_characteristic の enum）" >&2
+    exit 2
+  fi
+fi
+
+# sara init は必須の stale_after が無いと TBD を書くため、stale_after を必須にする型（solution）では省略を拒否する。
+# 必須かは、仮ファイルの frontmatter に stale_after: の行があるかで判断する（任意の型では指定したときだけ行が出る）。
+if awk 'NR == 1 && $0 == "---" { open = 1; next } open && $0 == "---" { exit } open && /^stale_after:/ { found = 1; exit } END { exit found ? 0 : 1 }' "$tmp_file"; then
+  has_stale_after=0
+  for arg in "$@"; do
+    case "$arg" in
+      --stale-after | --stale-after=*) has_stale_after=1 ;;
+    esac
+  done
+  if [ "$has_stale_after" -eq 0 ]; then
+    echo "sara-new: 型 $type は -- 以降に --stale-after <UTC オフセット付きの ISO 8601 の時刻> が要る" >&2
     exit 2
   fi
 fi

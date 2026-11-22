@@ -104,20 +104,28 @@ relation は**起こした側（下流）の frontmatter に宣言する**（`sa
 
 - **`sara check`** — グラフの整合（broken reference・duplicate ID・cycle・orphan）。
   書き込みのたびに回す。green が完了条件。
-- **`sara-gap`** — valid なグラフの**未カバーと到達率**を 7 節で出す。工程の着手点リストとして使う
+- **`sara-gap`** — valid なグラフの**未カバーと到達率**を 11 節で出す。工程の着手点リストとして使う
   （`unthreatened` = リスク識別の未着手（`threatens` も `risk_exempt` も無い `requirement`）、
   `unmitigated` = テスト分析の未着手、`uncovered` = テスト実装の未着手、
   `unfollowed` = `test_plan` への `follows` が無い `test_case`、
   `unsatisfied_quality` = `infrastructure` に `satisfies` されていない `quality`、
   `exempt` = `risk_exempt` を持つ `requirement`（情報）、
-  `reach` = `requirement`・`test_plan`・`quality` の到達率）。
-  exit 0 = 未カバーなしで到達率がすべて 1 / 1 = 未カバーありか到達率が 1 未満 / 2 = check 失敗。
-- **`sara-fresh`**: valid なグラフから、`generated` と `verified` で見て確かめ直しが要る item を 3 節で出す
+  `reach` = `requirement`・`test_plan`・`quality` の到達率、
+  `use_case_without_requirement` = 有効な `requirement` を 1 本も持たない有効な `use_case`、
+  `requirement_under_deprecated_use_case` = 親の `use_case` がすべて `deprecated` の有効な `requirement`、
+  `quality_characteristic_without_risk` = 有効な `risk` を 1 本も持たず、対象外にもしていない品質特性、
+  `human_judgement` = `human_judgement` を持つ有効な `test_condition`（情報））。
+  「有効な」は `status` が `deprecated` でないことを指し、`draft` を含む。
+  exit 0 = 情報の節（`exempt`・`human_judgement`）以外がすべて空で、到達率がすべて 1 / 1 = それ以外 / 2 = check 失敗。
+- **`sara-fresh`**: valid なグラフから、`generated`・`verified`・`stale_after` で見て確かめ直しが要る item を 6 節で出す
   （`stale` = 上流の `generated.at` が自身の基準時刻より新しい item、
   `generated_not_updated` = `--base <ref>` を渡したときだけ出す節で、ref との merge-base から本文が変わったのに `generated.at` が変わっていない item、
-  `unverified_high_risk` = `generated.at` 以降の `human:` の `verified` を持たない high の `risk`）。
+  `unverified_high_risk` = `generated.at` 以降の `human:` の `verified` を持たない high の `risk`、
+  `unverified_validation` = `generated.at` 以降の `human:` の `verified` を持たない `solution` と `use_case`、
+  `expired` = `stale_after` が現在時刻より前の item、
+  `stale_after_beyond_interval` = 間隔を決めた型の item のうち、`stale_after` が起点から間隔の日数より先のもの）。
   上流の item を書き換えた後に、下流で読み直す item を探すのに使う。結果は報告に留め、`verified` は自動で付けない。
-  exit 0 = どの節も空 / 1 = いずれかの節に item がある / 2 = check 失敗か frontmatter を読めない item がある、または `--base` の ref を解決できないか merge-base が無い。
+  exit 0 = どの節も空 / 1 = いずれかの節に item がある / 2 = check 失敗か frontmatter を読めない item がある、`SARA_FRESH_NOW` を時刻として読めない、または `--base` の ref を解決できないか merge-base が無い。
 
 CLI の詳しい使い方（`sara-new` による起票手順を含む）は
 [references/sara-cli.md](references/sara-cli.md)。

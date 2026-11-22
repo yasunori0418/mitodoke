@@ -4,7 +4,7 @@ type: adr
 name: "item に生成者・確認の記録・期限を持たせる"
 description: "生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after を任意で持たせ、入れ子キーの形を契約テストで確かめる"
 section: frontmatter-fields
-status: stable
+status: deprecated
 sources:
   - id: "issue-662"
     resource: "https://github.com/yasunori0418/layat/issues/662"
@@ -18,7 +18,11 @@ generated:
 ---
 # item に生成者・確認の記録・期限を持たせる
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [item に生成者・確認の記録・期限のフィールドを持たせる](generated-verified-stale-after-fields.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-07
 - 関連: GitHub Issue #662, `docs/model.md`, `dev/tests/okf-frontmatter.sh`
 - 起点: epic #662 の grilling（2026-11-07）で確定

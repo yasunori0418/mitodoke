@@ -5,8 +5,9 @@ name: "サブコマンドは new・gap・fresh・index・matrix・model・verify
 description: "mitodoke の CLI は、起票・報告・生成・確認の記録・出力・検査を、機能ごとに分けた 9 つのサブコマンドで提供する。"
 specification: |
   The mitodoke CLI SHALL provide the following subcommands, each for one function: new (create an
-  item), gap (report missing connections), fresh (report items awaiting re-confirmation, stale
-  generated records, and high risks without human verification), index (generate index.md),
+  item), gap (report missing connections and list the test conditions that a person finally
+  judges), fresh (report items awaiting re-confirmation, stale generated records, items without
+  a required human verification, and expired or overlong `stale_after` values), index (generate index.md),
   matrix (generate the table relating test assets to test cases, test conditions, and risks),
   model (generate model.yaml from the configuration), verify (record human verification), export
   (output the item list as JSON), and check (inspect). index and model SHALL provide a --check
@@ -16,8 +17,8 @@ specification: |
   to report according to the configured strength.
 specification_ja: |
   mitodoke の CLI は、機能ごとに分けた次のサブコマンドを持たなければならない。new（item の起票）、
-  gap（つながりの欠けの報告）、fresh（再確認待ち・generated の更新漏れ・人の確認が無い high の risk の
-  報告）、index（index.md の生成）、matrix（テスト資産とテストケース・テスト条件・リスクの対応表の
+  gap（つながりの欠けの報告と、人が最終的に判断するテスト条件の一覧）、fresh（再確認待ち・generated の
+  更新漏れ・人の確認が要るのに無い item・stale_after の期限切れと間隔の超過の報告）、index（index.md の生成）、matrix（テスト資産とテストケース・テスト条件・リスクの対応表の
   生成）、model（設定からの model.yaml の生成）、verify（人の確認の記録）、export（item の一覧の JSON
   の出力）、check（検査）。index と model は、生成した結果とコミットされたファイルに差分が無いことを
   確かめる --check を持たなければならない。報告と生成のサブコマンドは
@@ -32,7 +33,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-21T16:29:04+09:00"
+  at: "2026-11-22T16:58:51+09:00"
 ---
 # サブコマンドは new・gap・fresh・index・matrix・model・verify・export・check とする
 
@@ -43,8 +44,8 @@ generated:
 | サブコマンド | 機能 |
 |---|---|
 | `mitodoke new` | item の起票 |
-| `mitodoke gap` | つながりの欠けの報告 |
-| `mitodoke fresh` | 再確認待ち・`generated` の更新漏れ・人の確認が無い high の risk の報告 |
+| `mitodoke gap` | つながりの欠けの報告と、人が最終的に判断するテスト条件の一覧 |
+| `mitodoke fresh` | 再確認待ち・`generated` の更新漏れ・人の確認が要るのに無い item・`stale_after` の期限切れと間隔の超過の報告 |
 | `mitodoke index` | index.md の生成 |
 | `mitodoke matrix` | テスト資産とテストケース・テスト条件・リスクの対応表の生成 |
 | `mitodoke model` | 設定からの model.yaml の生成 |

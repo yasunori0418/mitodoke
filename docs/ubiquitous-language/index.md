@@ -11,7 +11,7 @@
 * [requirement（要件）](./requirement.md) - 要求に応えるために製品が満たす条件を述べるモデルの型。
 * [risk（リスク）](./risk.md) - 要件や設計が満たされなくなる懸念を、脅威ごとに述べるモデルの型。
 * [solution（解決策）](./solution.md) - リポジトリが作る製品が何であるかを述べるモデルの型。
-* [test_case（テストケース）](./test-case.md) - 単独で実行できるテスト 1 つを表すモデルの型。
+* [test_case（テストケース）](./test-case.md) - テスト資産 1 つに対応するテストを表すモデルの型。
 * [test_condition（テスト条件）](./test-condition.md) - リスクを減らすためにテストが検証するテーマ 1 つを表すモデルの型。
 * [test_plan（テスト計画）](./test-plan.md) - テスト計画の活動で決めたことを述べるモデルの型。
 * [ubiquitous_term（用語）](./ubiquitous-term.md) - 用語 1 語の正名と避ける綴りを固定するモデルの型。
@@ -31,10 +31,13 @@
 
 ## 鮮度と確認
 
+* [expired（期限切れ）](./expired.md) - item の `stale_after` の時刻を過ぎた状態。
 * [generated](./generated.md) - item を最後に生成・更新した者と時刻を記録する frontmatter のプロパティ。
 * [human verification（人の確認）](./human-verification.md) - 人が item の内容を確かめたことの記録で、`verified` の要素のうち、`by` が `human:` で始まり、`at` がその item の `generated.at` 以降のもの。
 * [reference time（基準時刻）](./reference-time.md) - item の鮮度を比べる基準にする、generated と verified から決まる時刻。
+* [review question（確認の問い）](./review-question.md) - `solution` と `use_case` に人の確認を記録する前に人が答える、型ごとに決めた問い。
 * [stale（再確認待ち）](./stale.md) - 上流の item が自身の基準時刻より新しくなり、読み直しを待っている item の状態。
+* [validation（妥当性確認）](./validation.md) - `solution` と `use_case` が利用者の本当のニーズを表しているかを、人が確かめること。
 * [verified](./verified.md) - item の内容を誰がいつ確認したかを、要素ごとに記録する frontmatter のプロパティ。
 
 ## 検査の結果
@@ -45,7 +48,7 @@
 * [review obligation（見直しの義務）](./review-obligation.md) - 検査の 3 つの分類の 1 つで、人が読み直すか確かめるかをまだ済ませていない item を見つけるもの。
 * [silence（沈黙性）](./silence.md) - 脅威が起きたときに、それに気付けるかどうかという性質。
 * [structural contract（構造の契約）](./structural-contract.md) - 検査の 3 つの分類の 1 つで、item とドキュメントグラフの形が整っているかを確かめるもの。
-* [test asset（テスト資産）](./test-asset.md) - テストケースが対応する、単独で実行できるテストの単位。
+* [test asset（テスト資産）](./test-asset.md) - テストケースが対応する、テストの実体の単位。
 * [uncovered（未カバー）](./uncovered.md) - 検証へ向かう連鎖が期待するつながりを欠いている item の状態。
 
 ## 適用先の製品と人

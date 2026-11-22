@@ -23,6 +23,8 @@
 
 * [OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する](./constraints-on-top-of-okf.md) - OKF v0.2 の定義に重ねて、verified をリストに限るなど 5 つの制約を構造の契約として検査する。
 * [検査の既定の強さは、構造の契約を失敗、つながりの欠けと見直しの義務を報告とし、設定で変えられる](./default-inspection-strength.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は報告とし、どの検査の強さも設定で変えられるようにする。
+* [fresh は、人の確認の無い solution と use_case、期限切れ、期限の間隔の超過を報告する](./fresh-reports-unverified-validation-and-expiry.md) - mitodoke fresh は人の確認の無い有効な solution と use_case、stale_after の期限切れ、stale_after の間隔の超過を見直しの義務として報告する。
+* [gap は、要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を報告し、人が判断するテスト条件を一覧にする](./gap-reports-upstream-and-quality-characteristic-gaps.md) - mitodoke gap は有効な requirement を持たない有効な use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たず対象外にもしていない品質特性をつながりの欠けとして報告し、human_judgement を持つ有効な test_condition を情報として一覧にする。
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の形と値を検査する](./okf-key-inspection.md) - OKF のキーをどの型の item でも受け付け、その形と値が OKF v0.2 の定義に従っているかを構造の契約として検査する。
 * [用語の一覧と avoid を JSON で出力する](./terms-and-avoid-exported-as-json.md) - 用語の一覧と各用語の avoid を JSON で出力し、避ける綴りの検査そのものは mitodoke に持たない。
 * [test_case は covers と follows をそれぞれ 1 本以上持たなければならない](./test-case-link-contract.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約とし、どちらかが欠けた test_case を違反とする。
@@ -37,6 +39,7 @@
 * [new は引数の置き場所を型ごとの置き場所と比べ、合わなければ起票を拒む](./new-location-check.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と合わない起票を拒む。
 * [サブコマンドは new・gap・fresh・index・matrix・model・verify・export・check とする](./subcommand-set.md) - mitodoke の CLI は、起票・報告・生成・確認の記録・出力・検査を、機能ごとに分けた 9 つのサブコマンドで提供する。
 * [テスト資産の一覧は設定のコマンドとファイルから読み、併用した一覧の重複は失敗とする](./test-asset-inventory-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを合わせて 1 つの一覧にし、同じ資産識別子が 2 か所から出たら失敗にする。
+* [verify は、solution と use_case の確認を記録する前に確認の問いを表示する](./verify-shows-review-questions.md) - mitodoke verify は solution と use_case に人の確認を記録する前に、その型に当てる確認の問いを表示し、答えは記録しない。
 
 ## JSON 出力
 

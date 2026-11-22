@@ -9,5 +9,6 @@ threatens:
 likelihood: medium
 impact: medium
 level: medium
+quality_characteristic: reliability
 ---
 # RISK-11110001: TC に mitigates されているリスク

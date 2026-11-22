@@ -3,7 +3,7 @@ id: "ADR-9bec5976-67cd-407a-afa9-3d394a6204ca"
 type: adr
 name: "欠陥 issue のクローズ時にテスト系 item の欠落を追補する"
 section: risk-test-defect
-status: stable
+status: deprecated
 sources:
   - id: "issue-583"
     resource: "https://github.com/yasunori0418/layat/issues/583"
@@ -29,7 +29,11 @@ generated:
 ---
 # 欠陥 issue のクローズ時にテスト系 item の欠落を追補する
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [欠陥とフィードバックから学んだことを上流の item へ追補する](defect-and-feedback-backfill-upstream.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-03
 - 関連: [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md), [model.yaml で組み込みモデルを全面置換し、汎用の型名を使う](model-yaml-full-replacement.md), GitHub Issue #583, #268, #203, #267, `docs/agents/issue-tracker.md`
 - 起点: Issue #268（epic #203 残ブロッカー）の判断（2026-08-09）で確定。ADR-0051 §3 を書き直した

@@ -210,6 +210,7 @@ description: "統合の要約"
 likelihood: low
 impact: low
 level: low
+quality_characteristic: reliability
 section: integration
 status: stable
 ---
@@ -224,6 +225,7 @@ description: "評価の要約"
 likelihood: low
 impact: low
 level: low
+quality_characteristic: reliability
 section: manifest-eval
 status: stable
 ---

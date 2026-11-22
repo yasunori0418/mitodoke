@@ -355,6 +355,58 @@ meaningful.
 -   impose a particular programming language, test framework, or
     application architecture as part of its core model.
 
+### Correspondence with the test process and holistic testing
+
+mitodoke follows the test process of ISTQB CTFL v4.0.1 and
+[holistic testing](https://janetgregory.ca/testing-from-a-holistic-point-of-view/).
+Japanese terms are taken from the JSTQB FL syllabus 2023V4.0.J02. The
+graph holds norms, not events, so activities that deal with events, such
+as test execution and progress, stay outside the graph.
+
+The activities of the ISTQB test process correspond to the following
+elements of mitodoke.
+
+| ISTQB activity | mitodoke |
+|---|---|
+| Test planning | `test_plan`, `risk`, and the declaration of out-of-scope quality characteristics |
+| Test monitoring and test control | Outside the graph. The uncovered and freshness reports serve as input |
+| Test analysis | `risk`, `test_condition`, `human_judgement`. Review of the test basis is done through review questions and human verification |
+| Test design and test implementation | Folded into a single `test_case` |
+| Test execution | Outside the graph (CI logs) |
+| Test completion | Outside the graph. Only the lessons return upstream, through the backfill after defects and feedback |
+
+The stages of holistic testing correspond to the following elements of
+mitodoke.
+
+| Holistic testing stage | mitodoke |
+|---|---|
+| Discovery | `solution`, `use_case` (including `deprecated` ones), review questions, `stale_after` |
+| Planning | `test_plan`, the quality characteristic of `risk`, out-of-scope declarations |
+| Understanding | `requirement`, `design`, `risk`, `test_condition` |
+| Building | Automated `test_case` items |
+| Deploying and Releasing | `test_case` items that follow a `test_plan`. Execution records stay outside |
+| Observability | `requirement` items for instrumentation. Observed results stay outside |
+| Learning | The `quality` norm of reading upstream items again with the review questions after feedback |
+
+mitodoke departs from these in three points.
+
+-   "`test_condition` always goes through `risk`" (§5.1) is a rule of
+    mitodoke's own, stricter than ISTQB. ISTQB derives test conditions
+    from the test basis and considers risk in their definition and
+    prioritization.
+-   The right side of the loop has no basis in the ISTQB Foundation
+    Level, which does not mention testing in production. Its only basis
+    is holistic testing.
+-   mitodoke keeps no records of execution, progress, or completion.
+
+A note on the reference for quality characteristics: ISTQB CTFL v4.0.1
+cites the 2023 edition of ISO/IEC 25010, while the JSTQB FL syllabus
+2023V4.0.J02 cites the 2011 edition. The quality characteristic of a
+`risk` uses the nine characteristics of the 2023 edition, and their
+Japanese names are taken from JIS X 25010 (the revision corresponding to
+the 2023 edition). This difference is a difference in the edition
+referenced and is not counted as a point of departure.
+
 ## 11. Design principles
 
 The following principles summarize the product's intended direction.

@@ -638,4 +638,95 @@ else
   fault "section を持たない型（test_case）は --section なしで起票できる（exit=$status_capture file=$nosec_case_file stderr: $stderr_capture）"
 fi
 
+
+# --- 13. solution の --stale-after ---------------------------------------------
+#
+# sara init は必須の stale_after が無いと TBD を書くため、sara-new が solution の起票で省略を拒否する。
+
+repo13="$work/stale-after"
+make_repo "$repo13"
+
+run_sara_new "$repo13" sara-new solution no-stale-after docs/solution -- "${desc[@]}"
+nostale_files="$(find "$repo13/docs" -name '*.md' -type f | wc -l)"
+nostale_tmp="$(find "$repo13/docs" -name '.sara-new-*' | wc -l)"
+if [[ "$status_capture" -eq 2 && "$stderr_capture" == *"--stale-after"* ]]; then
+  pass "solution を --stale-after なしで起票すると exit 2 で拒否し、理由を出す"
+else
+  fault "solution を --stale-after なしで起票すると exit 2 で拒否し、理由を出す（exit=$status_capture stderr: $stderr_capture）"
+fi
+if [[ "$nostale_files" -eq 0 && "$nostale_tmp" -eq 0 ]]; then
+  pass "--stale-after の省略を拒否したとき、ファイルも一時ディレクトリも残さない"
+else
+  fault "--stale-after の省略を拒否したとき、ファイルも一時ディレクトリも残さない（md $nostale_files 件 / tmp $nostale_tmp 件）"
+fi
+
+# --stale-after <値> と --stale-after=<値> のどちらの綴りでも起票でき、その値が入る。
+stale_value="2027-02-18T00:00:00+09:00"
+stale_n=0
+for spelling in "--stale-after|$stale_value" "--stale-after=$stale_value"; do
+  if [[ "$spelling" == *"|"* ]]; then
+    stale_spelled=("${spelling%%|*}" "${spelling#*|}")
+  else
+    stale_spelled=("$spelling")
+  fi
+  stale_n=$((stale_n + 1))
+  run_sara_new "$repo13" sara-new solution "with-stale-after-$stale_n" docs/solution -- "${stale_spelled[@]}" "${desc[@]}"
+  stale_file="$(field file)"
+  if [[ "$status_capture" -eq 0 ]] && grep -q "^stale_after: .*$stale_value" "$repo13/$stale_file" 2>/dev/null; then
+    pass "--stale-after の綴り '$spelling' で solution を起票でき、stale_after が入る"
+  else
+    fault "--stale-after の綴り '$spelling' で solution を起票でき、stale_after が入る（exit=$status_capture file=$stale_file stderr: $stderr_capture）"
+  fi
+done
+
+# stale_after を必須にしない型は --stale-after なしで起票できる。
+run_sara_new "$repo13" sara-new use_case no-stale-after-uc docs/use-cases -- "${desc[@]}"
+nostale_uc_file="$(field file)"
+if [[ "$status_capture" -eq 0 && -f "$repo13/$nostale_uc_file" ]]; then
+  pass "stale_after を必須にしない型（use_case）は --stale-after なしで起票できる"
+else
+  fault "stale_after を必須にしない型（use_case）は --stale-after なしで起票できる（exit=$status_capture file=$nostale_uc_file stderr: $stderr_capture）"
+fi
+
+
+# --- 14. risk の --quality-characteristic --------------------------------------
+#
+# sara init は --quality-characteristic が無くても enum の先頭の値を入れるため、sara-new が省略を拒否する。
+
+repo14="$work/quality-characteristic"
+make_repo "$repo14"
+risk_sec=(--section engine-core)
+
+run_sara_new "$repo14" sara-new risk no-quality-characteristic docs/risks -- "${risk_sec[@]}" "${desc[@]}"
+noqc_files="$(find "$repo14/docs" -name '*.md' -type f | wc -l)"
+noqc_tmp="$(find "$repo14/docs" -name '.sara-new-*' | wc -l)"
+if [[ "$status_capture" -eq 2 && "$stderr_capture" == *"--quality-characteristic"* && "$stderr_capture" == *"docs/model.yaml"* ]]; then
+  pass "risk を --quality-characteristic なしで起票すると exit 2 で拒否し、理由を出す"
+else
+  fault "risk を --quality-characteristic なしで起票すると exit 2 で拒否し、理由を出す（exit=$status_capture stderr: $stderr_capture）"
+fi
+if [[ "$noqc_files" -eq 0 && "$noqc_tmp" -eq 0 ]]; then
+  pass "--quality-characteristic の省略を拒否したとき、ファイルも一時ディレクトリも残さない"
+else
+  fault "--quality-characteristic の省略を拒否したとき、ファイルも一時ディレクトリも残さない（md $noqc_files 件 / tmp $noqc_tmp 件）"
+fi
+
+# --quality-characteristic <値> と --quality-characteristic=<値> のどちらの綴りでも起票でき、その値が入る。
+qc_n=0
+for spelling in "--quality-characteristic|security" "--quality-characteristic=security"; do
+  if [[ "$spelling" == *"|"* ]]; then
+    qc_spelled=("${spelling%%|*}" "${spelling#*|}")
+  else
+    qc_spelled=("$spelling")
+  fi
+  qc_n=$((qc_n + 1))
+  run_sara_new "$repo14" sara-new risk "with-quality-characteristic-$qc_n" docs/risks -- "${qc_spelled[@]}" "${risk_sec[@]}" "${desc[@]}"
+  qc_file="$(field file)"
+  if [[ "$status_capture" -eq 0 ]] && grep -q '^quality_characteristic: security$' "$repo14/$qc_file" 2>/dev/null; then
+    pass "--quality-characteristic の綴り '$spelling' で risk を起票でき、quality_characteristic が入る"
+  else
+    fault "--quality-characteristic の綴り '$spelling' で risk を起票でき、quality_characteristic が入る（exit=$status_capture file=$qc_file stderr: $stderr_capture）"
+  fi
+done
+
 exit "$fail"

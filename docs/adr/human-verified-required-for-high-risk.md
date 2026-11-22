@@ -4,7 +4,7 @@ type: adr
 name: "level が high の risk に人の verified を求める"
 description: "level が high の risk 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない"
 section: verification
-status: stable
+status: deprecated
 sources:
   - id: "issue-676"
     resource: "https://github.com/yasunori0418/layat/issues/676"
@@ -18,7 +18,11 @@ generated:
 ---
 # level が high の risk に人の verified を求める
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [level が high の risk と、有効な solution と use_case に人の verified を求める](human-verified-required-for-high-risk-and-upper-layers.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-11
 - 関連: GitHub Issue #676, `docs/model.md`
 - 起点: epic #676 の grilling（2026-11-11）で確定

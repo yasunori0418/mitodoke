@@ -22,7 +22,7 @@ references:
   - "ADR-2457aa00-fab7-4c99-af53-2e6643c21c79"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-03T22:55:03+09:00"
+  at: "2026-11-22T15:55:21+09:00"
 ---
 # risk の親に test_plan を含めない
 
@@ -42,7 +42,7 @@ risk の `parent_types` は `requirement` と `design` だけにし、test_plan 
 
 ## 根拠
 
-risk の親は「そのリスクが何に対して発生しているか」を表す。リスクが発生するのは要求や設計に対してで、
+risk の親は「そのリスクが何に対して発生しているか」を表す。リスクが発生するのは要件や設計に対してで、
 テスト計画はリスクへの対処の側にある。
 
 テスト計画がどの risk を扱うかは、下流の test_condition から `mitigates` で risk へ張る辺で既に辿れる。

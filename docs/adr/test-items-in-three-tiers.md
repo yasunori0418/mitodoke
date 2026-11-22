@@ -4,7 +4,7 @@ type: adr
 name: "テスト系 item を CASE・TC・RISK の 3 段で起こす"
 description: "CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす"
 section: risk-test-defect
-status: stable
+status: deprecated
 sources:
   - id: "issue-719"
     resource: "https://github.com/yasunori0418/layat/issues/719"
@@ -20,7 +20,11 @@ generated:
 ---
 # テスト系 item を CASE・TC・RISK の 3 段で起こす
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](test-items-in-three-tiers-with-human-tests.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-13
 - 関連: GitHub Issue #719, `dev/tests/test-doc-map.sh`
 - 起点: epic #719 の実行中の裁定（2026-11-13）で確定

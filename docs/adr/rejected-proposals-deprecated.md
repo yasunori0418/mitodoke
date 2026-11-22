@@ -4,7 +4,7 @@ type: adr
 name: "棄却した提案の要件と設計は提案の形の題で deprecated にして残す"
 description: "棄却した提案を記録する要件と設計は、提案の形の題と本文に棄却の記述を添え、status を deprecated にして残す。"
 section: authoring
-status: stable
+status: deprecated
 sources:
   - id: "pr-716-review"
     resource: "https://github.com/yasunori0418/layat/pull/716#discussion_r4514298788"
@@ -18,7 +18,11 @@ generated:
 ---
 # 棄却した提案の要件と設計は提案の形の題で deprecated にして残す
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [棄却した提案の要求・要件・設計は提案の形の題で deprecated にして残す](rejected-proposals-deprecated-including-use-cases.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-10
 - 関連: `docs/model.md`
 - 起点: PR #716 のレビューコメント（2026-11-10）で確定

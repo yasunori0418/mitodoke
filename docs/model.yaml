@@ -23,12 +23,12 @@ item_types:
             - deprecated
         required: true
         placeholder: stable
-      # OKF の `stale_after`。値の形は sara でなく dev/tests/okf-frontmatter.sh が確かめる。
-      - &stale_after_field
-        name: stale_after
+      # OKF の `stale_after`。solution だけが必須にする。期限と間隔の規範は
+      # docs/quality/stale-items-enumerated-mechanically.md が持つ。
+      - name: stale_after
         display_name: Stale After
         field_type: date
-        required: false
+        required: true
     allowed_targets: []
 
   # ユーザーがどう使うか。docs/use-cases/。
@@ -40,7 +40,12 @@ item_types:
       - solution
     fields:
       - *status_field
-      - *stale_after_field
+      # OKF の `stale_after`。値の形は sara でなく dev/tests/okf-frontmatter.sh が確かめる。
+      - &stale_after_field
+        name: stale_after
+        display_name: Stale After
+        field_type: date
+        required: false
     allowed_targets:
       - relation: refines
         targets:
@@ -145,6 +150,14 @@ item_types:
         field_type: text
         required: true
         placeholder: mitodoke は <品質方針> を満たさなければならない。
+      # 確認の問いを持つ quality が、問いを当てる型。確認の問いでない quality では省く。
+      - name: review_question_for
+        display_name: Review Question For
+        field_type: !enum
+          values:
+            - solution
+            - use_case
+        required: false
       - *status_field
       - *stale_after_field
     allowed_targets:
@@ -345,6 +358,22 @@ item_types:
             - low
         required: true
         placeholder: medium
+      # ISO/IEC 25010:2023 の 9 つの品質特性のうち、この risk が脅かす 1 つ。
+      # 2 つの特性にまたがるリスクは risk を分ける。
+      - name: quality_characteristic
+        display_name: Quality Characteristic
+        field_type: !enum
+          values:
+            - functional_suitability
+            - performance_efficiency
+            - compatibility
+            - interaction_capability
+            - reliability
+            - security
+            - maintainability
+            - flexibility
+            - safety
+        required: true
       # index.md の節。値と並び順は dev/tests/test-categories.tsv の区分と同じにする。
       - name: section
         display_name: Section
@@ -375,6 +404,12 @@ item_types:
     parent_types:
       - risk
     fields:
+      # 人が最終的に合否を判断する理由を 1 文で書く。書かなければ機械で確かめる test_condition として読む。
+      # 規範は docs/quality/human-judgement-marked-on-test-condition.md が持つ。
+      - name: human_judgement
+        display_name: Human Judgement
+        field_type: text
+        required: false
       - *status_field
       - *stale_after_field
     allowed_targets:

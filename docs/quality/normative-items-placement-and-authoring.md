@@ -14,7 +14,12 @@ specification: |
   command rather than assigned by hand, so that parallel lanes cannot collide on a number.
   An item whose type carries a specification SHALL state that norm in English and
   SHALL carry the corresponding Japanese norm alongside it; neither field SHALL be treated
-  as a gloss of the other.
+  as a gloss of the other. A rejected proposal for a `use_case`, `requirement` or `design`
+  item SHALL be kept with its `status` set to `deprecated`, under a title in the form of the
+  proposal, with the rejection stated at the top of its body, and an item whose type carries
+  a specification SHALL state the specification in the form of the proposal as well. A
+  feature decided not to be built SHALL be recorded by setting its `use_case` to
+  `deprecated` and supplementing the reason in prose.
 specification_ja: |
   規範的な内容は 1 ファイル 1 item の item グラフだけが持たなければならない。型ごとの item の
   一覧は、グラフから生成した index.md だけが持たなければならず、手書きの文書はその一覧を持っては
@@ -23,10 +28,13 @@ specification_ja: |
   なければならず、その識別子は手で振るのではなくプロジェクトの採番コマンドから採らなければ
   ならない（並列レーンで採番が衝突しないようにするため）。specification を持つ型の item は、
   その規範を英語で述べなければならず、対応する日本語の規範文を併記しなければならない。
-  いずれの欄も他方の訳注として扱ってはならない。
+  いずれの欄も他方の訳注として扱ってはならない。`use_case`・`requirement`・`design` で棄却した
+  提案は、提案の形の題で `status` を `deprecated` にし、本文の先頭に棄却した旨を書いて残さなければ
+  ならず、specification を持つ型では specification も提案の形で書かなければならない。作らないと
+  決めた機能は、その `use_case` を `deprecated` にし、作らない理由を散文で補って記録しなければならない。
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:37:16+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-22T16:47:43+09:00"
 ---
 # 規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ
 
@@ -49,6 +57,17 @@ generated:
 
 型の判別基準の具体・採番コマンドの実装・強度の対応表は本 item の規範に含めない。判別は
 [規範の型は、それが誰を縛るかで決める](norm-type-by-who-it-binds.md) が、執筆の規約は [specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える](specification-shall-family-and-matching-auxiliaries.md) が、採番の仕組みは [トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）](../infrastructure/traceability-verification.md) が持つ。
+
+### 棄却した提案と作らないと決めた機能
+
+`use_case`・`requirement`・`design` で棄却した提案は、提案の形の題で `status` を `deprecated` にして
+残す。本文の先頭に棄却した旨を書き、`specification` を持つ型では `specification` も提案の形で書く。
+作らないと決めた機能はその `use_case` を `deprecated` にし、作らない理由を散文で補う。`name` が提案を
+表し、`status` が棄却を表すので、棄却 ADR と同じ読み方になる。
+
+肯定の規範が中心で否定が付随するだけの item は対象にしない。題に否定が入っているなら、決定の形に
+改めるだけにする。この範囲にした理由は
+[棄却した提案の要求・要件・設計は提案の形の題で deprecated にして残す](../adr/rejected-proposals-deprecated-including-use-cases.md) が持つ。
 
 ## 出典
 
