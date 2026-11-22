@@ -72,6 +72,7 @@
 * [risk の親に test_plan を含めない](./risk-parent-excludes-test-plan.md) - test_plan を設けた（[テスト計画の型を品質方針の型から分けて設ける](quality-and-test-plan-types.md)）ことで、risk の親に test_plan を加えるかどうかを決める必要があった。テスト計画はどの risk を扱うかを述べるので、両者には関係がある。 (stable)
 * [risk に ISO/IEC 25010:2023 の品質特性を 1 つ必須で持たせる](./risk-quality-characteristic.md) - risk に ISO/IEC 25010:2023 の 9 つの品質特性で固定した enum の quality_characteristic を必須で持たせ、リスクを持たない特性を、対象外の宣言を除いて報告する。 (stable)
 * [沈黙性を risk のスコア軸にせず本文に書く](./silence-not-a-score-axis.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決め、`impact` から沈黙の不整合を外した。気づけるかどうかは脅威の性質として重要な情報で、捨てるには惜しい。これをどこに残すかを決める必要があった。 (stable)
+* [test_condition に、人が最終的に判断する理由の human_judgement を持たせる](./test-condition-human-judgement.md) - test_condition に任意の text の human_judgement を足して理由の 1 文を書かせ、機械で確かめるのを既定にして、人が最終的に判断するものだけを一覧にする。 (stable)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (stable)
 
 ## 製品の範囲と構成
