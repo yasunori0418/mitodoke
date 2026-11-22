@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sara-fresh（再検証待ちの item・generated の更新漏れ・人の確認が無い high の risk と solution・use_case・
+# sara-fresh（再確認待ちの item・generated の更新漏れ・人の確認が無い high の risk と solution・use_case・
 # stale_after の期限切れと間隔の超過の列挙コマンド）の検証。
 # item と sara.toml は一時ディレクトリに作り、実物の docs/model.yaml を重ねる。
 #
@@ -399,7 +399,7 @@ generated:
 YAML
 }
 
-h_stale='## 再検証待ち（上流の generated.at が基準時刻より新しい item）'
+h_stale='## 再確認待ち（上流の generated.at が基準時刻より新しい item）'
 h_risk='## human: の verified が無い high の risk'
 h_validation='## human: の verified が無い solution と use_case'
 h_expired='## stale_after の期限切れ（stale_after が現在時刻より前の item）'
@@ -430,7 +430,7 @@ verify_upper() {
 base="$work/base"
 make_graph "$base"
 
-# --- 1. 節 1: 再検証待ち --------------------------------------------------------
+# --- 1. 節 1: 再確認待ち --------------------------------------------------------
 
 run_fresh env SARA_FRESH_ROOT="$base" sara-fresh
 out="$stdout_capture"

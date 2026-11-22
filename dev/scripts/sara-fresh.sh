@@ -14,7 +14,7 @@ usage() {
 usage: sara-fresh [--json] [--base <ref>]
 
 sara ドキュメントグラフの item を generated / verified で確かめ、次の節で出す:
-  1. 再検証待ち: refines / derives_from / satisfies / threatens / mitigates / covers / follows で
+  1. 再確認待ち: refines / derives_from / satisfies / threatens / mitigates / covers / follows で
      指している上流の generated.at が、自身の基準時刻より新しい item
   2. generated の更新漏れ（--base を渡したときだけ）: git merge-base <ref> HEAD のコミットと
      作業ツリーを比べ、本文が変わったのに generated.at が変わっていない item。本文は frontmatter の外の
@@ -298,7 +298,7 @@ else
     def section(title; rows):
       ["## " + title]
       + (if (rows | length) == 0 then ["なし"] else rows end);
-    section("再検証待ち（上流の generated.at が基準時刻より新しい item）";
+    section("再確認待ち（上流の generated.at が基準時刻より新しい item）";
       [.stale[] | "\(.id)\t\(.name)\t\(.file)\t\([.upstreams[].id] | unique | join(","))"])
     + (if has("generated_not_updated") then
         [""]
