@@ -42,6 +42,23 @@ make_fixture() {
   cp "$model_yaml" "$1/model.yaml"
 }
 
+# 対象外の品質特性の TSV を <パス> に書く。1 行目はヘッダで、残りの引数の特性を 1 行ずつ理由付きで並べる。
+write_exclusions() {
+  local path=$1
+  shift
+  mkdir -p "$(dirname "$path")"
+  {
+    printf 'quality_characteristic\treason\n'
+    [[ "$#" -eq 0 ]] || printf '%s\tfixture では扱わない\n' "$@"
+  } >"$path"
+}
+
+all_characteristics=(functional_suitability performance_efficiency compatibility interaction_capability reliability security maintainability flexibility safety)
+excl_all="$work/exclusions-all.tsv"
+write_exclusions "$excl_all" "${all_characteristics[@]}"
+# fixture の risk はどれも reliability なので、残りの 8 特性が risk を持たない。
+unrisked_characteristics=(functional_suitability performance_efficiency compatibility interaction_capability security maintainability flexibility safety)
+
 base="$work/base"
 make_fixture "$base"
 
@@ -99,8 +116,9 @@ h_exempt='## risk_exempt を持つ requirement（情報）'
 h_reach='## 到達率'
 h_uc_noreq='## 有効な requirement を持たない use_case'
 h_req_depuc='## 親の use_case がすべて deprecated の requirement'
+h_qc='## 有効な risk を持たない品質特性'
 expected_headings="$(printf '%s\n' "$h_unthreatened" "$h_unmitigated" "$h_uncovered" "$h_unfollowed" "$h_unsatisfied" "$h_exempt" "$h_reach" \
-  "$h_uc_noreq" "$h_req_depuc")"
+  "$h_uc_noreq" "$h_req_depuc" "$h_qc")"
 design_mark='\(design 側に risk あり\)$'
 full_id='^[A-Z]+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'$'\t'
 short_id='^[A-Z]+-[0-9a-f]{8}'$'\t'
@@ -111,7 +129,7 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap
 gap_out="$stdout_capture"
 
 assert_eq "ギャップがあれば exit 1" 1 "$status_capture"
-assert_eq "見出しを 9 つ、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
+assert_eq "見出しを 10 個、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
 
 sec_unthreatened="$(section_body "$h_unthreatened" "$gap_out")"
 sec_unfollowed="$(section_body "$h_unfollowed" "$gap_out")"
@@ -156,8 +174,8 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap --json
 json_out="$stdout_capture"
 
 assert_eq "--json でも exit code は同じ（ギャップあり = 1）" 1 "$status_capture"
-assert_eq "--json は 9 キーのオブジェクトを返す" \
-  "exempt,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
+assert_eq "--json は 10 キーのオブジェクトを返す" \
+  "exempt,quality_characteristic_without_risk,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
   "$(jq -r 'keys | join(",")' <<<"$json_out" 2>/dev/null)"
 assert_eq "--json の件数が 2,2,1,1,1,1" "2,2,1,1,1,1" \
   "$(jq -r '[.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality, .exempt | length] | join(",")' <<<"$json_out" 2>/dev/null)"
@@ -175,9 +193,11 @@ assert_eq "reach の 3 値が期待どおり" "true" \
 # --- 4. ギャップを埋めた派生 fixture ------------------------------------------
 #
 # 免除の REQ と risk の無い DSG-dd000001 は残し、どちらも exit に効かないことを確かめる。
+# risk の持つ reliability 以外の品質特性は、既定のパスの TSV で対象外にする。
 
 fill_gaps() {
   make_fixture "$1"
+  write_exclusions "$1/dev/tests/quality-characteristic-exclusions.tsv" "${unrisked_characteristics[@]}"
   rm "$1"/docs/{req-gap,risk-gap,tc-gap,qa-gap,req-design-only,risk-on-design}.md
   sed -i '/REQ-dddd0004/d' "$1/docs/dsg-gap.md"
   sed -i 's|^covers:$|follows:\n  - "TP-77770001-0000-4000-8000-00000000000e"\ncovers:|' "$1/docs/case.md"
@@ -189,8 +209,8 @@ fill_gaps "$clean"
 run_gap env SARA_GAP_ROOT="$clean" sara-gap
 clean_out="$stdout_capture"
 assert_eq "ギャップが無ければ exit 0（exempt は exit に影響しない）" 0 "$status_capture"
-assert_eq "見出しは埋めても 9 つ" 9 "$(grep -c '^## ' <<<"$clean_out")"
-assert_eq "0 件の節 1〜5 と新しい節は「なし」と出す" 7 "$(grep -c '^なし$' <<<"$clean_out")"
+assert_eq "見出しは埋めても 10 個" 10 "$(grep -c '^## ' <<<"$clean_out")"
+assert_eq "0 件の節 1〜5 と新しい節は「なし」と出す" 8 "$(grep -c '^なし$' <<<"$clean_out")"
 assert_has "exempt は埋めても節 6 に出る" '^REQ-cccc0003' "$(section_body "$h_exempt" "$clean_out")"
 assert_lacks "risk の無い design を列挙しない" 'DSG-dd000001' "$clean_out"
 
@@ -222,7 +242,7 @@ MD
 run_gap env SARA_GAP_ROOT="$reach_only" sara-gap
 reach_only_out="$stdout_capture"
 assert_eq "到達率だけが 1 未満でも exit 1" 1 "$status_capture"
-assert_eq "到達率だけが 1 未満のとき節 1〜5 と新しい節は空" 7 "$(grep -c '^なし$' <<<"$reach_only_out")"
+assert_eq "到達率だけが 1 未満のとき節 1〜5 と新しい節は空" 8 "$(grep -c '^なし$' <<<"$reach_only_out")"
 
 # 到達率がすべて 1 のまま節 2〜4 のどれか 1 件だけが残っても exit 1 になる。
 for gap_file in risk-gap tc-gap case; do
@@ -355,6 +375,64 @@ run_gap env SARA_GAP_ROOT="$only_noreq" sara-gap --json
 assert_eq "有効な requirement を持たない use_case だけで exit 1" "1:1" \
   "$status_capture:$(jq -r '.use_case_without_requirement | length' <<<"$stdout_capture" 2>/dev/null)"
 
+# --- 4c. 有効な risk を持たない品質特性 ---------------------------------------
+#
+# base の risk はどれも reliability なので、TSV が無ければ残りの 8 特性を enum の順に出す。
+
+run_gap env SARA_GAP_ROOT="$base" sara-gap
+assert_eq "TSV が無ければ risk の無い 8 特性を enum の順に 1 行ずつ出す" \
+  "$(printf '%s\n' "${unrisked_characteristics[@]}")" \
+  "$(section_body "$h_qc" "$stdout_capture" | grep -v '^$')"
+run_gap env SARA_GAP_ROOT="$base" sara-gap --json
+assert_eq "--json の quality_characteristic_without_risk は特性の名前の配列" \
+  '["functional_suitability","performance_efficiency","compatibility","interaction_capability","security","maintainability","flexibility","safety"]' \
+  "$(jq -c '.quality_characteristic_without_risk' <<<"$stdout_capture" 2>/dev/null)"
+
+# <リポジトリ> <ファイル名> <ID> <品質特性> <status>
+risk_item() {
+  cat >"$1/docs/$2.md" <<MD
+---
+id: "$3"
+type: risk
+name: "$4 のリスク"
+section: engine-core
+status: $5
+threatens:
+  - "REQ-aaaa0001-0000-4000-8000-000000000003"
+likelihood: low
+impact: low
+level: low
+quality_characteristic: $4
+---
+# $4 のリスク
+MD
+}
+
+qc="$work/qc"
+make_fixture "$qc"
+risk_item "$qc" risk-security "RISK-ffff0001-0000-4000-8000-000000000030" security deprecated
+risk_item "$qc" risk-safety "RISK-ffff0002-0000-4000-8000-000000000031" safety draft
+write_exclusions "$work/exclusions-qc.tsv" compatibility flexibility
+run_gap env SARA_GAP_ROOT="$qc" SARA_GAP_EXCLUSIONS="$work/exclusions-qc.tsv" sara-gap --json
+qc_json="$stdout_capture"
+assert_eq "deprecated の risk しか持たない特性は出し、draft の risk を持つ特性と対象外の特性は出さない" \
+  "functional_suitability,performance_efficiency,interaction_capability,security,maintainability" \
+  "$(jq -r '.quality_characteristic_without_risk | join(",")' <<<"$qc_json" 2>/dev/null)"
+
+# 環境変数のパスは既定のパスより優先し、ヘッダだけの TSV は何も対象外にしない。
+write_exclusions "$work/exclusions-header-only.tsv"
+qc_only="$work/qc-only"
+fill_gaps "$qc_only"
+run_gap env SARA_GAP_ROOT="$qc_only" SARA_GAP_EXCLUSIONS="$work/exclusions-header-only.tsv" sara-gap --json
+assert_eq "SARA_GAP_EXCLUSIONS のヘッダだけの TSV が既定のパスに代わり、品質特性の欠けだけで exit 1" "1:8" \
+  "$status_capture:$(jq -r '.quality_characteristic_without_risk | length' <<<"$stdout_capture" 2>/dev/null)"
+run_gap env SARA_GAP_ROOT="$qc_only" SARA_GAP_EXCLUSIONS="$work/no-such.tsv" sara-gap --json
+assert_eq "SARA_GAP_EXCLUSIONS のファイルが無ければ対象外なしとして動く" "1:8" \
+  "$status_capture:$(jq -r '.quality_characteristic_without_risk | length' <<<"$stdout_capture" 2>/dev/null)"
+run_gap env SARA_GAP_ROOT="$qc_only" sara-gap --json
+assert_eq "既定のパスの TSV で対象外にした特性は出さない" "0:0" \
+  "$status_capture:$(jq -r '.quality_characteristic_without_risk | length' <<<"$stdout_capture" 2>/dev/null)"
+
 # --- 5. sara check が失敗するグラフでは exit 2 ---------------------------------
 #
 # broken reference（実在しない risk への mitigates）を混ぜ、ギャップ一覧を出さないことを確かめる。
@@ -425,7 +503,7 @@ fake_empty="$work/fake-sara-empty"
 } >"$fake_empty"
 chmod +x "$fake_empty"
 
-run_gap env SARA_GAP_ROOT="$base" SARA_GAP_SARA="$fake_empty" sara-gap --json
+run_gap env SARA_GAP_ROOT="$base" SARA_GAP_SARA="$fake_empty" SARA_GAP_EXCLUSIONS="$excl_all" sara-gap --json
 assert_eq "item が 0 件なら reach の ratio は 1 で exit 0" "0:1,1,1" \
   "$status_capture:$(jq -r '[.reach.requirement, .reach.test_plan, .reach.quality | .ratio] | join(",")' <<<"$stdout_capture" 2>/dev/null)"
 
