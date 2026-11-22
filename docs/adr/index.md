@@ -62,7 +62,7 @@
 
 ## risk・テスト系 item・欠陥
 
-* [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](./defect-close-backfills-risks.md) - [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md)。グラフのrisk / test_condition は予防の体系だが、起きた欠陥から学ばなければ、ある時点の分析を写したまま古びていく。 (stable)
+* [欠陥とフィードバックから学んだことを上流の item へ追補する](./defect-and-feedback-backfill-upstream.md) - 欠陥 issue のクローズ前にテスト系 item の欠落を追補し、利用者のフィードバックを受けたら確認の問いで solution と use_case を読み直す。 (stable)
 * [欠陥を既存の RISK / TC に辿れたかで分類して数える](./defects-classified-by-risk-foresight.md) - 欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。 (stable)
 * [欠陥はグラフに置かず GitHub Issues で管理する](./defects-in-github-issues.md) - グラフには欠陥を表す defect 型があった。defect は自分から upstream relation を張れず、親側の test_case が下流向きの `reveals` で接続する唯一の型だった。そのため次の例外を抱えていた。 (stable)
 * [自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](./gate-risk-inherits-impact-by-link.md) - 自動検証の形骸化を表す risk の `impact` は守備対象の regression から継承し、継承元はその regression を持つ risk への Markdown リンクで名指しする。 (stable)
@@ -145,6 +145,7 @@
 * [ADR の規則を汎用とプロジェクト当てはめに分けて書く](./adr-rules-generic-and-project-split.md) - ADR の規則は `docs/adr/README.md` に、layat の ADR 番号・型の区分・実データと同じ文書に書かれていた。 (deprecated)
 * [提案を棄却した決定は status 不採用 で記録する](./adr-status-rejected.md) - ADR の `status` は、実データの表記に合わせて日本語の値を持つ enum にしている。組み込みの英語の値（`proposed` / `accepted` / `deprecated`）は使っていない。 (deprecated)
 * [ADR も UUID で採番し、連番の旧 ADR は legacy_adr 型に凍結する](./adr-uuid-ids-and-legacy-type.md) - ADR だけは連番（`ADR-NNNN`）で採番してきた。既存 ADR の相互参照やコミットメッセージでの言及を無効にしないためである。一方、並列レーンで ADR を起こすと、複数のレーンが同じ「次の番号」を取る構造が残っていた。 (deprecated)
+* [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](./defect-close-backfills-risks.md) - [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md)。グラフのrisk / test_condition は予防の体系だが、起きた欠陥から学ばなければ、ある時点の分析を写したまま古びていく。 (deprecated)
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)
 * [ID はフル UUID に統一し 8 文字省略形を使わない](./full-uuid-ids-no-short-form.md) - item の正式 ID はフル UUIDv4 だが、ファイル名と散文中の参照には前方 8 文字の省略形を使っていた。フル UUID は人が読めないという前提への対処だった。 (deprecated)
 * [自動検証の形骸化は守備対象の impact を継承する](./gate-risk-inherits-impact.md) - 自動検証が気づかれないまま形骸化する risk（テストは緑なのに何も確認していない類）は、その自動検証自身が開発の中で完結する。`impact` を回復可能性で採点し（[risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md)）、沈黙性を軸から外す（[沈黙性を risk のスコア軸にせず本文に書く](silence-not-a-score-axis.md)）と、この類型はそのまま読めば low になる。 (deprecated)

@@ -101,3 +101,13 @@ events belong to the tracker. The decision is recorded in an ADR:
 
 Until the document graph exists in this repository, a defect may have no item to trace to.
 Write 「なし（グラフ未整備）」 in that case and classify it as `risk-unexpected`.
+
+## User feedback
+
+User feedback is not a defect and has no close procedure, but its lessons return upstream
+in the same way. On receiving feedback, read the `solution` and `use_case` items it bears
+on against their review questions (the `quality` items whose `review_question_for` names
+the type). If the direction or a requirement has drifted, revise the item. The person who
+read it records a human verification in `verified`; an agent does not add `verified`
+entries. Keep the feedback itself in the tracker or wherever it arrived; it is not an
+item.

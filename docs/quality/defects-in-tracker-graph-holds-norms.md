@@ -11,7 +11,10 @@ specification: |
   tracker's reference to the items a defect traces back to SHALL be one-way; items SHALL
   NOT link back to defects. Before a defect is closed, whether a missing risk or test
   condition would have caught it earlier SHALL be asked, and any item found missing SHALL
-  be added, so that the risk and test analysis does not decay into a static snapshot. An
+  be added, so that the risk and test analysis does not decay into a static snapshot. When
+  user feedback is received, the `solution` and `use_case` items it bears on SHALL be read
+  again against their review questions, and an item found to diverge SHALL be revised; the
+  feedback itself SHALL NOT be recorded as an item. An
   issue SHALL be classified by the project's fixed vocabulary, and on the filing routes
   where the tracker can enforce this, filing without it SHALL NOT be offered. When a defect
   is closed, whether it could be traced to a risk or test condition that already existed
@@ -23,13 +26,15 @@ specification_ja: |
   はならない。欠陥をクローズする前に、それをより早く捕まえられたはずの risk または
   test_condition の欠落がなかったかを問わなければならず、欠落が見つかった item は追加され
   なければならない（リスク分析とテスト分析が静的なスナップショットへ劣化しないようにする
-  ため）。issue はプロジェクトが定める分類語彙によって分類されなければならず、トラッカーが
+  ため）。利用者のフィードバックを受けたら、それが関わる `solution` と `use_case` を確認の問いで
+  読み直さなければならず、ずれが見つかった item は直さなければならない。受け取ったフィードバック
+  そのものは item として記録してはならない。issue はプロジェクトが定める分類語彙によって分類されなければならず、トラッカーが
   それを強制できる起票の使い方では、分類を経ない起票が提供されてはならない。欠陥を
   クローズするときは、欠陥を起票した時点で既にあった risk または test_condition に辿れた
   かを、固定した語彙で記録しなければならない。
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:37:16+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-22T16:56:13+09:00"
 ---
 # 欠陥はトラッカーが持ちドキュメントグラフは規範のみを持つ。起票は分類語彙を経由する
 
@@ -46,6 +51,11 @@ generated:
 **クローズ前のフィードバック**を規範に含めるのは、欠陥を直すだけでは分析が更新されないため。
 その欠陥をより早く捕まえられたはずの分析の欠落を毎回問い、欠けていた item を足すことで、
 リスクとテストの分析が最初に書いた時点のまま固まるのを防ぐ。
+
+**フィードバックを受けた読み直し**も同じ考えによる。利用者のフィードバックは出来事なのでグラフの外に置き、
+そこから得た教訓だけを上流に戻す。フィードバックが関わる `solution` と `use_case` を
+[確認の問い](../ubiquitous-language/review-question.md)で読み直し、方向性や要求がずれていれば直す。
+読み直した事実は人の確認として記録する。
 
 起票時の分類は、未分類の issue が滞留するのを防ぐために求める。**強制できる面では強制し、
 できない面では運用規範として求める**という二段になるのは、起票の使い方によってトラッカーが介入
@@ -68,6 +78,7 @@ generated:
 
 - [欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md)
 - [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](../adr/defect-close-backfills-risks.md)
+- [欠陥とフィードバックから学んだことを上流の item へ追補する](../adr/defect-and-feedback-backfill-upstream.md)
 - [欠陥を既存の RISK / TC に辿れたかで分類して数える](../adr/defects-classified-by-risk-foresight.md)
 
 この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/defects-in-tracker-graph-holds-norms.md) を写し、製品の形態に依らない文面に
