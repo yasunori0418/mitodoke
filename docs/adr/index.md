@@ -9,6 +9,7 @@
 * [infrastructure を技術基盤として再定義し root から外す](./infrastructure-redefined-non-root.md) - infrastructure は root の型として定義されていた。satisfy できる相手が design しか無く、CI やトレーサビリティ検証のような開発の基盤は design の木に属さないため、root にせざるを得なかった。その結果、`docs/infrastructure/` の item は全件が構造上の接続漏れだった。 (stable)
 * [model.yaml で組み込みモデルを全面置換し、汎用の型名を使う](./model-yaml-full-replacement.md) - sara は組み込みのモデル（型と relation）を持ち、カスタムスキーマで置き換えられる。置き換えは全面で、部分的なマージはできない。組み込みには `hardware_requirement` や `system_architecture` のように、layat に対応する実体の無い型が含まれる。 (stable)
 * [テスト計画の型を品質方針の型から分けて設ける](./quality-and-test-plan-types.md) - テスト計画や品質方針にあたる文書は、受け皿の型が無いため `requirement` として置かれていた。`requirement` の親は use_case だが、これらの文書は「ユーザーがどう使うか」から導かれないので親を持てず、接続漏れのまま残っていた。 (stable)
+* [ループの右側には型も relation も足さず、既存の型に規範を置く](./right-side-of-loop-adds-no-types.md) - ホリスティックテスティングのループの右側（デプロイ・リリース・観測・学習）には型も relation も足さず、観測できることは requirement、デプロイやリリースで行うテストは test_case、フィードバックを上流へ戻す手順は quality に置く。 (stable)
 * [test_case から test_plan へ follows を張る](./test-case-follows-test-plan.md) - test_plan とテストをつなぐ辺を test_case から test_plan への新設 relation follows とし、test_case の親に test_plan を足す。 (stable)
 * [用語は ubiquitous_term の item で管理し、一覧は生成した index.md が持つ](./ubiquitous-terms-listed-by-generated-index.md) - 用語は 1 語 1 ファイルの ubiquitous_term の item で管理し、語の一覧は `docs/ubiquitous-language/index.md` に生成して、`docs/glossary.md` と glossary-index の契約テストは廃止する (stable)
 * [solution と use_case は、確認の問いに人が答える妥当性確認でカバーする](./upper-layers-validated-by-review-questions.md) - 上位 2 層の solution と use_case は、確認の問いに人が答える妥当性確認でカバーし、risk の threatens の先は広げない。 (stable)
