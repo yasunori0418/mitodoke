@@ -145,6 +145,14 @@ item_types:
         field_type: text
         required: true
         placeholder: mitodoke は <品質方針> を満たさなければならない。
+      # 確認の問いを持つ quality が、問いを当てる型。確認の問いでない quality では省く。
+      - name: review_question_for
+        display_name: Review Question For
+        field_type: !enum
+          values:
+            - solution
+            - use_case
+        required: false
       - *status_field
       - *stale_after_field
     allowed_targets:

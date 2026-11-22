@@ -11,6 +11,7 @@
 * [テスト計画の型を品質方針の型から分けて設ける](./quality-and-test-plan-types.md) - テスト計画や品質方針にあたる文書は、受け皿の型が無いため `requirement` として置かれていた。`requirement` の親は use_case だが、これらの文書は「ユーザーがどう使うか」から導かれないので親を持てず、接続漏れのまま残っていた。 (stable)
 * [test_case から test_plan へ follows を張る](./test-case-follows-test-plan.md) - test_plan とテストをつなぐ辺を test_case から test_plan への新設 relation follows とし、test_case の親に test_plan を足す。 (stable)
 * [用語は ubiquitous_term の item で管理し、一覧は生成した index.md が持つ](./ubiquitous-terms-listed-by-generated-index.md) - 用語は 1 語 1 ファイルの ubiquitous_term の item で管理し、語の一覧は `docs/ubiquitous-language/index.md` に生成して、`docs/glossary.md` と glossary-index の契約テストは廃止する (stable)
+* [solution と use_case は、確認の問いに人が答える妥当性確認でカバーする](./upper-layers-validated-by-review-questions.md) - 上位 2 層の solution と use_case は、確認の問いに人が答える妥当性確認でカバーし、risk の threatens の先は広げない。 (stable)
 * [use_case を要求、requirement を要件に対応させる](./use-case-and-requirement-terms.md) - 型名 use_case に日本語の要求を、requirement に日本語の要件を対応させ、モデルの読み方に書く。 (stable)
 
 ## ID・ファイル名・起票
