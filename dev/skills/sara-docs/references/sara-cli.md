@@ -105,11 +105,13 @@ sara schema            # 有効な model schema を YAML で出力
 
 型・relation・フィールド定義の正本は `docs/model.yaml`。編集前に schema で現状を確認する。
 
-## sara-gap — 未カバーの 7 節と到達率（別コマンド）
+## sara-gap — 未カバーの 11 節と到達率（別コマンド）
 
 ```bash
-sara-gap           # text: 7 節の見出し + <フル ID>\t<name>\t<file>
-sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisfied_quality, exempt, reach}
+sara-gap           # text: 11 節の見出し + <フル ID>\t<name>\t<file>
+sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisfied_quality, exempt, reach,
+                   #  use_case_without_requirement, requirement_under_deprecated_use_case,
+                   #  quality_characteristic_without_risk, human_judgement}
 ```
 
 | 節 | `--json` のキー | 内容 |
@@ -121,9 +123,21 @@ sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisf
 | 5 | `unsatisfied_quality` | `infrastructure` に `satisfies` されていない `quality` |
 | 6 | `exempt` | `risk_exempt` を持つ `requirement`。情報として出し、exit code に影響しない |
 | 7 | `reach` | `requirement` / `test_plan` / `quality` ごとの `{total, reached, ratio}` |
+| 8 | `use_case_without_requirement` | 有効な `requirement` に `derives_from` されていない有効な `use_case`。`deprecated` の `requirement` しか持たないものも出す |
+| 9 | `requirement_under_deprecated_use_case` | 有効な `requirement` のうち、親の `use_case` がすべて `deprecated` のもの。有効な親が 1 本でもあれば出さない |
+| 10 | `quality_characteristic_without_risk` | ISO/IEC 25010:2023 の 9 特性のうち、どの有効な `risk` の `quality_characteristic` にも無く、対象外の TSV にも無い特性 |
+| 11 | `human_judgement` | 値の空でない `human_judgement` を持つ有効な `test_condition`。人が最終的に判断するものの一覧として出し、exit code に影響しない |
 
-節 1〜6 の `--json` の行は `{id, name, file}` で、`id` はフル ID。節 7 の text の行は
-`<型>\t<reached>/<total>\t<割合>%`。
+節 1〜6・8・9・11 の `--json` の行は `{id, name, file}` で、`id` はフル ID。節 7 の text の行は
+`<型>\t<reached>/<total>\t<割合>%`。節 10 の `--json` は特性の値（`security` など）の文字列の配列で、text の行は
+特性の値を 1 行に 1 つ出す。
+
+節 8〜11 の「有効な」は、`status` が `deprecated` でないことを指し、`draft` を含む。節 1〜7 は `deprecated` の
+item も数える。
+
+対象外の品質特性は特性と理由の 2 列のタブ区切りの TSV に書く。1 行目はヘッダとして読み飛ばす。パスは既定で
+リポジトリの根からの `dev/tests/quality-characteristic-exclusions.tsv` で、環境変数 `SARA_GAP_EXCLUSIONS` で
+差し替えられる。ファイルが無ければ、どの特性も対象外にしない。
 
 到達と数えるのは次のもの。
 
@@ -131,18 +145,19 @@ sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisf
 - `test_plan`: 1 件以上の `test_case` から `follows` されるもの
 - `quality`: 1 件以上の `infrastructure` から `satisfies` されるもの
 
-exit code は、節 1〜5 のすべてが空で `ratio` がすべて 1 なら 0、それ以外は 1。`sara check` の失敗と
+exit code は、節 1〜5 と節 8〜10 のすべてが空で `ratio` がすべて 1 なら 0、それ以外は 1。`sara check` の失敗と
 JSON 形状の異常は 2。
 
 sara 本体ではなく devShell 同梱の独立コマンド。valid なグラフに対してだけ動く
 （`sara check` が落ちる間は exit 2 で一覧を出さない）。工程スキルは着手点の特定に使う。
 
-## 別コマンド sara-fresh による再確認待ち・generated の更新漏れ・人の確認が無い high の risk の列挙
+## 別コマンド sara-fresh による再確認待ち・generated の更新漏れ・人の確認の欠け・期限切れ・間隔の超過の列挙
 
 ```bash
-sara-fresh                     # text: 節 1・節 3 の見出し + 各行
-sara-fresh --base main         # text: 節 1〜3 の見出し + 各行
-sara-fresh --json [--base <ref>]  # {stale, generated_not_updated, unverified_high_risk}
+sara-fresh                     # text: 節 1・節 3〜6 の見出し + 各行
+sara-fresh --base main         # text: 節 1〜6 の見出し + 各行
+sara-fresh --json [--base <ref>]  # {stale, generated_not_updated, unverified_high_risk,
+                                  #  unverified_validation, expired, stale_after_beyond_interval}
 ```
 
 | 節 | `--json` のキー | 内容 |
@@ -150,6 +165,9 @@ sara-fresh --json [--base <ref>]  # {stale, generated_not_updated, unverified_hi
 | 1 | `stale` | `refines` / `derives_from` / `satisfies` / `threatens` / `mitigates` / `covers` / `follows` で指している上流の `generated.at` が、自身の基準時刻より新しい item。text の行末に、その上流のフル ID をカンマ区切りで足す |
 | 2 | `generated_not_updated` | `--base <ref>` を渡したときだけ出す。`git merge-base <ref> HEAD` のコミットと作業ツリーを比べ、本文が変わったのに `generated.at` の値が変わっていない item |
 | 3 | `unverified_high_risk` | `level: high` の `risk` のうち、`by` が `human:` で始まり `at` が `generated.at` 以降の `verified` を持たないもの |
+| 4 | `unverified_validation` | `solution` と `use_case` のうち、`by` が `human:` で始まり `at` が `generated.at` 以降の `verified` を持たないもの |
+| 5 | `expired` | `stale_after` が現在時刻より前の item。型を問わない |
+| 6 | `stale_after_beyond_interval` | 間隔の TSV に行のある型の item のうち、`stale_after` が起点から N 日より先のもの。起点は `generated.at` 以降で `by` が `human:` で始まる `verified[].at` のうち最も新しい時刻で、無ければ `generated.at` |
 
 基準時刻は `generated.at` と `generated.at` 以降の `verified[].at`（actor を問わない）のうち最も新しい時刻。
 `justifies` と peer の relation（`depends_on` / `supersedes` / `references`）は辿らない。`status: deprecated` の
@@ -160,12 +178,19 @@ item はどの節でも扱わない。
 base 側のファイルを旧パスとみなして比べる。未コミットの変更も比べる対象に入る。
 
 `stale` の `--json` の要素は `{id, name, file, upstreams}` で、`upstreams` は上流ごとの
-`{id, relation, at}`（`at` は上流の `generated.at`）。`generated_not_updated` と `unverified_high_risk` の
-要素は `{id, name, file}`。`--base` を渡さないとき、`--json` に `generated_not_updated` のキーは無い。
+`{id, relation, at}`（`at` は上流の `generated.at`）。節 2〜6 の要素は `{id, name, file}`。`--base` を
+渡さないとき、`--json` に `generated_not_updated` のキーは無い。
+
+節 5 の現在時刻は環境変数 `SARA_FRESH_NOW`（UTC オフセット付きの ISO 8601）で差し替えられる。節 6 の間隔は
+型と日数の 2 列のタブ区切りの TSV に書く。1 行目はヘッダとして読み飛ばす。パスは既定でリポジトリの根からの
+`dev/tests/stale-after-intervals.tsv` で、環境変数 `SARA_FRESH_INTERVALS` で差し替えられる。ファイルが無ければ
+節 6 の検査をしない。行の無い型も検査しない。期限を延ばすには、人の確認を `verified` に記録してから
+`stale_after` を書き換える。
 
 exit code は、出力したどの節も空なら 0、いずれかの節に item があれば 1。引数の誤り、`sara check` の失敗、
-JSON 形状の異常、frontmatter を YAML として読めない item、`verified` がリストでない item、`generated.at` や
-`verified` の `at` を時刻として読めない item があるとき、`--base` の ref を解決できないとき、`--base` の ref と
+JSON 形状の異常、frontmatter を YAML として読めない item、`verified` がリストでない item、`generated.at`・
+`verified` の `at`・`stale_after` を時刻として読めない item があるとき、`SARA_FRESH_NOW` を時刻として読めない
+とき、`--base` の ref を解決できないとき、`--base` の ref と
 HEAD の merge-base が無いときは、一覧を出さずに 2 を返す。結果は報告に留め、`verified` は人が内容を確かめた
 ときにだけ手で足す。CI の `sara` ジョブは pull_request で base ブランチを `--base` に渡して実行し、exit 1 では
 落ちない。
