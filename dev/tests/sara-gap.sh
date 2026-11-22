@@ -117,8 +117,9 @@ h_reach='## 到達率'
 h_uc_noreq='## 有効な requirement を持たない use_case'
 h_req_depuc='## 親の use_case がすべて deprecated の requirement'
 h_qc='## 有効な risk を持たない品質特性'
+h_hj='## human_judgement を持つ test_condition（情報）'
 expected_headings="$(printf '%s\n' "$h_unthreatened" "$h_unmitigated" "$h_uncovered" "$h_unfollowed" "$h_unsatisfied" "$h_exempt" "$h_reach" \
-  "$h_uc_noreq" "$h_req_depuc" "$h_qc")"
+  "$h_uc_noreq" "$h_req_depuc" "$h_qc" "$h_hj")"
 design_mark='\(design 側に risk あり\)$'
 full_id='^[A-Z]+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'$'\t'
 short_id='^[A-Z]+-[0-9a-f]{8}'$'\t'
@@ -129,7 +130,7 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap
 gap_out="$stdout_capture"
 
 assert_eq "ギャップがあれば exit 1" 1 "$status_capture"
-assert_eq "見出しを 10 個、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
+assert_eq "見出しを 11 個、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
 
 sec_unthreatened="$(section_body "$h_unthreatened" "$gap_out")"
 sec_unfollowed="$(section_body "$h_unfollowed" "$gap_out")"
@@ -174,8 +175,8 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap --json
 json_out="$stdout_capture"
 
 assert_eq "--json でも exit code は同じ（ギャップあり = 1）" 1 "$status_capture"
-assert_eq "--json は 10 キーのオブジェクトを返す" \
-  "exempt,quality_characteristic_without_risk,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
+assert_eq "--json は 11 キーのオブジェクトを返す" \
+  "exempt,human_judgement,quality_characteristic_without_risk,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
   "$(jq -r 'keys | join(",")' <<<"$json_out" 2>/dev/null)"
 assert_eq "--json の件数が 2,2,1,1,1,1" "2,2,1,1,1,1" \
   "$(jq -r '[.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality, .exempt | length] | join(",")' <<<"$json_out" 2>/dev/null)"
@@ -209,8 +210,8 @@ fill_gaps "$clean"
 run_gap env SARA_GAP_ROOT="$clean" sara-gap
 clean_out="$stdout_capture"
 assert_eq "ギャップが無ければ exit 0（exempt は exit に影響しない）" 0 "$status_capture"
-assert_eq "見出しは埋めても 10 個" 10 "$(grep -c '^## ' <<<"$clean_out")"
-assert_eq "0 件の節 1〜5 と新しい節は「なし」と出す" 8 "$(grep -c '^なし$' <<<"$clean_out")"
+assert_eq "見出しは埋めても 11 個" 11 "$(grep -c '^## ' <<<"$clean_out")"
+assert_eq "0 件の節 1〜5 と新しい節は「なし」と出す" 9 "$(grep -c '^なし$' <<<"$clean_out")"
 assert_has "exempt は埋めても節 6 に出る" '^REQ-cccc0003' "$(section_body "$h_exempt" "$clean_out")"
 assert_lacks "risk の無い design を列挙しない" 'DSG-dd000001' "$clean_out"
 
@@ -242,7 +243,7 @@ MD
 run_gap env SARA_GAP_ROOT="$reach_only" sara-gap
 reach_only_out="$stdout_capture"
 assert_eq "到達率だけが 1 未満でも exit 1" 1 "$status_capture"
-assert_eq "到達率だけが 1 未満のとき節 1〜5 と新しい節は空" 8 "$(grep -c '^なし$' <<<"$reach_only_out")"
+assert_eq "到達率だけが 1 未満のとき節 1〜5 と新しい節は空" 9 "$(grep -c '^なし$' <<<"$reach_only_out")"
 
 # 到達率がすべて 1 のまま節 2〜4 のどれか 1 件だけが残っても exit 1 になる。
 for gap_file in risk-gap tc-gap case; do
@@ -432,6 +433,46 @@ assert_eq "SARA_GAP_EXCLUSIONS のファイルが無ければ対象外なしと�
 run_gap env SARA_GAP_ROOT="$qc_only" sara-gap --json
 assert_eq "既定のパスの TSV で対象外にした特性は出さない" "0:0" \
   "$status_capture:$(jq -r '.quality_characteristic_without_risk | length' <<<"$stdout_capture" 2>/dev/null)"
+
+# --- 4d. human_judgement を持つ test_condition --------------------------------
+#
+# 有効で値の空でない human_judgement を持つ test_condition だけを一覧にし、exit には数えない。
+
+add_judgement() {
+  sed -i "s/^status: \(.*\)\$/status: \1\nhuman_judgement: \"$2\"/" "$1"
+}
+
+hj="$work/hj"
+make_fixture "$hj"
+add_judgement "$hj/docs/tc-covered.md" "見た目の崩れは人が判断する"
+add_judgement "$hj/docs/tc-gap.md" "廃止したテスト条件の判断"
+sed -i 's/^status: stable$/status: deprecated/' "$hj/docs/tc-gap.md"
+cat >"$hj/docs/tc-empty-judgement.md" <<'MD'
+---
+id: "TC-33330003-0000-4000-8000-000000000032"
+type: test_condition
+name: "human_judgement が空のテスト条件"
+status: stable
+human_judgement: ""
+mitigates:
+  - "RISK-11110001-0000-4000-8000-000000000006"
+---
+# TC-33330003: human_judgement が空のテスト条件
+MD
+run_gap env SARA_GAP_ROOT="$hj" sara-gap
+assert_eq "有効で human_judgement を持つ test_condition だけを <フル ID>\\t<name>\\t<file> で出す" \
+  "TC-33330001-0000-4000-8000-000000000008"$'\t'"CASE に covers されているテスト条件"$'\t'"docs/tc-covered.md" \
+  "$(section_body "$h_hj" "$stdout_capture" | grep -v '^$')"
+run_gap env SARA_GAP_ROOT="$hj" sara-gap --json
+assert_eq "--json の human_judgement の行は id / name / file" '[{"file":"docs/tc-covered.md","id":"TC-33330001-0000-4000-8000-000000000008","name":"CASE に covers されているテスト条件"}]' \
+  "$(jq -c '[.human_judgement[] | to_entries | sort_by(.key) | from_entries]' <<<"$stdout_capture" 2>/dev/null)"
+
+hj_clean="$work/hj-clean"
+fill_gaps "$hj_clean"
+add_judgement "$hj_clean/docs/tc-covered.md" "見た目の崩れは人が判断する"
+run_gap env SARA_GAP_ROOT="$hj_clean" sara-gap --json
+assert_eq "human_judgement の一覧だけがあっても exit 0" "0:1" \
+  "$status_capture:$(jq -r '.human_judgement | length' <<<"$stdout_capture" 2>/dev/null)"
 
 # --- 5. sara check が失敗するグラフでは exit 2 ---------------------------------
 #

@@ -11,7 +11,7 @@ usage() {
   cat >&2 <<'EOF'
 usage: sara-gap [--json]
 
-sara ドキュメントグラフの未カバーと到達率を 10 節で出す:
+sara ドキュメントグラフの未カバーと到達率を 11 節で出す:
   1. threatens も risk_exempt も無い requirement
   2. mitigates されていない risk
   3. covers されていない test_condition
@@ -22,8 +22,9 @@ sara ドキュメントグラフの未カバーと到達率を 10 節で出す:
   8. 有効な requirement を持たない use_case
   9. 親の use_case がすべて deprecated の requirement
   10. 有効な risk を持たず、対象外にもしていない品質特性（ISO/IEC 25010:2023 の 9 特性）
+  11. human_judgement を持つ test_condition（情報）
 
-節 8〜10 は status が deprecated の item を除いて数える（draft は含む）。
+節 8〜11 は status が deprecated の item を除いて数える（draft は含む）。
 対象外の品質特性は、特性と理由の 2 列の TSV（1 行目はヘッダ）から読む。パスは既定で
 <リポジトリの根>/dev/tests/quality-characteristic-exclusions.tsv で、SARA_GAP_EXCLUSIONS で
 差し替えられる。ファイルが無ければ対象外なしとして扱う。
@@ -97,6 +98,7 @@ gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
   def row: {id, name, file: (.file | ltrimstr("./"))};
   def has_exempt: (.fields.risk_exempt? // "") != "";
   def valid: .fields.status? != "deprecated";
+  def has_judgement: (.fields.human_judgement? // "") != "";
   def reach_of(f): length as $total | ([.[] | select(f)] | length) as $reached
     | {total: $total, reached: $reached, ratio: (if $total == 0 then 1 else $reached / $total end)};
   targets("threatens") as $threatened
@@ -146,6 +148,8 @@ gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
         "functional_suitability", "performance_efficiency", "compatibility", "interaction_capability",
         "reliability", "security", "maintainability", "flexibility", "safety"
         | select(. as $c | ($risked | index($c)) == null and ($excluded | index($c)) == null)],
+      human_judgement: ([.items[]
+        | select(.type == "test_condition" and valid and has_judgement) | row] | sort_by(.id)),
       reach: {
         requirement: ([.items[] | select(.type == "requirement") | select(has_exempt | not)]
           | reach_of(.id as $i | $chained_reqs | index($i))),
@@ -186,6 +190,8 @@ else
     + [""]
     + ["## 有効な risk を持たない品質特性"]
     + (if (.quality_characteristic_without_risk | length) == 0 then ["なし"] else .quality_characteristic_without_risk end)
+    + [""]
+    + section("human_judgement を持つ test_condition（情報）"; .human_judgement)
     | .[]'
 fi
 
