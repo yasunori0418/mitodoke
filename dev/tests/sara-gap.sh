@@ -97,7 +97,10 @@ h_unfollowed='## follows を持たない test_case'
 h_unsatisfied='## infrastructure に satisfies されていない quality'
 h_exempt='## risk_exempt を持つ requirement（情報）'
 h_reach='## 到達率'
-expected_headings="$(printf '%s\n' "$h_unthreatened" "$h_unmitigated" "$h_uncovered" "$h_unfollowed" "$h_unsatisfied" "$h_exempt" "$h_reach")"
+h_uc_noreq='## 有効な requirement を持たない use_case'
+h_req_depuc='## 親の use_case がすべて deprecated の requirement'
+expected_headings="$(printf '%s\n' "$h_unthreatened" "$h_unmitigated" "$h_uncovered" "$h_unfollowed" "$h_unsatisfied" "$h_exempt" "$h_reach" \
+  "$h_uc_noreq" "$h_req_depuc")"
 design_mark='\(design 側に risk あり\)$'
 full_id='^[A-Z]+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'$'\t'
 short_id='^[A-Z]+-[0-9a-f]{8}'$'\t'
@@ -108,7 +111,7 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap
 gap_out="$stdout_capture"
 
 assert_eq "ギャップがあれば exit 1" 1 "$status_capture"
-assert_eq "見出しを 7 つ、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
+assert_eq "見出しを 9 つ、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
 
 sec_unthreatened="$(section_body "$h_unthreatened" "$gap_out")"
 sec_unfollowed="$(section_body "$h_unfollowed" "$gap_out")"
@@ -153,8 +156,8 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap --json
 json_out="$stdout_capture"
 
 assert_eq "--json でも exit code は同じ（ギャップあり = 1）" 1 "$status_capture"
-assert_eq "--json は 7 キーのオブジェクトを返す" \
-  "exempt,reach,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened" \
+assert_eq "--json は 9 キーのオブジェクトを返す" \
+  "exempt,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
   "$(jq -r 'keys | join(",")' <<<"$json_out" 2>/dev/null)"
 assert_eq "--json の件数が 2,2,1,1,1,1" "2,2,1,1,1,1" \
   "$(jq -r '[.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality, .exempt | length] | join(",")' <<<"$json_out" 2>/dev/null)"
@@ -186,8 +189,8 @@ fill_gaps "$clean"
 run_gap env SARA_GAP_ROOT="$clean" sara-gap
 clean_out="$stdout_capture"
 assert_eq "ギャップが無ければ exit 0（exempt は exit に影響しない）" 0 "$status_capture"
-assert_eq "見出しは埋めても 7 つ" 7 "$(grep -c '^## ' <<<"$clean_out")"
-assert_eq "0 件の節 1〜5 は「なし」と出す" 5 "$(grep -c '^なし$' <<<"$clean_out")"
+assert_eq "見出しは埋めても 9 つ" 9 "$(grep -c '^## ' <<<"$clean_out")"
+assert_eq "0 件の節 1〜5 と新しい節は「なし」と出す" 7 "$(grep -c '^なし$' <<<"$clean_out")"
 assert_has "exempt は埋めても節 6 に出る" '^REQ-cccc0003' "$(section_body "$h_exempt" "$clean_out")"
 assert_lacks "risk の無い design を列挙しない" 'DSG-dd000001' "$clean_out"
 
@@ -219,7 +222,7 @@ MD
 run_gap env SARA_GAP_ROOT="$reach_only" sara-gap
 reach_only_out="$stdout_capture"
 assert_eq "到達率だけが 1 未満でも exit 1" 1 "$status_capture"
-assert_eq "到達率だけが 1 未満のとき節 1〜5 は空" 5 "$(grep -c '^なし$' <<<"$reach_only_out")"
+assert_eq "到達率だけが 1 未満のとき節 1〜5 と新しい節は空" 7 "$(grep -c '^なし$' <<<"$reach_only_out")"
 
 # 到達率がすべて 1 のまま節 2〜4 のどれか 1 件だけが残っても exit 1 になる。
 for gap_file in risk-gap tc-gap case; do
@@ -259,6 +262,98 @@ rm "$no_case/docs/case.md" "$no_case/docs/case-followed.md"
 run_gap env SARA_GAP_ROOT="$no_case" sara-gap --json
 assert_eq "鎖が CASE まで届かない REQ は reached に数えない" "true" \
   "$(jq '.reach.requirement == {total: 1, reached: 0, ratio: 0}' <<<"$stdout_capture" 2>/dev/null)"
+
+# --- 4b. use_case と requirement の、deprecated を考えたつながり --------------
+#
+# 有効な requirement の無い use_case と、親の use_case がすべて deprecated の requirement を確かめる。
+
+SOL_ID="SOL-5011a001-0000-4000-8000-000000000001"
+UC_ID="UC-0ca11001-0000-4000-8000-000000000002"
+UC_DEPREQ="UC-0ca11002-0000-4000-8000-000000000020"
+UC_DEP="UC-0ca11003-0000-4000-8000-000000000021"
+UC_DRAFT="UC-0ca11004-0000-4000-8000-000000000022"
+UC_DEP_EMPTY="UC-0ca11005-0000-4000-8000-000000000028"
+REQ_DEP="REQ-eeee0001-0000-4000-8000-000000000023"
+REQ_UNDER_DEP="REQ-eeee0002-0000-4000-8000-000000000024"
+REQ_MIXED="REQ-eeee0003-0000-4000-8000-000000000025"
+REQ_DEP_UNDER_DEP="REQ-eeee0004-0000-4000-8000-000000000026"
+REQ_DRAFT="REQ-eeee0005-0000-4000-8000-000000000027"
+
+# <リポジトリ> <ファイル名> <ID> <name> <status> <refines の先>
+use_case_item() {
+  cat >"$1/docs/$2.md" <<MD
+---
+id: "$3"
+type: use_case
+name: "$4"
+status: $5
+refines:
+  - "$6"
+---
+# $4
+MD
+}
+
+# <リポジトリ> <ファイル名> <ID> <name> <status> <derives_from の先…>
+requirement_item() {
+  local repo=$1 file=$2 id=$3 name=$4 status=$5
+  shift 5
+  {
+    printf -- '---\nid: "%s"\ntype: requirement\nname: "%s"\nsection: product-scope\nstatus: %s\nderives_from:\n' "$id" "$name" "$status"
+    printf '  - "%s"\n' "$@"
+    printf 'specification: |\n  The fixture SHALL keep this requirement.\nspecification_ja: |\n  fixture はこの要求を保たなければならない。\n---\n# %s\n' "$name"
+  } >"$repo/docs/$file.md"
+}
+
+upstream="$work/upstream"
+make_fixture "$upstream"
+use_case_item "$upstream" uc-depreq "$UC_DEPREQ" "廃止した要件しか持たないユースケース" stable "$SOL_ID"
+use_case_item "$upstream" uc-dep "$UC_DEP" "廃止したユースケース" deprecated "$SOL_ID"
+use_case_item "$upstream" uc-draft "$UC_DRAFT" "draft の要件を持つ draft のユースケース" draft "$SOL_ID"
+use_case_item "$upstream" uc-dep-empty "$UC_DEP_EMPTY" "要件を持たない廃止したユースケース" deprecated "$SOL_ID"
+requirement_item "$upstream" req-dep "$REQ_DEP" "廃止した要件" deprecated "$UC_DEPREQ"
+requirement_item "$upstream" req-under-dep "$REQ_UNDER_DEP" "廃止したユースケースの下の要件" stable "$UC_DEP"
+requirement_item "$upstream" req-mixed "$REQ_MIXED" "有効な親も持つ要件" stable "$UC_DEP" "$UC_ID"
+requirement_item "$upstream" req-dep-under-dep "$REQ_DEP_UNDER_DEP" "廃止したユースケースの下の廃止した要件" deprecated "$UC_DEP"
+requirement_item "$upstream" req-draft "$REQ_DRAFT" "draft の要件" draft "$UC_DRAFT"
+
+run_gap env SARA_GAP_ROOT="$upstream" sara-gap
+upstream_out="$stdout_capture"
+assert_eq "use_case と requirement のつながりの欠けがあれば exit 1" 1 "$status_capture"
+sec_uc_noreq="$(section_body "$h_uc_noreq" "$upstream_out")"
+sec_req_depuc="$(section_body "$h_req_depuc" "$upstream_out")"
+assert_eq "deprecated の requirement しか持たない有効な use_case だけを出し、requirement の無い deprecated の use_case は出さない" \
+  "$UC_DEPREQ"$'\t'"廃止した要件しか持たないユースケース"$'\t'"docs/uc-depreq.md" "$sec_uc_noreq"
+assert_eq "親の use_case がすべて deprecated の有効な requirement だけを出す" \
+  "$REQ_UNDER_DEP"$'\t'"廃止したユースケースの下の要件"$'\t'"docs/req-under-dep.md" "$sec_req_depuc"
+
+run_gap env SARA_GAP_ROOT="$upstream" sara-gap --json
+assert_eq "--json の use_case_without_requirement と requirement_under_deprecated_use_case" \
+  "$UC_DEPREQ:$REQ_UNDER_DEP" \
+  "$(jq -r '"\([.use_case_without_requirement[].id] | join(",")):\([.requirement_under_deprecated_use_case[].id] | join(","))"' <<<"$stdout_capture" 2>/dev/null)"
+assert_eq "--json の新しい節の行のキーは id / name / file だけ" '["file,id,name"]' \
+  "$(jq -c '[.use_case_without_requirement, .requirement_under_deprecated_use_case | .[] | keys | join(",")] | unique' <<<"$stdout_capture" 2>/dev/null)"
+
+# 有効な requirement を持つ use_case と、有効な親を持つ requirement だけのグラフでは、どちらの節も空になる。
+run_gap env SARA_GAP_ROOT="$base" sara-gap --json
+assert_eq "use_case と requirement がつながっていれば新しい 2 節は空" "0:0" \
+  "$(jq -r '"\(.use_case_without_requirement | length):\(.requirement_under_deprecated_use_case | length)"' <<<"$stdout_capture" 2>/dev/null)"
+
+# 有効な use_case が無くなった requirement だけが残っても exit 1 になる（到達率と節 1〜5 は埋めたまま）。
+only_depuc="$work/only-depuc"
+fill_gaps "$only_depuc"
+use_case_item "$only_depuc" uc-dep "$UC_DEP" "廃止したユースケース" deprecated "$SOL_ID"
+sed -i "s|\"$UC_ID\"|\"$UC_DEP\"|" "$only_depuc/docs/req-covered.md"
+run_gap env SARA_GAP_ROOT="$only_depuc" sara-gap --json
+assert_eq "親の use_case がすべて deprecated の requirement だけで exit 1" "1:1" \
+  "$status_capture:$(jq -r '.requirement_under_deprecated_use_case | length' <<<"$stdout_capture" 2>/dev/null)"
+
+only_noreq="$work/only-noreq"
+fill_gaps "$only_noreq"
+use_case_item "$only_noreq" uc-depreq "$UC_DEPREQ" "廃止した要件しか持たないユースケース" stable "$SOL_ID"
+run_gap env SARA_GAP_ROOT="$only_noreq" sara-gap --json
+assert_eq "有効な requirement を持たない use_case だけで exit 1" "1:1" \
+  "$status_capture:$(jq -r '.use_case_without_requirement | length' <<<"$stdout_capture" 2>/dev/null)"
 
 # --- 5. sara check が失敗するグラフでは exit 2 ---------------------------------
 #

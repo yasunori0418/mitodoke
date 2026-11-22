@@ -11,7 +11,7 @@ usage() {
   cat >&2 <<'EOF'
 usage: sara-gap [--json]
 
-sara ドキュメントグラフの未カバーと到達率を 7 節で出す:
+sara ドキュメントグラフの未カバーと到達率を 9 節で出す:
   1. threatens も risk_exempt も無い requirement
   2. mitigates されていない risk
   3. covers されていない test_condition
@@ -19,10 +19,14 @@ sara ドキュメントグラフの未カバーと到達率を 7 節で出す:
   5. infrastructure に satisfies されていない quality
   6. risk_exempt を持つ requirement（情報）
   7. 到達率
+  8. 有効な requirement を持たない use_case
+  9. 親の use_case がすべて deprecated の requirement
+
+節 8〜9 は status が deprecated の item を除いて数える（draft は含む）。
 
 exit code:
-  0  節 1〜5 が空で、到達率がすべて 1
-  1  節 1〜5 のいずれかが空でない、または到達率のいずれかが 1 未満
+  0  節 1〜5・8〜9 が空で、到達率がすべて 1
+  1  節 1〜5・8〜9 のいずれかが空でない、または到達率のいずれかが 1 未満
   2  sara check の失敗・JSON 形状の異常
 EOF
 }
@@ -81,6 +85,7 @@ gaps=$(printf '%s' "$graph" | jq '
   def targets(t): [.items[] | (.relations[t]? // [])[]] | unique;
   def row: {id, name, file: (.file | ltrimstr("./"))};
   def has_exempt: (.fields.risk_exempt? // "") != "";
+  def valid: .fields.status? != "deprecated";
   def reach_of(f): length as $total | ([.[] | select(f)] | length) as $reached
     | {total: $total, reached: $reached, ratio: (if $total == 0 then 1 else $reached / $total end)};
   targets("threatens") as $threatened
@@ -95,6 +100,8 @@ gaps=$(printf '%s' "$graph" | jq '
       | (.relations.mitigates? // [])[]] | unique) as $case_backed_risks
   | ([.items[] | select(.type == "risk") | select(.id as $i | $case_backed_risks | index($i))
       | (.relations.threatens? // [])[]] | unique) as $chained_reqs
+  | ([.items[] | select(.type == "use_case") | {key: .id, value: valid}] | from_entries) as $uc_valid
+  | ([.items[] | select(.type == "requirement") | select(valid) | (.relations.derives_from? // [])[]] | unique) as $valid_req_parents
   | {
       unthreatened: ([.items[]
         | select(.type == "requirement")
@@ -114,6 +121,13 @@ gaps=$(printf '%s' "$graph" | jq '
         | select(.type == "quality")
         | select(.id as $i | ($inf_satisfied | index($i)) | not) | row] | sort_by(.id)),
       exempt: ([.items[] | select(.type == "requirement") | select(has_exempt) | row] | sort_by(.id)),
+      use_case_without_requirement: ([.items[]
+        | select(.type == "use_case" and valid)
+        | select(.id as $i | ($valid_req_parents | index($i)) | not) | row] | sort_by(.id)),
+      requirement_under_deprecated_use_case: ([.items[]
+        | select(.type == "requirement" and valid)
+        | [(.relations.derives_from? // [])[] | . as $p | select($uc_valid | has($p)) | $uc_valid[$p]] as $parents
+        | select(($parents | length) > 0 and ($parents | all(. == false))) | row] | sort_by(.id)),
       reach: {
         requirement: ([.items[] | select(.type == "requirement") | select(has_exempt | not)]
           | reach_of(.id as $i | $chained_reqs | index($i))),
@@ -147,11 +161,16 @@ else
     + ["## 到達率"]
     + (.reach as $r | ["requirement", "test_plan", "quality"]
        | map(. as $k | $r[$k] | "\($k)\t\(.reached)/\(.total)\t\((.ratio * 1000 | floor) / 10)%"))
+    + [""]
+    + section("有効な requirement を持たない use_case"; .use_case_without_requirement)
+    + [""]
+    + section("親の use_case がすべて deprecated の requirement"; .requirement_under_deprecated_use_case)
     | .[]'
 fi
 
 if printf '%s' "$gaps" | jq -e '
-  ([.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality | length] | add) > 0
+  ([.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality,
+    .use_case_without_requirement, .requirement_under_deprecated_use_case | length] | add) > 0
   or ([.reach[].ratio] | any(. < 1))' >/dev/null; then
   exit 1
 fi
