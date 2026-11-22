@@ -73,7 +73,7 @@
 * [risk に ISO/IEC 25010:2023 の品質特性を 1 つ必須で持たせる](./risk-quality-characteristic.md) - risk に ISO/IEC 25010:2023 の 9 つの品質特性で固定した enum の quality_characteristic を必須で持たせ、リスクを持たない特性を、対象外の宣言を除いて報告する。 (stable)
 * [沈黙性を risk のスコア軸にせず本文に書く](./silence-not-a-score-axis.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決め、`impact` から沈黙の不整合を外した。気づけるかどうかは脅威の性質として重要な情報で、捨てるには惜しい。これをどこに残すかを決める必要があった。 (stable)
 * [test_condition に、人が最終的に判断する理由の human_judgement を持たせる](./test-condition-human-judgement.md) - test_condition に任意の text の human_judgement を足して理由の 1 文を書かせ、機械で確かめるのを既定にして、人が最終的に判断するものだけを一覧にする。 (stable)
-* [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (stable)
+* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](./test-items-in-three-tiers-with-human-tests.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす (stable)
 
 ## 製品の範囲と構成
 
@@ -158,5 +158,6 @@
 * [sara-id を廃止し sara init を包む起票ラッパーを使う](./sara-new-wrapper-replaces-sara-id.md) - `sara-id` は devShell 同梱の採番コマンドで、UUIDv4 の採番・8 文字の重複の確認・省略形の出力・型名からprefix への写像・ファイル名素材の組み立てを担っていた。item ファイルの作成は `sara init` が担当した。 (deprecated)
 * [省略形の禁止は起票の機械化と全面移行で担保する](./short-form-ban-enforced-by-tooling.md) - 8 文字の省略形を使わないという規則は [ID はフル UUID に統一し 8 文字省略形を使わない](full-uuid-ids-no-short-form.md) が決めた。本 ADR は、その禁止をどう担保するかだけを決める。担保の方法は、禁止の規則を変えずに単独で覆せる。後から CI の検出を入れるなら、本 ADR だけを廃止すればよい。そのため規則とは別の ADR にする。 (deprecated)
 * [item のファイル名は slug だけにする](./slug-only-filenames.md) - item のファイル名を `<slug>.md` にし、フル ID は frontmatter と H1 見出しだけに書き、散文は Markdown リンクで item を参照する。 (deprecated)
+* [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
 * [用語を ubiquitous_term の item で管理する](./ubiquitous-term-type.md) - 用語の正名・避ける綴り・定義は、`CONTEXT.md`（日本語の長い定義）と `docs/glossary.md` / `docs/glossary.ja.md`（英日の短い定義）の 3 ファイルが重ねて持っていた。3 ファイルの同期は手作業で、語の数も定義の中身もすでに食い違っている。用語を 2 語足すだけで 5 ファイルを直す必要があった（#644）。 (deprecated)

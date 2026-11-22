@@ -20,4 +20,4 @@
 * [sara は必要なときに上げ、組み込む版と配る版を同じタグに揃える](./sara-version-upgrade-policy.md) - sara のタグを上げる時機と、上げるときに組み込む版と配る版を同じタグに揃えて確かめる手順を定める。
 * [specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える](./specification-shall-family-and-matching-auxiliaries.md) - specification は SHALL 系で書き、specification_ja は同じ強度の規範助動詞で終える
 * [上流より古い item と generated の更新漏れは機械的に列挙する](./stale-items-enumerated-mechanically.md) - 上流より基準時刻が古い下流の item、本文を変えたのに generated を更新していない item、stale_after の期限切れと間隔の超過を機械的に列挙し、結果は報告に留める
-* [テスト系 item は、テスト資産・検証テーマ・脅威の 3 段の粒度で起こす](./test-items-three-tier-granularity.md) - テスト系 item は CASE をテスト資産・TC を検証テーマ・RISK を脅威の単位で起こす
+* [テスト系 item は、テスト資産・検証テーマ・脅威の 3 段の粒度で起こす](./test-items-three-tier-granularity.md) - テスト系 item は CASE をテスト資産・TC を検証テーマ・RISK を脅威の単位で起こし、人が行うテストも CASE にする
