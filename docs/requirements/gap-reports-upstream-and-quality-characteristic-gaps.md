@@ -12,6 +12,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:58:51+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:40:54+09:00"
 ---
 # gap は、要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を報告し、人が判断するテスト条件を一覧にする
 
