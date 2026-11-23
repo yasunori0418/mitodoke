@@ -118,7 +118,7 @@
 * [test_case は covers と follows をそれぞれ 1 本以上持つ](./test-case-requires-covers-and-follows.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約にし、欠けたら失敗にする。 (stable)
 * [トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない](./tracker-independent-defect-norm-shipped.md) - トラッカーに依らない欠陥運用の規範を製品に含め、GitHub 用の部分は例として置き、mitodoke は欠陥の Issue を検査しない。 (stable)
 * [宣言の無い frontmatter のキーを違反にし、宣言はその item の型のものに限る](./undeclared-frontmatter-keys-per-type.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、ほかの型だけで宣言されたフィールドも違反にする。 (stable)
-* [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](./unreadable-model-exits-without-builtin-fallback.md) - モデルを読めないときと install が失敗したときは、グラフを読むサブコマンドと check が exit 2 で終えて組み込みの型へ戻らず、item が 0 件であることは誤りにしない。 (stable)
+* [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](./unreadable-model-exits-without-builtin-fallback.md) - モデルを読めないときと install が失敗したときは、グラフを読むサブコマンドと check が exit 2 で終えて組み込みの型へ戻らず、item が 0 件であること自体は誤りにも該当にもしない。 (stable)
 
 ## コマンド
 

@@ -27,9 +27,7 @@ specification: |
   inspection SHALL be changeable in the configuration.
   In the missing `generated` update, the body SHALL be the lines outside the frontmatter together
   with `specification` and `specification_<language>` in the frontmatter, and a change of `name`,
-  `description`, `status`, a relation or an OKF key SHALL NOT count as a change of the body. In
-  the lines outside the frontmatter, a line that starts with `# `, a line that starts with
-  `- ステータス:` and a difference only in whitespace SHALL NOT count as a change of the body. In a
+  `description`, `status`, a relation or an OKF key SHALL NOT count as a change of the body. In a
   run given no base revision, mitodoke SHALL NOT perform the inspection of missing `generated`
   updates, and check and fresh SHALL record in the result that the inspection was not performed.
 
@@ -44,7 +42,7 @@ specification: |
   fails, check and the subcommands that load the document graph SHALL end with exit code 2 and
   SHALL NOT fall back to the built-in types. init and model SHALL NOT be subject to these rules.
   Having zero items SHALL NOT in itself be an error or a finding, and a run over zero items SHALL
-  end with exit code 0 when it has no other finding.
+  end with exit code 0 unless another finding at failure strength exists.
 specification_ja: |
   既定では、構造の契約の違反は失敗としなければならない。構造の契約は、
   `sara check`（`solution` の `stale_after` の欠けを含む）、frontmatter の形、ID の置き場所、test_case と
@@ -63,9 +61,7 @@ specification_ja: |
   働かせなければならない。どの検査の強さも、設定で変えられなければならない。
   generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
   `specification_<言語>` を加えたものでなければならず、`name`・`description`・`status`・relation・
-  OKF のキーの変更は、本文の変更に数えてはならない。frontmatter の外の行のうち、`# ` で始まる H1 の行、
-  `- ステータス:` で始まる行、空白だけの差は、本文の変更に数えてはならない。基準のリビジョンを渡さない
-  実行では、mitodoke は
+  OKF のキーの変更は、本文の変更に数えてはならない。基準のリビジョンを渡さない実行では、mitodoke は
   generated の更新漏れの検査をしてはならず、check と fresh は、検査しなかったことを結果に記録しなければ
   ならない。
 
@@ -78,15 +74,15 @@ specification_ja: |
   verify は書き込みを拒まなければならない。モデルを読めないときと、モデルの install が失敗したときは、
   check とドキュメントグラフを読み込むサブコマンドは exit code 2 で終わらなければならず、組み込みの型へ
   戻ってはならない。init と model は、これらの規則の対象にしてはならない。item が 0 件であること自体を、
-  誤りにも該当にもしてはならず、item が 0 件の実行は、ほかに該当が無ければ exit code 0 で終わらなければ
-  ならない。
+  誤りにも該当にもしてはならず、item が 0 件の実行は、ほかに失敗の指摘が無ければ exit code 0 で終わら
+  なければならない。
 section: inspection
 status: stable
 derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T19:15:54+09:00"
+  at: "2026-11-23T19:24:39+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -135,9 +131,10 @@ mitodoke の検査は、構造の契約、つながりの欠け、見直しの�
 
 generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
 `specification_<言語>` を加えたものとする。`name`・`description`・`status`・relation・OKF のキーの変更は、
-本文の変更に数えない。frontmatter の外の行のうち、`# ` で始まる H1 の行、`- ステータス:` で始まる行、空白
-だけの差も、本文の変更に数えない。基準のリビジョンを渡さない実行では、generated の更新漏れの検査をしない。
-`check` と `fresh` は、検査しなかったことを結果に記録する。
+本文の変更に数えない。基準のリビジョンを渡さない実行では、generated の更新漏れの検査をしない。`check` と
+`fresh` は、検査しなかったことを結果に記録する。frontmatter の外の行の比較で除く行（今の規則は
+[generated の更新漏れの検査は、frontmatter の specification も本文に数える](../adr/generated-update-check-includes-specification.md)
+にある）を固定にするか設定から導くかは、再確認と人の確認の epic が決め、この要件では定めない。
 
 `human_judgement` を持つ test_condition の一覧は、人が判断する範囲を示す情報で、3 つの分類のどれにも
 当たらない。
@@ -167,7 +164,7 @@ sara-core の読み込みが読み飛ばしたファイル（scan warning）と�
 - モデルを読めないときと、モデルの install が失敗したときは、`check` とドキュメントグラフを読み込む
   サブコマンドが exit code 2 で終わり、組み込みの型へ戻らない
 - `init` と `model` はグラフを読まないので、これらの規則の対象にしない
-- item が 0 件であること自体は、誤りにも該当にもしない。item が 0 件の実行は、ほかに該当が無ければ exit code 0 で終わる
+- item が 0 件であること自体は、誤りにも該当にもしない。item が 0 件の実行は、ほかに失敗の指摘が無ければ exit code 0 で終わる
 
 ## 出典
 

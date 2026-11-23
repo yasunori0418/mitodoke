@@ -18,7 +18,7 @@ references:
   - "ADR-6f2020c5-dc77-44c6-8471-1bd2f72f1f48"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:55:25+09:00"
+  at: "2026-11-23T19:24:39+09:00"
 ---
 # changes・dryRun・label はファイルを書くかで分け、ID の無い item はパスで表す
 
@@ -41,7 +41,7 @@ mitodoke には、ファイルを書くサブコマンドと、読むだけの�
 - ファイルを書くサブコマンド（`new`・`init`・`index`・`model`・`verify`）は、書いたファイル 1 つを item
   1 つにし、`changes[]` に `add` か `modify` を並べ、`dryRun` を `false` にする
 - `index` と `model` の `--check` は、`dryRun` を `true` にし、差分のあるファイルを `failed` の item に
-  して、`changes[]` に書くはずだった変更を並べ、exit 1 で終える
+  して、`changes[]` に書くはずだった変更を並べ、差分があれば exit 1 で終える
 - 読むだけのサブコマンド（`check`・`gap`・`fresh`・`matrix`・`export`）は、`dryRun` を `true` にし、
   `changes[]` を出さない
 - `label` はすべての item に付ける。文書を表す item では、文書の `name` にする

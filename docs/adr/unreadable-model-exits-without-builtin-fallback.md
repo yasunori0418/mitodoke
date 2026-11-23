@@ -2,7 +2,7 @@
 id: "ADR-4fcaca23-95a6-483f-a62b-e59dca0857d0"
 type: adr
 name: "モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない"
-description: "モデルを読めないときと install が失敗したときは、グラフを読むサブコマンドと check が exit 2 で終えて組み込みの型へ戻らず、item が 0 件であることは誤りにしない。"
+description: "モデルを読めないときと install が失敗したときは、グラフを読むサブコマンドと check が exit 2 で終えて組み込みの型へ戻らず、item が 0 件であること自体は誤りにも該当にもしない。"
 section: inspection
 status: stable
 sources:
@@ -14,7 +14,7 @@ justifies:
   - "REQ-da3bf704-20f3-4c26-bd7a-c25adb45b733"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:46:11+09:00"
+  at: "2026-11-23T19:24:39+09:00"
 ---
 # モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない
 
@@ -38,7 +38,8 @@ sara-core は、モデル（model.yaml）を読めないとき、組み込みの
 `check` が exit 2 で終え、組み込みの型へ戻らない。`init` と `model` はグラフを読まないので、対象に
 しない。
 
-item が 0 件であることは誤りにせず、該当の無い結果で exit 0 にする。
+item が 0 件であること自体は、誤りにも該当にもしない。item が 0 件の実行は、ほかに失敗の指摘が無ければ
+exit 0 で終える。
 
 ## 根拠
 

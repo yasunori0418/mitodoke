@@ -18,7 +18,7 @@ references:
   - "ADR-715b563f-eedd-48d0-b456-0b5d6af65647"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:53:53+09:00"
+  at: "2026-11-23T19:24:39+09:00"
 ---
 # 報告の指摘は success の item の警告で表し、働く強さは exit code で決める
 
@@ -44,7 +44,7 @@ outturn では、トップレベルの `status` が `success` であることと
 - 失敗の指摘は、`failed` の item と、`error` の `E_MITODOKE_<契約名>` で表す
 - 報告の指摘は、`success` の item と、`warnings` の `W_MITODOKE_<契約名>` で表す。報告の指摘だけを持つ
   組も item にする。成り立った組は item にしない
-- 単体の `gap` と `fresh` では、該当した組はすべて失敗で、exit 1 で終わる
+- 単体の `gap` と `fresh` では、該当した組はすべて失敗で、該当した組があれば exit 1 で終わる
 - `check` は強さの設定に従い、報告の指摘だけなら exit 0 で、`status` は `success` になる
 - `gap` の情報の節（`risk_exempt` を持つ要件の一覧、`human_judgement` を持つテスト条件の一覧）と
   到達率は、item にせず `result.info` に置く
