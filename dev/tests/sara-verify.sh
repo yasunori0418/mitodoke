@@ -252,12 +252,16 @@ fresh() {
   printf '%s\n' "$@" >"$STUB_QUEUE"
   : >"$STUB_LEAF_LOG"
   : >"$STUB_EDITOR_LOG"
+  base=$(git -C "$repo" rev-parse HEAD)
 }
+
+# base より後のコミットの件名を古い順に、空白で区切って出す。
+subjects() { git -C "$repo" log --reverse --format=%s "$base.." | tr '\n' ' ' | sed 's/ $//'; }
 
 # 端末の判定を真にして sara-verify を実行し、stdout と exit code を取る。
 run_verify() {
   out="$(cd "$repo" && env SARA_VERIFY_TTY=1 SARA_VERIFY_FZF="$work/bin/fzf" SARA_VERIFY_LEAF="$work/bin/leaf" \
-    EDITOR="$work/bin/editor" SARA_VERIFY_HUMAN_ID="${human_id-tester}" sara-verify ${verify_args:+"$verify_args"} </dev/null 2>/dev/null)" &&
+    EDITOR="$work/bin/editor" SARA_VERIFY_HUMAN_ID="${human_id-tester}" "$@" sara-verify ${verify_args:+"$verify_args"} </dev/null 2>/dev/null)" &&
     status=0 || status=$?
 }
 
@@ -298,11 +302,11 @@ fresh "$UC_A" "$REQ_4" 記録する 記録する 記録する
 STUB_COMMENT=$'\n確かめた。\n# 除く行\n' run_verify
 assert_eq "記録して終えると exit 0" 0 "$status"
 assert_eq "verified の無い solution に 3 行を足す（削除なし）" $'3\t0' \
-  "$(git -C "$repo" diff --numstat -- docs/sol.md | cut -f1,2)"
+  "$(git -C "$repo" diff --numstat "$base" -- docs/sol.md | cut -f1,2)"
 assert_eq "verified の無い use_case に 3 行を足す（削除なし）" $'3\t0' \
-  "$(git -C "$repo" diff --numstat -- docs/uc-a.md | cut -f1,2)"
+  "$(git -C "$repo" diff --numstat "$base" -- docs/uc-a.md | cut -f1,2)"
 assert_eq "既存の verified の後ろに別のキーがあっても 2 行を足す（削除なし）" $'2\t0' \
-  "$(git -C "$repo" diff --numstat -- docs/req-4.md | cut -f1,2)"
+  "$(git -C "$repo" diff --numstat "$base" -- docs/req-4.md | cut -f1,2)"
 for f in sol uc-a req-4; do
   last="$(yq --front-matter=extract -o=json -I=0 '.verified[-1]' "$repo/docs/$f.md")"
   assert_eq "$f の最後の verified の by" '"human:tester"' "$(jq -c .by <<<"$last")"
@@ -324,6 +328,38 @@ assert_has "solution の問いの 2 行目も # の行で載せる" "# solution 
 assert_has "use_case の問いを # の行で EDITOR に載せる" "# use_case の問い。" "$editor_log"
 assert_lacks "requirement には問いを載せない" "# use_case の問い。" "$(sed -n '/^=== .*req-4/,$p' <<<"$editor_log")"
 assert_eq "requirement では問いを端末に出さない（use_case の問いは 1 度だけ）" 1 "$(grep -c 'use_case の問い。' <<<"$out")"
+
+# --- コミット -------------------------------------------------------------------
+
+# 直前の記録のケースの続き: ファイルごとに 1 コミットにし、本文はコメントにする。
+assert_eq "記録した item をファイルごとに、記録の順でコミットする" \
+  "docs(solution): sol docs(use_case): uc-a docs(requirement): req-4" "$(subjects)"
+assert_eq "本文は # の行と前後の空行を除いたコメント" "確かめた。" "$(git -C "$repo" log -1 --format=%b)"
+assert_eq "コミットのあとに未コミットの変更を残さない" "" "$(git -C "$repo" status --porcelain)"
+assert_eq "現在のブランチにコミットし、ブランチを作らない" "main" "$(git -C "$repo" branch --format='%(refname:short)')"
+
+fresh "$UC_A" "$REQ_4" 記録する 飛ばす 飛ばす
+STUB_COMMENT=$'\n# 除く行だけ\n' run_verify
+assert_eq "コメントが空でも記録してコミットする" "docs(solution): sol" "$(subjects)"
+assert_eq "コメントが空なら本文を書かない" "docs(solution): sol" "$(git -C "$repo" log -1 --format=%B | sed '/^$/d')"
+
+fresh "$UC_A" "$REQ_4" 記録する 中断する
+run_verify
+assert_eq "「中断する」は exit 0" 0 "$status"
+assert_eq "「中断する」でそこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
+assert_eq "「中断する」で残りの item を表示しない" "docs/sol.md docs/uc-a.md" "$(tr '\n' ' ' <"$STUB_LEAF_LOG" | sed 's/ $//')"
+assert_eq "「中断する」のあとに未コミットの変更を残さない" "" "$(git -C "$repo" status --porcelain)"
+
+fresh "$UC_A" "$REQ_4" 記録する __INT__
+run_verify
+assert_eq "fzf での Ctrl-C は exit 130" 130 "$status"
+assert_eq "fzf での Ctrl-C でそこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
+
+fresh "$UC_A" "$REQ_4" 記録する
+STUB_LEAF_INT=docs/uc-a.md run_verify env --default-signal=INT
+assert_eq "SIGINT は exit 130" 130 "$status"
+assert_eq "SIGINT でそこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
+assert_eq "SIGINT のあとに未コミットの変更を残さない" "" "$(git -C "$repo" status --porcelain)"
 
 # --- 拒否 -----------------------------------------------------------------------
 

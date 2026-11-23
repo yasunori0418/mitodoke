@@ -3,8 +3,10 @@
 #
 #   sara-verify [--all]
 #
-# exit code は 0 = 終えた・中断した / 2 = 引数の誤り・端末でない・sara check の失敗・<id> の誤り・
-# 対象のファイルに未コミットの変更がある・verified を書けない・fzf の失敗。
+# 記録した item は、終えたときと中断したときに、ファイルごとに 1 コミットにする。
+#
+# exit code は 0 = 終えた・「中断する」を選んだ / 130 = Ctrl-C / 2 = 引数の誤り・端末でない・sara check の失敗・
+# <id> の誤り・対象のファイルに未コミットの変更がある・verified を書けない・fzf の失敗・コミットの失敗。
 #
 # 次の環境変数は、契約テスト（dev/tests/sara-verify.sh）の中だけで使う差し替えである。
 #   SARA_VERIFY_FZF   fzf の代わりに呼ぶコマンド
@@ -30,13 +32,18 @@ item ごとに leaf で表示し、閉じたら「記録する・飛ばす・中
 コメントを任意で書き（# で始まる行は除く）、frontmatter の verified に by: "human:<id>" と at の要素を足す。
 <id> は SARA_VERIFY_HUMAN_ID、無ければ gh api user --jq .login の出力。
 
+終えたときと中断したとき（「中断する」と Ctrl-C）に、記録した item をファイルごとに 1 コミットにする。
+件名は docs(<型>): <ファイル名から .md を除いたもの>、本文はコメントで、空なら本文を書かない。
+現在のブランチにコミットし、ブランチの作成と push はしない。
+
 options:
   --all  generated.at 以降の human: の verified を持つ item も対象にする
 
 exit code:
-  0  対象を終えた、または中断した
-  2  引数の誤り・stdin か stdout が端末でない・sara check の失敗・<id> を決められない・
-     対象のファイルに未コミットの変更がある・verified を書けない・fzf の失敗
+  0    対象を終えた、または「中断する」を選んだ
+  130  Ctrl-C で中断した
+  2    引数の誤り・stdin か stdout が端末でない・sara check の失敗・<id> を決められない・
+       対象のファイルに未コミットの変更がある・verified を書けない・fzf の失敗・コミットの失敗
 EOF
 }
 
@@ -221,11 +228,33 @@ for f in "${target_files[@]}"; do
 done
 
 tmp=$(mktemp -d)
-trap 'rm -rf "$tmp"' EXIT
-
 recorded_files=()
 recorded_types=()
 recorded_comments=()
+
+# 記録した item を、記録の順にファイルごとに 1 コミットにする。件名は docs(<型>): <slug>、本文はコメント。
+# 終えたとき・中断したとき（「中断する」と Ctrl-C）・途中で失敗したときのどれでも、終了の時に 1 度だけ走る。
+commit_recorded() {
+  local rc=$? i file slug
+  trap - EXIT INT
+  for i in "${!recorded_files[@]}"; do
+    file=${recorded_files[$i]}
+    slug=$(basename "$file" .md)
+    {
+      printf 'docs(%s): %s\n' "${recorded_types[$i]}" "$slug"
+      [ -z "${recorded_comments[$i]}" ] || printf '\n%s\n' "${recorded_comments[$i]}"
+    } >|"$tmp/message"
+    if git commit -q -F "$tmp/message" -- "$file"; then
+      echo "sara-verify: $file をコミットした" >&2
+    else
+      echo "sara-verify: $file をコミットできない（verified の記録は作業ツリーに残っている）" >&2
+      rc=2
+    fi
+  done
+  rm -rf "$tmp"
+  exit "$rc"
+}
+trap commit_recorded EXIT
 
 for t in "${targets[@]}"; do
   IFS=$'\t' read -r file type id <<<"$t"
