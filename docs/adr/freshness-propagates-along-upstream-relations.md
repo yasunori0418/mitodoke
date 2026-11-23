@@ -12,6 +12,7 @@ sources:
 origin: "epic #676 の grilling（2026-11-11）で確定"
 justifies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
+  - "REQ-0827f299-fbdc-46ed-8a04-ca4378ad0c79"
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-12T00:02:04+09:00"
