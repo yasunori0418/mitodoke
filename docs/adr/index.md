@@ -81,6 +81,7 @@
 
 ## 製品の範囲と構成
 
+* [実行中に呼ぶ外部のプロセスは、git と設定のコマンドだけにする](./external-processes-limited-to-git-and-configured-commands.md) - mitodoke が実行中に呼ぶ外部のプロセスを git と設定ファイルに書かれたコマンドだけにし、sara は crate として組み込み、flake で一緒に配る sara の CLI は呼ばない。 (stable)
 * [規範は mitodoke のリポジトリ自身で管理し、適用先は写さず参照する](./norms-kept-in-own-repository.md) - mitodoke のリポジトリ自身を mitodoke で管理して規範と文書管理の決定を持ち、適用先の製品は規範を写さず mitodoke の文書として参照する (stable)
 * [製品に CLI・モデル・文書管理の規範・スキル・欠陥運用の規範を含める](./product-bundles-cli-model-norms-skills.md) - 製品の範囲を CLI とモデルに加えて文書管理の規範・スキル・欠陥運用の規範までとし、開発の進め方の規範と DoD は含めない (stable)
 * [製品名を mitodoke にする](./product-named-mitodoke.md) - 製品名を、日本語の見届けに由来する mitodoke にし、製品名を含む名前をすべてこの名前から決める (stable)
