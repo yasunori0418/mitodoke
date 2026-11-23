@@ -4,7 +4,7 @@ type: adr
 name: "構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする"
 description: "検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。"
 section: inspection
-status: stable
+status: deprecated
 sources:
   - id: "issue-4"
     resource: "https://github.com/yasunori0418/mitodoke/issues/4"
@@ -20,7 +20,11 @@ generated:
 ---
 # 構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](default-strength-with-closed-lists.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-17
 - 関連: [sara check を strict モードで回す](sara-check-strict-mode.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q3）で確定

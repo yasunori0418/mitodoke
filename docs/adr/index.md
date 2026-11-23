@@ -27,6 +27,7 @@
 * [ADR の issues を sources に移す](./adr-issues-to-sources.md) - ADR の外部参照の Issue を OKF の sources リストへ移し、origin は拡張キーとして残す (stable)
 * [adr の status_note を持たない](./adr-status-note-removed.md) - ADR のステータス行には「採用（2026-06-14 改訂: … → ADR-0015）」のようなカッコ書きの改訂注記が付いていた。enum の値に収まらないので、frontmatter に `status_note` フィールドを設けて受け皿にしていた。 (stable)
 * [item にできない外部参照は text フィールドへ逃がす](./external-references-as-text-fields.md) - ADR は GitHub の Issue や、決定の起点になったセッションを参照する。これらは sara の item ではないので、relation では表せない。relation の参照先は実在する item でなければならず、実在しない ID は破損した参照として検出される。 (stable)
+* [既存の文書への generated の埋め戻しは CLI に持たず、README に例を載せる](./generated-backfill-left-to-adopters.md) - 既存の文書を持つ適用先の製品が item に generated を付ける機能を mitodoke の CLI に持たず、README の導入の手順に埋め戻しの例を載せる。 (stable)
 * [item に生成者・確認の記録・期限のフィールドを持たせる](./generated-verified-stale-after-fields.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after の形を決め、入れ子キーの形を契約テストで確かめる (stable)
 * [OKF v0.2 と互換の frontmatter キーを item に足す](./okf-compatible-frontmatter.md) - OKF v0.2 と互換の frontmatter キーを sara の item に足す方針と、バンドル単位の適合を追わない範囲を決める (stable)
 * [status を OKF の 3 値にし全ての型に持たせる](./status-okf-values.md) - status を draft / stable / deprecated の 3 値にし、ADR 以外の型にも必須で持たせる (stable)
@@ -86,37 +87,41 @@
 
 ## モデルと設定
 
+* [組み込みの型・relation・フィールドの名前を条件に持つ契約を、組み込みの型の item だけに働かせる](./builtin-only-contracts-closed-by-rule.md) - 組み込みの型・relation・フィールドの名前を条件に持つ契約は組み込みの型の item だけに働かせ、それ以外の契約は独自の型を含むすべての型の item に働かせる。 (stable)
 * [設定ファイルを mitodoke.yaml にし、独自の定義は sara の model.yaml と同じ書き方にする](./config-file-mitodoke-yaml.md) - 設定ファイルは YAML の mitodoke.yaml とし、独自の型・relation・フィールドは sara の model.yaml と同じ書き方で書く。 (stable)
 * [独自の型・relation・フィールドは追加だけを許す](./custom-definitions-additive-only.md) - 設定では型・relation・フィールドのすべてを独自に追加でき、組み込みの定義は削除も変更もできない。 (stable)
 * [再確認待ちは、設定で宣言した独自の relation も辿る](./custom-relations-declare-staleness-propagation.md) - 再確認待ちの判定は、組み込みの 7 relation に加えて、設定で伝播させると宣言した独自の relation も辿る。 (stable)
+* [model は型の関係図を出さず、型の関係図と model.yaml のずれも扱わない](./model-emits-no-type-diagram.md) - mitodoke model は型の関係図を出さず、型の関係図と model.yaml のずれも扱わない。 (stable)
 * [model.yaml を設定ファイルから生成してコミットし、差分が無いことを確かめる](./model-generated-from-config.md) - 適用先の製品の model.yaml は mitodoke の設定ファイルから生成してコミットし、生成結果との差分が無いことを CI で確かめる。 (stable)
 * [level の導出表を設定で変えられるようにし、値の集合は固定する](./risk-matrix-configurable-values-fixed.md) - likelihood と impact の組から level への対応を設定で変えられるようにし、設定に無ければ既定の 9 通りの表を使い、low・medium・high の値の集合は製品で固定する。 (stable)
 * [specification は英語で必須にし、ほかの言語は設定で選ぶ](./specification-english-required-other-languages-configured.md) - specification は英語で必須にし、ほかの言語は設定で選んで specification_<言語> と name_<言語> のフィールドを生成する。 (stable)
 * [テストの区分を製品の概念にし、中身は設定で決める](./test-categories-configured-per-product.md) - テストの区分を製品の概念にして中身を設定の 1 つの一覧で決め、テスト条件とテストケースのディレクトリ・risk の section・index の見出しをその一覧から導く。 (stable)
 * [組み込みの型を 12 型にし、すべて必須にする](./twelve-builtin-types-all-required.md) - 製品の組み込みの型は sara_adr を含まない 12 型とし、すべてを必須にして設定では選ばない。 (stable)
 * [型と置き場所の一致を構造の契約にし、型ごとの置き場所を設定に持つ](./type-location-match-is-structural-contract.md) - item の型と置き場所の一致を構造の契約に加え、型ごとの置き場所を設定に持って index の見出しも同じ表から決める。 (stable)
-* [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (stable)
 
 ## 検査
 
 * [避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる](./avoid-spelling-check-left-to-adopters.md) - 用語の避ける綴りの検査を mitodoke に内蔵せず、mitodoke の JSON 出力を使って適用先の製品が検査を組み立てる。 (stable)
-* [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (stable)
+* [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](./default-strength-with-closed-lists.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、3 つの分類に当たる検査を閉じた列挙で決め、どの検査も設定で強さを変えられるようにする。 (stable)
+* [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
 * [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](./non-human-verified-accepted-not-counted-as-human.md) - verified に human: 以外の要素も受け付け、再確認待ちの基準時刻には数えるが、人の確認には数えない。 (stable)
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する](./okf-keys-accepted-on-all-types.md) - OKF のキーをどの型の item でも受け付け、OKF v0.2 の定義に従っているかを構造の契約として検査する。 (stable)
-* [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](./stricter-than-okf-constraints-kept.md) - 写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。 (stable)
+* [OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない](./stricter-than-okf-constraints-and-inspection-points.md) - OKF v0.2 に重ねた 5 つの制約を引き継ぎ、description の欠けは mitodoke new が起票を拒むことで検査して check では違反にせず、generated.at 以降の verified だけを人の確認に数える規則は違反の条件を持たない数え方にする。 (stable)
 * [test_case は covers と follows をそれぞれ 1 本以上持つ](./test-case-requires-covers-and-follows.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約にし、欠けたら失敗にする。 (stable)
 * [トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない](./tracker-independent-defect-norm-shipped.md) - トラッカーに依らない欠陥運用の規範を製品に含め、GitHub 用の部分は例として置き、mitodoke は欠陥の Issue を検査しない。 (stable)
-* [宣言の無い frontmatter のキーを構造の契約の違反にする](./undeclared-frontmatter-keys-rejected.md) - sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。 (stable)
+* [宣言の無い frontmatter のキーを違反にし、宣言はその item の型のものに限る](./undeclared-frontmatter-keys-per-type.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、ほかの型だけで宣言されたフィールドも違反にする。 (stable)
 
 ## コマンド
 
 * [generated.by は自由な文字列にする](./generated-by-free-form-string.md) - generated.by の値は書式を限らない自由な文字列とし、空の値と二重引用符・バックスラッシュ・改行を含む値だけを拒む。 (stable)
 * [generated.by は環境変数か引数で受け取り、無ければ端末に限り人の識別子にする](./generated-by-from-env-or-flag.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by で受け取り、どちらも無いときは端末からの実行に限り human:<id> を作り、端末の無い実行では起票を拒む。 (stable)
 * [人の識別子は、設定に定義したコマンドの出力から取る](./human-id-from-configured-command.md) - mitodoke verify が書く human:<id> の <id> は、mitodoke.yaml に定義したコマンドを利用者の環境で実行した出力から取り、不正な出力では何も書かない。 (stable)
+* [init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、規範は複製しない](./init-creates-config-and-directories.md) - mitodoke init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、mitodoke.yaml があれば上書きせずに拒み、文書管理の規範は複製せず、model.yaml と sara.toml は model に生成させる。 (stable)
 * [new は置き場所を引数で受け取り、型ごとの置き場所と比べる](./new-takes-location-argument.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と比べて、合わなければ起票を拒む。 (stable)
-* [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (stable)
+* [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-with-init.md) - mitodoke の CLI のサブコマンドを、初期化の init と、開発に使う script の名前から接頭辞を外した 9 つの、合わせて 10 個にし、すべてに --json を持たせ、index と model の --check は差分があれば exit code 1 で終える。 (stable)
 * [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](./test-assets-listed-by-configured-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを併用して読む。 (stable)
 * [verify は、端末で人が確認を入力したときだけ確認の記録を書く](./verify-records-human-only-from-terminal.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を書き、端末の無い実行では拒む。 (stable)
+* [item を指定しない verify は、対話で選んだ枝を上流から順にたどり、ビューアとエディタを設定で選べる](./verify-walks-branch-interactively.md) - item を指定しない mitodoke verify は、対話で枝を選ばせて上流から順に item を表示し、人の確認を記録する。表示のビューアとコメントのエディタは mitodoke.yaml で設定でき、コメントの行き先と自動のコミットは決めない。 (stable)
 
 ## JSON 出力
 
@@ -145,6 +150,7 @@
 * [ADR の規則を汎用とプロジェクト当てはめに分けて書く](./adr-rules-generic-and-project-split.md) - ADR の規則は `docs/adr/README.md` に、layat の ADR 番号・型の区分・実データと同じ文書に書かれていた。 (deprecated)
 * [提案を棄却した決定は status 不採用 で記録する](./adr-status-rejected.md) - ADR の `status` は、実データの表記に合わせて日本語の値を持つ enum にしている。組み込みの英語の値（`proposed` / `accepted` / `deprecated`）は使っていない。 (deprecated)
 * [ADR も UUID で採番し、連番の旧 ADR は legacy_adr 型に凍結する](./adr-uuid-ids-and-legacy-type.md) - ADR だけは連番（`ADR-NNNN`）で採番してきた。既存 ADR の相互参照やコミットメッセージでの言及を無効にしないためである。一方、並列レーンで ADR を起こすと、複数のレーンが同じ「次の番号」を取る構造が残っていた。 (deprecated)
+* [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (deprecated)
 * [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](./defect-close-backfills-risks.md) - [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md)。グラフのrisk / test_condition は予防の体系だが、起きた欠陥から学ばなければ、ある時点の分析を写したまま古びていく。 (deprecated)
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)
 * [ID はフル UUID に統一し 8 文字省略形を使わない](./full-uuid-ids-no-short-form.md) - item の正式 ID はフル UUIDv4 だが、ファイル名と散文中の参照には前方 8 文字の省略形を使っていた。フル UUID は人が読めないという前提への対処だった。 (deprecated)
@@ -160,6 +166,10 @@
 * [sara-id を廃止し sara init を包む起票ラッパーを使う](./sara-new-wrapper-replaces-sara-id.md) - `sara-id` は devShell 同梱の採番コマンドで、UUIDv4 の採番・8 文字の重複の確認・省略形の出力・型名からprefix への写像・ファイル名素材の組み立てを担っていた。item ファイルの作成は `sara init` が担当した。 (deprecated)
 * [省略形の禁止は起票の機械化と全面移行で担保する](./short-form-ban-enforced-by-tooling.md) - 8 文字の省略形を使わないという規則は [ID はフル UUID に統一し 8 文字省略形を使わない](full-uuid-ids-no-short-form.md) が決めた。本 ADR は、その禁止をどう担保するかだけを決める。担保の方法は、禁止の規則を変えずに単独で覆せる。後から CI の検出を入れるなら、本 ADR だけを廃止すればよい。そのため規則とは別の ADR にする。 (deprecated)
 * [item のファイル名は slug だけにする](./slug-only-filenames.md) - item のファイル名を `<slug>.md` にし、フル ID は frontmatter と H1 見出しだけに書き、散文は Markdown リンクで item を参照する。 (deprecated)
+* [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](./stricter-than-okf-constraints-kept.md) - 写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。 (deprecated)
+* [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
+* [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (deprecated)
 * [用語を ubiquitous_term の item で管理する](./ubiquitous-term-type.md) - 用語の正名・避ける綴り・定義は、`CONTEXT.md`（日本語の長い定義）と `docs/glossary.md` / `docs/glossary.ja.md`（英日の短い定義）の 3 ファイルが重ねて持っていた。3 ファイルの同期は手作業で、語の数も定義の中身もすでに食い違っている。用語を 2 語足すだけで 5 ファイルを直す必要があった（#644）。 (deprecated)
+* [宣言の無い frontmatter のキーを構造の契約の違反にする](./undeclared-frontmatter-keys-rejected.md) - sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。 (deprecated)

@@ -9,8 +9,9 @@
 ## モデルと設定
 
 * [組み込みの定義は設定で削除も変更もできない](./builtin-definitions-immutable.md) - 設定は独自の型・relation・フィールドを追加できるが、組み込みの型・relation・フィールドを削除も変更もできない。
+* [組み込みの relation は上流の 8 つと peer の 3 つとし、保証する連鎖は requirement → risk → test_condition → test_case とする](./builtin-relations-and-guaranteed-chain.md) - 組み込みの relation を上流の 8 つと peer の 3 つとし、relation ごとの張り元と張り先の型を定め、保証する連鎖を requirement → risk → test_condition → test_case として design を任意の中継点にする。
 * [設定ファイルは YAML の mitodoke.yaml とする](./config-file-format.md) - 設定ファイルは YAML の mitodoke.yaml とし、独自の型・relation・フィールドは sara の model.yaml と同じ書き方で書けるようにする。
-* [検査が独自の型に及ぶ範囲を、全型に働く契約と組み込みの型だけに働く契約に分ける](./inspection-scope-for-custom-types.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。
+* [検査が独自の型に及ぶ範囲を、全型に働く契約と組み込みの型だけに働く契約に分ける](./inspection-scope-for-custom-types.md) - 組み込みの型・relation・フィールドの名前を条件に持つ契約は組み込みの型の item だけに、それ以外の契約は独自の型を含むすべての型の item に働かせる。
 * [model.yaml と sara.toml は設定ファイルから生成し、生成物との差分を確かめる](./model-and-sara-toml-generated-from-config.md) - model.yaml と sara.toml は設定ファイルから生成してコミットし、生成し直した結果との差分が無いことを CI で確かめる。
 * [level の導出表は設定で変えられ、設定が無ければ既定の表を使う](./risk-matrix-configuration.md) - risk の level を likelihood と impact から導く表は設定で変えられ、設定に無ければ既定の表を使い、値の集合は製品で固定する。
 * [specification は英語で必須とし、ほかの言語のフィールドは設定から生成する](./specification-languages.md) - specification は英語で必須とし、設定で選んだほかの言語ごとに specification_<言語> と name_<言語> のフィールドを生成する。
@@ -21,23 +22,26 @@
 
 ## 検査
 
-* [OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する](./constraints-on-top-of-okf.md) - OKF v0.2 の定義に重ねて、verified をリストに限るなど 5 つの制約を構造の契約として検査する。
+* [OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する](./constraints-on-top-of-okf.md) - OKF v0.2 の定義に重ねた 5 つの制約を持ち、verified の形・generated・status を構造の契約として検査し、description の欠けは mitodoke new が起票で拒み、人の確認は generated.at 以降の verified だけを数える。
 * [検査の既定の強さは、構造の契約を失敗、つながりの欠けと見直しの義務を報告とし、設定で変えられる](./default-inspection-strength.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は報告とし、どの検査の強さも設定で変えられるようにする。
 * [fresh は、人の確認の無い solution と use_case、期限切れ、期限の間隔の超過を報告する](./fresh-reports-unverified-validation-and-expiry.md) - mitodoke fresh は人の確認の無い有効な solution と use_case、stale_after の期限切れ、stale_after の間隔の超過を見直しの義務として報告する。
 * [gap は、要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を報告し、人が判断するテスト条件を一覧にする](./gap-reports-upstream-and-quality-characteristic-gaps.md) - mitodoke gap は有効な requirement を持たない有効な use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たず対象外にもしていない品質特性をつながりの欠けとして報告し、human_judgement を持つ有効な test_condition を情報として一覧にする。
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の形と値を検査する](./okf-key-inspection.md) - OKF のキーをどの型の item でも受け付け、その形と値が OKF v0.2 の定義に従っているかを構造の契約として検査する。
+* [下流の item の基準時刻より上流の generated.at が新しければ、下流を再確認待ちとして報告する](./staleness-judgement.md) - 上流の relation 7 つの直接の辺で、下流の item の基準時刻より上流の item の generated.at が新しければ、その下流の item を再確認待ちとして報告し、verified は自動で加えない。
 * [用語の一覧と avoid を JSON で出力する](./terms-and-avoid-exported-as-json.md) - 用語の一覧と各用語の avoid を JSON で出力し、避ける綴りの検査そのものは mitodoke に持たない。
 * [test_case は covers と follows をそれぞれ 1 本以上持たなければならない](./test-case-link-contract.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約とし、どちらかが欠けた test_case を違反とする。
-* [宣言の無い frontmatter のキーは構造の契約の違反とする](./undeclared-frontmatter-keys.md) - sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反とし、OKF のキーは違反にしない。
+* [宣言の無い frontmatter のキーは構造の契約の違反とする](./undeclared-frontmatter-keys.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反とする。
 
 ## コマンド
 
-* [generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む](./generated-by-format.md) - generated.by の値は書式を限らず、空の値と二重引用符・バックスラッシュ・改行を含む値だけを拒み、値を判定には使わない。
+* [generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む](./generated-by-format.md) - generated.by の値は書式を限らず、空の値と二重引用符・バックスラッシュ・改行を含む値だけを、起票の入力と check による既存の item の検査の両方で拒み、値を判定には使わない。
 * [generated.by は環境変数か引数から取り、どちらも無ければ端末からの実行に限り人の識別子とする](./generated-by-source.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by から取り、どちらも無いときは端末からの実行に限り human:<id> を書き、端末の無い実行では起票を拒む。
 * [人の確認に書く識別子は設定のコマンドの出力から取り、不正な出力では何も書かない](./human-id-command.md) - mitodoke verify は、human:<id> の <id> を設定に定義したコマンドの出力から取り、出力が不正なときやコマンドが失敗したときは何も書かずにエラーにする。
 * [verify は端末での人の入力があるときだけ人の確認を記録する](./human-verification-recording.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末の無い実行では拒む。
+* [init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、既存の mitodoke.yaml を上書きしない](./init-creates-config-and-directories.md) - mitodoke init は、初期の mitodoke.yaml と、設定が型ごとに持つ置き場所のディレクトリを作り、mitodoke.yaml がすでにあるときは上書きせずに拒み、文書管理の規範を適用先の製品へ複製しない。
+* [item を指定しない verify は、対話で選んだ枝を上流から順にたどって人の確認を記録する](./interactive-verification-walk.md) - item を指定しない mitodoke verify は、対話で枝を選ばせ、上流から順に item を表示して人の確認を記録し、表示のビューアとコメントのエディタを mitodoke.yaml で設定できるようにする。
 * [new は引数の置き場所を型ごとの置き場所と比べ、合わなければ起票を拒む](./new-location-check.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と合わない起票を拒む。
-* [サブコマンドは new・gap・fresh・index・matrix・model・verify・export・check とする](./subcommand-set.md) - mitodoke の CLI は、起票・報告・生成・確認の記録・出力・検査を、機能ごとに分けた 9 つのサブコマンドで提供する。
+* [サブコマンドは init・new・gap・fresh・index・matrix・model・verify・export・check とする](./subcommand-set.md) - mitodoke の CLI は、初期化・起票・報告・生成・確認の記録・出力・検査を、機能ごとに分けた 10 個のサブコマンドで提供する。
 * [テスト資産の一覧は設定のコマンドとファイルから読み、併用した一覧の重複は失敗とする](./test-asset-inventory-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを合わせて 1 つの一覧にし、同じ資産識別子が 2 か所から出たら失敗にする。
 * [verify は、solution と use_case の確認を記録する前に確認の問いを表示する](./verify-shows-review-questions.md) - mitodoke verify は solution と use_case に人の確認を記録する前に、その型に当てる確認の問いを表示し、答えは記録しない。
 

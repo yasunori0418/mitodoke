@@ -4,7 +4,7 @@ type: adr
 name: "宣言の無い frontmatter のキーを構造の契約の違反にする"
 description: "sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。"
 section: inspection
-status: stable
+status: deprecated
 sources:
   - id: "issue-4"
     resource: "https://github.com/yasunori0418/mitodoke/issues/4"
@@ -18,7 +18,11 @@ generated:
 ---
 # 宣言の無い frontmatter のキーを構造の契約の違反にする
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [宣言の無い frontmatter のキーを違反にし、宣言はその item の型のものに限る](undeclared-frontmatter-keys-per-type.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-17
 - 関連: GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q22）で確定

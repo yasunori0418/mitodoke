@@ -4,7 +4,7 @@ type: adr
 name: "OKF より厳しい 5 つの制約を構造の契約に引き継ぐ"
 description: "写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。"
 section: inspection
-status: stable
+status: deprecated
 sources:
   - id: "issue-4"
     resource: "https://github.com/yasunori0418/mitodoke/issues/4"
@@ -22,7 +22,11 @@ generated:
 ---
 # OKF より厳しい 5 つの制約を構造の契約に引き継ぐ
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない](stricter-than-okf-constraints-and-inspection-points.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-17
 - 関連: [item に生成者・確認の記録・期限を持たせる](generated-verified-stale-after.md), [status を OKF の 3 値にし全ての型に持たせる](status-okf-values.md), [OKF v0.2 と互換の frontmatter キーを item に足す](okf-compatible-frontmatter.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q38）で確定
