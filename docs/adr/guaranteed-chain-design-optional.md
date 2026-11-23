@@ -12,6 +12,7 @@ sources:
 origin: "epic #648 の grilling セッション（2026-11-08）で確定"
 justifies:
   - "INF-dee49f6e-3499-4d26-9a97-2cd6e03a5d0f"
+  - "REQ-f319e7d0-8a0b-4c3f-92fc-b855e7e90652"
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-20T01:01:01+09:00"

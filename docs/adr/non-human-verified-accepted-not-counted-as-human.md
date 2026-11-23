@@ -13,6 +13,7 @@ origin: "2026-11-17 の grilling（Q24）で確定"
 justifies:
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
+  - "REQ-0827f299-fbdc-46ed-8a04-ca4378ad0c79"
 references:
   - "ADR-f27192ea-3ca8-4794-8a6a-805dd8ab323d"
   - "ADR-dfff5637-f0a4-4e5d-a57e-f4dd1e7dbb42"
