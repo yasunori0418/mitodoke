@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:07:31+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # テスト資産の列挙を内蔵する
 
@@ -31,5 +31,8 @@ mitodoke 自身に列挙させる。mitodoke が Rust や Go など主な言語�
 
 ## 出典
 
+根拠の決定は次の ADR が持つ。
+
 - [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](../adr/test-assets-listed-by-configured-sources.md)
-- `docs/mitodoke-concept.ja.md`「10. スコープと非目標」
+
+`docs/mitodoke-concept.ja.md`「10. スコープと非目標」

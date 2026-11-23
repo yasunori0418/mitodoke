@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:07:32+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # 避ける綴りの検査を内蔵する
 
@@ -30,5 +30,7 @@ JSON 出力から辞書と設定を作って検査する形は、mitodoke のリ
 適用先の製品に Node の実行環境と textlint を求めることになる。
 
 ## 出典
+
+根拠の決定は次の ADR が持つ。
 
 - [避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる](../adr/avoid-spelling-check-left-to-adopters.md)

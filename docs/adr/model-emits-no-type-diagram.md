@@ -15,9 +15,11 @@ sources:
 origin: "issue #72 の grilling（2026-11-22）で ADR に記録した。決定は 2026-11-17 の grilling で済んでいた"
 justifies:
   - "REQ-76368939-a62b-47cb-b334-8bd7d7ee8389"
+references:
+  - "ADR-a8ba58e1-b92b-481a-b566-49d9b303dcd9"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:05:18+09:00"
+  at: "2026-11-23T10:31:12+09:00"
 ---
 # model は型の関係図を出さず、型の関係図と model.yaml のずれも扱わない
 
@@ -43,9 +45,8 @@ layat では型の関係図と model.yaml がずれる問題が未解消のま�
 
 ## 根拠
 
-2026-11-17 の grilling で、型の関係図と model.yaml のずれを mitodoke では扱わないと決めた。`mitodoke model` が
-型の関係図を出さなければ、このずれは mitodoke の生成物の中に生じない。layat でも型の関係図の生成は
-sara の upstream へ回していた。
+2026-11-17 の grilling で、型の関係図と model.yaml のずれを mitodoke では扱わないと決めた。layat では型の関係図の
+生成を sara の upstream へ回していた。
 
 記録には、これより詳しい理由は無い。
 

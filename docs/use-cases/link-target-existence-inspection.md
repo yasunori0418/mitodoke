@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:14:59+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # 散文のリンクの先の実在を検査する
 
@@ -30,5 +30,7 @@ generated:
 局所化から外れる。
 
 ## 出典
+
+根拠の決定は次の ADR が持つ。
 
 - [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](../adr/link-targets-not-inspected.md)

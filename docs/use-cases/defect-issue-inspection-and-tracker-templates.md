@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:07:32+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # 欠陥の Issue を検査し、トラッカー用の雛形を配る
 
@@ -31,5 +31,8 @@ GitHub を使う適用先の製品はそのまま写せ、ほかのトラッカ�
 
 ## 出典
 
+根拠の決定は次の ADR が持つ。
+
 - [トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない](../adr/tracker-independent-defect-norm-shipped.md)
-- `docs/mitodoke-concept.ja.md`「11. 設計原則」
+
+`docs/mitodoke-concept.ja.md`「11. 設計原則」

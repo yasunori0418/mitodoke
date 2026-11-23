@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:07:33+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # 文書管理の規範を、初期化のコマンドで適用先の製品へ複製する
 
@@ -31,5 +31,7 @@ mitodoke 自身が規範を item として持てば、規範を含めた実際�
 規範の item を持たなくてよい。
 
 ## 出典
+
+根拠の決定は次の ADR が持つ。
 
 - [規範は mitodoke のリポジトリ自身で管理し、適用先は写さず参照する](../adr/norms-kept-in-own-repository.md)

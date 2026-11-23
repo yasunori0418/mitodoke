@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:13:54+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # 既存の文書に generated を埋め戻す
 
@@ -29,5 +29,7 @@ git の履歴から `generated.by` を推定する規則は、製品ごとに違
 サブコマンドを保守することになる。埋め戻しの例は README の導入の手順に載せる。
 
 ## 出典
+
+根拠の決定は次の ADR が持つ。
 
 - [既存の文書への generated の埋め戻しは CLI に持たず、README に例を載せる](../adr/generated-backfill-left-to-adopters.md)

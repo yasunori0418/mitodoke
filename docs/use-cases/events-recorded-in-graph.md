@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:07:32+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # 出来事をグラフに記録する
 
@@ -38,6 +38,8 @@ item へ relation を張り、どの出来事がどの規範に関わるかを�
 デプロイやリリースで行うテストは `test_case` に、フィードバックを上流へ戻す手順は `quality` に置く。
 
 ## 出典
+
+根拠の決定は次の ADR が持つ。
 
 - [ループの右側には型も relation も足さず、既存の型に規範を置く](../adr/right-side-of-loop-adds-no-types.md)
 - [欠陥はグラフに置かず GitHub Issues で管理する](../adr/defects-in-github-issues.md)

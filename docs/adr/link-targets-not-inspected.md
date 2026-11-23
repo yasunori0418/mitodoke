@@ -15,9 +15,12 @@ sources:
 origin: "issue #72 の grilling（2026-11-22）で確定"
 justifies:
   - "REQ-da3bf704-20f3-4c26-bd7a-c25adb45b733"
+references:
+  - "ADR-12bab183-d9d7-4210-a45b-c4e6568f297b"
+  - "ADR-02a75db6-70cd-4fca-bc17-ae8918c4cafd"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:14:57+09:00"
+  at: "2026-11-23T10:31:12+09:00"
 ---
 # 散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる
 
@@ -29,7 +32,7 @@ generated:
 ## 背景
 
 item の本文と `specification` ではほかの item へ Markdown のリンクで触れる
-（[フル ID は frontmatter だけに書き、item にはリンクで触れる](full-ids-in-frontmatter-only.md)）。この ADR は、
+（[フル ID は frontmatter だけに書き、item にはリンクで触れる](full-ids-in-frontmatter-only.md)）。その ADR は、
 改名でリンクが切れうると書いている。一方で、`mitodoke check` の構造の契約の列挙
 （[検査の既定の強さは、構造の契約を失敗、つながりの欠けと見直しの義務を報告とし、設定で変えられる](../requirements/default-inspection-strength.md)）
 に、リンク切れは入っていない。`layat #719` も #3 も、リンクの先が実在するかの確認を一回きりにとどめ、

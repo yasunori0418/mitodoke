@@ -8,7 +8,7 @@ refines:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:12:34+09:00"
+  at: "2026-11-23T10:31:01+09:00"
 ---
 # テスト実行基盤やログ集約基盤になる
 
@@ -32,4 +32,4 @@ mitodoke の中心的な目的は、テスト実行に意味を持たせるた�
 
 ## 出典
 
-- [コンセプト文書](../mitodoke-concept.ja.md)「9. CI とテスト実行」「10. スコープと非目標」
+`docs/mitodoke-concept.ja.md`「9. CI とテスト実行」「10. スコープと非目標」
