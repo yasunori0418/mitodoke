@@ -103,6 +103,7 @@
 
 * [避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる](./avoid-spelling-check-left-to-adopters.md) - 用語の避ける綴りの検査を mitodoke に内蔵せず、mitodoke の JSON 出力を使って適用先の製品が検査を組み立てる。 (stable)
 * [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (stable)
+* [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
 * [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](./non-human-verified-accepted-not-counted-as-human.md) - verified に human: 以外の要素も受け付け、再確認待ちの基準時刻には数えるが、人の確認には数えない。 (stable)
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する](./okf-keys-accepted-on-all-types.md) - OKF のキーをどの型の item でも受け付け、OKF v0.2 の定義に従っているかを構造の契約として検査する。 (stable)
 * [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](./stricter-than-okf-constraints-kept.md) - 写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。 (stable)
