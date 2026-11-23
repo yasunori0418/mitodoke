@@ -41,8 +41,8 @@ specification: |
   verify SHALL refuse to write. When the model cannot be read or the installation of the model
   fails, check and the subcommands that load the document graph SHALL end with exit code 2 and
   SHALL NOT fall back to the built-in types. init and model SHALL NOT be subject to these rules.
-  Having zero items SHALL NOT in itself be an error or a finding, and a run over zero items SHALL
-  end with exit code 0 unless another finding at failure strength exists.
+  Having zero items SHALL NOT in itself be an error or a finding, and mitodoke SHALL NOT end a
+  run with a non-zero exit code only because it has zero items.
 specification_ja: |
   既定では、構造の契約の違反は失敗としなければならない。構造の契約は、
   `sara check`（`solution` の `stale_after` の欠けを含む）、frontmatter の形、ID の置き場所、test_case と
@@ -74,15 +74,15 @@ specification_ja: |
   verify は書き込みを拒まなければならない。モデルを読めないときと、モデルの install が失敗したときは、
   check とドキュメントグラフを読み込むサブコマンドは exit code 2 で終わらなければならず、組み込みの型へ
   戻ってはならない。init と model は、これらの規則の対象にしてはならない。item が 0 件であること自体を、
-  誤りにも該当にもしてはならず、item が 0 件の実行は、ほかに失敗の指摘が無ければ exit code 0 で終わら
-  なければならない。
+  誤りにも該当にもしてはならず、mitodoke は、item が 0 件である
+  ことだけを理由に、exit code を 0 以外にしてはならない。
 section: inspection
 status: stable
 derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T19:24:39+09:00"
+  at: "2026-11-23T19:28:02+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -164,7 +164,7 @@ sara-core の読み込みが読み飛ばしたファイル（scan warning）と�
 - モデルを読めないときと、モデルの install が失敗したときは、`check` とドキュメントグラフを読み込む
   サブコマンドが exit code 2 で終わり、組み込みの型へ戻らない
 - `init` と `model` はグラフを読まないので、これらの規則の対象にしない
-- item が 0 件であること自体は、誤りにも該当にもしない。item が 0 件の実行は、ほかに失敗の指摘が無ければ exit code 0 で終わる
+- item が 0 件であること自体は、誤りにも該当にもしない。item が 0 件であることだけを理由に、exit code を 0 以外にしない
 
 ## 出典
 
