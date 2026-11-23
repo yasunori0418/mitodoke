@@ -18,7 +18,7 @@ mitodoke は、誰かに代わって品質を保証するものではありま�
 
 - **Rust で書く 1 つの CLI**。[SARA](https://github.com/cledouarec/sara) の `sara-core` を crate として組み込む。
 - **設定ファイル `mitodoke.yaml`**。ここから SARA のモデル（`model.yaml`）と `sara.toml` を生成してコミットする。
-- **サブコマンド**: `new`・`gap`・`fresh`・`index`・`matrix`・`model`・`verify`・`export`・`check`。`--json` の出力は [outturn](https://github.com/yasunori0418/outturn) の結果エンベロープに従う。
+- **サブコマンド**: `init`・`new`・`gap`・`fresh`・`index`・`matrix`・`model`・`verify`・`export`・`check`。`--json` の出力は [outturn](https://github.com/yasunori0418/outturn) の結果エンベロープに従う。
 - **文書管理の規範とエージェント用のスキル**（`mitodoke-docs`・`mitodoke-test-plan`・`mitodoke-test-analyze`）を製品に含める。
 - **Nix flake で配布**し、SARA の CLI も一緒に配る。
 

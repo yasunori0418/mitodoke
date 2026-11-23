@@ -4,7 +4,7 @@ type: adr
 name: "サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける"
 description: "mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。"
 section: commands
-status: stable
+status: deprecated
 sources:
   - id: "issue-4"
     resource: "https://github.com/yasunori0418/mitodoke/issues/4"
@@ -20,7 +20,11 @@ generated:
 ---
 # サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](subcommands-split-with-init.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-17
 - 関連: [検査・起票・生成を 1 つの CLI のサブコマンドとして持つ](single-cli-with-subcommands.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q25）で確定
@@ -44,7 +48,7 @@ script の名前で手順を書いているので、名前の決め方はスキ�
 - 報告と生成のサブコマンドは `--json` を持つ
 - `check` は、構造の契約・つながりの欠け・見直しの義務の検査をまとめて実行し、設定の強さで失敗か報告かを決める
 
-サブコマンドごとの機能は、[サブコマンドは new・gap・fresh・index・matrix・model・verify・export・check とする](../requirements/subcommand-set.md) が定める。
+サブコマンドごとの機能は、[サブコマンドは init・new・gap・fresh・index・matrix・model・verify・export・check とする](../requirements/subcommand-set.md) が定める。
 
 ## 根拠
 

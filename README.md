@@ -29,8 +29,8 @@ what a person has confirmed.
   `sara-core` as a crate.
 - **A configuration file, `mitodoke.yaml`**, from which the SARA model (`model.yaml`) and
   `sara.toml` are generated and committed.
-- **Subcommands**: `new`, `gap`, `fresh`, `index`, `matrix`, `model`, `verify`, `export`,
-  and `check`. `--json` output follows the [outturn](https://github.com/yasunori0418/outturn)
+- **Subcommands**: `init`, `new`, `gap`, `fresh`, `index`, `matrix`, `model`, `verify`,
+  `export`, and `check`. `--json` output follows the [outturn](https://github.com/yasunori0418/outturn)
   result envelope.
 - **Document-management norms and agent skills** (`mitodoke-docs`, `mitodoke-test-plan`,
   `mitodoke-test-analyze`) shipped with the product.

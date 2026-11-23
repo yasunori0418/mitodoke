@@ -117,7 +117,7 @@
 * [generated.by は環境変数か引数で受け取り、無ければ端末に限り人の識別子にする](./generated-by-from-env-or-flag.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by で受け取り、どちらも無いときは端末からの実行に限り human:<id> を作り、端末の無い実行では起票を拒む。 (stable)
 * [人の識別子は、設定に定義したコマンドの出力から取る](./human-id-from-configured-command.md) - mitodoke verify が書く human:<id> の <id> は、mitodoke.yaml に定義したコマンドを利用者の環境で実行した出力から取り、不正な出力では何も書かない。 (stable)
 * [new は置き場所を引数で受け取り、型ごとの置き場所と比べる](./new-takes-location-argument.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と比べて、合わなければ起票を拒む。 (stable)
-* [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (stable)
+* [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-with-init.md) - mitodoke の CLI のサブコマンドを、初期化の init と、開発に使う script の名前から接頭辞を外した 9 つの、合わせて 10 個にし、すべてに --json を持たせ、index と model の --check は差分があれば exit code 1 で終える。 (stable)
 * [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](./test-assets-listed-by-configured-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを併用して読む。 (stable)
 * [verify は、端末で人が確認を入力したときだけ確認の記録を書く](./verify-records-human-only-from-terminal.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を書き、端末の無い実行では拒む。 (stable)
 
@@ -163,6 +163,7 @@
 * [sara-id を廃止し sara init を包む起票ラッパーを使う](./sara-new-wrapper-replaces-sara-id.md) - `sara-id` は devShell 同梱の採番コマンドで、UUIDv4 の採番・8 文字の重複の確認・省略形の出力・型名からprefix への写像・ファイル名素材の組み立てを担っていた。item ファイルの作成は `sara init` が担当した。 (deprecated)
 * [省略形の禁止は起票の機械化と全面移行で担保する](./short-form-ban-enforced-by-tooling.md) - 8 文字の省略形を使わないという規則は [ID はフル UUID に統一し 8 文字省略形を使わない](full-uuid-ids-no-short-form.md) が決めた。本 ADR は、その禁止をどう担保するかだけを決める。担保の方法は、禁止の規則を変えずに単独で覆せる。後から CI の検出を入れるなら、本 ADR だけを廃止すればよい。そのため規則とは別の ADR にする。 (deprecated)
 * [item のファイル名は slug だけにする](./slug-only-filenames.md) - item のファイル名を `<slug>.md` にし、フル ID は frontmatter と H1 見出しだけに書き、散文は Markdown リンクで item を参照する。 (deprecated)
+* [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
 * [用語を ubiquitous_term の item で管理する](./ubiquitous-term-type.md) - 用語の正名・避ける綴り・定義は、`CONTEXT.md`（日本語の長い定義）と `docs/glossary.md` / `docs/glossary.ja.md`（英日の短い定義）の 3 ファイルが重ねて持っていた。3 ファイルの同期は手作業で、語の数も定義の中身もすでに食い違っている。用語を 2 語足すだけで 5 ファイルを直す必要があった（#644）。 (deprecated)
