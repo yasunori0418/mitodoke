@@ -88,6 +88,7 @@
 * [製品名を mitodoke にする](./product-named-mitodoke.md) - 製品名を、日本語の見届けに由来する mitodoke にし、製品名を含む名前をすべてこの名前から決める (stable)
 * [Rust で書き、sara-core を crate として組み込む](./rust-cli-embedding-sara-core.md) - CLI を Rust で書き、sara の CLI を subprocess で呼ばずに sara-core を crate として直接使い、使う箇所を 1 つのモジュールに集める (stable)
 * [検査・起票・生成を 1 つの CLI のサブコマンドとして持つ](./single-cli-with-subcommands.md) - 契約ごとの検査を独立した実行ファイルに分けず、1 つの CLI がサブコマンドとして内部に持ち、外部ツールは sara と git などに限る (stable)
+* [CLI を 1 つの crate にし、役割ごとのモジュールに分ける](./single-crate-split-into-role-modules.md) - CLI を workspace に分けない 1 つの crate にし、sara-core・frontmatter・読み込み・設定・outturn・git・時刻と端末・契約・サブコマンドの役割ごとのモジュールに分け、ライブラリとして公開しない。 (stable)
 * [frontmatter を読む層を 1 つ持ち、読み込みを 1 つにまとめる](./single-frontmatter-layer-and-unified-loading.md) - frontmatter を YAML として読む層を 1 つ持ち、sara-core が返した item と読み飛ばしたファイルだけを読み、どのサブコマンドもこの 2 つを合わせた 1 つの読み込みの結果を使う。 (stable)
 
 ## モデルと設定
