@@ -32,14 +32,16 @@
 * [OKF v0.2 と互換の frontmatter キーを item に足す](./okf-compatible-frontmatter.md) - OKF v0.2 と互換の frontmatter キーを sara の item に足す方針と、バンドル単位の適合を追わない範囲を決める (stable)
 * [status を OKF の 3 値にし全ての型に持たせる](./status-okf-values.md) - status を draft / stable / deprecated の 3 値にし、ADR 以外の型にも必須で持たせる (stable)
 * [test_case の target を resource に改名する](./test-case-resource-field.md) - test_case のテスト資産の正準表記を OKF の resource キーで持ち、値はリポジトリ根からのパスのままにする (stable)
+* [時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる](./timestamps-accepted-written-and-compared-as-instants.md) - UTC オフセット付きの ISO 8601 を受け付けて現在時刻より先の時刻を違反にし、書くときはローカルのオフセット付きの秒までの形にし、比べるときは時刻として読む。 (stable)
 
 ## 機械検証と鮮度
 
 * [鮮度は上流の relation を辿って下流へ伝播させる](./freshness-propagates-along-upstream-relations.md) - 下流の item の基準時刻より上流の generated.at が新しければ、上流の relation のうち justifies を除く 7 種を辿って下流を再検証待ちとして挙げる (stable)
-* [generated の更新漏れは PR の差分で確かめる](./generated-update-checked-in-pr-diff.md) - base との差分で本文が変わったのに generated.at が変わっていない item を挙げ、全履歴と時刻は比べない (stable)
+* [generated の更新漏れの検査は、frontmatter の specification も本文に数える](./generated-update-check-includes-specification.md) - base との差分で、frontmatter の外の行と `specification`・`specification_<言語>` が変わったのに `generated.at` が変わっていない item を更新漏れとして挙げ、基準のリビジョンが無ければ検査せずにそのことを記録する。 (stable)
 * [level が high の risk と、有効な solution と use_case に人の verified を求める](./human-verified-required-for-high-risk-and-upper-layers.md) - level が high の risk と、status が deprecated でない solution と use_case 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない。 (stable)
 * [sara check を strict モードで回す](./sara-check-strict-mode.md) - `sara check` は接続漏れを warning に留める設定で導入された。移行の途中では、まだ親を持たない item が正常に存在し、接続漏れを error にすると移行そのものが止まるためである。 (stable)
 * [solution に stale_after を必須にし、期限までの間隔を 90 日以内にする](./solution-requires-stale-after-within-interval.md) - solution に stale_after を必須にし、期限切れと、人の確認の時刻から 90 日より先の期限を報告して、人の確認と書き換えの両方で期限を延ばす。 (stable)
+* [端末からの実行は stdin と stdout の両方が端末であることで判定する](./terminal-run-judged-by-stdin-and-stdout.md) - 端末からの実行を stdin と stdout の両方が端末であることで判定し、判定を 1 か所に置いて verify と new で同じものを使い、判定を外す環境変数は製品に持たない。 (stable)
 
 ## ADR と規範文の書き方
 
@@ -79,11 +81,15 @@
 
 ## 製品の範囲と構成
 
+* [実行中に呼ぶ外部のプロセスは、git と設定のコマンドだけにする](./external-processes-limited-to-git-and-configured-commands.md) - mitodoke が実行中に呼ぶ外部のプロセスを git と設定ファイルに書かれたコマンドだけにし、sara は crate として組み込み、flake で一緒に配る sara の CLI は呼ばない。 (stable)
+* [item は sara-core の読み込みが返したファイルとし、mitodoke は自分で走査しない](./items-are-files-returned-by-sara-core-loader.md) - item を sara-core の読み込み（parse_directory）が item として返したファイルとし、mitodoke は自分でディレクトリを走査しない。 (stable)
 * [規範は mitodoke のリポジトリ自身で管理し、適用先は写さず参照する](./norms-kept-in-own-repository.md) - mitodoke のリポジトリ自身を mitodoke で管理して規範と文書管理の決定を持ち、適用先の製品は規範を写さず mitodoke の文書として参照する (stable)
 * [製品に CLI・モデル・文書管理の規範・スキル・欠陥運用の規範を含める](./product-bundles-cli-model-norms-skills.md) - 製品の範囲を CLI とモデルに加えて文書管理の規範・スキル・欠陥運用の規範までとし、開発の進め方の規範と DoD は含めない (stable)
 * [製品名を mitodoke にする](./product-named-mitodoke.md) - 製品名を、日本語の見届けに由来する mitodoke にし、製品名を含む名前をすべてこの名前から決める (stable)
 * [Rust で書き、sara-core を crate として組み込む](./rust-cli-embedding-sara-core.md) - CLI を Rust で書き、sara の CLI を subprocess で呼ばずに sara-core を crate として直接使い、使う箇所を 1 つのモジュールに集める (stable)
 * [検査・起票・生成を 1 つの CLI のサブコマンドとして持つ](./single-cli-with-subcommands.md) - 契約ごとの検査を独立した実行ファイルに分けず、1 つの CLI がサブコマンドとして内部に持ち、外部ツールは sara と git などに限る (stable)
+* [CLI を 1 つの crate にし、役割ごとのモジュールに分ける](./single-crate-split-into-role-modules.md) - CLI を workspace に分けない 1 つの crate にし、sara-core・frontmatter・読み込み・設定・outturn・git・時刻と端末・契約・サブコマンドの役割ごとのモジュールに分け、ライブラリとして公開しない。 (stable)
+* [frontmatter を読む層を 1 つ持ち、読み込みを 1 つにまとめる](./single-frontmatter-layer-and-unified-loading.md) - frontmatter を YAML として読む層を 1 つ持ち、sara-core が返した item と読み飛ばしたファイルだけを読み、どのサブコマンドもこの 2 つを合わせた 1 つの読み込みの結果を使う。 (stable)
 
 ## モデルと設定
 
@@ -101,15 +107,18 @@
 
 ## 検査
 
+* [有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える](./active-items-and-edges-counted-in-gap-and-fresh.md) - status が deprecated でない item を有効な item と 1 か所で定義し、gap と fresh はすべての節で有効な item と両端が有効な辺だけを数え、check の構造の契約は deprecated の item にも働かせる。 (stable)
 * [避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる](./avoid-spelling-check-left-to-adopters.md) - 用語の避ける綴りの検査を mitodoke に内蔵せず、mitodoke の JSON 出力を使って適用先の製品が検査を組み立てる。 (stable)
 * [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](./default-strength-with-closed-lists.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、3 つの分類に当たる検査を閉じた列挙で決め、どの検査も設定で強さを変えられるようにする。 (stable)
 * [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
 * [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](./non-human-verified-accepted-not-counted-as-human.md) - verified に human: 以外の要素も受け付け、再確認待ちの基準時刻には数えるが、人の確認には数えない。 (stable)
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する](./okf-keys-accepted-on-all-types.md) - OKF のキーをどの型の item でも受け付け、OKF v0.2 の定義に従っているかを構造の契約として検査する。 (stable)
+* [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](./scan-skips-fail-check-and-block-graph-commands.md) - sara-core の読み飛ばしを、検査ではなく読み込みの前提として扱い、check では専用のコードの failed の item で exit 1 にし、グラフを読むほかのサブコマンドは処理を始めず exit 2 で終える。 (stable)
 * [OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない](./stricter-than-okf-constraints-and-inspection-points.md) - OKF v0.2 に重ねた 5 つの制約を引き継ぎ、description の欠けは mitodoke new が起票を拒むことで検査して check では違反にせず、generated.at 以降の verified だけを人の確認に数える規則は違反の条件を持たない数え方にする。 (stable)
 * [test_case は covers と follows をそれぞれ 1 本以上持つ](./test-case-requires-covers-and-follows.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約にし、欠けたら失敗にする。 (stable)
 * [トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない](./tracker-independent-defect-norm-shipped.md) - トラッカーに依らない欠陥運用の規範を製品に含め、GitHub 用の部分は例として置き、mitodoke は欠陥の Issue を検査しない。 (stable)
 * [宣言の無い frontmatter のキーを違反にし、宣言はその item の型のものに限る](./undeclared-frontmatter-keys-per-type.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、ほかの型だけで宣言されたフィールドも違反にする。 (stable)
+* [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](./unreadable-model-exits-without-builtin-fallback.md) - モデルを読めないときと install が失敗したときは、グラフを読むサブコマンドと check が exit 2 で終えて組み込みの型へ戻らず、item が 0 件であること自体は誤りにも該当にもしない。 (stable)
 
 ## コマンド
 
@@ -120,17 +129,23 @@
 * [new は置き場所を引数で受け取り、型ごとの置き場所と比べる](./new-takes-location-argument.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と比べて、合わなければ起票を拒む。 (stable)
 * [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-with-init.md) - mitodoke の CLI のサブコマンドを、初期化の init と、開発に使う script の名前から接頭辞を外した 9 つの、合わせて 10 個にし、すべてに --json を持たせ、index と model の --check は差分があれば exit code 1 で終える。 (stable)
 * [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](./test-assets-listed-by-configured-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを併用して読む。 (stable)
+* [text 出力の見出しと診断の文を英語に固定する](./text-output-and-diagnostics-in-english.md) - 既定の text 出力の見出しと診断の文を英語に固定し、item の name と description は書かれた言語のまま出し、言語を切り替える仕組みは持たない。 (stable)
 * [verify は、端末で人が確認を入力したときだけ確認の記録を書く](./verify-records-human-only-from-terminal.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を書き、端末の無い実行では拒む。 (stable)
 * [item を指定しない verify は、対話で選んだ枝を上流から順にたどり、ビューアとエディタを設定で選べる](./verify-walks-branch-interactively.md) - item を指定しない mitodoke verify は、対話で枝を選ばせて上流から順に item を表示し、人の確認を記録する。表示のビューアとコメントのエディタは mitodoke.yaml で設定でき、コメントの行き先と自動のコミットは決めない。 (stable)
 
 ## JSON 出力
 
-* [設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する](./config-read-from-working-directory-and-recorded.md) - 設定ファイルの指定を省いたときは作業ディレクトリのものだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。 (stable)
+* [sara の検証の種類ごとに契約名を割り当て、kind とコードを契約名から導く](./contract-name-per-sara-validation-kind.md) - sara の検証を指摘の種類ごとに mitodoke の契約名へ割り当て、読み飛ばしにも契約名を割り当て、kind は契約名の小文字のスネークケース、コードはその大文字に接頭辞を付けたものにする。 (stable)
 * [写した契約テストを CLI の受け入れテストにする](./contract-tests-as-cli-acceptance-tests.md) - 写した契約テストを mitodoke の CLI の受け入れテストにし、outturn の result.info の下の JSON のキー・exit code・起票の id: と file: の 2 行を揃え、text 出力の見出しと行の形式は揃えない。 (stable)
+* [changes・dryRun・label はファイルを書くかで分け、ID の無い item はパスで表す](./envelope-changes-dry-run-label-and-path-keys.md) - ファイルを書くサブコマンドは書いたファイルを item と changes[] に並べて dryRun を false にし、--check と読むだけのサブコマンドは dryRun を true にし、label はすべての item に付け、文書の ID を持たない item の key と label は設定ファイルのあるディレクトリからの相対パスにする。 (stable)
+* [エンベロープの subject は固定の documents 1 つにする](./envelope-subject-fixed-to-documents.md) - エンベロープの results[] の要素を常に 1 つにし、subject.name を固定の文字列 documents にする。 (stable)
 * [export は sara 0.12 の items\[\] の形を写して固定し、OKF のキーを加える](./export-shape-fixed-from-sara-items.md) - export の形は今の sara 0.12 の items[] を写して mitodoke の形として固定し、OKF のキーを加えて outturn の item の info の下に置き、sara の形が変わっても自動では変えない。 (stable)
 * [サブコマンドの --json は outturn のエンベロープにし、standalone まで適合させる](./json-output-conforms-to-outturn.md) - mitodoke のすべてのサブコマンドの --json を outturn の結果エンベロープにし、§8 の standalone まで含めて適合させ、既定の text 出力は変えない。 (stable)
+* [outturn の Rust の crate を outturn の側に作って使う](./outturn-rust-crate-provided-by-outturn.md) - エンベロープの型と item の id の導出を持つ Rust の crate を outturn の側に作り、mitodoke はそれに git のコミットで依存して、mitodoke のコードと text 出力だけを自分で持つ。 (stable)
+* [報告の指摘は success の item の警告で表し、働く強さは exit code で決める](./report-findings-as-success-items-with-warnings.md) - 指摘に働く強さをその実行の exit code を 0 でなくするかで決め、失敗は failed の item と E_MITODOKE_ のコード、報告は success の item と W_MITODOKE_ の警告で表し、gap の情報の節と到達率は result.info に置く。 (stable)
 * [check・gap・fresh の item を契約 × 文書の単位にする](./result-items-per-contract-and-document.md) - check・gap・fresh の結果は、1 つの文書が 1 つの契約に反したことを item 1 つで表し、kind を契約の名前、key を文書の ID にして、成り立った組は item にしない。 (stable)
 * [契約の違反と報告をツール別のコードで表し、強さで接頭辞だけを切り替える](./tool-specific-error-and-warning-codes.md) - 契約の違反と報告は E_MITODOKE_<契約名> と W_MITODOKE_<契約名> のツール別のコードで統一し、強さの設定で接頭辞だけを切り替え、入力や環境の誤りには outturn の共通コードを使う。 (stable)
+* [作業ディレクトリは workingDirectory に出し、設定ファイルのパスは常に info に記録する](./working-directory-field-and-config-path-always-recorded.md) - `--config` を省いたときは作業ディレクトリの設定ファイルだけを読み、作業ディレクトリはエンベロープの `workingDirectory` に出し、読んだ設定ファイルの絶対パスと、環境変数と設定のコマンドから取った値は常にトップレベルの `info` に記録する。 (stable)
 
 ## 配布と運用
 
@@ -150,11 +165,13 @@
 * [ADR の規則を汎用とプロジェクト当てはめに分けて書く](./adr-rules-generic-and-project-split.md) - ADR の規則は `docs/adr/README.md` に、layat の ADR 番号・型の区分・実データと同じ文書に書かれていた。 (deprecated)
 * [提案を棄却した決定は status 不採用 で記録する](./adr-status-rejected.md) - ADR の `status` は、実データの表記に合わせて日本語の値を持つ enum にしている。組み込みの英語の値（`proposed` / `accepted` / `deprecated`）は使っていない。 (deprecated)
 * [ADR も UUID で採番し、連番の旧 ADR は legacy_adr 型に凍結する](./adr-uuid-ids-and-legacy-type.md) - ADR だけは連番（`ADR-NNNN`）で採番してきた。既存 ADR の相互参照やコミットメッセージでの言及を無効にしないためである。一方、並列レーンで ADR を起こすと、複数のレーンが同じ「次の番号」を取る構造が残っていた。 (deprecated)
+* [設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する](./config-read-from-working-directory-and-recorded.md) - 設定ファイルの指定を省いたときは作業ディレクトリのものだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。 (deprecated)
 * [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (deprecated)
 * [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](./defect-close-backfills-risks.md) - [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md)。グラフのrisk / test_condition は予防の体系だが、起きた欠陥から学ばなければ、ある時点の分析を写したまま古びていく。 (deprecated)
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)
 * [ID はフル UUID に統一し 8 文字省略形を使わない](./full-uuid-ids-no-short-form.md) - item の正式 ID はフル UUIDv4 だが、ファイル名と散文中の参照には前方 8 文字の省略形を使っていた。フル UUID は人が読めないという前提への対処だった。 (deprecated)
 * [自動検証の形骸化は守備対象の impact を継承する](./gate-risk-inherits-impact.md) - 自動検証が気づかれないまま形骸化する risk（テストは緑なのに何も確認していない類）は、その自動検証自身が開発の中で完結する。`impact` を回復可能性で採点し（[risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md)）、沈黙性を軸から外す（[沈黙性を risk のスコア軸にせず本文に書く](silence-not-a-score-axis.md)）と、この類型はそのまま読めば low になる。 (deprecated)
+* [generated の更新漏れは PR の差分で確かめる](./generated-update-checked-in-pr-diff.md) - base との差分で本文が変わったのに generated.at が変わっていない item を挙げ、全履歴と時刻は比べない (deprecated)
 * [item に生成者・確認の記録・期限を持たせる](./generated-verified-stale-after.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after を任意で持たせ、入れ子キーの形を契約テストで確かめる (deprecated)
 * [level が high の risk に人の verified を求める](./human-verified-required-for-high-risk.md) - level が high の risk 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない (deprecated)
 * [ID の書き場所と省略形の禁止は起票の機械化と契約テストで担保する](./id-placement-enforced-by-contract-test.md) - フル ID の書き場所と 8 文字省略形の禁止を、起票ラッパーによる機械化と契約テスト link-text.sh の検出で担保する。 (deprecated)

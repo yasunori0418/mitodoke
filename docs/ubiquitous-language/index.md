@@ -19,6 +19,7 @@
 
 ## グラフと item
 
+* [active item（有効な item）](./active-item.md) - `status` が `deprecated` でない item。`draft` を含む。
 * [artifact（成果物）](./artifact.md) - 品質について人間が検討・判断した結果として書き残すもの。
 * [document graph（ドキュメントグラフ）](./document-graph.md) - item を節、relation を辺とし、参照の正しさを機械的に検証するグラフ。
 * [downstream（下流）](./downstream.md) - ある item を向きが上流の relation で指し、その内容を前提にしている item。

@@ -14,15 +14,37 @@ specification: |
   duplicated test asset. By default, a connection gap and a review obligation SHALL be reported
   without failing. The connection gaps SHALL be the following: a test_condition that is not
   covered, a risk that is not mitigated, a requirement that is not threatened, a quality that is
-  not satisfied, a valid use_case without a valid requirement, a valid requirement all of whose
-  parent use_case items are deprecated, and a quality characteristic without a valid risk. The
+  not satisfied, an active use_case without an active requirement, an active requirement all of whose
+  parent use_case items are deprecated, and a quality characteristic without an active risk. The
   review obligations SHALL be the following: an item awaiting review after an upstream change, a
   missing `generated` update (an item whose body changed in the difference from the base revision
-  while `generated.at` did not change), a high risk lacking a human verification, a valid
+  while `generated.at` did not change), a high risk lacking a human verification, an active
   solution or use_case lacking a human verification, an expired `stale_after`, and a
-  `stale_after` beyond its interval. In these lists, valid SHALL mean that the `status` is not
-  `deprecated`, `draft` included. The strength of every inspection SHALL be changeable in the
-  configuration.
+  `stale_after` beyond its interval. An active item SHALL be an item whose `status` is not
+  `deprecated`, `draft` included. In every section, gap and fresh SHALL count only active items,
+  and SHALL count an edge only when both of its ends are active items. The structural contracts
+  of check SHALL apply also to items whose `status` is `deprecated`. The strength of every
+  inspection SHALL be changeable in the configuration.
+  In the missing `generated` update, the body SHALL be the lines outside the frontmatter together
+  with `specification` and `specification_<language>` in the frontmatter, and a change of `name`,
+  `description`, `status`, a relation or an OKF key SHALL NOT count as a change of the body. When
+  only the notation of `generated.at` is rewritten and it points to the same instant, the
+  inspection SHALL regard `generated.at` as not changed. In a
+  run given no base revision, mitodoke SHALL NOT perform the inspection of missing `generated`
+  updates, and check and fresh SHALL record in the result that the inspection was not performed.
+
+  A file that the sara-core loader skips (a scan warning) and a model that cannot be read SHALL
+  be treated as preconditions of loading, not as inspections, and SHALL NOT be subject to the
+  strength setting. When a file is skipped, check SHALL represent the skipped file as a failed item
+  with a dedicated code and SHALL end with exit code 1, and SHALL NOT classify the skip into the
+  structural contracts, the connection gaps or the review obligations. When a file is skipped, the
+  other subcommands that load the document graph (new, index, gap, fresh, matrix, verify and
+  export) SHALL NOT start processing and SHALL end with exit code 2 as an input error, and new and
+  verify SHALL refuse to write. When the model cannot be read or the installation of the model
+  fails, check and the subcommands that load the document graph SHALL end with exit code 2 and
+  SHALL NOT fall back to the built-in types. init and model SHALL NOT be subject to these rules.
+  Having zero items SHALL NOT in itself be an error or a finding, and mitodoke SHALL NOT end a
+  run with a non-zero exit code only because it has zero items.
 specification_ja: |
   既定では、構造の契約の違反は失敗としなければならない。構造の契約は、
   `sara check`（`solution` の `stale_after` の欠けを含む）、frontmatter の形、ID の置き場所、test_case と
@@ -35,15 +57,35 @@ specification_ja: |
   品質特性でなければならない。見直しの義務は、上流の変更による再確認待ち、generated の更新
   漏れ（基準のリビジョンとの差分で本文が変わったのに `generated.at` が変わっていない item）、人の確認が
   無い high の risk、人の確認が無い有効な solution と use_case、stale_after の期限切れ、stale_after の
-  間隔の超過でなければならない。これらの列挙の「有効な」は、`status` が `deprecated` でないこと（`draft` を含む）と
-  しなければならない。どの検査の強さも、設定で変えられなければならない。
+  間隔の超過でなければならない。有効な item は、`status` が `deprecated` でない item（`draft` を含む）で
+  なければならない。gap と fresh は、すべての節で有効な item だけを数えなければならず、辺は両端が有効な
+  item のものだけを数えなければならない。check の構造の契約は、`status` が `deprecated` の item にも
+  働かせなければならない。どの検査の強さも、設定で変えられなければならない。
+  generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
+  `specification_<言語>` を加えたものでなければならず、`name`・`description`・`status`・relation・
+  OKF のキーの変更は、本文の変更に数えてはならない。`generated.at` の表記だけを書き換えて同じ時刻を
+  指しているときは、検査は `generated.at` が変わっていないとみなさなければならない。基準のリビジョンを渡さない実行では、mitodoke は
+  generated の更新漏れの検査をしてはならず、check と fresh は、検査しなかったことを結果に記録しなければ
+  ならない。
+
+  sara-core の読み込みが読み飛ばしたファイル（scan warning）と、モデルを読めないことは、検査ではなく
+  読み込みの前提として扱わなければならず、強さの設定の対象にしてはならない。ファイルが読み飛ばされた
+  とき、check は、読み飛ばされたファイルを専用のコードを付けた failed の item で表して exit code 1 で
+  終わらなければならず、読み飛ばしを構造の契約・つながりの欠け・見直しの義務のどれにも入れてはならない。
+  ファイルが読み飛ばされたとき、ドキュメントグラフを読み込むほかのサブコマンド（new・index・gap・fresh・
+  matrix・verify・export）は、処理を始めずに入力の誤りとして exit code 2 で終わらなければならず、new と
+  verify は書き込みを拒まなければならない。モデルを読めないときと、モデルの install が失敗したときは、
+  check とドキュメントグラフを読み込むサブコマンドは exit code 2 で終わらなければならず、組み込みの型へ
+  戻ってはならない。init と model は、これらの規則の対象にしてはならない。item が 0 件であること自体を、
+  誤りにも該当にもしてはならず、mitodoke は、item が 0 件である
+  ことだけを理由に、exit code を 0 以外にしてはならない。
 section: inspection
 status: stable
 derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T11:22:37+09:00"
+  at: "2026-11-23T20:22:00+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -90,16 +132,54 @@ mitodoke の検査は、構造の契約、つながりの欠け、見直しの�
 - stale_after の期限切れ
 - stale_after の間隔の超過
 
-この列挙の「有効な」は、`status` が `deprecated` でないことを指し、`draft` を含む。`human_judgement` を持つ
-test_condition の一覧は、人が判断する範囲を示す情報で、3 つの分類のどれにも当たらない。
+generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
+`specification_<言語>` を加えたものとする。`name`・`description`・`status`・relation・OKF のキーの変更は、
+本文の変更に数えない。`generated.at` の表記だけを書き換えて同じ時刻を指しているときは、`generated.at` が
+変わっていないとみなす。基準のリビジョンを渡さない実行では、generated の更新漏れの検査をしない。`check` と
+`fresh` は、検査しなかったことを結果に記録する。frontmatter の外の行の比較で除く行（今の規則は
+[generated の更新漏れの検査は、frontmatter の specification も本文に数える](../adr/generated-update-check-includes-specification.md)
+にある）を固定にするか設定から導くかは、再確認と人の確認の epic が決め、この要件では定めない。
+
+`human_judgement` を持つ test_condition の一覧は、人が判断する範囲を示す情報で、3 つの分類のどれにも
+当たらない。
+
+### 有効な item
+
+[有効な item](../ubiquitous-language/active-item.md) は、`status` が `deprecated` でない item を指し、
+`draft` を含む。この要件の列挙の「有効な」も、この意味である。
+
+- `gap` と `fresh` は、すべての節で有効な item だけを数える。辺は、両端が有効な item のものだけを数える。
+  たとえば、`deprecated` の risk からの `threatens` は、requirement を覆ったことにしない
+- `check` の構造の契約は、`status` が `deprecated` の item にも働かせる
 
 どの検査も、設定で強さを変えられる。CI のどの job を必須にするかは、適用先の製品が決める。
+
+### 読めない入力
+
+sara-core の読み込みが読み飛ばしたファイル（scan warning）と、モデルを読めないことは、検査ではなく
+読み込みの前提として扱う。前提は強さの設定の対象にしない。
+
+- ファイルが読み飛ばされたとき、`check` は、読み飛ばされたファイルを専用のコードを付けた `failed` の
+  item で表し、exit code 1 で終わる。読み飛ばしは、構造の契約・つながりの欠け・見直しの義務のどれにも
+  入れない
+- ファイルが読み飛ばされたとき、ドキュメントグラフを読み込むほかのサブコマンド（`new`・`index`・`gap`・
+  `fresh`・`matrix`・`verify`・`export`）は、処理を始めずに、入力の誤りとして exit code 2 で終わる。
+  `new` と `verify` も書き込みを拒む
+- モデルを読めないときと、モデルの install が失敗したときは、`check` とドキュメントグラフを読み込む
+  サブコマンドが exit code 2 で終わり、組み込みの型へ戻らない
+- `init` と `model` はグラフを読まないので、これらの規則の対象にしない
+- item が 0 件であること自体は、誤りにも該当にもしない。item が 0 件であることだけを理由に、exit code を 0 以外にしない
 
 ## 出典
 
 根拠の決定は次の ADR が持つ。
 
 - [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](../adr/default-strength-with-closed-lists.md)
+- [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](../adr/scan-skips-fail-check-and-block-graph-commands.md)
+- [有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える](../adr/active-items-and-edges-counted-in-gap-and-fresh.md)
+- [generated の更新漏れの検査は、frontmatter の specification も本文に数える](../adr/generated-update-check-includes-specification.md)
+- [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](../adr/unreadable-model-exits-without-builtin-fallback.md)
+- [時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる](../adr/timestamps-accepted-written-and-compared-as-instants.md)
 
 新しく足した検査の要件は次の item が持つ。
 
