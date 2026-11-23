@@ -135,6 +135,7 @@
 
 ## JSON 出力
 
+* [sara の検証の種類ごとに契約名を割り当て、kind とコードを契約名から導く](./contract-name-per-sara-validation-kind.md) - sara の検証を指摘の種類ごとに mitodoke の契約名へ割り当て、読み飛ばしにも契約名を割り当て、kind は契約名の小文字のスネークケース、コードはその大文字に接頭辞を付けたものにする。 (stable)
 * [写した契約テストを CLI の受け入れテストにする](./contract-tests-as-cli-acceptance-tests.md) - 写した契約テストを mitodoke の CLI の受け入れテストにし、outturn の result.info の下の JSON のキー・exit code・起票の id: と file: の 2 行を揃え、text 出力の見出しと行の形式は揃えない。 (stable)
 * [changes・dryRun・label はファイルを書くかで分け、ID の無い item はパスで表す](./envelope-changes-dry-run-label-and-path-keys.md) - ファイルを書くサブコマンドは書いたファイルを item と changes[] に並べて dryRun を false にし、--check と読むだけのサブコマンドは dryRun を true にし、label はすべての item に付け、文書の ID を持たない item の key と label は設定ファイルのあるディレクトリからの相対パスにする。 (stable)
 * [エンベロープの subject は固定の documents 1 つにする](./envelope-subject-fixed-to-documents.md) - エンベロープの results[] の要素を常に 1 つにし、subject.name を固定の文字列 documents にする。 (stable)
