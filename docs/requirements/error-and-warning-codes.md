@@ -11,8 +11,8 @@ specification: |
   failure strength SHALL be the error of an item whose status is failed, and a finding at report
   strength SHALL be a warning of an item whose status is success; a pair of a contract and a
   document that has only findings at report strength SHALL also be an item. The information
-  sections of gap and the reach ratios SHALL NOT be findings and SHALL be placed in
-  `result.info` without a code. The same finding SHALL carry the same contract name under
+  sections of gap and the reach ratios SHALL NOT be items and SHALL be placed in `result.info`.
+  The same finding SHALL carry the same contract name under
   either strength. The strength setting SHALL switch only the prefix. For an input or
   environment error (exit code 2), mitodoke SHALL use the common code of outturn whose meaning
   corresponds to the error. mitodoke SHALL NOT use E_PRECONDITION for a violation found by
@@ -23,7 +23,7 @@ specification_ja: |
   その指摘がその実行の exit code を 0 でなくするなら失敗、しないなら報告でなければならない。失敗の
   指摘は status が failed の item の error で、報告の指摘は status が success の item の warnings で
   表さなければならず、報告の指摘だけを持つ契約と文書の組も item にしなければならない。gap の情報の
-  節と到達率は、指摘にしてはならず、コードを付けずに `result.info` に置かなければならない。同じ指摘は、どちらの強さでも
+  節と到達率は、item にしてはならず、`result.info` に置かなければならない。同じ指摘は、どちらの強さでも
   同じ契約名を持たなければならず、強さの設定で切り替わるのは接頭辞だけでなければならない。入力や環境の誤り（exit code 2）
   には、mitodoke は、outturn が定める共通コードのうち、その誤りの意味に当たるものを使わなければ
   ならない。mitodoke は、
@@ -34,7 +34,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:54:25+09:00"
+  at: "2026-11-23T19:05:08+09:00"
 ---
 # 契約の違反と報告は E_MITODOKE_ と W_MITODOKE_ のコードで表す
 
@@ -47,7 +47,7 @@ generated:
 その実行で指摘に働く強さは、その指摘がその実行の exit code を 0 でなくするかどうかで決まる。0 でなく
 するなら失敗、しないなら報告である。失敗の指摘は `status` が `failed` の item の `error` に、報告の指摘は
 `status` が `success` の item の `warnings` に置く。報告の指摘だけを持つ契約と文書の組も item にする。
-`gap` の情報の節と到達率は指摘ではないので、コードを付けずに `result.info` に置く。
+`gap` の情報の節と到達率は、item にせず、`result.info` に置く。
 
 入力や環境の誤り（exit code 2）には、outturn が定める共通コードのうち、その誤りの意味に当たるものを使う。
 `check` の違反にも、`E_PRECONDITION` は使わない。
