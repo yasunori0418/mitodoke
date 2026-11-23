@@ -24,9 +24,13 @@ solution から始めて、子の item（その item を上流の relation で�
 どの段でも、いま選んでいる item で決められる。辿る relation は refines / derives_from / satisfies /
 threatens / mitigates / covers / follows。
 
+選ぶ候補に出るのは、その item か下流に確認の対象が残っている子だけ。status が deprecated の item と、
+下流まで確認の対象が残っていない item は出ない。確認済みの item が候補に出るときは「確認済み」の印が付く。
+
 確認の対象は、根から選んだ item までの経路の item と、選んだ item の下流のすべて。幅優先で並べ、
 同じ深さの中は ID の順にする。複数の親から届く item は最初の 1 度だけ対象にする。status が deprecated の
-item と、generated.at 以降の human: の verified を持つ item は対象から外す。
+item と、generated.at 以降の human: の verified を持つ item は対象から外す。deprecated の item を
+経由してしか届かない item も対象にしない。
 
 item ごとに leaf で表示し、閉じたら「記録する・飛ばす・中断する」を選ぶ。solution と use_case では、
 選ぶ前に review_question_for がその型を指す quality の item の確認の問いを出す。「記録する」では EDITOR で
@@ -39,7 +43,7 @@ item ごとに leaf で表示し、閉じたら「記録する・飛ばす・中
 現在のブランチにコミットし、ブランチの作成と push はしない。
 
 options:
-  --all  generated.at 以降の human: の verified を持つ item も対象にする
+  --all  generated.at 以降の human: の verified を持つ item も対象にし、選ぶ候補にも出す
 
 exit code:
   0    対象を終えた、または「中断する」を選んだ
@@ -132,7 +136,19 @@ items=$(printf '%s' "$graph" | jq -c --slurpfile fm <(printf '%s\n' "$frontmatte
         ups: [.relations // {} | (.refines, .derives_from, .satisfies, .threatens, .mitigates, .covers, .follows) // [] | .[]],
         verified: ($g != null and ([($f.verified // []) | if type == "array" then .[] else empty end
           | select(((.by? // "") | startswith("human:")) and ((.at? | epoch) // -1) >= $g)] | length > 0))}
-     | . + {target: (.status != "deprecated" and ($all == 1 or (.verified | not)))}]') ||
+     | . + {target: (.status != "deprecated" and ($all == 1 or (.verified | not)))}]
+  # open は、その item か、deprecated の item を経由せずに届く下流に、確認の対象が残っていること。
+  | . as $items
+  | ($items | map({key: .id, value: .}) | from_entries) as $by_id
+  | def up($frontier; $seen):
+      if ($frontier | length) == 0 then $seen
+      else ([$frontier[] | $by_id[.].ups[] | select($by_id[.] != null and $by_id[.].status != "deprecated")]
+            | unique | map(select(. as $u | $seen | index($u) | not))) as $next
+        | up($next; $seen + $next)
+      end;
+  [$items[] | select(.target) | .id] as $targets
+  | up($targets; $targets) as $open
+  | map(. + {open: (.id as $i | $open | index($i) != null)})') ||
   die "sara check の JSON と frontmatter を突き合わせられない"
 
 # fzf を呼び、選んだ行を出す。Ctrl-C は exit 130 のまま返す。
@@ -168,7 +184,9 @@ fi
 path=("$current")
 decide_line=$'=\tこの item で決める'
 while :; do
-  children=$(jq -r --arg id "$current" '[.[] | select(.ups | index($id))] | sort_by(.id)[] | [.id, .type, .name, (.status // "")] | @tsv' <<<"$items")
+  # 候補は、確認の対象が残っている子だけにする。確認済みの子は、下流に対象が残っていれば印を付けて出す。
+  children=$(jq -r --arg id "$current" '[.[] | select(.open and (.ups | index($id)))] | sort_by(.id)[]
+    | [.id, .type, .name, (.status // ""), (if .verified then "確認済み" else "" end)] | @tsv' <<<"$items")
   [ -n "$children" ] || break
   header=$(jq -r --arg id "$current" '.[] | select(.id == $id) | "いま: \(.id) \(.name)"' <<<"$items")
   line=$(pick --header "$header" <<<"$decide_line"$'\n'"$children") || stop_on $?
@@ -178,12 +196,13 @@ while :; do
 done
 
 # 経路のあとに、選んだ item の下流を層ごとに ID の順で並べる。複数の親から届く item は初出の層に置く。
+# deprecated の item は層に入れないので、deprecated の item を経由してしか届かない item は並ばない。
 mapfile -t targets < <(jq -r --args '
   . as $items
   | ($items | map({key: .id, value: .}) | from_entries) as $by_id
   | def down($level; $seen):
       if ($level | length) == 0 then []
-      else ([$items[] | select(.id as $c | ($seen | index($c) | not)) | select(any(.ups[]; . as $u | $level | index($u)))]
+      else ([$items[] | select(.status != "deprecated") | select(.id as $c | ($seen | index($c) | not)) | select(any(.ups[]; . as $u | $level | index($u)))]
             | map(.id) | sort) as $next
         | $next + down($next; $seen + $next)
       end;

@@ -207,9 +207,13 @@ sara-verify --all  # human: の verified を持つ item も対象にする
 - 選ぶ手順: `solution` から始め、子の item（その item を `refines` / `derives_from` / `satisfies` / `threatens` /
   `mitigates` / `covers` / `follows` で指している item）を `fzf` で 1 段ずつ選ぶ。どの段でも、いま選んでいる
   item で決められる。子の無い item まで降りると、そこで決まる
+- 選ぶ候補: その item か下流に確認の対象が残っている子だけを出す。`status: deprecated` の item と、下流まで確認の対象が
+  残っていない item は出さない。確認済みの item を出すときは「確認済み」の印を付ける（`--all` では確認済みの item も
+  対象なので、下流まで確認済みの枝も出す）
 - 確認の対象: 根から選んだ item までの経路と、選んだ item の下流のすべて。幅優先で並べ、同じ深さの中は ID の順にする。
   複数の親から届く item は最初の 1 度だけ対象にする。`status: deprecated` の item と、`generated.at` 以降の
-  `human:` の `verified` を持つ item は外す（`--all` では後者も対象にする）
+  `human:` の `verified` を持つ item は外す（`--all` では後者も対象にする）。`deprecated` の item を経由してしか
+  届かない item も対象にしない
 - item ごとの流れ: `leaf <ファイル>` で表示し、閉じたら「記録する・飛ばす・中断する」を選ぶ。`solution` と `use_case`
   では選ぶ前に、`review_question_for` がその型を指す `quality` の item の確認の問い（`specification_ja`）を出す。
   「記録する」では `EDITOR` が開き、コメントを任意で書く。確認の問いは `#` で始まる行として載り、`#` で始まる行は
