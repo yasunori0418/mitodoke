@@ -122,7 +122,8 @@
               # frontmatter を 1 本の multi-document にまとめ、verified へ要素を足すのに使う。
               pkgs.gawk
               pkgs.coreutils
-              pkgs.gnugrep
+              # 確認の問いを # の行にするのに使う。
+              pkgs.gnused
               # リポジトリルートの解決・未コミットの変更の確認・記録のコミット。
               pkgs.git
               # 枝と、記録するかどうかを選ぶ。

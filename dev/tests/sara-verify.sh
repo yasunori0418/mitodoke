@@ -65,17 +65,22 @@ sed -i 1d "$STUB_QUEUE"
 [[ "$pattern" != __INT__ ]] || exit 130
 grep -F -m 1 -- "$pattern" <<<"$candidates" || exit 99
 SH
-# leaf: 表示したファイルを記録する。STUB_LEAF_INT に一致するファイルでは呼び出し元へ SIGINT を送る。
+# leaf: 表示したファイルを記録する。STUB_LEAF_INT に一致するファイルでは呼び出し元へ SIGINT を送り、
+# STUB_LEAF_FAIL に一致するファイルでは exit 127 で落ちる。
 cat >"$work/bin/leaf" <<'SH'
 #!/usr/bin/env bash
 printf '%s\n' "$1" >>"$STUB_LEAF_LOG"
 if [[ -n "${STUB_LEAF_INT-}" && "$1" == "$STUB_LEAF_INT" ]]; then kill -INT "$PPID"; fi
+if [[ -n "${STUB_LEAF_FAIL-}" && "$1" == "$STUB_LEAF_FAIL" ]]; then exit 127; fi
 SH
 # EDITOR: 初期の文面をログへ写し、STUB_COMMENT を書き足す（# の行は残したまま）。
+# STUB_COMMENT の %s は、初期の文面の 1 行目にある item のパスに置き換える。
 cat >"$work/bin/editor" <<'SH'
 #!/usr/bin/env bash
 { printf '=== %s\n' "$1"; cat "$1"; } >>"$STUB_EDITOR_LOG"
-printf '%s' "${STUB_COMMENT-}" >>"$1"
+item=$(head -n 1 "$1" | cut -d ' ' -f 2)
+# shellcheck disable=SC2059
+printf "${STUB_COMMENT-}" "$item" >>"$1"
 SH
 chmod +x "$work/bin/"*
 
@@ -94,6 +99,9 @@ REQ_M="REQ-aaaa0004-0000-4000-8000-000000000004"
 REQ_4="REQ-aaaa0005-0000-4000-8000-000000000005"
 DSG_0="DSG-dd000000-0000-4000-8000-000000000000"
 DSG_1="DSG-dd000001-0000-4000-8000-000000000001"
+REQ_EQ="REQ-aaaa0006-0000-4000-8000-000000000006"
+REQ_TZ="REQ-aaaa0007-0000-4000-8000-000000000007"
+RISK_X="RISK-11110001-0000-4000-8000-000000000001"
 
 # <リポジトリ> <ファイル名> <ID> <型> <name> の item を書く。frontmatter の残りは標準入力から受ける。
 item() {
@@ -114,8 +122,10 @@ specification_ja: |
   fixture はこの要求を保たなければならない。
 section: product-scope'
 
-# 経路と下流（REQ_1・REQ_M から届く DSG_1）、ID の順（DSG_0 < DSG_1）、deprecated（UC_DEP・REQ_3）、
-# 確認済み（REQ_2）、verified の後ろに別のキーが続く item（REQ_4）を 1 つのグラフに置く。
+# 経路と下流（REQ_1・REQ_M から届く DSG_1、深さ 1 の REQ_1 と深さ 2 の DSG_1 から届く RISK_X）、
+# ID の順（DSG_0 < DSG_1 < RISK_X）、deprecated（UC_DEP・REQ_3）、確認済み（REQ_2、generated.at と同じ瞬間を
+# Z で書いた REQ_EQ）、generated.at より前の時差付きの確認（REQ_TZ）、verified の後ろに別のキーが続く item（REQ_4）を
+# 1 つのグラフに置く。
 make_repo() {
   local repo=$1
   mkdir -p "$repo/docs"
@@ -235,6 +245,38 @@ satisfies:
   - "$REQ_M"
 $gen
 YAML
+  item "$repo" req-eq "$REQ_EQ" requirement "生成と同じ瞬間に人が確認した要件" <<YAML
+$req
+status: stable
+derives_from:
+  - "$UC_A"
+$gen
+verified:
+  - by: "human:someone"
+    at: "2026-02-28T15:00:00Z"
+YAML
+  item "$repo" req-tz "$REQ_TZ" requirement "生成より前に時差付きで人が確認した要件" <<YAML
+$req
+status: stable
+derives_from:
+  - "$UC_A"
+$gen
+verified:
+  - by: "human:someone"
+    at: "2026-03-01T00:00:00+10:00"
+YAML
+  item "$repo" risk-x "$RISK_X" risk "深さの違う 2 つの親を持つリスク" <<YAML
+section: engine-core
+status: stable
+threatens:
+  - "$REQ_1"
+  - "$DSG_1"
+likelihood: low
+impact: low
+level: low
+quality_characteristic: reliability
+$gen
+YAML
   git -C "$repo" init -q -b main
   git -C "$repo" config user.name fixture
   git -C "$repo" config user.email fixture@example.invalid
@@ -275,19 +317,19 @@ assert_has "--help は使い方を出す" "usage: sara-verify" "$out"
 
 # --- 対象の列挙と順序 -----------------------------------------------------------
 
-# UC_A を選んで決める。経路の SOL・UC_A のあと、下流を幅優先と ID の順で、DSG_1 は 1 度だけ。
-fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
+# UC_A を選んで決める。経路の SOL・UC_A のあと、下流を幅優先と ID の順で、DSG_1 と RISK_X は 1 度だけ。
+fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
 run_verify
 assert_eq "経路と下流を幅優先と ID の順で表示する（deprecated と確認済みを除く）" \
-  "docs/sol.md docs/uc-a.md docs/req-1.md docs/req-m.md docs/req-4.md docs/dsg-0.md docs/dsg-1.md" \
+  "docs/sol.md docs/uc-a.md docs/req-1.md docs/req-m.md docs/req-4.md docs/req-tz.md docs/dsg-0.md docs/dsg-1.md docs/risk-x.md" \
   "$(tr '\n' ' ' <"$STUB_LEAF_LOG" | sed 's/ $//')"
 assert_eq "すべて飛ばすと exit 0" 0 "$status"
 assert_eq "飛ばすと何も書かない" "" "$(git -C "$repo" status --porcelain)"
 
-fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
+fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
 verify_args=--all run_verify
 assert_eq "--all は確認済みの item も対象にする" \
-  "docs/sol.md docs/uc-a.md docs/req-1.md docs/req-2.md docs/req-m.md docs/req-4.md docs/dsg-0.md docs/dsg-1.md" \
+  "docs/sol.md docs/uc-a.md docs/req-1.md docs/req-2.md docs/req-m.md docs/req-4.md docs/req-eq.md docs/req-tz.md docs/dsg-0.md docs/dsg-1.md docs/risk-x.md" \
   "$(tr '\n' ' ' <"$STUB_LEAF_LOG" | sed 's/ $//')"
 
 # 子の無い item まで降りると、そこで決まる。
@@ -299,7 +341,7 @@ assert_eq "子の無い item まで降りると、経路だけが対象になる
 # --- verified の書き込みと確認の問い ---------------------------------------------
 
 fresh "$UC_A" "$REQ_4" 記録する 記録する 記録する
-STUB_COMMENT=$'\n確かめた。\n# 除く行\n' run_verify
+STUB_COMMENT=$'\n%s を確かめた。\n# 除く行\n' run_verify
 assert_eq "記録して終えると exit 0" 0 "$status"
 assert_eq "verified の無い solution に 3 行を足す（削除なし）" $'3\t0' \
   "$(git -C "$repo" diff --numstat "$base" -- docs/sol.md | cut -f1,2)"
@@ -326,7 +368,9 @@ editor_log="$(<"$STUB_EDITOR_LOG")"
 assert_has "solution の問いを # の行で EDITOR に載せる" "# solution の問いの 1 行目。" "$editor_log"
 assert_has "solution の問いの 2 行目も # の行で載せる" "# solution の問いの 2 行目。" "$editor_log"
 assert_has "use_case の問いを # の行で EDITOR に載せる" "# use_case の問い。" "$editor_log"
-assert_lacks "requirement には問いを載せない" "# use_case の問い。" "$(sed -n '/^=== .*req-4/,$p' <<<"$editor_log")"
+assert_lacks "requirement には問いを載せない" "# use_case の問い。" "$(sed -n '/^# docs\/req-4.md /,$p' <<<"$editor_log")"
+assert_eq "「記録する」を選んだ item の数だけ EDITOR を開く" 3 "$(grep -c '^=== ' <<<"$editor_log")"
+
 assert_eq "requirement では問いを端末に出さない（use_case の問いは 1 度だけ）" 1 "$(grep -c 'use_case の問い。' <<<"$out")"
 
 # --- コミット -------------------------------------------------------------------
@@ -334,14 +378,26 @@ assert_eq "requirement では問いを端末に出さない（use_case の問い
 # 直前の記録のケースの続き: ファイルごとに 1 コミットにし、本文はコメントにする。
 assert_eq "記録した item をファイルごとに、記録の順でコミットする" \
   "docs(solution): sol docs(use_case): uc-a docs(requirement): req-4" "$(subjects)"
-assert_eq "本文は # の行と前後の空行を除いたコメント" "確かめた。" "$(git -C "$repo" log -1 --format=%b)"
+bodies=''
+for c in $(git -C "$repo" rev-list --reverse "$base.."); do bodies+="$(git -C "$repo" log -1 --format=%b "$c")|"; done
+assert_eq "本文はその item のコメントで、# の行と前後の空行を除く" \
+  "docs/sol.md を確かめた。|docs/uc-a.md を確かめた。|docs/req-4.md を確かめた。|" "$bodies"
 assert_eq "コミットのあとに未コミットの変更を残さない" "" "$(git -C "$repo" status --porcelain)"
 assert_eq "現在のブランチにコミットし、ブランチを作らない" "main" "$(git -C "$repo" branch --format='%(refname:short)')"
+
+# verified が frontmatter の最後のキーの item に足す。
+fresh "$UC_A" "$REQ_2" 飛ばす 飛ばす 記録する
+verify_args=--all run_verify
+assert_eq "verified が最後のキーでも 2 行を足す（削除なし）" $'2\t0' \
+  "$(git -C "$repo" diff --numstat "$base" -- docs/req-2.md | cut -f1,2)"
+assert_eq "最後のキーの verified に要素を足す" '2 human:tester' \
+  "$(yq --front-matter=extract '(.verified | length) + " " + .verified[-1].by' "$repo/docs/req-2.md")"
 
 fresh "$UC_A" "$REQ_4" 記録する 飛ばす 飛ばす
 STUB_COMMENT=$'\n# 除く行だけ\n' run_verify
 assert_eq "コメントが空でも記録してコミットする" "docs(solution): sol" "$(subjects)"
 assert_eq "コメントが空なら本文を書かない" "docs(solution): sol" "$(git -C "$repo" log -1 --format=%B | sed '/^$/d')"
+assert_eq "「飛ばす」では EDITOR を開かない" 1 "$(grep -c '^=== ' <"$STUB_EDITOR_LOG")"
 
 fresh "$UC_A" "$REQ_4" 記録する 中断する
 run_verify
@@ -360,6 +416,11 @@ STUB_LEAF_INT=docs/uc-a.md run_verify env --default-signal=INT
 assert_eq "SIGINT は exit 130" 130 "$status"
 assert_eq "SIGINT でそこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
 assert_eq "SIGINT のあとに未コミットの変更を残さない" "" "$(git -C "$repo" status --porcelain)"
+
+fresh "$UC_A" "$REQ_4" 記録する
+STUB_LEAF_FAIL=docs/uc-a.md run_verify
+assert_eq "leaf の失敗は exit 2" 2 "$status"
+assert_eq "途中で失敗しても、そこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
 
 # --- 拒否 -----------------------------------------------------------------------
 
@@ -392,5 +453,6 @@ fresh "$UC_A" "$decide" 記録する
 printf -- '---\nid: "REQ-broken"\n---\n' >"$repo/docs/broken.md"
 run_verify
 assert_eq "sara check が失敗するグラフでは exit 2" 2 "$status"
+assert_eq "sara check が失敗するグラフでは何も表示せず、コミットしない" "" "$(<"$STUB_LEAF_LOG")$(subjects)"
 
 exit "$fail"

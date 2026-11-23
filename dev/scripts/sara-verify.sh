@@ -3,10 +3,11 @@
 #
 #   sara-verify [--all]
 #
-# 記録した item は、終えたときと中断したときに、ファイルごとに 1 コミットにする。
+# 記録した item は、終えたときと中断したときに、ファイルごとに 1 コミットにする。item ごとの流れの途中で
+# 失敗して終えたときも、そこまでの記録を同じようにコミットする。
 #
 # exit code は 0 = 終えた・「中断する」を選んだ / 130 = Ctrl-C / 2 = 引数の誤り・端末でない・sara check の失敗・
-# <id> の誤り・対象のファイルに未コミットの変更がある・verified を書けない・fzf の失敗・コミットの失敗。
+# <id> の誤り・対象のファイルに未コミットの変更がある・verified を書けない・fzf・leaf・EDITOR・コミットの失敗。
 #
 # 次の環境変数は、契約テスト（dev/tests/sara-verify.sh）の中だけで使う差し替えである。
 #   SARA_VERIFY_FZF   fzf の代わりに呼ぶコマンド
@@ -43,7 +44,8 @@ exit code:
   0    対象を終えた、または「中断する」を選んだ
   130  Ctrl-C で中断した
   2    引数の誤り・stdin か stdout が端末でない・sara check の失敗・<id> を決められない・
-       対象のファイルに未コミットの変更がある・verified を書けない・fzf の失敗・コミットの失敗
+       対象のファイルに未コミットの変更がある・verified を書けない・fzf・leaf・EDITOR・コミットの失敗。
+       item ごとの流れの途中で失敗したときも、そこまでの記録をコミットする
 EOF
 }
 
@@ -147,10 +149,10 @@ on_interrupt() {
 }
 trap on_interrupt INT
 
-# pick の exit code を受ける。130 は Ctrl-C として中断し、それ以外はそのまま終える。
+# pick の exit code を受ける。130 は Ctrl-C として中断し、それ以外（pick の中の die）は exit 2 で終える。
 stop_on() {
   [ "$1" -ne 130 ] || on_interrupt
-  exit "$1"
+  exit 2
 }
 
 # 根の solution を決め、子を 1 段ずつ選ぶ。
@@ -258,7 +260,10 @@ trap commit_recorded EXIT
 
 for t in "${targets[@]}"; do
   IFS=$'\t' read -r file type id <<<"$t"
-  "$leaf_cmd" "$file"
+  rc=0
+  "$leaf_cmd" "$file" || rc=$?
+  [ "$rc" -ne 130 ] || on_interrupt
+  [ "$rc" -eq 0 ] || die "leaf が失敗した（exit $rc）"
 
   questions=''
   if [ "$type" = solution ] || [ "$type" = use_case ]; then
@@ -267,7 +272,8 @@ for t in "${targets[@]}"; do
     [ -z "$questions" ] || printf '%s\n' "$questions"
   fi
 
-  choice=$(pick --header "$id $file" <<<$'記録する\n飛ばす\n中断する') || stop_on $?
+  # 全画面の fzf では端末に出した問いが隠れるので、ヘッダにも載せる。
+  choice=$(pick --header "$id $file${questions:+$'\n'$questions}" <<<$'記録する\n飛ばす\n中断する') || stop_on $?
   case "$choice" in
     飛ばす) continue ;;
     中断する) break ;;
