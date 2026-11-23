@@ -106,10 +106,12 @@
 * [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
 * [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](./non-human-verified-accepted-not-counted-as-human.md) - verified に human: 以外の要素も受け付け、再確認待ちの基準時刻には数えるが、人の確認には数えない。 (stable)
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する](./okf-keys-accepted-on-all-types.md) - OKF のキーをどの型の item でも受け付け、OKF v0.2 の定義に従っているかを構造の契約として検査する。 (stable)
+* [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](./scan-skips-fail-check-and-block-graph-commands.md) - sara-core の読み飛ばしを、検査ではなく読み込みの前提として扱い、check では専用のコードの failed の item で exit 1 にし、グラフを読むほかのサブコマンドは処理を始めず exit 2 で終える。 (stable)
 * [OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない](./stricter-than-okf-constraints-and-inspection-points.md) - OKF v0.2 に重ねた 5 つの制約を引き継ぎ、description の欠けは mitodoke new が起票を拒むことで検査して check では違反にせず、generated.at 以降の verified だけを人の確認に数える規則は違反の条件を持たない数え方にする。 (stable)
 * [test_case は covers と follows をそれぞれ 1 本以上持つ](./test-case-requires-covers-and-follows.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約にし、欠けたら失敗にする。 (stable)
 * [トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない](./tracker-independent-defect-norm-shipped.md) - トラッカーに依らない欠陥運用の規範を製品に含め、GitHub 用の部分は例として置き、mitodoke は欠陥の Issue を検査しない。 (stable)
 * [宣言の無い frontmatter のキーを違反にし、宣言はその item の型のものに限る](./undeclared-frontmatter-keys-per-type.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、ほかの型だけで宣言されたフィールドも違反にする。 (stable)
+* [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](./unreadable-model-exits-without-builtin-fallback.md) - モデルを読めないときと install が失敗したときは、グラフを読むサブコマンドと check が exit 2 で終えて組み込みの型へ戻らず、item が 0 件であることは誤りにしない。 (stable)
 
 ## コマンド
 

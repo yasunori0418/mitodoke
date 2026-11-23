@@ -23,6 +23,19 @@ specification: |
   `stale_after` beyond its interval. In these lists, valid SHALL mean that the `status` is not
   `deprecated`, `draft` included. The strength of every inspection SHALL be changeable in the
   configuration.
+
+  A file that the sara-core loader skips (a scan warning) and a model that cannot be read SHALL
+  be treated as preconditions of loading, not as inspections, and SHALL NOT be subject to the
+  strength setting. When a file is skipped, check SHALL represent the skipped file as a failed item
+  with a dedicated code and SHALL end with exit code 1, and SHALL NOT classify the skip into the
+  structural contracts, the connection gaps or the review obligations. When a file is skipped, the
+  other subcommands that load the document graph (new, index, gap, fresh, matrix, verify and
+  export) SHALL NOT start processing and SHALL end with exit code 2 as an input error, and new and
+  verify SHALL refuse to write. When the model cannot be read or the installation of the model
+  fails, check and the subcommands that load the document graph SHALL end with exit code 2 and
+  SHALL NOT fall back to the built-in types. init and model SHALL NOT be subject to these rules.
+  Having zero items SHALL NOT be an error, and such a run SHALL end with exit code 0 and a result
+  with no findings.
 specification_ja: |
   既定では、構造の契約の違反は失敗としなければならない。構造の契約は、
   `sara check`（`solution` の `stale_after` の欠けを含む）、frontmatter の形、ID の置き場所、test_case と
@@ -37,13 +50,24 @@ specification_ja: |
   無い high の risk、人の確認が無い有効な solution と use_case、stale_after の期限切れ、stale_after の
   間隔の超過でなければならない。これらの列挙の「有効な」は、`status` が `deprecated` でないこと（`draft` を含む）と
   しなければならない。どの検査の強さも、設定で変えられなければならない。
+
+  sara-core の読み込みが読み飛ばしたファイル（scan warning）と、モデルを読めないことは、検査ではなく
+  読み込みの前提として扱わなければならず、強さの設定の対象にしてはならない。ファイルが読み飛ばされた
+  とき、check は、読み飛ばされたファイルを専用のコードを付けた failed の item で表して exit code 1 で
+  終わらなければならず、読み飛ばしを構造の契約・つながりの欠け・見直しの義務のどれにも入れてはならない。
+  ファイルが読み飛ばされたとき、ドキュメントグラフを読み込むほかのサブコマンド（new・index・gap・fresh・
+  matrix・verify・export）は、処理を始めずに入力の誤りとして exit code 2 で終わらなければならず、new と
+  verify は書き込みを拒まなければならない。モデルを読めないときと、モデルの install が失敗したときは、
+  check とドキュメントグラフを読み込むサブコマンドは exit code 2 で終わらなければならず、組み込みの型へ
+  戻ってはならない。init と model は、これらの規則の対象にしてはならない。item が 0 件であることは誤りに
+  してはならず、その実行は該当の無い結果で exit code 0 で終わらなければならない。
 section: inspection
 status: stable
 derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T11:22:37+09:00"
+  at: "2026-11-23T18:46:35+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -95,11 +119,29 @@ test_condition の一覧は、人が判断する範囲を示す情報で、3 つ
 
 どの検査も、設定で強さを変えられる。CI のどの job を必須にするかは、適用先の製品が決める。
 
+### 読めない入力
+
+sara-core の読み込みが読み飛ばしたファイル（scan warning）と、モデルを読めないことは、検査ではなく
+読み込みの前提として扱う。前提は強さの設定の対象にしない。
+
+- ファイルが読み飛ばされたとき、`check` は、読み飛ばされたファイルを専用のコードを付けた `failed` の
+  item で表し、exit code 1 で終わる。読み飛ばしは、構造の契約・つながりの欠け・見直しの義務のどれにも
+  入れない
+- ファイルが読み飛ばされたとき、ドキュメントグラフを読み込むほかのサブコマンド（`new`・`index`・`gap`・
+  `fresh`・`matrix`・`verify`・`export`）は、処理を始めずに、入力の誤りとして exit code 2 で終わる。
+  `new` と `verify` も書き込みを拒む
+- モデルを読めないときと、モデルの install が失敗したときは、`check` とドキュメントグラフを読み込む
+  サブコマンドが exit code 2 で終わり、組み込みの型へ戻らない
+- `init` と `model` はグラフを読まないので、これらの規則の対象にしない
+- item が 0 件であることは誤りにしない。その実行は、該当の無い結果で exit code 0 で終わる
+
 ## 出典
 
 根拠の決定は次の ADR が持つ。
 
 - [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](../adr/default-strength-with-closed-lists.md)
+- [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](../adr/scan-skips-fail-check-and-block-graph-commands.md)
+- [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](../adr/unreadable-model-exits-without-builtin-fallback.md)
 
 新しく足した検査の要件は次の item が持つ。
 
