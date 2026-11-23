@@ -10,6 +10,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:45:54+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:45:23+09:00"
 ---
 # sara-core を使う箇所を 1 つのモジュールに集める
 
