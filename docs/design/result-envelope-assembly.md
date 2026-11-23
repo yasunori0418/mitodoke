@@ -12,7 +12,7 @@ satisfies:
   - "REQ-ecc41a24-b465-4ab9-ba1b-e56dc5f8a17c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T19:43:47+09:00"
+  at: "2026-11-23T19:47:33+09:00"
 ---
 # 結果エンベロープを outturn のモジュールで組み立てる
 
@@ -37,7 +37,7 @@ git のコミットで依存し、outturn にタグができたらタグに切�
 ### item と警告の表し方
 
 `check`・`gap`・`fresh` の item は、1 つの文書と 1 つの契約の組（`gap` と `fresh` では文書と節の組）を
-単位にする。その実行で指摘に働く強さは、その指摘がその実行の exit code を 0 でなくするかで決める。
+単位にし、item の `key` は文書の ID にする。その実行で指摘に働く強さは、その指摘がその実行の exit code を 0 でなくするかで決める。
 
 | 組が持つ指摘 | item の `status` | 指摘を置く場所とコード |
 |---|---|---|
@@ -65,8 +65,7 @@ item の `kind` は、契約名を小文字のスネークケースで書く。�
 | `index` と `model` の `--check` | 差分のあるファイルを `failed` の item にし、差分があれば exit 1 で終える | `true` | 書くはずだった変更を並べる |
 | 読むだけの `check`・`gap`・`fresh`・`matrix`・`export` | `check`・`gap`・`fresh` は「item と警告の表し方」のとおりにする | `true` | 出さない |
 
-`label` はすべての item に付ける。文書を表す item の `key` は文書の ID で、`label` は文書の `name` に
-する。文書の ID を持たない item（読み飛ばされたファイル、書いたファイル）の `key` と `label` は、
+`label` はすべての item に付ける。文書を表す item の `label` は、文書の `name` にする。文書の ID を持たない item（読み飛ばされたファイル、書いたファイル）の `key` と `label` は、
 設定ファイルのあるディレクトリからの相対パスにする。
 
 ### info への記録
