@@ -37,7 +37,7 @@
 ## 機械検証と鮮度
 
 * [鮮度は上流の relation を辿って下流へ伝播させる](./freshness-propagates-along-upstream-relations.md) - 下流の item の基準時刻より上流の generated.at が新しければ、上流の relation のうち justifies を除く 7 種を辿って下流を再検証待ちとして挙げる (stable)
-* [generated の更新漏れは PR の差分で確かめる](./generated-update-checked-in-pr-diff.md) - base との差分で本文が変わったのに generated.at が変わっていない item を挙げ、全履歴と時刻は比べない (stable)
+* [generated の更新漏れの検査は、frontmatter の specification も本文に数える](./generated-update-check-includes-specification.md) - base との差分で、frontmatter の外の行と `specification`・`specification_<言語>` が変わったのに `generated.at` が変わっていない item を更新漏れとして挙げ、基準のリビジョンが無ければ検査せずにそのことを記録する。 (stable)
 * [level が high の risk と、有効な solution と use_case に人の verified を求める](./human-verified-required-for-high-risk-and-upper-layers.md) - level が high の risk と、status が deprecated でない solution と use_case 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない。 (stable)
 * [sara check を strict モードで回す](./sara-check-strict-mode.md) - `sara check` は接続漏れを warning に留める設定で導入された。移行の途中では、まだ親を持たない item が正常に存在し、接続漏れを error にすると移行そのものが止まるためである。 (stable)
 * [solution に stale_after を必須にし、期限までの間隔を 90 日以内にする](./solution-requires-stale-after-within-interval.md) - solution に stale_after を必須にし、期限切れと、人の確認の時刻から 90 日より先の期限を報告して、人の確認と書き換えの両方で期限を延ばす。 (stable)
@@ -161,6 +161,7 @@
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)
 * [ID はフル UUID に統一し 8 文字省略形を使わない](./full-uuid-ids-no-short-form.md) - item の正式 ID はフル UUIDv4 だが、ファイル名と散文中の参照には前方 8 文字の省略形を使っていた。フル UUID は人が読めないという前提への対処だった。 (deprecated)
 * [自動検証の形骸化は守備対象の impact を継承する](./gate-risk-inherits-impact.md) - 自動検証が気づかれないまま形骸化する risk（テストは緑なのに何も確認していない類）は、その自動検証自身が開発の中で完結する。`impact` を回復可能性で採点し（[risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md)）、沈黙性を軸から外す（[沈黙性を risk のスコア軸にせず本文に書く](silence-not-a-score-axis.md)）と、この類型はそのまま読めば low になる。 (deprecated)
+* [generated の更新漏れは PR の差分で確かめる](./generated-update-checked-in-pr-diff.md) - base との差分で本文が変わったのに generated.at が変わっていない item を挙げ、全履歴と時刻は比べない (deprecated)
 * [item に生成者・確認の記録・期限を持たせる](./generated-verified-stale-after.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after を任意で持たせ、入れ子キーの形を契約テストで確かめる (deprecated)
 * [level が high の risk に人の verified を求める](./human-verified-required-for-high-risk.md) - level が high の risk 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない (deprecated)
 * [ID の書き場所と省略形の禁止は起票の機械化と契約テストで担保する](./id-placement-enforced-by-contract-test.md) - フル ID の書き場所と 8 文字省略形の禁止を、起票ラッパーによる機械化と契約テスト link-text.sh の検出で担保する。 (deprecated)

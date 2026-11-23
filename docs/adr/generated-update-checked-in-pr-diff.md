@@ -4,7 +4,7 @@ type: adr
 name: "generated の更新漏れは PR の差分で確かめる"
 description: "base との差分で本文が変わったのに generated.at が変わっていない item を挙げ、全履歴と時刻は比べない"
 section: verification
-status: stable
+status: deprecated
 sources:
   - id: "issue-676"
     resource: "https://github.com/yasunori0418/layat/issues/676"
@@ -18,7 +18,11 @@ generated:
 ---
 # generated の更新漏れは PR の差分で確かめる
 
-- ステータス: stable
+> **廃止（2026-11-23）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [generated の更新漏れの検査は、frontmatter の specification も本文に数える](generated-update-check-includes-specification.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-11
 - 関連: GitHub Issue #676, `docs/model.md`
 - 起点: epic #676 の grilling（2026-11-11）で確定

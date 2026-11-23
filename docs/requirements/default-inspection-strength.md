@@ -25,6 +25,11 @@ specification: |
   and SHALL count an edge only when both of its ends are active items. The structural contracts
   of check SHALL apply also to items whose `status` is `deprecated`. The strength of every
   inspection SHALL be changeable in the configuration.
+  In the missing `generated` update, the body SHALL be the lines outside the frontmatter together
+  with `specification` and `specification_<language>` in the frontmatter, and a change of `name`,
+  `description`, `status`, a relation or an OKF key SHALL NOT count as a change of the body. In a
+  run given no base revision, mitodoke SHALL NOT perform the inspection of missing `generated`
+  updates, and check and fresh SHALL record in the result that the inspection was not performed.
 
   A file that the sara-core loader skips (a scan warning) and a model that cannot be read SHALL
   be treated as preconditions of loading, not as inspections, and SHALL NOT be subject to the
@@ -54,6 +59,11 @@ specification_ja: |
   なければならない。gap と fresh は、すべての節で有効な item だけを数えなければならず、辺は両端が有効な
   item のものだけを数えなければならない。check の構造の契約は、`status` が `deprecated` の item にも
   働かせなければならない。どの検査の強さも、設定で変えられなければならない。
+  generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
+  `specification_<言語>` を加えたものでなければならず、`name`・`description`・`status`・relation・
+  OKF のキーの変更は、本文の変更に数えてはならない。基準のリビジョンを渡さない実行では、mitodoke は
+  generated の更新漏れの検査をしてはならず、check と fresh は、検査しなかったことを結果に記録しなければ
+  ならない。
 
   sara-core の読み込みが読み飛ばしたファイル（scan warning）と、モデルを読めないことは、検査ではなく
   読み込みの前提として扱わなければならず、強さの設定の対象にしてはならない。ファイルが読み飛ばされた
@@ -71,7 +81,7 @@ derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:47:47+09:00"
+  at: "2026-11-23T18:52:10+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -118,6 +128,11 @@ mitodoke の検査は、構造の契約、つながりの欠け、見直しの�
 - stale_after の期限切れ
 - stale_after の間隔の超過
 
+generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
+`specification_<言語>` を加えたものとする。`name`・`description`・`status`・relation・OKF のキーの変更は、
+本文の変更に数えない。基準のリビジョンを渡さない実行では、generated の更新漏れの検査をしない。`check` と
+`fresh` は、検査しなかったことを結果に記録する。
+
 `human_judgement` を持つ test_condition の一覧は、人が判断する範囲を示す情報で、3 つの分類のどれにも
 当たらない。
 
@@ -155,6 +170,7 @@ sara-core の読み込みが読み飛ばしたファイル（scan warning）と�
 - [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](../adr/default-strength-with-closed-lists.md)
 - [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](../adr/scan-skips-fail-check-and-block-graph-commands.md)
 - [有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える](../adr/active-items-and-edges-counted-in-gap-and-fresh.md)
+- [generated の更新漏れの検査は、frontmatter の specification も本文に数える](../adr/generated-update-check-includes-specification.md)
 - [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](../adr/unreadable-model-exits-without-builtin-fallback.md)
 
 新しく足した検査の要件は次の item が持つ。
