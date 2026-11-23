@@ -18,6 +18,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:52:12+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:44:13+09:00"
 ---
 # 検査が独自の型に及ぶ範囲を、全型に働く契約と組み込みの型だけに働く契約に分ける
 
