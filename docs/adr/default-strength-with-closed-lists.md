@@ -21,7 +21,7 @@ references:
   - "ADR-bf25a81b-d588-4c7e-9365-fe514ee4d626"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T11:22:37+09:00"
+  at: "2026-11-23T11:38:16+09:00"
 ---
 # 構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる
 
@@ -93,5 +93,5 @@ covers されない test_condition が 1 件でもあれば CI が失敗し、te
 
 ### すべての検査で失敗を既定にし、設定で緩める
 
-記録には、この案に固有の不採用の理由は無い。採った案の根拠（covers されない test_condition で
-CI を失敗させると、test_condition を必須の実行としないコンセプトと食い違う）に照らして採らなかった。
+covers されない test_condition で CI を失敗させると、test_condition を必須の実行としないコンセプトと
+食い違うので採らなかった。
