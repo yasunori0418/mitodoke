@@ -51,6 +51,9 @@ jobs:
       - name: Run sara-fresh contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-fresh.sh
 
+      - name: Run sara-verify contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-verify.sh
+
       # 上流より古い item・generated の更新漏れ（pull_request のときだけ、ベースブランチと比べる）・
       # human: の verified が無い high の risk をログと Job Summary に出す。
       # 検出あり（exit 1）は成功とし、実行の失敗（exit 2 以上）か見出しの欠落だけを失敗にする。

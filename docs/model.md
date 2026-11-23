@@ -124,7 +124,7 @@ verified:
   `by` と `at` を更新する**。frontmatter だけの変更や改名では更新しない。frontmatter の値を本文へ
   写しただけの変更（ステータス行の書き換えなど）でも更新しない
 - 起票では `sara-new` が `generated` を付ける（`by` は環境変数 `SARA_NEW_GENERATED_BY` から取る）
-- `verified` は自動では付けない。人が内容を確かめたときにだけ、手で要素を足す。`verified` は人が内容を確かめた記録で、
+- `verified` は自動では付けない。人が内容を確かめたときにだけ、`sara-verify` か手で要素を足す。`verified` は人が内容を確かめた記録で、
   要素を足せるのは人だけである。`human:` 以外の actor が `verified` に要素を足してはならない
 - `human:` 以外の actor の要素が付いていた場合、基準時刻には数えるが、人の確認としては数えない
 
@@ -143,6 +143,7 @@ item の**基準時刻**はその item の `generated.at` と、`generated.at` �
   `generated.at` 以降の `human:` の `verified` を持たないものを挙げる（→ 同上）
 
 再確認待ちと人の確認が無い high の risk は、devShell の `sara-fresh` が列挙する。`generated` の更新漏れは、`--base <ref>` を渡した `sara-fresh` が列挙する。
+人の確認の記録には devShell の `sara-verify` を使える。枝を選び、上流から順に item を表示して、記録すると決めた item の `verified` に `human:` の要素を足し、ファイルごとにコミットする。
 
 ### `stale_after`
 
