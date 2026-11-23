@@ -34,7 +34,7 @@
 
 ## コマンド
 
-* [generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む](./generated-by-format.md) - generated.by の値は書式を限らず、空の値と二重引用符・バックスラッシュ・改行を含む値だけを拒み、値を判定には使わない。
+* [generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む](./generated-by-format.md) - generated.by の値は書式を限らず、空の値と二重引用符・バックスラッシュ・改行を含む値だけを、起票の入力と check による既存の item の検査の両方で拒み、値を判定には使わない。
 * [generated.by は環境変数か引数から取り、どちらも無ければ端末からの実行に限り人の識別子とする](./generated-by-source.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by から取り、どちらも無いときは端末からの実行に限り human:<id> を書き、端末の無い実行では起票を拒む。
 * [人の確認に書く識別子は設定のコマンドの出力から取り、不正な出力では何も書かない](./human-id-command.md) - mitodoke verify は、human:<id> の <id> を設定に定義したコマンドの出力から取り、出力が不正なときやコマンドが失敗したときは何も書かずにエラーにする。
 * [verify は端末での人の入力があるときだけ人の確認を記録する](./human-verification-recording.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末の無い実行では拒む。
