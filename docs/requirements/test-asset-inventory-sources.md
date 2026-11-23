@@ -8,8 +8,8 @@ specification: |
   assets from the output of the enumeration commands and from the committed list files that the
   configuration declares, and the configuration SHALL be able to declare more than one command and
   more than one file together. Each line of a command output or a list file SHALL be one test in the
-  tab-separated form `<asset identifier>\t<kind>\t<test name>`, where the test name may be empty and
-  the asset identifier uses the same notation as the resource of a test case. mitodoke SHALL combine
+  tab-separated form `<asset identifier>\t<kind>\t<test name>`. The asset identifier SHALL use the
+  same notation as the resource of a test case, and the test name may be empty. mitodoke SHALL combine
   all sources into one inventory, and SHALL fail when the same asset identifier comes from more than
   one source. The configuration SHALL be able to declare the assets excluded from the inventory
   together with the reason for each exclusion. The procedure and test charter files of tests
@@ -19,8 +19,8 @@ specification_ja: |
   mitodoke は、テスト資産の列挙を内蔵してはならない。mitodoke は、設定に書いた列挙のコマンドの出力と、
   コミットした一覧のファイルから、テスト資産の一覧を読まなければならず、設定にはコマンドとファイルを
   それぞれ複数、併せて書けなければならない。コマンドの出力と一覧のファイルの各行は、1 つのテストを
-  タブ区切りの `<資産識別子>\t<種別>\t<テスト名>` の形で表さなければならない。テスト名は空でもよく、
-  資産識別子はテストケースの resource と同じ表記にする。mitodoke は、すべての出どころを合わせて 1 つの
+  タブ区切りの `<資産識別子>\t<種別>\t<テスト名>` の形で表さなければならない。資産識別子は、
+  テストケースの resource と同じ表記でなければならない。テスト名は空でもよい。mitodoke は、すべての出どころを合わせて 1 つの
   一覧にし、同じ資産識別子が 2 か所以上の出どころから出たときは失敗にしなければならない。設定には、
   一覧の対象から外す資産を、外す理由とともに書けなければならない。人が行うテストの手順書とテストチャーターの
   ファイルは、コミットした一覧のファイルからテスト資産の一覧に載せなければならず、その種別は手順書と
@@ -31,7 +31,7 @@ derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-22T16:53:51+09:00"
+  at: "2026-11-23T11:00:49+09:00"
 ---
 # テスト資産の一覧は設定のコマンドとファイルから読み、併用した一覧の重複は失敗とする
 
