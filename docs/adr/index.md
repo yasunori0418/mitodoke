@@ -124,6 +124,7 @@
 * [new は置き場所を引数で受け取り、型ごとの置き場所と比べる](./new-takes-location-argument.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と比べて、合わなければ起票を拒む。 (stable)
 * [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-with-init.md) - mitodoke の CLI のサブコマンドを、初期化の init と、開発に使う script の名前から接頭辞を外した 9 つの、合わせて 10 個にし、すべてに --json を持たせ、index と model の --check は差分があれば exit code 1 で終える。 (stable)
 * [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](./test-assets-listed-by-configured-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを併用して読む。 (stable)
+* [text 出力の見出しと診断の文を英語に固定する](./text-output-and-diagnostics-in-english.md) - 既定の text 出力の見出しと診断の文を英語に固定し、item の name と description は書かれた言語のまま出し、言語を切り替える仕組みは持たない。 (stable)
 * [verify は、端末で人が確認を入力したときだけ確認の記録を書く](./verify-records-human-only-from-terminal.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を書き、端末の無い実行では拒む。 (stable)
 * [item を指定しない verify は、対話で選んだ枝を上流から順にたどり、ビューアとエディタを設定で選べる](./verify-walks-branch-interactively.md) - item を指定しない mitodoke verify は、対話で枝を選ばせて上流から順に item を表示し、人の確認を記録する。表示のビューアとコメントのエディタは mitodoke.yaml で設定でき、コメントの行き先と自動のコミットは決めない。 (stable)
 

@@ -18,7 +18,10 @@ specification: |
   --check option of index and model SHALL end with exit code 1 when there is a difference. check
   SHALL run the structural contracts, the missing-connection inspection, and the review-obligation
   inspection together, and SHALL decide for each finding whether to fail or to report according to
-  the configured strength.
+  the configured strength. The headings of the default text output and the diagnostic messages
+  SHALL be in English. The `name` and the `description` of an item SHALL be output in the
+  language in which they are written. The CLI SHALL NOT provide a mechanism to switch the
+  language.
 specification_ja: |
   mitodoke の CLI は、機能ごとに分けた次のサブコマンドを持たなければならない。init（初期の設定ファイルと
   ディレクトリの生成）、new（item の起票）、gap（つながりの欠けの報告と、人が最終的に判断するテスト条件の
@@ -32,6 +35,8 @@ specification_ja: |
   ならない。`index` と `model` の `--check` は、差分があれば exit code 1 で終わらなければならない。
   check は、構造の契約・つながりの欠け・見直しの義務の検査をまとめて実行し、指摘ごとに失敗にするか報告に
   するかを設定の強さで決めなければならない。
+  既定の text 出力の見出しと、診断の文は、英語でなければならない。item の `name` と `description` は、
+  書かれた言語のまま出さなければならない。CLI は、言語を切り替える仕組みを持ってはならない。
 section: commands
 status: stable
 derives_from:
@@ -41,7 +46,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:47:00+09:00"
+  at: "2026-11-23T18:49:50+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T12:54:16+09:00"
@@ -68,9 +73,11 @@ verified:
 - すべてのサブコマンドは `--json` を持つ。出力の形は [サブコマンドの --json は outturn のエンベロープを出し、既定の text 出力は変えない](json-outturn-envelope.md) が定める
 - `index` と `model` は、生成した結果とコミットされたファイルに差分が無いことを確かめる `--check` を持つ。差分があれば exit code 1 で終わる
 - `check` は、構造の契約・つながりの欠け・見直しの義務の検査をまとめて実行し、指摘ごとに失敗にするか報告にするかを設定の強さで決める
+- 既定の text 出力の見出しと、診断の文は、英語にする。item の `name` と `description` は、書かれた言語のまま出す。言語を切り替える仕組みは持たない
 
 ## 出典
 
 根拠の決定は次の ADR が持つ。
 
 - [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](../adr/subcommands-split-with-init.md)
+- [text 出力の見出しと診断の文を英語に固定する](../adr/text-output-and-diagnostics-in-english.md)
