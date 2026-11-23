@@ -29,6 +29,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:32:33+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:43:16+09:00"
 ---
 # level の導出表は設定で変えられ、設定が無ければ既定の表を使う
 
