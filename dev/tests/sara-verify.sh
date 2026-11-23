@@ -109,6 +109,12 @@ REQ_V="REQ-aaaa0008-0000-4000-8000-000000000008"
 UC_DONE="UC-0ca11005-0000-4000-8000-000000000005"
 REQ_DONE="REQ-aaaa0009-0000-4000-8000-000000000009"
 REQ_UNDER_DEP="REQ-aaaa000a-0000-4000-8000-00000000000a"
+ADR_1="ADR-ad000002-0000-4000-8000-000000000002"
+ADR_2="ADR-ad000001-0000-4000-8000-000000000001"
+ADR_V="ADR-ad000003-0000-4000-8000-000000000003"
+ADR_DEP="ADR-ad000004-0000-4000-8000-000000000004"
+UBQ_1="UBQ-0b000002-0000-4000-8000-000000000002"
+UBQ_2="UBQ-0b000001-0000-4000-8000-000000000001"
 
 # <リポジトリ> <ファイル名> <ID> <型> <name> の item を書く。frontmatter の残りは標準入力から受ける。
 item() {
@@ -134,6 +140,8 @@ section: product-scope'
 # Z で書いた REQ_EQ）、generated.at より前の時差付きの確認（REQ_TZ）、verified の後ろに別のキーが続く item（REQ_4）を
 # 1 つのグラフに置く。枝を選ぶ候補のために、確認済みで下に未確認の要件を持つ UC_V（REQ_V）、下まで確認済みの
 # UC_DONE（REQ_DONE）、deprecated の UC_DEP だけを親に持つ REQ_UNDER_DEP も置く。
+# solution から辿れない型として、adr（未確認の ADR_1・ADR_2、確認済みの ADR_V、deprecated の ADR_DEP）と
+# ubiquitous_term（UBQ_1・UBQ_2）を置く。ID の順とファイル名の順を逆にして、一覧がファイル名の順であることを見る。
 make_repo() {
   local repo=$1
   mkdir -p "$repo/docs"
@@ -207,6 +215,41 @@ $req
 status: stable
 derives_from:
   - "$UC_DEP"
+$gen
+YAML
+  adr='section: graph-model
+origin: "fixture"
+justifies:
+  - "'"$REQ_1"'"'
+  item "$repo" adr-1 "$ADR_1" adr "決定 1" <<YAML
+$adr
+status: stable
+$gen
+YAML
+  item "$repo" adr-2 "$ADR_2" adr "決定 2" <<YAML
+$adr
+status: stable
+$gen
+YAML
+  item "$repo" adr-v "$ADR_V" adr "確認済みの決定" <<YAML
+$adr
+status: stable
+$gen
+$human_verified
+YAML
+  item "$repo" adr-dep "$ADR_DEP" adr "廃止した決定" <<YAML
+$adr
+status: deprecated
+$gen
+YAML
+  item "$repo" ubq-1 "$UBQ_1" ubiquitous_term "用語 1" <<YAML
+section: model-types
+status: stable
+$gen
+YAML
+  item "$repo" ubq-2 "$UBQ_2" ubiquitous_term "用語 2" <<YAML
+section: model-types
+status: stable
 $gen
 YAML
   item "$repo" qa-sol "$QA_SOL" quality "solution の確認の問い" <<YAML
@@ -331,7 +374,8 @@ YAML
   git -C "$repo" commit -q -m init
 }
 
-# 一時のリポジトリを作り直し、スタブのログとキューを空にする。キューは引数の各行。
+# 一時のリポジトリを作り直し、スタブのログとキューを空にする。キューは、起点の型（start。既定は solution）を
+# 選ぶ行と、引数の各行。
 n=0
 fresh() {
   n=$((n + 1))
@@ -339,7 +383,7 @@ fresh() {
   make_repo "$repo"
   export STUB_QUEUE="$work/queue-$n" STUB_LEAF_LOG="$work/leaf-$n" STUB_EDITOR_LOG="$work/editor-$n" STUB_FZF_LOG="$work/fzf-$n"
   export STUB_CANDIDATES_LOG="$work/candidates-$n"
-  printf '%s\n' "$@" >"$STUB_QUEUE"
+  printf '%s\n' "${start-solution から}" "$@" >"$STUB_QUEUE"
   : >"$STUB_LEAF_LOG"
   : >"$STUB_EDITOR_LOG"
   : >"$STUB_FZF_LOG"
@@ -395,8 +439,8 @@ candidates_of() { awk -v n="$1" '$0 == "===" { i++; next } i == n' "$STUB_CANDID
 
 fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
 run_verify
-first="$(candidates_of 1)"
-second="$(candidates_of 2)"
+first="$(candidates_of 2)"
+second="$(candidates_of 3)"
 assert_lacks "deprecated の item は枝を選ぶ候補に出ない" "$UC_DEP" "$first"
 assert_lacks "下まで確認済みの枝は候補に出ない" "$UC_DONE" "$first"
 assert_has "確認済みでも、下に未確認の item があれば候補に出る" "$UC_V" "$first"
@@ -408,9 +452,9 @@ assert_has "2 段目に未確認の item は出る" "$REQ_1" "$second"
 
 fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
 verify_args=--all run_verify
-assert_has "--all は下まで確認済みの枝も候補に出す" "$UC_DONE" "$(candidates_of 1)"
-assert_has "--all は確認済みの item も候補に出す" "$REQ_2" "$(candidates_of 2)"
-assert_lacks "--all でも deprecated の item は候補に出ない" "$UC_DEP" "$(candidates_of 1)"
+assert_has "--all は下まで確認済みの枝も候補に出す" "$UC_DONE" "$(candidates_of 2)"
+assert_has "--all は確認済みの item も候補に出す" "$REQ_2" "$(candidates_of 3)"
+assert_lacks "--all でも deprecated の item は候補に出ない" "$UC_DEP" "$(candidates_of 2)"
 
 # 根で決めると、下流のすべてが対象になる。deprecated の item を経由してしか届かない item は対象にしない。
 # shellcheck disable=SC2046
@@ -420,6 +464,47 @@ leaf_log="$(<"$STUB_LEAF_LOG")"
 assert_lacks "deprecated の item を経由してしか届かない item は対象にしない" "docs/req-under-dep.md" "$leaf_log"
 assert_has "確認済みの item の下の未確認の item は対象にする" "docs/req-v.md" "$leaf_log"
 assert_lacks "確認済みの item は対象にしない" "docs/uc-v.md" "$leaf_log"
+
+# --- 起点の型 -------------------------------------------------------------------
+
+all_items='すべてを順に確認する'
+leaf_shown() { tr '\n' ' ' <"$STUB_LEAF_LOG" | sed 's/ $//'; }
+
+fresh "$UC_A" "$decide" 中断する
+run_verify
+assert_eq "起動すると、solution・adr・ubiquitous_term のどこから確認するかを選ぶ" "solution adr ubiquitous_term" \
+  "$(candidates_of 1 | cut -f1 | tr '\n' ' ' | sed 's/ $//')"
+
+# adr は solution から辿れないので、一覧から選ぶ。ファイル名の順に並べ、deprecated と確認済みを除く。
+start='ADR を' fresh "$all_items" 飛ばす 飛ばす
+run_verify
+assert_eq "adr はすべてを選ぶと、ファイル名の順に表示する（deprecated と確認済みを除く）" \
+  "docs/adr-1.md docs/adr-2.md" "$(leaf_shown)"
+assert_eq "adr をすべて飛ばすと exit 0" 0 "$status"
+list="$(candidates_of 2)"
+assert_lacks "deprecated の adr は一覧に出ない" "$ADR_DEP" "$list"
+assert_lacks "確認済みの adr は一覧に出ない" "$ADR_V" "$list"
+assert_lacks "adr の一覧にほかの型は出ない" "$UC_A" "$list"
+
+start='ADR を' fresh "$all_items" 飛ばす 飛ばす 飛ばす
+verify_args=--all run_verify
+assert_eq "--all は確認済みの adr も対象にする" "docs/adr-1.md docs/adr-2.md docs/adr-v.md" "$(leaf_shown)"
+assert_eq "--all の一覧の確認済みの adr には印が付く" "確認済み" "$(candidates_of 2 | grep -F -- "$ADR_V" | cut -f5)"
+assert_lacks "--all でも deprecated の adr は一覧に出ない" "$ADR_DEP" "$(candidates_of 2)"
+
+start='ADR を' fresh "$ADR_2" 記録する
+run_verify
+assert_eq "adr を 1 本選ぶと、その 1 本だけが対象になる" "docs/adr-2.md" "$(leaf_shown)"
+assert_eq "adr の記録は docs(adr): <slug> でコミットする" "docs(adr): adr-2" "$(subjects)"
+assert_eq "adr の verified に要素を足す" 'human:tester' \
+  "$(yq --front-matter=extract '.verified[-1].by' "$repo/docs/adr-2.md")"
+assert_eq "adr のコミットのあとに未コミットの変更を残さない" "" "$(git -C "$repo" status --porcelain)"
+
+start='用語を' fresh "$all_items" 記録する 飛ばす
+run_verify
+assert_eq "ubiquitous_term はすべてを選ぶと、ファイル名の順に表示する" "docs/ubq-1.md docs/ubq-2.md" "$(leaf_shown)"
+assert_eq "ubiquitous_term の記録は docs(ubiquitous_term): <slug> でコミットする" "docs(ubiquitous_term): ubq-1" "$(subjects)"
+assert_lacks "ubiquitous_term の一覧に adr は出ない" "$ADR_1" "$(candidates_of 2)"
 
 # --- verified の書き込みと確認の問い ---------------------------------------------
 

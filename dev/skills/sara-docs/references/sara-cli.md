@@ -198,18 +198,22 @@ HEAD の merge-base が無いときは、一覧を出さずに 2 を返す。結
 ## 別コマンド sara-verify による人の確認の記録（対話）
 
 ```bash
-sara-verify        # 枝を選び、generated.at 以降の human: の verified を持たない item を順に確かめる
+sara-verify        # 起点の型を選び、generated.at 以降の human: の verified を持たない item を順に確かめる
 sara-verify --all  # human: の verified を持つ item も対象にする
 ```
 
 人が端末で使うコマンドで、エージェントは実行しない。stdin と stdout のどちらかが端末でないと exit 2 で終わる。
 
-- 選ぶ手順: `solution` から始め、子の item（その item を `refines` / `derives_from` / `satisfies` / `threatens` /
+- 起点の型: はじめに、`solution`・`adr`・`ubiquitous_term` のどこから確認するかを選ぶ。`adr` と `ubiquitous_term` は
+  上流の relation を持たず、`solution` からは辿れないので、型の一覧から選ぶ
+- `solution` の選ぶ手順: 子の item（その item を `refines` / `derives_from` / `satisfies` / `threatens` /
   `mitigates` / `covers` / `follows` で指している item）を `fzf` で 1 段ずつ選ぶ。どの段でも、いま選んでいる
   item で決められる。子の無い item まで降りると、そこで決まる
 - 選ぶ候補: その item か下流に確認の対象が残っている子だけを出す。`status: deprecated` の item と、下流まで確認の対象が
   残っていない item は出さない。確認済みの item を出すときは「確認済み」の印を付ける（`--all` では確認済みの item も
   対象なので、下流まで確認済みの枝も出す）
+- `adr` と `ubiquitous_term` の一覧: 確認の対象をファイル名の順に並べ、「すべてを順に確認する」か 1 本を選ぶ。
+  `status: deprecated` の item と確認済みの item は出さない（`--all` では確認済みの item を、印を付けて出す）
 - 確認の対象: 根から選んだ item までの経路と、選んだ item の下流のすべて。幅優先で並べ、同じ深さの中は ID の順にする。
   複数の親から届く item は最初の 1 度だけ対象にする。`status: deprecated` の item と、`generated.at` 以降の
   `human:` の `verified` を持つ item は外す（`--all` では後者も対象にする）。`deprecated` の item を経由してしか

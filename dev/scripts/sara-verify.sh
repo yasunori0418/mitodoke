@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # 枝を選び、根から選んだ item までの経路と、選んだ item の下流を順に表示して、人の確認を verified に記録する。
+# solution から辿れない adr と ubiquitous_term は、型の一覧から選ぶ。
 #
 #   sara-verify [--all]
 #
@@ -20,7 +21,9 @@ usage() {
   cat >&2 <<'EOF'
 usage: sara-verify [--all]
 
-solution から始めて、子の item（その item を上流の relation で指している item）を 1 段ずつ fzf で選ぶ。
+はじめに、solution・adr・ubiquitous_term のどこから確認するかを選ぶ。
+
+solution では、子の item（その item を上流の relation で指している item）を 1 段ずつ fzf で選ぶ。
 どの段でも、いま選んでいる item で決められる。辿る relation は refines / derives_from / satisfies /
 threatens / mitigates / covers / follows。
 
@@ -31,6 +34,9 @@ threatens / mitigates / covers / follows。
 同じ深さの中は ID の順にする。複数の親から届く item は最初の 1 度だけ対象にする。status が deprecated の
 item と、generated.at 以降の human: の verified を持つ item は対象から外す。deprecated の item を
 経由してしか届かない item も対象にしない。
+
+adr と ubiquitous_term は上流の relation を持たず、solution からは辿れない。確認の対象をファイル名の順に
+並べた一覧から、「すべてを順に確認する」か 1 本を選ぶ。deprecated の item と確認済みの item は一覧に出ない。
 
 item ごとに leaf で表示し、閉じたら「記録する・飛ばす・中断する」を選ぶ。solution と use_case では、
 選ぶ前に review_question_for がその型を指す quality の item の確認の問いを出す。「記録する」では EDITOR で
@@ -172,42 +178,59 @@ stop_on() {
   exit 2
 }
 
-# 根の solution を決め、子を 1 段ずつ選ぶ。
-roots=$(jq -r '[.[] | select(.type == "solution")] | sort_by(.id)[] | [.id, .type, .name] | @tsv' <<<"$items")
-[ -n "$roots" ] || die "solution が無い"
-if [ "$(wc -l <<<"$roots")" -eq 1 ]; then
-  current=${roots%%$'\t'*}
-else
-  current=$(pick --header "根の solution を選ぶ" <<<"$roots") || stop_on $?
-  current=${current%%$'\t'*}
-fi
-path=("$current")
-decide_line=$'=\tこの item で決める'
-while :; do
-  # 候補は、確認の対象が残っている子だけにする。確認済みの子は、下流に対象が残っていれば印を付けて出す。
-  children=$(jq -r --arg id "$current" '[.[] | select(.open and (.ups | index($id)))] | sort_by(.id)[]
-    | [.id, .type, .name, (.status // ""), (if .verified then "確認済み" else "" end)] | @tsv' <<<"$items")
-  [ -n "$children" ] || break
-  header=$(jq -r --arg id "$current" '.[] | select(.id == $id) | "いま: \(.id) \(.name)"' <<<"$items")
-  line=$(pick --header "$header" <<<"$decide_line"$'\n'"$children") || stop_on $?
-  [ "${line%%$'\t'*}" != = ] || break
-  current=${line%%$'\t'*}
-  path+=("$current")
-done
+# 起点の型を選ぶ。adr と ubiquitous_term は上流の relation を持たず、solution からは辿れない。
+start=$(pick --header "どこから確認するか" <<<$'solution\tsolution から枝を選ぶ\nadr\tADR を一覧から選ぶ\nubiquitous_term\t用語を一覧から選ぶ') || stop_on $?
+start=${start%%$'\t'*}
 
-# 経路のあとに、選んだ item の下流を層ごとに ID の順で並べる。複数の親から届く item は初出の層に置く。
-# deprecated の item は層に入れないので、deprecated の item を経由してしか届かない item は並ばない。
-mapfile -t targets < <(jq -r --args '
-  . as $items
-  | ($items | map({key: .id, value: .}) | from_entries) as $by_id
-  | def down($level; $seen):
-      if ($level | length) == 0 then []
-      else ([$items[] | select(.status != "deprecated") | select(.id as $c | ($seen | index($c) | not)) | select(any(.ups[]; . as $u | $level | index($u)))]
-            | map(.id) | sort) as $next
-        | $next + down($next; $seen + $next)
-      end;
-  ($ARGS.positional + down([$ARGS.positional[-1]]; $ARGS.positional))[]
-  | $by_id[.] | select(.target) | [.file, .type, .id] | @tsv' "${path[@]}" <<<"$items")
+targets=()
+if [ "$start" = solution ]; then
+  # 根の solution を決め、子を 1 段ずつ選ぶ。
+  roots=$(jq -r '[.[] | select(.type == "solution")] | sort_by(.id)[] | [.id, .type, .name] | @tsv' <<<"$items")
+  [ -n "$roots" ] || die "solution が無い"
+  if [ "$(wc -l <<<"$roots")" -eq 1 ]; then
+    current=${roots%%$'\t'*}
+  else
+    current=$(pick --header "根の solution を選ぶ" <<<"$roots") || stop_on $?
+    current=${current%%$'\t'*}
+  fi
+  path=("$current")
+  decide_line=$'=\tこの item で決める'
+  while :; do
+    # 候補は、確認の対象が残っている子だけにする。確認済みの子は、下流に対象が残っていれば印を付けて出す。
+    children=$(jq -r --arg id "$current" '[.[] | select(.open and (.ups | index($id)))] | sort_by(.id)[]
+      | [.id, .type, .name, (.status // ""), (if .verified then "確認済み" else "" end)] | @tsv' <<<"$items")
+    [ -n "$children" ] || break
+    header=$(jq -r --arg id "$current" '.[] | select(.id == $id) | "いま: \(.id) \(.name)"' <<<"$items")
+    line=$(pick --header "$header" <<<"$decide_line"$'\n'"$children") || stop_on $?
+    [ "${line%%$'\t'*}" != = ] || break
+    current=${line%%$'\t'*}
+    path+=("$current")
+  done
+
+  # 経路のあとに、選んだ item の下流を層ごとに ID の順で並べる。複数の親から届く item は初出の層に置く。
+  # deprecated の item は層に入れないので、deprecated の item を経由してしか届かない item は並ばない。
+  mapfile -t targets < <(jq -r --args '
+    . as $items
+    | ($items | map({key: .id, value: .}) | from_entries) as $by_id
+    | def down($level; $seen):
+        if ($level | length) == 0 then []
+        else ([$items[] | select(.status != "deprecated") | select(.id as $c | ($seen | index($c) | not)) | select(any(.ups[]; . as $u | $level | index($u)))]
+              | map(.id) | sort) as $next
+          | $next + down($next; $seen + $next)
+        end;
+    ($ARGS.positional + down([$ARGS.positional[-1]]; $ARGS.positional))[]
+    | $by_id[.] | select(.target) | [.file, .type, .id] | @tsv' "${path[@]}" <<<"$items")
+else
+  # 一覧は確認の対象だけをファイル名の順に並べる。すべてを順に確認するか、1 本を選ぶ。
+  list=$(jq -r --arg t "$start" '[.[] | select(.type == $t and .target)] | sort_by(.file)[]
+    | [.id, .type, .name, (.status // ""), (if .verified then "確認済み" else "" end)] | @tsv' <<<"$items")
+  if [ -n "$list" ]; then
+    line=$(pick --header "$start: 確認する item を選ぶ" <<<$'=\tすべてを順に確認する\n'"$list") || stop_on $?
+    chosen=${line%%$'\t'*}
+    mapfile -t targets < <(jq -r --arg t "$start" --arg id "$chosen" '[.[] | select(.type == $t and .target)] | sort_by(.file)[]
+      | select($id == "=" or .id == $id) | [.file, .type, .id] | @tsv' <<<"$items")
+  fi
+fi
 
 if [ "${#targets[@]}" -eq 0 ]; then
   echo "sara-verify: 対象の item が無い" >&2
