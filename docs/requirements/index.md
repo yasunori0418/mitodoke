@@ -35,9 +35,9 @@
 ## コマンド
 
 * [generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む](./generated-by-format.md) - generated.by の値は書式を限らず、空の値と二重引用符・バックスラッシュ・改行を含む値だけを、起票の入力と check による既存の item の検査の両方で拒み、値を判定には使わない。
-* [generated.by は環境変数か引数から取り、どちらも無ければ端末からの実行に限り人の識別子とする](./generated-by-source.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by から取り、どちらも無いときは端末からの実行に限り human:<id> を書き、端末の無い実行では起票を拒む。
+* [generated.by は環境変数か引数から取り、どちらも無ければ端末からの実行に限り人の識別子とする](./generated-by-source.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by から取り、どちらも無いときは端末からの実行に限り human:<id> を書き、端末からの実行でないときは起票を拒む。
 * [人の確認に書く識別子は設定のコマンドの出力から取り、不正な出力では何も書かない](./human-id-command.md) - mitodoke verify は、human:<id> の <id> を設定に定義したコマンドの出力から取り、出力が不正なときやコマンドが失敗したときは何も書かずにエラーにする。
-* [verify は端末での人の入力があるときだけ人の確認を記録する](./human-verification-recording.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末の無い実行では拒む。
+* [verify は端末での人の入力があるときだけ人の確認を記録する](./human-verification-recording.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末からの実行でないときは拒む。
 * [init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、既存の mitodoke.yaml を上書きしない](./init-creates-config-and-directories.md) - mitodoke init は、初期の mitodoke.yaml と、設定が型ごとに持つ置き場所のディレクトリを作り、mitodoke.yaml がすでにあるときは上書きせずに拒み、文書管理の規範を適用先の製品へ複製しない。
 * [item を指定しない verify は、対話で選んだ枝を上流から順にたどって人の確認を記録する](./interactive-verification-walk.md) - item を指定しない mitodoke verify は、対話で枝を選ばせ、上流から順に item を表示して人の確認を記録し、表示のビューアとコメントのエディタを mitodoke.yaml で設定できるようにする。
 * [new は引数の置き場所を型ごとの置き場所と比べ、合わなければ起票を拒む](./new-location-check.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と合わない起票を拒む。

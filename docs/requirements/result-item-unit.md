@@ -18,7 +18,8 @@ specification: |
   is failed, and a pair that has only findings at report strength as an item whose status is
   success and which carries the findings as warnings. mitodoke SHALL NOT emit an item for a pair
   of a contract and a document that holds. In gap and fresh run alone, every pair that falls
-  under a section SHALL be a failure and the run SHALL end with exit code 1. check SHALL follow
+  under a section SHALL be a failure, and the run SHALL end with exit code 1 when such a pair
+  exists. check SHALL follow
   the strength setting, and when it has only findings at report strength it SHALL end with exit
   code 0 and its status SHALL be success. The information sections of gap (the requirements with
   `risk_exempt` and the test conditions with `human_judgement`) and the reach ratios SHALL NOT be
@@ -35,7 +36,7 @@ specification_ja: |
   mitodoke は、失敗の強さの指摘を持つ組を status が failed の item で表さなければならず、報告の強さの
   指摘だけを持つ組を、status が success で指摘を warnings に持つ item で表さなければならない。
   mitodoke は、成り立った契約と文書の組を item にしてはならない。単体の gap と fresh では、節に該当
-  した組はすべて失敗でなければならず、exit code 1 で終わらなければならない。check は強さの設定に
+  した組はすべて失敗でなければならず、該当した組があれば exit code 1 で終わらなければならない。check は強さの設定に
   従わなければならず、報告の強さの指摘だけなら exit code 0 で終わり、status は success でなければ
   ならない。gap の情報の節（`risk_exempt` を持つ要件の一覧と、`human_judgement` を持つテスト条件の
   一覧）と到達率は、item にしてはならず、`result.info` に置かなければならない。
@@ -45,7 +46,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:55:47+09:00"
+  at: "2026-11-23T19:15:54+09:00"
 ---
 # check・gap・fresh の item は契約と文書の組を単位とする
 
@@ -67,7 +68,7 @@ generated:
 - 失敗の指摘を持つ組は、`status` が `failed` の item で表す
 - 報告の指摘だけを持つ組も item にし、`status` が `success` で、指摘を `warnings` に持つ item で表す
 - 成り立った組は item にしない
-- 単体の `gap` と `fresh` では、節に該当した組はすべて失敗で、exit code 1 で終わる
+- 単体の `gap` と `fresh` では、節に該当した組はすべて失敗で、該当した組があれば exit code 1 で終わる
 - `check` は強さの設定に従う。報告の指摘だけなら exit code 0 で終わり、`status` は `success` になる
 - `gap` の情報の節（`risk_exempt` を持つ要件の一覧と、`human_judgement` を持つテスト条件の一覧）と
   到達率は、item にせず、`result.info` に置く

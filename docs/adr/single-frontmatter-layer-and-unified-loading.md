@@ -17,7 +17,7 @@ references:
   - "ADR-c878c66c-7514-408a-be81-9cfbff159738"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:58:08+09:00"
+  at: "2026-11-23T19:15:54+09:00"
 ---
 # frontmatter を読む層を 1 つ持ち、読み込みを 1 つにまとめる
 
@@ -57,8 +57,3 @@ sara-core の読み込みと同じままになる。読み飛ばしたファイ�
 ### mitodoke が自分で `docs/` を走査して frontmatter を読み、sara-core には item を渡すだけにする
 
 走査と読み方を mitodoke が 1 か所で決められるが、sara の CLI と item の集合が食い違いうる。
-
-### sara-core の編集の仕組みで frontmatter を読み書きする
-
-読み書きを sara-core に寄せられるが、`EditService` は入れ子の `verified` を書けず、`RawFrontmatter` も
-使えない。

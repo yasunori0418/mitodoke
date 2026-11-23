@@ -15,7 +15,7 @@ specification: |
   `changes[]`, and SHALL set `dryRun` to false. The --check option of index and model SHALL set
   `dryRun` to true, SHALL represent each file that differs as an item whose status is failed,
   SHALL list in `changes[]` the changes that it would have written, and SHALL end with exit code
-  1. The subcommands that only read (check, gap, fresh, matrix and export) SHALL set `dryRun` to
+  1 when a file differs. The subcommands that only read (check, gap, fresh, matrix and export) SHALL set `dryRun` to
   true and SHALL NOT emit `changes[]`. Every item SHALL have a `label`, and the `label` of an item
   that represents a document SHALL be the `name` of the document. The `key` and the `label` of an
   item that has no document ID (a skipped file or a written file) SHALL be the path relative to
@@ -30,7 +30,7 @@ specification_ja: |
   なければならない。ファイルを書くサブコマンド（new・init・index・model・verify）は、書いたファイル
   1 つを item 1 つで表し、`changes[]` に `add` か `modify` を並べ、`dryRun` を false にしなければ
   ならない。index と model の --check は、`dryRun` を true にし、差分のあるファイルを status が failed
-  の item で表し、`changes[]` に書くはずだった変更を並べて、exit code 1 で終わらなければならない。
+  の item で表し、`changes[]` に書くはずだった変更を並べて、差分があれば exit code 1 で終わらなければならない。
   読むだけのサブコマンド（check・gap・fresh・matrix・export）は、`dryRun` を true にしなければならず、
   `changes[]` を出してはならない。すべての item は `label` を持たなければならず、文書を表す item の
   `label` は文書の `name` でなければならない。文書の ID を持たない item（読み飛ばされたファイル、
@@ -42,7 +42,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:57:11+09:00"
+  at: "2026-11-23T19:15:54+09:00"
 ---
 # サブコマンドの --json は outturn のエンベロープを出し、既定の text 出力は変えない
 
@@ -66,7 +66,7 @@ exit code 1 を返すときは、その該当を `status` が `failed` の item 
 - ファイルを書くサブコマンド（`new`・`init`・`index`・`model`・`verify`）は、書いたファイル 1 つを item
   1 つにし、`changes[]` に `add` か `modify` を並べ、`dryRun` を `false` にする
 - `index` と `model` の `--check` は、`dryRun` を `true` にし、差分のあるファイルを `failed` の item に
-  して、`changes[]` に書くはずだった変更を並べ、exit code 1 で終わる
+  して、`changes[]` に書くはずだった変更を並べ、差分があれば exit code 1 で終わる
 - 読むだけのサブコマンド（`check`・`gap`・`fresh`・`matrix`・`export`）は、`dryRun` を `true` にし、
   `changes[]` を出さない
 - `label` はすべての item に付ける。文書を表す item では、文書の `name` にする

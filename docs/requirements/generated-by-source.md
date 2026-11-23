@@ -2,7 +2,7 @@
 id: "REQ-6ae12339-4f49-45f9-8b8a-b39d2da58a85"
 type: requirement
 name: "generated.by は環境変数か引数から取り、どちらも無ければ端末からの実行に限り人の識別子とする"
-description: "mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by から取り、どちらも無いときは端末からの実行に限り human:<id> を書き、端末の無い実行では起票を拒む。"
+description: "mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by から取り、どちらも無いときは端末からの実行に限り human:<id> を書き、端末からの実行でないときは起票を拒む。"
 specification: |
   mitodoke new SHALL take the value of generated.by from the environment variable
   MITODOKE_GENERATED_BY or the argument --by. When neither is given, mitodoke new SHALL, only when it

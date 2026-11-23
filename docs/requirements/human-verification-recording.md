@@ -2,7 +2,7 @@
 id: "REQ-47318ae1-da64-4e9e-9345-60f39648ff05"
 type: requirement
 name: "verify は端末での人の入力があるときだけ人の確認を記録する"
-description: "mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末の無い実行では拒む。"
+description: "mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末からの実行でないときは拒む。"
 specification: |
   mitodoke verify <item> SHALL write an entry with the actor `human:<id>` and the current time to the
   verified record of the item only when a person enters a confirmation at a terminal. When the
