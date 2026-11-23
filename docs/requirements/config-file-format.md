@@ -26,7 +26,7 @@ generated:
 mitodoke の設定ファイルは、YAML で書く `mitodoke.yaml` とする。独自の型・relation・フィールドは、
 sara の model.yaml が受け付ける書き方（YAML のタグを含む）のすべてで書ける。
 
-- フィールドの型を表す `field_type: !enum` と `!list text` も、この書き方に含まれる
+- フィールドの型を表す `field_type: !enum` と `!list text` もこの書き方に含まれる
 
 ## 出典
 

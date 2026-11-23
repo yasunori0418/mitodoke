@@ -26,7 +26,7 @@ generated:
 
 - `mitodoke init` は、初期の `mitodoke.yaml` と、設定が型ごとに持つ置き場所のディレクトリを作る
 - `mitodoke.yaml` がすでにあるときは、上書きせずに拒む
-- mitodoke の文書管理の規範は、適用先の製品へ複製しない
+- mitodoke の文書管理の規範は適用先の製品へ複製しない
 
 model.yaml と `sara.toml` の生成は、[model.yaml と sara.toml は設定ファイルから生成し、生成物との差分を確かめる](model-and-sara-toml-generated-from-config.md) が定める。
 
