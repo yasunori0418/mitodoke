@@ -44,6 +44,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:22:37+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:44:02+09:00"
 ---
 # 検査の既定の強さは、構造の契約を失敗、つながりの欠けと見直しの義務を報告とし、設定で変えられる
 
