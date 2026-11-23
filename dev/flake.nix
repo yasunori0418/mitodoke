@@ -106,6 +106,36 @@
               exec bash ${./scripts/sara-fresh.sh} "$@"
             '';
           };
+
+          # 枝を選んで上流から順に item を表示し、人の確認を verified に記録する対話のコマンド。
+          #
+          #   sara-verify [--all]
+          #
+          # 実体の dev/scripts/sara-verify.sh を PATH に載せる薄い wrapper。ビューアの leaf は flake に入れず、PATH から使う。
+          sara-verify = pkgs.writeShellApplication {
+            name = "sara-verify";
+            runtimeInputs = [
+              inputs'.nur.packages.sara
+              pkgs.jq
+              # frontmatter の generated / verified を読む yq-go（mikefarah/yq v4）。
+              pkgs.yq-go
+              # frontmatter を 1 本の multi-document にまとめ、verified へ要素を足すのに使う。
+              pkgs.gawk
+              pkgs.coreutils
+              pkgs.gnugrep
+              # リポジトリルートの解決・未コミットの変更の確認・記録のコミット。
+              pkgs.git
+              # 枝と、記録するかどうかを選ぶ。
+              pkgs.fzf
+              # SARA_VERIFY_HUMAN_ID が無いときに <id> を gh api user で得る。
+              pkgs.gh
+              # 下の text が exec するインタプリタ自身。
+              pkgs.bash
+            ];
+            text = ''
+              exec bash ${./scripts/sara-verify.sh} "$@"
+            '';
+          };
         in
         {
           devShells = {
@@ -122,6 +152,8 @@
                 sara-gap
                 # 再検証待ちの item・generated の更新漏れ・人の確認が無い high の risk の列挙。
                 sara-fresh
+                # 枝を選んで人の確認を記録する対話のコマンド。
+                sara-verify
                 # CASE frontmatter を読む yq-go（mikefarah/yq v4）。python-yq とは別実装。
                 yq-go
                 # test-doc-matrix.sh が sara report matrix --format json を整形するのに使う。
@@ -143,6 +175,7 @@
                 sara-new
                 sara-gap
                 sara-fresh
+                sara-verify
                 # 以下は dev/tests/ の各テストが使う。
                 pkgs.git
                 pkgs.gnused
