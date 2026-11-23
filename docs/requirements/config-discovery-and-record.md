@@ -12,7 +12,9 @@ specification: |
   it read in the top-level `info` of the envelope, both when --config is given and when it is
   omitted. When mitodoke takes a value from the environment variable MITODOKE_GENERATED_BY or
   builds the identifier of a person from the output of the command in the configuration, it SHALL
-  also record that value in the top-level `info`. The keys of `info` SHALL be in camelCase.
+  also record that value in the top-level `info`. When both MITODOKE_GENERATED_BY and --by are
+  given, mitodoke SHALL NOT record the value of MITODOKE_GENERATED_BY in `info`, because it uses
+  the value of --by and does not take the value from the environment variable. The keys of `info` SHALL be in camelCase.
 specification_ja: |
   mitodoke は、--config で指定された設定ファイルを読まなければならない。--config を省いたときは、
   作業ディレクトリの設定ファイルを読まなければならず、上のディレクトリへ探してはならない。
@@ -20,7 +22,9 @@ specification_ja: |
   `workingDirectory` に出さなければならず、`info` に書いてはならない。mitodoke は、読んだ設定ファイルの
   絶対パスを、--config で指したときも省いたときも、エンベロープのトップレベルの `info` に記録しなければ
   ならない。mitodoke は、環境変数 MITODOKE_GENERATED_BY から値を取ったときと、設定のコマンドの出力から人の
-  識別子を作ったときは、その値もトップレベルの `info` に記録しなければならない。`info` のキーは、キャメルケースで
+  識別子を作ったときは、その値もトップレベルの `info` に記録しなければならない。MITODOKE_GENERATED_BY と --by の両方が
+  あるときは、mitodoke は --by の値を使い、環境変数から値を取らないので、MITODOKE_GENERATED_BY の値を
+  `info` に記録してはならない。`info` のキーは、キャメルケースで
   なければならない。
 section: json-output
 status: stable
@@ -28,7 +32,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T19:15:54+09:00"
+  at: "2026-11-23T20:22:00+09:00"
 ---
 # 設定ファイルは作業ディレクトリから読み、作業ディレクトリを workingDirectory に、設定ファイルのパスと暗黙の入力を info に記録する
 
@@ -42,7 +46,8 @@ mitodoke は、`--config` で指定された設定ファイルを読む。`--con
 - 実行時の作業ディレクトリは、エンベロープの `workingDirectory` に出し、`info` には書かない
 - 読んだ設定ファイルの絶対パスは、`--config` で指したときも省いたときも、トップレベルの `info` に記録する
 - 環境変数 `MITODOKE_GENERATED_BY` から値を取ったときと、設定のコマンドの出力から人の識別子を作った
-  ときは、その値もトップレベルの `info` に記録する
+  ときは、その値もトップレベルの `info` に記録する。`MITODOKE_GENERATED_BY` と `--by` の両方があるときは
+  `--by` の値を使い、環境変数から値を取らないので、環境変数の値は `info` に記録しない
 - `info` のキーは、outturn のフィールドに合わせてキャメルケースにする
 
 outturn の §8 は、作業ディレクトリを `workingDirectory` で出すことと、暗黙の入力の解決結果をトップレベルの
