@@ -9,6 +9,7 @@
 ## モデルと設定
 
 * [組み込みの定義は設定で削除も変更もできない](./builtin-definitions-immutable.md) - 設定は独自の型・relation・フィールドを追加できるが、組み込みの型・relation・フィールドを削除も変更もできない。
+* [組み込みの relation は上流の 8 つと peer の 3 つとし、保証する連鎖は requirement → risk → test_condition → test_case とする](./builtin-relations-and-guaranteed-chain.md) - 組み込みの relation を上流の 8 つと peer の 3 つとし、relation ごとの張り元と張り先の型を定め、保証する連鎖を requirement → risk → test_condition → test_case として design を任意の中継点にする。
 * [設定ファイルは YAML の mitodoke.yaml とする](./config-file-format.md) - 設定ファイルは YAML の mitodoke.yaml とし、独自の型・relation・フィールドは sara の model.yaml と同じ書き方で書けるようにする。
 * [検査が独自の型に及ぶ範囲を、全型に働く契約と組み込みの型だけに働く契約に分ける](./inspection-scope-for-custom-types.md) - 組み込みの型・relation・フィールドの名前を条件に持つ契約は組み込みの型の item だけに、それ以外の契約は独自の型を含むすべての型の item に働かせる。
 * [model.yaml と sara.toml は設定ファイルから生成し、生成物との差分を確かめる](./model-and-sara-toml-generated-from-config.md) - model.yaml と sara.toml は設定ファイルから生成してコミットし、生成し直した結果との差分が無いことを CI で確かめる。
