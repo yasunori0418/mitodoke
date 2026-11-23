@@ -42,7 +42,7 @@ derives_from:
   - "UC-9fe6f27f-f51e-4532-838b-e84a57fa7eac"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:55:47+09:00"
+  at: "2026-11-23T18:57:11+09:00"
 ---
 # サブコマンドの --json は outturn のエンベロープを出し、既定の text 出力は変えない
 
@@ -51,7 +51,7 @@ generated:
 mitodoke のサブコマンドは、`--json` を指定されたときに、outturn の結果エンベロープを stdout に
 出す。適合は、schema の検証・リント・id のテストベクタに加えて、§8 の `standalone` まで含める。
 `standalone` の満たし方は
-[設定ファイルは作業ディレクトリから読み、作業ディレクトリと設定ファイルのパスを info に記録する](config-discovery-and-record.md)
+[設定ファイルは作業ディレクトリから読み、作業ディレクトリを workingDirectory に、設定ファイルのパスと暗黙の入力を info に記録する](config-discovery-and-record.md)
 が定める。
 
 `--json` の出力は、利用者が選んだときだけ出す第 2 の契約である。`--json` を付けない実行の

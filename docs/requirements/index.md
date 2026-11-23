@@ -47,7 +47,7 @@
 
 ## JSON 出力
 
-* [設定ファイルは作業ディレクトリから読み、作業ディレクトリと設定ファイルのパスを info に記録する](./config-discovery-and-record.md) - mitodoke は --config を省いたとき作業ディレクトリの設定ファイルだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。
+* [設定ファイルは作業ディレクトリから読み、作業ディレクトリを workingDirectory に、設定ファイルのパスと暗黙の入力を info に記録する](./config-discovery-and-record.md) - mitodoke は --config を省いたとき作業ディレクトリの設定ファイルだけを読み、作業ディレクトリをエンベロープの workingDirectory に出し、読んだ設定ファイルの絶対パスと、環境変数と設定のコマンドから取った値をトップレベルの info に記録する。
 * [契約の違反と報告は E_MITODOKE_ と W_MITODOKE_ のコードで表す](./error-and-warning-codes.md) - 契約の違反は E_MITODOKE_<契約名>、報告は W_MITODOKE_<契約名> のコードで表し、入力や環境の誤りには outturn の共通コードを使う。
 * [export は文書 1 件を item とし、sara 0.12 の items\[\] の形に OKF のキーを加えて出す](./export-shape.md) - export は文書 1 件ずつを item にし、sara 0.12 の items[] の形を写して OKF のキーを加えたものを item の info の下に置き、sara の形が変わっても自動では変えない。
 * [サブコマンドの --json は outturn のエンベロープを出し、既定の text 出力は変えない](./json-outturn-envelope.md) - mitodoke のすべてのサブコマンドは --json を選んだときだけ outturn に適合する結果エンベロープを出し、既定の text 出力は変えない。

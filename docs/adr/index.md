@@ -132,7 +132,6 @@
 
 ## JSON 出力
 
-* [設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する](./config-read-from-working-directory-and-recorded.md) - 設定ファイルの指定を省いたときは作業ディレクトリのものだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。 (stable)
 * [写した契約テストを CLI の受け入れテストにする](./contract-tests-as-cli-acceptance-tests.md) - 写した契約テストを mitodoke の CLI の受け入れテストにし、outturn の result.info の下の JSON のキー・exit code・起票の id: と file: の 2 行を揃え、text 出力の見出しと行の形式は揃えない。 (stable)
 * [changes・dryRun・label はファイルを書くかで分け、ID の無い item はパスで表す](./envelope-changes-dry-run-label-and-path-keys.md) - ファイルを書くサブコマンドは書いたファイルを item と changes[] に並べて dryRun を false にし、--check と読むだけのサブコマンドは dryRun を true にし、label はすべての item に付け、文書の ID を持たない item の key と label は設定ファイルのあるディレクトリからの相対パスにする。 (stable)
 * [エンベロープの subject は固定の documents 1 つにする](./envelope-subject-fixed-to-documents.md) - エンベロープの results[] の要素を常に 1 つにし、subject.name を固定の文字列 documents にする。 (stable)
@@ -141,6 +140,7 @@
 * [報告の指摘は success の item の警告で表し、働く強さは exit code で決める](./report-findings-as-success-items-with-warnings.md) - 指摘に働く強さをその実行の exit code を 0 でなくするかで決め、失敗は failed の item と E_MITODOKE_ のコード、報告は success の item と W_MITODOKE_ の警告で表し、gap の情報の節と到達率は result.info に置く。 (stable)
 * [check・gap・fresh の item を契約 × 文書の単位にする](./result-items-per-contract-and-document.md) - check・gap・fresh の結果は、1 つの文書が 1 つの契約に反したことを item 1 つで表し、kind を契約の名前、key を文書の ID にして、成り立った組は item にしない。 (stable)
 * [契約の違反と報告をツール別のコードで表し、強さで接頭辞だけを切り替える](./tool-specific-error-and-warning-codes.md) - 契約の違反と報告は E_MITODOKE_<契約名> と W_MITODOKE_<契約名> のツール別のコードで統一し、強さの設定で接頭辞だけを切り替え、入力や環境の誤りには outturn の共通コードを使う。 (stable)
+* [作業ディレクトリは workingDirectory に出し、設定ファイルのパスは常に info に記録する](./working-directory-field-and-config-path-always-recorded.md) - `--config` を省いたときは作業ディレクトリの設定ファイルだけを読み、作業ディレクトリはエンベロープの `workingDirectory` に出し、読んだ設定ファイルの絶対パスと、環境変数と設定のコマンドから取った値は常にトップレベルの `info` に記録する。 (stable)
 
 ## 配布と運用
 
@@ -160,6 +160,7 @@
 * [ADR の規則を汎用とプロジェクト当てはめに分けて書く](./adr-rules-generic-and-project-split.md) - ADR の規則は `docs/adr/README.md` に、layat の ADR 番号・型の区分・実データと同じ文書に書かれていた。 (deprecated)
 * [提案を棄却した決定は status 不採用 で記録する](./adr-status-rejected.md) - ADR の `status` は、実データの表記に合わせて日本語の値を持つ enum にしている。組み込みの英語の値（`proposed` / `accepted` / `deprecated`）は使っていない。 (deprecated)
 * [ADR も UUID で採番し、連番の旧 ADR は legacy_adr 型に凍結する](./adr-uuid-ids-and-legacy-type.md) - ADR だけは連番（`ADR-NNNN`）で採番してきた。既存 ADR の相互参照やコミットメッセージでの言及を無効にしないためである。一方、並列レーンで ADR を起こすと、複数のレーンが同じ「次の番号」を取る構造が残っていた。 (deprecated)
+* [設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する](./config-read-from-working-directory-and-recorded.md) - 設定ファイルの指定を省いたときは作業ディレクトリのものだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。 (deprecated)
 * [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (deprecated)
 * [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](./defect-close-backfills-risks.md) - [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md)。グラフのrisk / test_condition は予防の体系だが、起きた欠陥から学ばなければ、ある時点の分析を写したまま古びていく。 (deprecated)
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)

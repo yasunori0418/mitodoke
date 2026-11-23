@@ -4,7 +4,7 @@ type: adr
 name: "設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する"
 description: "設定ファイルの指定を省いたときは作業ディレクトリのものだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。"
 section: json-output
-status: stable
+status: deprecated
 sources:
   - id: "issue-4"
     resource: "https://github.com/yasunori0418/mitodoke/issues/4"
@@ -20,7 +20,11 @@ generated:
 ---
 # 設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する
 
-- ステータス: stable
+> **廃止（2026-11-23）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [作業ディレクトリは workingDirectory に出し、設定ファイルのパスは常に info に記録する](working-directory-field-and-config-path-always-recorded.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-17
 - 関連: [設定ファイルを mitodoke.yaml にし、独自の定義は sara の model.yaml と同じ書き方にする](config-file-mitodoke-yaml.md), GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q46・Q49）で確定
