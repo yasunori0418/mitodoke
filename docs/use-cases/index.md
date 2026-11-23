@@ -13,3 +13,4 @@
 * [欠陥の Issue を検査し、トラッカー用の雛形を配る](./defect-issue-inspection-and-tracker-templates.md) - 利用者が、欠陥の Issue のラベルや本文の型を mitodoke に検査させ、トラッカー用の雛形を製品から受け取る。
 * [出来事をグラフに記録する](./events-recorded-in-graph.md) - 利用者が、テストの実行の記録、観測の結果、欠陥、受け取ったフィードバックといった出来事を item としてグラフに記録する。
 * [文書管理の規範を、初期化のコマンドで適用先の製品へ複製する](./norms-copied-by-init-command.md) - 利用者が、初期化のコマンドで、mitodoke の文書管理の規範を雛形の item として自分の製品のグラフへ複製する。
+* [テスト実行基盤やログ集約基盤になる](./test-runner-and-log-aggregation.md) - 利用者が、適用先の製品のテストの実行とテストランナーの管理を mitodoke に任せ、実行の記録とログを mitodoke に集める。
