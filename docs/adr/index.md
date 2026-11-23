@@ -41,6 +41,7 @@
 * [level が high の risk と、有効な solution と use_case に人の verified を求める](./human-verified-required-for-high-risk-and-upper-layers.md) - level が high の risk と、status が deprecated でない solution と use_case 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない。 (stable)
 * [sara check を strict モードで回す](./sara-check-strict-mode.md) - `sara check` は接続漏れを warning に留める設定で導入された。移行の途中では、まだ親を持たない item が正常に存在し、接続漏れを error にすると移行そのものが止まるためである。 (stable)
 * [solution に stale_after を必須にし、期限までの間隔を 90 日以内にする](./solution-requires-stale-after-within-interval.md) - solution に stale_after を必須にし、期限切れと、人の確認の時刻から 90 日より先の期限を報告して、人の確認と書き換えの両方で期限を延ばす。 (stable)
+* [端末からの実行は stdin と stdout の両方が端末であることで判定する](./terminal-run-judged-by-stdin-and-stdout.md) - 端末からの実行を stdin と stdout の両方が端末であることで判定し、判定を 1 か所に置いて verify と new で同じものを使い、判定を外す環境変数は製品に持たない。 (stable)
 
 ## ADR と規範文の書き方
 
