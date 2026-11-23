@@ -9,6 +9,9 @@ refines:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:18:04+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T12:52:00+09:00"
 ---
 # 文書の契約と関係の制約を検査する
 
