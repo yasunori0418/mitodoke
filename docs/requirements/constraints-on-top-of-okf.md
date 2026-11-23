@@ -4,22 +4,23 @@ type: requirement
 name: "OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する"
 description: "OKF v0.2 の定義に重ねた 5 つの制約を持ち、verified の形・generated・status を構造の契約として検査し、description の欠けは mitodoke new が起票で拒み、人の確認は generated.at 以降の verified だけを数える。"
 specification: |
-  On top of the OKF v0.2 definitions, the following constraints SHALL be inspected as
+  On top of the OKF v0.2 definitions, the following three constraints SHALL be inspected as
   structural contracts. `verified` SHALL be a list, and a single mapping SHALL be a
   violation. Every item SHALL carry `generated`, and `generated.at` SHALL NOT be in the
-  future. An item of every type SHALL carry `status`. mitodoke new SHALL refuse to create an
-  item without `description`, and mitodoke check SHALL NOT treat the lack of `description` on
-  an existing item as a violation. As a counting rule, only `verified` entries whose `at` is at
-  or after `generated.at` SHALL count as human verifications, and a `verified` entry whose `at`
-  is before `generated.at` SHALL NOT be treated as a violation.
+  future. An item of every type SHALL carry `status`. In addition, mitodoke new SHALL refuse to
+  create an item without `description`. mitodoke check SHALL NOT treat the lack of
+  `description` on an existing item as a violation. As a counting rule, only `verified` entries
+  whose `at` is at or after `generated.at` SHALL count as human verifications. A `verified`
+  entry whose `at` is before `generated.at` SHALL NOT be treated as a violation.
 specification_ja: |
-  OKF v0.2 の定義に重ねて、次の制約を構造の契約として検査しなければならない。`verified` は
+  OKF v0.2 の定義に重ねて、次の 3 つの制約を構造の契約として検査しなければならない。`verified` は
   リストでなければならず、1 つの mapping は違反としなければならない。すべての item は
   `generated` を持たなければならず、`generated.at` を未来の時刻にしてはならない。すべての型の
-  item は `status` を持たなければならない。mitodoke new は `description` の無い起票を拒まなければ
-  ならず、mitodoke check は既存の item の `description` の欠けを違反にしてはならない。数え方の規則
-  として、人の確認として数えるのは、`at` が `generated.at` 以降の `verified` の要素だけでなければ
-  ならず、`at` が `generated.at` より前の `verified` の要素があっても違反にしてはならない。
+  item は `status` を持たなければならない。
+  また、mitodoke new は `description` の無い起票を拒まなければならない。
+  mitodoke check は、既存の item の `description` の欠けを違反にしてはならない。数え方の規則として、
+  人の確認として数えるのは `at` が `generated.at` 以降の `verified` の要素だけでなければならない。
+  `at` が `generated.at` より前の `verified` の要素があっても、違反にしてはならない。
 section: inspection
 status: stable
 derives_from:

@@ -26,9 +26,10 @@ specification_ja: |
   `generated.at` が変わっていない item）・人の確認が要るのに無い item・stale_after の期限切れと間隔の超過の
   報告）、index（index.md の生成）、matrix（テスト資産とテストケース・テスト条件・リスクの対応表の生成）、
   model（設定からの model.yaml の生成）、verify（人の確認の記録。item を指定しないときは、対話で選んだ枝を
-  たどる）、export（item の一覧の JSON の出力）、check（検査）。すべてのサブコマンドは --json を持たなければ
-  ならない。index と model は、生成した結果とコミットされたファイルに差分が無いことを確かめる --check を
-  持たなければならない。`index` と `model` の `--check` は、差分があれば exit code 1 で終わらなければならない。
+  たどる）、export（item の一覧の JSON の出力）、check（検査）。
+  すべてのサブコマンドは --json を持たなければならない。
+  index と model は、生成した結果とコミットされたファイルに差分が無いことを確かめる --check を持たなければ
+  ならない。`index` と `model` の `--check` は、差分があれば exit code 1 で終わらなければならない。
   check は、構造の契約・つながりの欠け・見直しの義務の検査をまとめて実行し、指摘ごとに失敗にするか報告に
   するかを設定の強さで決めなければならない。
 section: commands

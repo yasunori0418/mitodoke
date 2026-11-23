@@ -24,18 +24,18 @@ specification: |
   `deprecated`, `draft` included. The strength of every inspection SHALL be changeable in the
   configuration.
 specification_ja: |
-  既定では、構造の契約の違反は失敗としなければならない。構造の契約は、次のものとしなければならない。
+  既定では、構造の契約の違反は失敗としなければならない。構造の契約は、
   `sara check`（`solution` の `stale_after` の欠けを含む）、frontmatter の形、ID の置き場所、test_case と
   テスト資産の 1:1、risk の `level` の導出、`supersedes` の先が `deprecated` であること、`index.md` の差分、
   test_case の `covers` と `follows`、宣言の無い frontmatter のキー、OKF のキーの形と値、OKF に重ねる制約、
-  型と置き場所の一致、テスト資産の重複。既定では、つながりの欠けと見直しの義務は、失敗にせずに報告
-  しなければならない。つながりの欠けは、次のものとしなければならない。covers されない test_condition、
+  型と置き場所の一致、テスト資産の重複でなければならない。既定では、つながりの欠けと見直しの義務は、失敗にせずに報告
+  しなければならない。つながりの欠けは、covers されない test_condition、
   mitigates されない risk、threatens されない requirement、satisfies されない quality、有効な requirement
   を持たない有効な use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たない
-  品質特性。見直しの義務は、次のものとしなければならない。上流の変更による再確認待ち、generated の更新
+  品質特性でなければならない。見直しの義務は、上流の変更による再確認待ち、generated の更新
   漏れ（基準のリビジョンとの差分で本文が変わったのに `generated.at` が変わっていない item）、人の確認が
   無い high の risk、人の確認が無い有効な solution と use_case、stale_after の期限切れ、stale_after の
-  間隔の超過。これらの列挙の「有効な」は、`status` が `deprecated` でないこと（`draft` を含む）と
+  間隔の超過でなければならない。これらの列挙の「有効な」は、`status` が `deprecated` でないこと（`draft` を含む）と
   しなければならない。どの検査の強さも、設定で変えられなければならない。
 section: inspection
 status: stable

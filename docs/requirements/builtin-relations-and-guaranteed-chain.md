@@ -6,8 +6,8 @@ description: "組み込みの relation を上流の 8 つと peer の 3 つと�
 specification: |
   The built-in relations SHALL be the eight upstream relations `refines`, `derives_from`,
   `satisfies`, `threatens`, `mitigates`, `covers`, `follows` and `justifies`, and the three peer
-  relations `depends_on`, `supersedes` and `references`. Each built-in relation SHALL be
-  declared only from the following source types to the following target types: `refines` from
+  relations `depends_on`, `supersedes` and `references`. The source types and the target types
+  of the built-in relations SHALL be the following: `refines` from
   use_case to solution; `derives_from` from requirement to use_case, and from quality and
   test_plan to solution; `satisfies` from design to requirement and test_plan, and from
   infrastructure to quality and design; `threatens` from risk to requirement and design;
@@ -22,14 +22,14 @@ specification: |
 specification_ja: |
   組み込みの relation は、上流の relation `refines`・`derives_from`・`satisfies`・`threatens`・
   `mitigates`・`covers`・`follows`・`justifies` の 8 つと、peer の relation `depends_on`・`supersedes`・
-  `references` の 3 つでなければならない。組み込みの relation は、次の張り元の型から張り先の型へだけ
-  張れなければならない。`refines` は use_case から solution へ。`derives_from` は requirement から
-  use_case へ、quality と test_plan から solution へ。`satisfies` は design から requirement と
-  test_plan へ、infrastructure から quality と design へ。`threatens` は risk から requirement と
-  design へ。`mitigates` は test_condition から risk へ。`covers` は test_case から test_condition へ。
-  `follows` は test_case から test_plan へ。`justifies` は adr から requirement・design・infrastructure・
-  quality・test_plan へ。`depends_on` は requirement・design・quality・test_plan・infrastructure から
-  同じ型の item へ。`supersedes` と `references` は adr から adr へ。保証する連鎖は requirement →
+  `references` の 3 つでなければならない。組み込みの relation の張り元の型と張り先の型は、`refines` が
+  use_case から solution、`derives_from` が requirement から use_case と、quality・test_plan から
+  solution、`satisfies` が design から requirement・test_plan と、infrastructure から quality・design、
+  `threatens` が risk から requirement・design、`mitigates` が test_condition から risk、`covers` が
+  test_case から test_condition、`follows` が test_case から test_plan、`justifies` が adr から
+  requirement・design・infrastructure・quality・test_plan、`depends_on` が requirement・design・quality・
+  test_plan・infrastructure から同じ型の item、`supersedes` と `references` が adr から adr でなければ
+  ならない。保証する連鎖は requirement →
   risk → test_condition → test_case でなければならない。design はこの連鎖の任意の中継点でなければ
   ならない。requirement に design を必須にしてはならず、risk を持たない design は正常としなければ
   ならず、未カバーの指標に design を数えてはならない。
@@ -39,14 +39,14 @@ derives_from:
   - "UC-7575b60a-c45b-4d2c-9c88-3cf68a884a35"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:58:36+09:00"
+  at: "2026-11-23T11:05:37+09:00"
 ---
 # 組み込みの relation は上流の 8 つと peer の 3 つとし、保証する連鎖は requirement → risk → test_condition → test_case とする
 
 ## 仕様
 
-組み込みの relation は、上流の relation 8 つと peer の relation 3 つとする。relation は、次の表の張り元の型から
-張り先の型へだけ張れる。
+組み込みの relation は、上流の relation 8 つと peer の relation 3 つとする。relation ごとの張り元の型と
+張り先の型は、次の表のとおりとする。
 
 | relation | 向き | 張り元の型 | 張り先の型 |
 |---|---|---|---|
