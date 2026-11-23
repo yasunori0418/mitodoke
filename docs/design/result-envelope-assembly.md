@@ -12,7 +12,7 @@ satisfies:
   - "REQ-ecc41a24-b465-4ab9-ba1b-e56dc5f8a17c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T19:36:10+09:00"
+  at: "2026-11-23T19:43:47+09:00"
 ---
 # 結果エンベロープを outturn のモジュールで組み立てる
 
@@ -63,7 +63,7 @@ item の `kind` は、契約名を小文字のスネークケースで書く。�
 |---|---|---|---|
 | ファイルを書く `new`・`init`・`index`・`model`・`verify` | 書いたファイル 1 つを item 1 つにする | `false` | `add` か `modify` を並べる |
 | `index` と `model` の `--check` | 差分のあるファイルを `failed` の item にし、差分があれば exit 1 で終える | `true` | 書くはずだった変更を並べる |
-| 読むだけの `check`・`gap`・`fresh`・`matrix`・`export` | 契約と文書の組、または節と文書の組 | `true` | 出さない |
+| 読むだけの `check`・`gap`・`fresh`・`matrix`・`export` | `check`・`gap`・`fresh` は「item と警告の表し方」のとおりにする | `true` | 出さない |
 
 `label` はすべての item に付ける。文書を表す item の `key` は文書の ID で、`label` は文書の `name` に
 する。文書の ID を持たない item（読み飛ばされたファイル、書いたファイル）の `key` と `label` は、
