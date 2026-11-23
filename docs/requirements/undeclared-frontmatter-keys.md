@@ -20,6 +20,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:54:50+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:43:02+09:00"
 ---
 # 宣言の無い frontmatter のキーは構造の契約の違反とする
 
