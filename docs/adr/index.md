@@ -134,6 +134,8 @@
 
 * [設定ファイルは作業ディレクトリのものだけを読み、読んだパスを info に記録する](./config-read-from-working-directory-and-recorded.md) - 設定ファイルの指定を省いたときは作業ディレクトリのものだけを読み、実行時の作業ディレクトリと読んだ設定ファイルの絶対パスをエンベロープのトップレベルの info に記録する。 (stable)
 * [写した契約テストを CLI の受け入れテストにする](./contract-tests-as-cli-acceptance-tests.md) - 写した契約テストを mitodoke の CLI の受け入れテストにし、outturn の result.info の下の JSON のキー・exit code・起票の id: と file: の 2 行を揃え、text 出力の見出しと行の形式は揃えない。 (stable)
+* [changes・dryRun・label はファイルを書くかで分け、ID の無い item はパスで表す](./envelope-changes-dry-run-label-and-path-keys.md) - ファイルを書くサブコマンドは書いたファイルを item と changes[] に並べて dryRun を false にし、--check と読むだけのサブコマンドは dryRun を true にし、label はすべての item に付け、文書の ID を持たない item の key と label は設定ファイルのあるディレクトリからの相対パスにする。 (stable)
+* [エンベロープの subject は固定の documents 1 つにする](./envelope-subject-fixed-to-documents.md) - エンベロープの results[] の要素を常に 1 つにし、subject.name を固定の文字列 documents にする。 (stable)
 * [export は sara 0.12 の items\[\] の形を写して固定し、OKF のキーを加える](./export-shape-fixed-from-sara-items.md) - export の形は今の sara 0.12 の items[] を写して mitodoke の形として固定し、OKF のキーを加えて outturn の item の info の下に置き、sara の形が変わっても自動では変えない。 (stable)
 * [サブコマンドの --json は outturn のエンベロープにし、standalone まで適合させる](./json-output-conforms-to-outturn.md) - mitodoke のすべてのサブコマンドの --json を outturn の結果エンベロープにし、§8 の standalone まで含めて適合させ、既定の text 出力は変えない。 (stable)
 * [報告の指摘は success の item の警告で表し、働く強さは exit code で決める](./report-findings-as-success-items-with-warnings.md) - 指摘に働く強さをその実行の exit code を 0 でなくするかで決め、失敗は failed の item と E_MITODOKE_ のコード、報告は success の item と W_MITODOKE_ の警告で表し、gap の情報の節と到達率は result.info に置く。 (stable)
