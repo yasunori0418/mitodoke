@@ -28,7 +28,7 @@
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の形と値を検査する](./okf-key-inspection.md) - OKF のキーをどの型の item でも受け付け、その形と値が OKF v0.2 の定義に従っているかを構造の契約として検査する。
 * [用語の一覧と avoid を JSON で出力する](./terms-and-avoid-exported-as-json.md) - 用語の一覧と各用語の avoid を JSON で出力し、避ける綴りの検査そのものは mitodoke に持たない。
 * [test_case は covers と follows をそれぞれ 1 本以上持たなければならない](./test-case-link-contract.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約とし、どちらかが欠けた test_case を違反とする。
-* [宣言の無い frontmatter のキーは構造の契約の違反とする](./undeclared-frontmatter-keys.md) - sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反とし、OKF のキーは違反にしない。
+* [宣言の無い frontmatter のキーは構造の契約の違反とする](./undeclared-frontmatter-keys.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反とする。
 
 ## コマンド
 

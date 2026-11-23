@@ -109,7 +109,7 @@
 * [OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない](./stricter-than-okf-constraints-and-inspection-points.md) - OKF v0.2 に重ねた 5 つの制約を引き継ぎ、description の欠けは mitodoke new が起票を拒むことで検査して check では違反にせず、generated.at 以降の verified だけを人の確認に数える規則は違反の条件を持たない数え方にする。 (stable)
 * [test_case は covers と follows をそれぞれ 1 本以上持つ](./test-case-requires-covers-and-follows.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約にし、欠けたら失敗にする。 (stable)
 * [トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない](./tracker-independent-defect-norm-shipped.md) - トラッカーに依らない欠陥運用の規範を製品に含め、GitHub 用の部分は例として置き、mitodoke は欠陥の Issue を検査しない。 (stable)
-* [宣言の無い frontmatter のキーを構造の契約の違反にする](./undeclared-frontmatter-keys-rejected.md) - sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。 (stable)
+* [宣言の無い frontmatter のキーを違反にし、宣言はその item の型のものに限る](./undeclared-frontmatter-keys-per-type.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、ほかの型だけで宣言されたフィールドも違反にする。 (stable)
 
 ## コマンド
 
@@ -171,3 +171,4 @@
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
 * [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (deprecated)
 * [用語を ubiquitous_term の item で管理する](./ubiquitous-term-type.md) - 用語の正名・避ける綴り・定義は、`CONTEXT.md`（日本語の長い定義）と `docs/glossary.md` / `docs/glossary.ja.md`（英日の短い定義）の 3 ファイルが重ねて持っていた。3 ファイルの同期は手作業で、語の数も定義の中身もすでに食い違っている。用語を 2 語足すだけで 5 ファイルを直す必要があった（#644）。 (deprecated)
+* [宣言の無い frontmatter のキーを構造の契約の違反にする](./undeclared-frontmatter-keys-rejected.md) - sara の組み込みのキーでも、model で宣言されたフィールドや relation でもない frontmatter のキーを構造の契約の違反として mitodoke check で失敗にし、OKF のキーは違反にしない。 (deprecated)
