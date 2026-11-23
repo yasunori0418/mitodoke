@@ -102,7 +102,7 @@
 ## 検査
 
 * [避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる](./avoid-spelling-check-left-to-adopters.md) - 用語の避ける綴りの検査を mitodoke に内蔵せず、mitodoke の JSON 出力を使って適用先の製品が検査を組み立てる。 (stable)
-* [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (stable)
+* [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](./default-strength-with-closed-lists.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、3 つの分類に当たる検査を閉じた列挙で決め、どの検査も設定で強さを変えられるようにする。 (stable)
 * [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
 * [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](./non-human-verified-accepted-not-counted-as-human.md) - verified に human: 以外の要素も受け付け、再確認待ちの基準時刻には数えるが、人の確認には数えない。 (stable)
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する](./okf-keys-accepted-on-all-types.md) - OKF のキーをどの型の item でも受け付け、OKF v0.2 の定義に従っているかを構造の契約として検査する。 (stable)
@@ -150,6 +150,7 @@
 * [ADR の規則を汎用とプロジェクト当てはめに分けて書く](./adr-rules-generic-and-project-split.md) - ADR の規則は `docs/adr/README.md` に、layat の ADR 番号・型の区分・実データと同じ文書に書かれていた。 (deprecated)
 * [提案を棄却した決定は status 不採用 で記録する](./adr-status-rejected.md) - ADR の `status` は、実データの表記に合わせて日本語の値を持つ enum にしている。組み込みの英語の値（`proposed` / `accepted` / `deprecated`）は使っていない。 (deprecated)
 * [ADR も UUID で採番し、連番の旧 ADR は legacy_adr 型に凍結する](./adr-uuid-ids-and-legacy-type.md) - ADR だけは連番（`ADR-NNNN`）で採番してきた。既存 ADR の相互参照やコミットメッセージでの言及を無効にしないためである。一方、並列レーンで ADR を起こすと、複数のレーンが同じ「次の番号」を取る構造が残っていた。 (deprecated)
+* [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にする](./default-strength-fail-structure-report-gaps.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、どの検査も設定で強さを変えられるようにする。 (deprecated)
 * [欠陥 issue のクローズ時にテスト系 item の欠落を追補する](./defect-close-backfills-risks.md) - [欠陥はグラフに置かず GitHub Issues で管理する](defects-in-github-issues.md)。グラフのrisk / test_condition は予防の体系だが、起きた欠陥から学ばなければ、ある時点の分析を写したまま古びていく。 (deprecated)
 * [フル ID は frontmatter と H1 見出しだけに書き、item にはリンクで触れる](./full-ids-in-frontmatter-and-h1.md) - フル ID の書き場所を frontmatter と H1 見出しに限り、`specification` などの文字列でも item へは Markdown リンクで触れ、ファイル名は `<slug>.md` にする。 (deprecated)
 * [ID はフル UUID に統一し 8 文字省略形を使わない](./full-uuid-ids-no-short-form.md) - item の正式 ID はフル UUIDv4 だが、ファイル名と散文中の参照には前方 8 文字の省略形を使っていた。フル UUID は人が読めないという前提への対処だった。 (deprecated)
