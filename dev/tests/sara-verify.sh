@@ -372,9 +372,8 @@ assert_has "solution の問いの 2 行目も # の行で載せる" "# solution 
 assert_has "use_case の問いを # の行で EDITOR に載せる" "# use_case の問い。" "$editor_log"
 assert_lacks "requirement には問いを載せない" "# use_case の問い。" "$(sed -n '/^# docs\/req-4.md /,$p' <<<"$editor_log")"
 fzf_log="$(<"$STUB_FZF_LOG")"
-assert_has "solution で選ぶ画面のヘッダに確認の問いを載せる" "solution の問いの 2 行目。" "$fzf_log"
-assert_has "use_case で選ぶ画面のヘッダに確認の問いを載せる" "use_case の問い。" "$fzf_log"
-assert_lacks "requirement で選ぶ画面のヘッダには問いを載せない" "の問い" "$(sed -n "/$REQ_4 docs\/req-4.md/,\$p" <<<"$fzf_log")"
+assert_eq "記録するかを選ぶ画面は、端末に出した問いを隠さないよう画面の一部に出す" 3 \
+  "$(grep -c -- '--height=~50% --header .* docs/' <<<"$fzf_log")"
 assert_eq "「記録する」を選んだ item の数だけ EDITOR を開く" 3 "$(grep -c '^=== ' <<<"$editor_log")"
 
 assert_eq "requirement では問いを端末に出さない（use_case の問いは 1 度だけ）" 1 "$(grep -c 'use_case の問い。' <<<"$out")"

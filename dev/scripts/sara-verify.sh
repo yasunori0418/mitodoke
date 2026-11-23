@@ -273,8 +273,8 @@ for t in "${targets[@]}"; do
     [ -z "$questions" ] || printf '%s\n' "$questions"
   fi
 
-  # 全画面の fzf では端末に出した問いが隠れるので、ヘッダにも載せる。
-  choice=$(pick --header "$id $file${questions:+$'\n'$questions}" <<<$'記録する\n飛ばす\n中断する') || stop_on $?
+  # 全画面の fzf では端末に出した問いが隠れ、ヘッダでは長い行が切れるので、画面の一部に出して問いを上に残す。
+  choice=$(pick --height=~50% --header "$id $file" <<<$'記録する\n飛ばす\n中断する') || stop_on $?
   case "$choice" in
     飛ばす) continue ;;
     中断する) break ;;
