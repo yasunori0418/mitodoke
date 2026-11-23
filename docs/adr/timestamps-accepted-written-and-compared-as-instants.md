@@ -15,9 +15,10 @@ justifies:
   - "REQ-0827f299-fbdc-46ed-8a04-ca4378ad0c79"
   - "REQ-6ae12339-4f49-45f9-8b8a-b39d2da58a85"
   - "REQ-47318ae1-da64-4e9e-9345-60f39648ff05"
+  - "REQ-da3bf704-20f3-4c26-bd7a-c25adb45b733"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:48:32+09:00"
+  at: "2026-11-23T20:22:00+09:00"
 ---
 # 時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる
 

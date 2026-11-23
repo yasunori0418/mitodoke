@@ -27,7 +27,9 @@ specification: |
   inspection SHALL be changeable in the configuration.
   In the missing `generated` update, the body SHALL be the lines outside the frontmatter together
   with `specification` and `specification_<language>` in the frontmatter, and a change of `name`,
-  `description`, `status`, a relation or an OKF key SHALL NOT count as a change of the body. In a
+  `description`, `status`, a relation or an OKF key SHALL NOT count as a change of the body. When
+  only the notation of `generated.at` is rewritten and it points to the same instant, the
+  inspection SHALL regard `generated.at` as not changed. In a
   run given no base revision, mitodoke SHALL NOT perform the inspection of missing `generated`
   updates, and check and fresh SHALL record in the result that the inspection was not performed.
 
@@ -61,7 +63,8 @@ specification_ja: |
   働かせなければならない。どの検査の強さも、設定で変えられなければならない。
   generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
   `specification_<言語>` を加えたものでなければならず、`name`・`description`・`status`・relation・
-  OKF のキーの変更は、本文の変更に数えてはならない。基準のリビジョンを渡さない実行では、mitodoke は
+  OKF のキーの変更は、本文の変更に数えてはならない。`generated.at` の表記だけを書き換えて同じ時刻を
+  指しているときは、検査は `generated.at` が変わっていないとみなさなければならない。基準のリビジョンを渡さない実行では、mitodoke は
   generated の更新漏れの検査をしてはならず、check と fresh は、検査しなかったことを結果に記録しなければ
   ならない。
 
@@ -82,7 +85,7 @@ derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T19:28:02+09:00"
+  at: "2026-11-23T20:22:00+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -131,7 +134,8 @@ mitodoke の検査は、構造の契約、つながりの欠け、見直しの�
 
 generated の更新漏れの本文は、frontmatter の外の行に、frontmatter の `specification` と
 `specification_<言語>` を加えたものとする。`name`・`description`・`status`・relation・OKF のキーの変更は、
-本文の変更に数えない。基準のリビジョンを渡さない実行では、generated の更新漏れの検査をしない。`check` と
+本文の変更に数えない。`generated.at` の表記だけを書き換えて同じ時刻を指しているときは、`generated.at` が
+変わっていないとみなす。基準のリビジョンを渡さない実行では、generated の更新漏れの検査をしない。`check` と
 `fresh` は、検査しなかったことを結果に記録する。frontmatter の外の行の比較で除く行（今の規則は
 [generated の更新漏れの検査は、frontmatter の specification も本文に数える](../adr/generated-update-check-includes-specification.md)
 にある）を固定にするか設定から導くかは、再確認と人の確認の epic が決め、この要件では定めない。
@@ -175,6 +179,7 @@ sara-core の読み込みが読み飛ばしたファイル（scan warning）と�
 - [有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える](../adr/active-items-and-edges-counted-in-gap-and-fresh.md)
 - [generated の更新漏れの検査は、frontmatter の specification も本文に数える](../adr/generated-update-check-includes-specification.md)
 - [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](../adr/unreadable-model-exits-without-builtin-fallback.md)
+- [時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる](../adr/timestamps-accepted-written-and-compared-as-instants.md)
 
 新しく足した検査の要件は次の item が持つ。
 
