@@ -26,6 +26,7 @@
 * [fresh は、人の確認の無い solution と use_case、期限切れ、期限の間隔の超過を報告する](./fresh-reports-unverified-validation-and-expiry.md) - mitodoke fresh は人の確認の無い有効な solution と use_case、stale_after の期限切れ、stale_after の間隔の超過を見直しの義務として報告する。
 * [gap は、要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を報告し、人が判断するテスト条件を一覧にする](./gap-reports-upstream-and-quality-characteristic-gaps.md) - mitodoke gap は有効な requirement を持たない有効な use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たず対象外にもしていない品質特性をつながりの欠けとして報告し、human_judgement を持つ有効な test_condition を情報として一覧にする。
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の形と値を検査する](./okf-key-inspection.md) - OKF のキーをどの型の item でも受け付け、その形と値が OKF v0.2 の定義に従っているかを構造の契約として検査する。
+* [下流の item の基準時刻より上流の generated.at が新しければ、下流を再確認待ちとして報告する](./staleness-judgement.md) - 上流の relation 7 つの直接の辺で、下流の item の基準時刻より上流の item の generated.at が新しければ、その下流の item を再確認待ちとして報告し、verified は自動で加えない。
 * [用語の一覧と avoid を JSON で出力する](./terms-and-avoid-exported-as-json.md) - 用語の一覧と各用語の avoid を JSON で出力し、避ける綴りの検査そのものは mitodoke に持たない。
 * [test_case は covers と follows をそれぞれ 1 本以上持たなければならない](./test-case-link-contract.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約とし、どちらかが欠けた test_case を違反とする。
 * [宣言の無い frontmatter のキーは構造の契約の違反とする](./undeclared-frontmatter-keys.md) - sara の組み込みのキー、OKF の 4 つのキー、その item の型で宣言されたフィールドと relation のどれでもない frontmatter のキーを構造の契約の違反とする。
