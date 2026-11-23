@@ -9,6 +9,9 @@ refines:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:18:04+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:49:21+09:00"
 ---
 # 品質に関わる成果物を item として起こし、関係を張る
 
