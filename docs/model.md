@@ -143,7 +143,7 @@ item の**基準時刻**はその item の `generated.at` と、`generated.at` �
   `generated.at` 以降の `human:` の `verified` を持たないものを挙げる（→ 同上）
 
 再確認待ちと人の確認が無い high の risk は、devShell の `sara-fresh` が列挙する。`generated` の更新漏れは、`--base <ref>` を渡した `sara-fresh` が列挙する。
-人の確認の記録には devShell の `sara-verify` を使える。枝を選び、上流から順に item を表示して、記録すると決めた item の `verified` に `human:` の要素を足し、ファイルごとにコミットする。
+人の確認の記録には devShell の `sara-verify` を使える。`solution` から枝を選んで上流から順に item を表示するか、`solution` から辿れない `adr` と `ubiquitous_term` を一覧から選んで表示して、記録すると決めた item の `verified` に `human:` の要素を足し、ファイルごとにコミットする。
 
 ### `stale_after`
 

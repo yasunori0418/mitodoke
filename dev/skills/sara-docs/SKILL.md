@@ -126,7 +126,8 @@ relation は**起こした側（下流）の frontmatter に宣言する**（`sa
   `stale_after_beyond_interval` = 間隔を決めた型の item のうち、`stale_after` が起点から間隔の日数より先のもの）。
   上流の item を書き換えた後に、下流で読み直す item を探すのに使う。結果は報告に留め、`verified` は自動で付けない。
   exit 0 = どの節も空 / 1 = いずれかの節に item がある / 2 = check 失敗か frontmatter を読めない item がある、`SARA_FRESH_NOW` を時刻として読めない、または `--base` の ref を解決できないか merge-base が無い。
-- **`sara-verify`**: 人の確認を記録する対話のコマンド。枝を選び、上流から順に item を表示し、人が記録すると決めた item の
+- **`sara-verify`**: 人の確認を記録する対話のコマンド。起点の型（`solution`・`adr`・`ubiquitous_term`）を選ぶ。
+  `solution` では枝を選んで上流から順に、`adr` と `ubiquitous_term` では一覧から選んだ item を表示し、人が記録すると決めた item の
   `verified` に `human:` の要素を足して、ファイルごとにコミットする。人が端末で使うもので、エージェントは実行しない
   （stdin と stdout が端末でないと exit 2）。
 
