@@ -21,6 +21,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:33:40+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:42:46+09:00"
 ---
 # item の置き場所は、設定に持つ型ごとの置き場所と一致しなければならない
 
