@@ -55,9 +55,10 @@ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 
 mkdir -p "$work/bin"
 # fzf: キューの先頭の行を取り出し、候補のうちそれを含む最初の行を出す。
-# __INT__ は Ctrl-C（exit 130）。キューが尽きたら 98、候補に無ければ 99 で落ちる。
+# __INT__ は Ctrl-C（exit 130）。キューが尽きたら 98、候補に無ければ 99 で落ちる。受けた引数はログへ写す。
 cat >"$work/bin/fzf" <<'SH'
 #!/usr/bin/env bash
+printf '=== %s\n' "$*" >>"$STUB_FZF_LOG"
 candidates=$(cat)
 pattern=$(head -n 1 "$STUB_QUEUE")
 [[ -s "$STUB_QUEUE" ]] || exit 98
@@ -66,12 +67,12 @@ sed -i 1d "$STUB_QUEUE"
 grep -F -m 1 -- "$pattern" <<<"$candidates" || exit 99
 SH
 # leaf: 表示したファイルを記録する。STUB_LEAF_INT に一致するファイルでは呼び出し元へ SIGINT を送り、
-# STUB_LEAF_FAIL に一致するファイルでは exit 127 で落ちる。
+# STUB_LEAF_FAIL に一致するファイルでは STUB_LEAF_RC（既定 127）で落ちる。
 cat >"$work/bin/leaf" <<'SH'
 #!/usr/bin/env bash
 printf '%s\n' "$1" >>"$STUB_LEAF_LOG"
 if [[ -n "${STUB_LEAF_INT-}" && "$1" == "$STUB_LEAF_INT" ]]; then kill -INT "$PPID"; fi
-if [[ -n "${STUB_LEAF_FAIL-}" && "$1" == "$STUB_LEAF_FAIL" ]]; then exit 127; fi
+if [[ -n "${STUB_LEAF_FAIL-}" && "$1" == "$STUB_LEAF_FAIL" ]]; then exit "${STUB_LEAF_RC:-127}"; fi
 SH
 # EDITOR: 初期の文面をログへ写し、STUB_COMMENT を書き足す（# の行は残したまま）。
 # STUB_COMMENT の %s は、初期の文面の 1 行目にある item のパスに置き換える。
@@ -290,10 +291,11 @@ fresh() {
   n=$((n + 1))
   repo="$work/repo-$n"
   make_repo "$repo"
-  export STUB_QUEUE="$work/queue-$n" STUB_LEAF_LOG="$work/leaf-$n" STUB_EDITOR_LOG="$work/editor-$n"
+  export STUB_QUEUE="$work/queue-$n" STUB_LEAF_LOG="$work/leaf-$n" STUB_EDITOR_LOG="$work/editor-$n" STUB_FZF_LOG="$work/fzf-$n"
   printf '%s\n' "$@" >"$STUB_QUEUE"
   : >"$STUB_LEAF_LOG"
   : >"$STUB_EDITOR_LOG"
+  : >"$STUB_FZF_LOG"
   base=$(git -C "$repo" rev-parse HEAD)
 }
 
@@ -369,6 +371,10 @@ assert_has "solution の問いを # の行で EDITOR に載せる" "# solution �
 assert_has "solution の問いの 2 行目も # の行で載せる" "# solution の問いの 2 行目。" "$editor_log"
 assert_has "use_case の問いを # の行で EDITOR に載せる" "# use_case の問い。" "$editor_log"
 assert_lacks "requirement には問いを載せない" "# use_case の問い。" "$(sed -n '/^# docs\/req-4.md /,$p' <<<"$editor_log")"
+fzf_log="$(<"$STUB_FZF_LOG")"
+assert_has "solution で選ぶ画面のヘッダに確認の問いを載せる" "solution の問いの 2 行目。" "$fzf_log"
+assert_has "use_case で選ぶ画面のヘッダに確認の問いを載せる" "use_case の問い。" "$fzf_log"
+assert_lacks "requirement で選ぶ画面のヘッダには問いを載せない" "の問い" "$(sed -n "/$REQ_4 docs\/req-4.md/,\$p" <<<"$fzf_log")"
 assert_eq "「記録する」を選んだ item の数だけ EDITOR を開く" 3 "$(grep -c '^=== ' <<<"$editor_log")"
 
 assert_eq "requirement では問いを端末に出さない（use_case の問いは 1 度だけ）" 1 "$(grep -c 'use_case の問い。' <<<"$out")"
@@ -421,6 +427,11 @@ fresh "$UC_A" "$REQ_4" 記録する
 STUB_LEAF_FAIL=docs/uc-a.md run_verify
 assert_eq "leaf の失敗は exit 2" 2 "$status"
 assert_eq "途中で失敗しても、そこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
+
+fresh "$UC_A" "$REQ_4" 記録する
+STUB_LEAF_FAIL=docs/uc-a.md STUB_LEAF_RC=130 run_verify
+assert_eq "leaf の exit 130 は中断として exit 130" 130 "$status"
+assert_eq "leaf の exit 130 でそこまでの記録をコミットする" "docs(solution): sol" "$(subjects)"
 
 # --- 拒否 -----------------------------------------------------------------------
 
