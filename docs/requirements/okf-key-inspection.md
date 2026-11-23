@@ -18,6 +18,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:01:27+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:42:30+09:00"
 ---
 # OKF のキーは型を問わず受け付け、OKF v0.2 の形と値を検査する
 

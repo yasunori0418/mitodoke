@@ -33,6 +33,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:44:11+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:41:40+09:00"
 ---
 # テスト資産の一覧は設定のコマンドとファイルから読み、併用した一覧の重複は失敗とする
 

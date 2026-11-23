@@ -55,11 +55,12 @@ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 
 mkdir -p "$work/bin"
 # fzf: キューの先頭の行を取り出し、候補のうちそれを含む最初の行を出す。
-# __INT__ は Ctrl-C（exit 130）。キューが尽きたら 98、候補に無ければ 99 で落ちる。受けた引数はログへ写す。
+# __INT__ は Ctrl-C（exit 130）。キューが尽きたら 98、候補に無ければ 99 で落ちる。受けた引数と候補は、別々のログへ写す。
 cat >"$work/bin/fzf" <<'SH'
 #!/usr/bin/env bash
 printf '=== %s\n' "$*" >>"$STUB_FZF_LOG"
 candidates=$(cat)
+printf '===\n%s\n' "$candidates" >>"$STUB_CANDIDATES_LOG"
 pattern=$(head -n 1 "$STUB_QUEUE")
 [[ -s "$STUB_QUEUE" ]] || exit 98
 sed -i 1d "$STUB_QUEUE"
@@ -103,6 +104,11 @@ DSG_1="DSG-dd000001-0000-4000-8000-000000000001"
 REQ_EQ="REQ-aaaa0006-0000-4000-8000-000000000006"
 REQ_TZ="REQ-aaaa0007-0000-4000-8000-000000000007"
 RISK_X="RISK-11110001-0000-4000-8000-000000000001"
+UC_V="UC-0ca11004-0000-4000-8000-000000000004"
+REQ_V="REQ-aaaa0008-0000-4000-8000-000000000008"
+UC_DONE="UC-0ca11005-0000-4000-8000-000000000005"
+REQ_DONE="REQ-aaaa0009-0000-4000-8000-000000000009"
+REQ_UNDER_DEP="REQ-aaaa000a-0000-4000-8000-00000000000a"
 
 # <リポジトリ> <ファイル名> <ID> <型> <name> の item を書く。frontmatter の残りは標準入力から受ける。
 item() {
@@ -126,7 +132,8 @@ section: product-scope'
 # 経路と下流（REQ_1・REQ_M から届く DSG_1、深さ 1 の REQ_1 と深さ 2 の DSG_1 から届く RISK_X）、
 # ID の順（DSG_0 < DSG_1 < RISK_X）、deprecated（UC_DEP・REQ_3）、確認済み（REQ_2、generated.at と同じ瞬間を
 # Z で書いた REQ_EQ）、generated.at より前の時差付きの確認（REQ_TZ）、verified の後ろに別のキーが続く item（REQ_4）を
-# 1 つのグラフに置く。
+# 1 つのグラフに置く。枝を選ぶ候補のために、確認済みで下に未確認の要件を持つ UC_V（REQ_V）、下まで確認済みの
+# UC_DONE（REQ_DONE）、deprecated の UC_DEP だけを親に持つ REQ_UNDER_DEP も置く。
 make_repo() {
   local repo=$1
   mkdir -p "$repo/docs"
@@ -161,6 +168,45 @@ YAML
 status: deprecated
 refines:
   - "$SOL"
+$gen
+YAML
+  human_verified='verified:
+  - by: "human:someone"
+    at: "2026-03-02T00:00:00+09:00"'
+  item "$repo" uc-v "$UC_V" use_case "確認済みで下に未確認を持つユースケース" <<YAML
+status: stable
+refines:
+  - "$SOL"
+$gen
+$human_verified
+YAML
+  item "$repo" req-v "$REQ_V" requirement "確認済みのユースケースの下の未確認の要件" <<YAML
+$req
+status: stable
+derives_from:
+  - "$UC_V"
+$gen
+YAML
+  item "$repo" uc-done "$UC_DONE" use_case "下まで確認済みのユースケース" <<YAML
+status: stable
+refines:
+  - "$SOL"
+$gen
+$human_verified
+YAML
+  item "$repo" req-done "$REQ_DONE" requirement "下まで確認済みのユースケースの要件" <<YAML
+$req
+status: stable
+derives_from:
+  - "$UC_DONE"
+$gen
+$human_verified
+YAML
+  item "$repo" req-under-dep "$REQ_UNDER_DEP" requirement "廃止したユースケースだけを親に持つ要件" <<YAML
+$req
+status: stable
+derives_from:
+  - "$UC_DEP"
 $gen
 YAML
   item "$repo" qa-sol "$QA_SOL" quality "solution の確認の問い" <<YAML
@@ -292,10 +338,12 @@ fresh() {
   repo="$work/repo-$n"
   make_repo "$repo"
   export STUB_QUEUE="$work/queue-$n" STUB_LEAF_LOG="$work/leaf-$n" STUB_EDITOR_LOG="$work/editor-$n" STUB_FZF_LOG="$work/fzf-$n"
+  export STUB_CANDIDATES_LOG="$work/candidates-$n"
   printf '%s\n' "$@" >"$STUB_QUEUE"
   : >"$STUB_LEAF_LOG"
   : >"$STUB_EDITOR_LOG"
   : >"$STUB_FZF_LOG"
+  : >"$STUB_CANDIDATES_LOG"
   base=$(git -C "$repo" rev-parse HEAD)
 }
 
@@ -339,6 +387,39 @@ fresh "$UC_B" "$REQ_M" "$DSG_0" 飛ばす 飛ばす 飛ばす 飛ばす
 run_verify
 assert_eq "子の無い item まで降りると、経路だけが対象になる" \
   "docs/sol.md docs/uc-b.md docs/req-m.md docs/dsg-0.md" "$(tr '\n' ' ' <"$STUB_LEAF_LOG" | sed 's/ $//')"
+
+# --- 枝を選ぶ候補 ---------------------------------------------------------------
+
+# 候補のログから、枝を選ぶ画面の何番目か（1 始まり）の候補を出す。
+candidates_of() { awk -v n="$1" '$0 == "===" { i++; next } i == n' "$STUB_CANDIDATES_LOG"; }
+
+fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
+run_verify
+first="$(candidates_of 1)"
+second="$(candidates_of 2)"
+assert_lacks "deprecated の item は枝を選ぶ候補に出ない" "$UC_DEP" "$first"
+assert_lacks "下まで確認済みの枝は候補に出ない" "$UC_DONE" "$first"
+assert_has "確認済みでも、下に未確認の item があれば候補に出る" "$UC_V" "$first"
+assert_eq "候補の確認済みの item には印が付く" "確認済み" "$(grep -F -- "$UC_V" <<<"$first" | cut -f5)"
+assert_eq "未確認の item には印が付かない" "" "$(grep -F -- "$UC_A" <<<"$first" | cut -f5)"
+assert_lacks "2 段目でも deprecated の item は候補に出ない" "$REQ_3" "$second"
+assert_lacks "2 段目でも、下に未確認の item が無い確認済みの item は候補に出ない" "$REQ_2" "$second"
+assert_has "2 段目に未確認の item は出る" "$REQ_1" "$second"
+
+fresh "$UC_A" "$decide" 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす 飛ばす
+verify_args=--all run_verify
+assert_has "--all は下まで確認済みの枝も候補に出す" "$UC_DONE" "$(candidates_of 1)"
+assert_has "--all は確認済みの item も候補に出す" "$REQ_2" "$(candidates_of 2)"
+assert_lacks "--all でも deprecated の item は候補に出ない" "$UC_DEP" "$(candidates_of 1)"
+
+# 根で決めると、下流のすべてが対象になる。deprecated の item を経由してしか届かない item は対象にしない。
+# shellcheck disable=SC2046
+fresh "$decide" $(printf '飛ばす %.0s' $(seq 1 30))
+run_verify
+leaf_log="$(<"$STUB_LEAF_LOG")"
+assert_lacks "deprecated の item を経由してしか届かない item は対象にしない" "docs/req-under-dep.md" "$leaf_log"
+assert_has "確認済みの item の下の未確認の item は対象にする" "docs/req-v.md" "$leaf_log"
+assert_lacks "確認済みの item は対象にしない" "docs/uc-v.md" "$leaf_log"
 
 # --- verified の書き込みと確認の問い ---------------------------------------------
 

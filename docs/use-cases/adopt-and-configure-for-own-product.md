@@ -9,6 +9,9 @@ refines:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:19:18+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:48:46+09:00"
 ---
 # 自分の製品に導入し、構成に合わせて設定する
 

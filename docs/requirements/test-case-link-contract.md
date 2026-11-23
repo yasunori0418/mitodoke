@@ -16,6 +16,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:32:36+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:41:50+09:00"
 ---
 # test_case は covers と follows をそれぞれ 1 本以上持たなければならない
 

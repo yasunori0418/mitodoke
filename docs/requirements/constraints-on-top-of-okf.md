@@ -28,6 +28,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:53:45+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:43:23+09:00"
 ---
 # OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する
 

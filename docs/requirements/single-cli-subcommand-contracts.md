@@ -25,6 +25,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:50:32+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:41:11+09:00"
 ---
 # 1 つの CLI が、サブコマンドごとに入力・出力・exit code を定める
 
