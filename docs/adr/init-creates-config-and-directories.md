@@ -22,7 +22,7 @@ references:
   - "ADR-f900c722-23d9-4dcb-8407-97b4eb98b92a"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:48:50+09:00"
+  at: "2026-11-23T11:05:48+09:00"
 ---
 # init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、規範は複製しない
 
@@ -75,5 +75,5 @@ use_case [文書管理の規範を、初期化のコマンドで適用先の製�
 
 ### init が model.yaml と sara.toml も作る
 
-記録には、この案に固有の不採用の理由は無い。model.yaml と `sara.toml` を設定ファイルから生成すると決めた
-ADR に照らして採らなかった。
+model.yaml と `sara.toml` は、設定ファイルから `model` が生成する。`init` も作ると、同じ生成を 2 つの
+サブコマンドが持つことになるので採らなかった。
