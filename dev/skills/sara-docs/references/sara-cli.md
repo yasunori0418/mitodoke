@@ -217,7 +217,8 @@ sara-verify --all  # human: の verified を持つ item も対象にする
 - 記録: frontmatter の `verified` に `by: "human:<id>"` と `at`（UTC オフセット付きの ISO 8601 の現在時刻）の要素を
   足す。`verified` が無ければリストを作る。ほかの行と `generated` は変えない。`<id>` は環境変数
   `SARA_VERIFY_HUMAN_ID`、無ければ `gh api user --jq .login` の出力
-- コミット: 対象を終えたときと、中断したとき（「中断する」と Ctrl-C）に、記録した item をファイルごとに 1 コミットにする。
+- コミット: 対象を終えたとき、中断したとき（「中断する」と Ctrl-C）、item ごとの流れの途中で失敗したときに、
+  記録した item をファイルごとに 1 コミットにする。
   件名は `docs(<型>): <ファイル名から .md を除いたもの>`、本文は入力したコメントで、空なら本文を書かない。
   現在のブランチにコミットし、ブランチの作成と push はしない
 
