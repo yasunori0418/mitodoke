@@ -21,7 +21,7 @@
 
 ## 検査
 
-* [OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する](./constraints-on-top-of-okf.md) - OKF v0.2 の定義に重ねて、verified をリストに限るなど 5 つの制約を構造の契約として検査する。
+* [OKF の定義に重ねて、verified のリスト限定など 5 つの制約を検査する](./constraints-on-top-of-okf.md) - OKF v0.2 の定義に重ねた 5 つの制約を持ち、verified の形・generated・status を構造の契約として検査し、description の欠けは mitodoke new が起票で拒み、人の確認は generated.at 以降の verified だけを数える。
 * [検査の既定の強さは、構造の契約を失敗、つながりの欠けと見直しの義務を報告とし、設定で変えられる](./default-inspection-strength.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は報告とし、どの検査の強さも設定で変えられるようにする。
 * [fresh は、人の確認の無い solution と use_case、期限切れ、期限の間隔の超過を報告する](./fresh-reports-unverified-validation-and-expiry.md) - mitodoke fresh は人の確認の無い有効な solution と use_case、stale_after の期限切れ、stale_after の間隔の超過を見直しの義務として報告する。
 * [gap は、要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を報告し、人が判断するテスト条件を一覧にする](./gap-reports-upstream-and-quality-characteristic-gaps.md) - mitodoke gap は有効な requirement を持たない有効な use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たず対象外にもしていない品質特性をつながりの欠けとして報告し、human_judgement を持つ有効な test_condition を情報として一覧にする。
