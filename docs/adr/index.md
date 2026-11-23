@@ -116,6 +116,7 @@
 * [generated.by は自由な文字列にする](./generated-by-free-form-string.md) - generated.by の値は書式を限らない自由な文字列とし、空の値と二重引用符・バックスラッシュ・改行を含む値だけを拒む。 (stable)
 * [generated.by は環境変数か引数で受け取り、無ければ端末に限り人の識別子にする](./generated-by-from-env-or-flag.md) - mitodoke new は generated.by を MITODOKE_GENERATED_BY か --by で受け取り、どちらも無いときは端末からの実行に限り human:<id> を作り、端末の無い実行では起票を拒む。 (stable)
 * [人の識別子は、設定に定義したコマンドの出力から取る](./human-id-from-configured-command.md) - mitodoke verify が書く human:<id> の <id> は、mitodoke.yaml に定義したコマンドを利用者の環境で実行した出力から取り、不正な出力では何も書かない。 (stable)
+* [init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、規範は複製しない](./init-creates-config-and-directories.md) - mitodoke init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、mitodoke.yaml があれば上書きせずに拒み、文書管理の規範は複製せず、model.yaml と sara.toml は model に生成させる。 (stable)
 * [new は置き場所を引数で受け取り、型ごとの置き場所と比べる](./new-takes-location-argument.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と比べて、合わなければ起票を拒む。 (stable)
 * [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-with-init.md) - mitodoke の CLI のサブコマンドを、初期化の init と、開発に使う script の名前から接頭辞を外した 9 つの、合わせて 10 個にし、すべてに --json を持たせ、index と model の --check は差分があれば exit code 1 で終える。 (stable)
 * [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](./test-assets-listed-by-configured-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを併用して読む。 (stable)
