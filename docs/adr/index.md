@@ -27,6 +27,7 @@
 * [ADR の issues を sources に移す](./adr-issues-to-sources.md) - ADR の外部参照の Issue を OKF の sources リストへ移し、origin は拡張キーとして残す (stable)
 * [adr の status_note を持たない](./adr-status-note-removed.md) - ADR のステータス行には「採用（2026-06-14 改訂: … → ADR-0015）」のようなカッコ書きの改訂注記が付いていた。enum の値に収まらないので、frontmatter に `status_note` フィールドを設けて受け皿にしていた。 (stable)
 * [item にできない外部参照は text フィールドへ逃がす](./external-references-as-text-fields.md) - ADR は GitHub の Issue や、決定の起点になったセッションを参照する。これらは sara の item ではないので、relation では表せない。relation の参照先は実在する item でなければならず、実在しない ID は破損した参照として検出される。 (stable)
+* [既存の文書への generated の埋め戻しは CLI に持たず、README に例を載せる](./generated-backfill-left-to-adopters.md) - 既存の文書を持つ適用先の製品が item に generated を付ける機能を mitodoke の CLI に持たず、README の導入の手順に埋め戻しの例を載せる。 (stable)
 * [item に生成者・確認の記録・期限のフィールドを持たせる](./generated-verified-stale-after-fields.md) - 生成者と時刻の generated を必須にし、確認の記録 verified と期限 stale_after の形を決め、入れ子キーの形を契約テストで確かめる (stable)
 * [OKF v0.2 と互換の frontmatter キーを item に足す](./okf-compatible-frontmatter.md) - OKF v0.2 と互換の frontmatter キーを sara の item に足す方針と、バンドル単位の適合を追わない範囲を決める (stable)
 * [status を OKF の 3 値にし全ての型に持たせる](./status-okf-values.md) - status を draft / stable / deprecated の 3 値にし、ADR 以外の型にも必須で持たせる (stable)
