@@ -136,6 +136,7 @@
 * [写した契約テストを CLI の受け入れテストにする](./contract-tests-as-cli-acceptance-tests.md) - 写した契約テストを mitodoke の CLI の受け入れテストにし、outturn の result.info の下の JSON のキー・exit code・起票の id: と file: の 2 行を揃え、text 出力の見出しと行の形式は揃えない。 (stable)
 * [export は sara 0.12 の items\[\] の形を写して固定し、OKF のキーを加える](./export-shape-fixed-from-sara-items.md) - export の形は今の sara 0.12 の items[] を写して mitodoke の形として固定し、OKF のキーを加えて outturn の item の info の下に置き、sara の形が変わっても自動では変えない。 (stable)
 * [サブコマンドの --json は outturn のエンベロープにし、standalone まで適合させる](./json-output-conforms-to-outturn.md) - mitodoke のすべてのサブコマンドの --json を outturn の結果エンベロープにし、§8 の standalone まで含めて適合させ、既定の text 出力は変えない。 (stable)
+* [報告の指摘は success の item の警告で表し、働く強さは exit code で決める](./report-findings-as-success-items-with-warnings.md) - 指摘に働く強さをその実行の exit code を 0 でなくするかで決め、失敗は failed の item と E_MITODOKE_ のコード、報告は success の item と W_MITODOKE_ の警告で表し、gap の情報の節と到達率は result.info に置く。 (stable)
 * [check・gap・fresh の item を契約 × 文書の単位にする](./result-items-per-contract-and-document.md) - check・gap・fresh の結果は、1 つの文書が 1 つの契約に反したことを item 1 つで表し、kind を契約の名前、key を文書の ID にして、成り立った組は item にしない。 (stable)
 * [契約の違反と報告をツール別のコードで表し、強さで接頭辞だけを切り替える](./tool-specific-error-and-warning-codes.md) - 契約の違反と報告は E_MITODOKE_<契約名> と W_MITODOKE_<契約名> のツール別のコードで統一し、強さの設定で接頭辞だけを切り替え、入力や環境の誤りには outturn の共通コードを使う。 (stable)
 
