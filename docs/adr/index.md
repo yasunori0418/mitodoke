@@ -32,6 +32,7 @@
 * [OKF v0.2 と互換の frontmatter キーを item に足す](./okf-compatible-frontmatter.md) - OKF v0.2 と互換の frontmatter キーを sara の item に足す方針と、バンドル単位の適合を追わない範囲を決める (stable)
 * [status を OKF の 3 値にし全ての型に持たせる](./status-okf-values.md) - status を draft / stable / deprecated の 3 値にし、ADR 以外の型にも必須で持たせる (stable)
 * [test_case の target を resource に改名する](./test-case-resource-field.md) - test_case のテスト資産の正準表記を OKF の resource キーで持ち、値はリポジトリ根からのパスのままにする (stable)
+* [時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる](./timestamps-accepted-written-and-compared-as-instants.md) - UTC オフセット付きの ISO 8601 を受け付けて現在時刻より先の時刻を違反にし、書くときはローカルのオフセット付きの秒までの形にし、比べるときは時刻として読む。 (stable)
 
 ## 機械検証と鮮度
 

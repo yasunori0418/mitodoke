@@ -13,7 +13,8 @@ specification: |
   that declares the relation SHALL be the downstream item. mitodoke SHALL NOT follow `justifies`
   or the peer relations `depends_on`, `supersedes` and `references`. An item whose `status` is
   `deprecated` SHALL be excluded both as an upstream item and as a downstream item. mitodoke SHALL
-  compare only direct edges. A `verified` entry whose actor is not `human:` SHALL count toward
+  compare only direct edges. mitodoke SHALL read `generated.at` and `verified[].at` as instants
+  and SHALL compare them as instants, not as strings. A `verified` entry whose actor is not `human:` SHALL count toward
   the reference time and SHALL NOT count as a human verification. mitodoke SHALL only report the
   result and SHALL NOT add `verified` automatically.
 specification_ja: |
@@ -25,7 +26,8 @@ specification_ja: |
   なければならず、relation を宣言している item を下流としなければならない。mitodoke は、`justifies` と
   peer の relation（`depends_on`・`supersedes`・`references`）を辿ってはならない。`status` が
   `deprecated` の item は、上流としても下流としても対象から外さなければならない。mitodoke は、直接の辺
-  だけを比べなければならない。`human:` 以外の actor の `verified` は、基準時刻には数えなければならず、
+  だけを比べなければならない。mitodoke は、`generated.at` と `verified[].at` を、文字列ではなく時刻として
+  読んで比べなければならない。`human:` 以外の actor の `verified` は、基準時刻には数えなければならず、
   人の確認には数えてはならない。mitodoke は、結果を報告に留め、`verified` を自動で加えてはならない。
 section: inspection
 status: stable
@@ -33,7 +35,7 @@ derives_from:
   - "UC-12a8f452-5377-4e63-8e38-4ddda1be8e72"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:57:05+09:00"
+  at: "2026-11-23T18:49:01+09:00"
 ---
 # 下流の item の基準時刻より上流の generated.at が新しければ、下流を再確認待ちとして報告する
 
@@ -46,6 +48,7 @@ generated:
 - `justifies` と、peer の relation（`depends_on`・`supersedes`・`references`）は辿らない
 - `status` が `deprecated` の item は、上流としても下流としても対象から外す
 - 比べるのは直接の辺だけとする
+- `generated.at` と `verified[].at` は、文字列ではなく時刻として読んで比べる。UTC オフセットの違う時刻を並べても、順序を誤らない
 - `human:` 以外の actor の `verified` は、基準時刻には数えるが、人の確認には数えない
 - 結果は報告に留め、`verified` を自動で加えない
 
@@ -59,3 +62,4 @@ generated:
 
 - [鮮度は上流の relation を辿って下流へ伝播させる](../adr/freshness-propagates-along-upstream-relations.md)
 - [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](../adr/non-human-verified-accepted-not-counted-as-human.md)
+- [時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる](../adr/timestamps-accepted-written-and-compared-as-instants.md)
