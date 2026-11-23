@@ -89,6 +89,7 @@
 * [設定ファイルを mitodoke.yaml にし、独自の定義は sara の model.yaml と同じ書き方にする](./config-file-mitodoke-yaml.md) - 設定ファイルは YAML の mitodoke.yaml とし、独自の型・relation・フィールドは sara の model.yaml と同じ書き方で書く。 (stable)
 * [独自の型・relation・フィールドは追加だけを許す](./custom-definitions-additive-only.md) - 設定では型・relation・フィールドのすべてを独自に追加でき、組み込みの定義は削除も変更もできない。 (stable)
 * [再確認待ちは、設定で宣言した独自の relation も辿る](./custom-relations-declare-staleness-propagation.md) - 再確認待ちの判定は、組み込みの 7 relation に加えて、設定で伝播させると宣言した独自の relation も辿る。 (stable)
+* [model は型の関係図を出さず、型の関係図と model.yaml のずれも扱わない](./model-emits-no-type-diagram.md) - mitodoke model は型の関係図を出さず、型の関係図と model.yaml のずれも扱わない。 (stable)
 * [model.yaml を設定ファイルから生成してコミットし、差分が無いことを確かめる](./model-generated-from-config.md) - 適用先の製品の model.yaml は mitodoke の設定ファイルから生成してコミットし、生成結果との差分が無いことを CI で確かめる。 (stable)
 * [level の導出表を設定で変えられるようにし、値の集合は固定する](./risk-matrix-configurable-values-fixed.md) - likelihood と impact の組から level への対応を設定で変えられるようにし、設定に無ければ既定の 9 通りの表を使い、low・medium・high の値の集合は製品で固定する。 (stable)
 * [specification は英語で必須にし、ほかの言語は設定で選ぶ](./specification-english-required-other-languages-configured.md) - specification は英語で必須にし、ほかの言語は設定で選んで specification_<言語> と name_<言語> のフィールドを生成する。 (stable)
