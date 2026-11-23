@@ -9,6 +9,9 @@ refines:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:31:20+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-23T13:50:00+09:00"
 ---
 # 上流の変更で再確認が要る成果物を知り、人の確認を記録する
 
