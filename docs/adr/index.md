@@ -87,6 +87,7 @@
 
 ## モデルと設定
 
+* [組み込みの型・relation・フィールドの名前を条件に持つ契約を、組み込みの型の item だけに働かせる](./builtin-only-contracts-closed-by-rule.md) - 組み込みの型・relation・フィールドの名前を条件に持つ契約は組み込みの型の item だけに働かせ、それ以外の契約は独自の型を含むすべての型の item に働かせる。 (stable)
 * [設定ファイルを mitodoke.yaml にし、独自の定義は sara の model.yaml と同じ書き方にする](./config-file-mitodoke-yaml.md) - 設定ファイルは YAML の mitodoke.yaml とし、独自の型・relation・フィールドは sara の model.yaml と同じ書き方で書く。 (stable)
 * [独自の型・relation・フィールドは追加だけを許す](./custom-definitions-additive-only.md) - 設定では型・relation・フィールドのすべてを独自に追加でき、組み込みの定義は削除も変更もできない。 (stable)
 * [再確認待ちは、設定で宣言した独自の relation も辿る](./custom-relations-declare-staleness-propagation.md) - 再確認待ちの判定は、組み込みの 7 relation に加えて、設定で伝播させると宣言した独自の relation も辿る。 (stable)
@@ -97,7 +98,6 @@
 * [テストの区分を製品の概念にし、中身は設定で決める](./test-categories-configured-per-product.md) - テストの区分を製品の概念にして中身を設定の 1 つの一覧で決め、テスト条件とテストケースのディレクトリ・risk の section・index の見出しをその一覧から導く。 (stable)
 * [組み込みの型を 12 型にし、すべて必須にする](./twelve-builtin-types-all-required.md) - 製品の組み込みの型は sara_adr を含まない 12 型とし、すべてを必須にして設定では選ばない。 (stable)
 * [型と置き場所の一致を構造の契約にし、型ごとの置き場所を設定に持つ](./type-location-match-is-structural-contract.md) - item の型と置き場所の一致を構造の契約に加え、型ごとの置き場所を設定に持って index の見出しも同じ表から決める。 (stable)
-* [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (stable)
 
 ## 検査
 
@@ -168,4 +168,5 @@
 * [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
+* [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (deprecated)
 * [用語を ubiquitous_term の item で管理する](./ubiquitous-term-type.md) - 用語の正名・避ける綴り・定義は、`CONTEXT.md`（日本語の長い定義）と `docs/glossary.md` / `docs/glossary.ja.md`（英日の短い定義）の 3 ファイルが重ねて持っていた。3 ファイルの同期は手作業で、語の数も定義の中身もすでに食い違っている。用語を 2 語足すだけで 5 ファイルを直す必要があった（#644）。 (deprecated)

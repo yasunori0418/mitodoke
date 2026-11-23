@@ -4,7 +4,7 @@ type: adr
 name: "型に固有の契約は組み込みの型だけに働かせる"
 description: "frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。"
 section: model-config
-status: stable
+status: deprecated
 sources:
   - id: "issue-4"
     resource: "https://github.com/yasunori0418/mitodoke/issues/4"
@@ -18,7 +18,11 @@ generated:
 ---
 # 型に固有の契約は組み込みの型だけに働かせる
 
-- ステータス: stable
+> **廃止（2026-11-22）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [組み込みの型・relation・フィールドの名前を条件に持つ契約を、組み込みの型の item だけに働かせる](builtin-only-contracts-closed-by-rule.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-17
 - 関連: GitHub Issue #4
 - 起点: 2026-11-17 の grilling（Q18）で確定

@@ -10,7 +10,7 @@
 
 * [組み込みの定義は設定で削除も変更もできない](./builtin-definitions-immutable.md) - 設定は独自の型・relation・フィールドを追加できるが、組み込みの型・relation・フィールドを削除も変更もできない。
 * [設定ファイルは YAML の mitodoke.yaml とする](./config-file-format.md) - 設定ファイルは YAML の mitodoke.yaml とし、独自の型・relation・フィールドは sara の model.yaml と同じ書き方で書けるようにする。
-* [検査が独自の型に及ぶ範囲を、全型に働く契約と組み込みの型だけに働く契約に分ける](./inspection-scope-for-custom-types.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。
+* [検査が独自の型に及ぶ範囲を、全型に働く契約と組み込みの型だけに働く契約に分ける](./inspection-scope-for-custom-types.md) - 組み込みの型・relation・フィールドの名前を条件に持つ契約は組み込みの型の item だけに、それ以外の契約は独自の型を含むすべての型の item に働かせる。
 * [model.yaml と sara.toml は設定ファイルから生成し、生成物との差分を確かめる](./model-and-sara-toml-generated-from-config.md) - model.yaml と sara.toml は設定ファイルから生成してコミットし、生成し直した結果との差分が無いことを CI で確かめる。
 * [level の導出表は設定で変えられ、設定が無ければ既定の表を使う](./risk-matrix-configuration.md) - risk の level を likelihood と impact から導く表は設定で変えられ、設定に無ければ既定の表を使い、値の集合は製品で固定する。
 * [specification は英語で必須とし、ほかの言語のフィールドは設定から生成する](./specification-languages.md) - specification は英語で必須とし、設定で選んだほかの言語ごとに specification_<言語> と name_<言語> のフィールドを生成する。
