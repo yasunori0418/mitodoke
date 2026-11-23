@@ -37,6 +37,7 @@
 * [人の確認に書く識別子は設定のコマンドの出力から取り、不正な出力では何も書かない](./human-id-command.md) - mitodoke verify は、human:<id> の <id> を設定に定義したコマンドの出力から取り、出力が不正なときやコマンドが失敗したときは何も書かずにエラーにする。
 * [verify は端末での人の入力があるときだけ人の確認を記録する](./human-verification-recording.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を記録し、端末の無い実行では拒む。
 * [init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、既存の mitodoke.yaml を上書きしない](./init-creates-config-and-directories.md) - mitodoke init は、初期の mitodoke.yaml と、設定が型ごとに持つ置き場所のディレクトリを作り、mitodoke.yaml がすでにあるときは上書きせずに拒み、文書管理の規範を適用先の製品へ複製しない。
+* [item を指定しない verify は、対話で選んだ枝を上流から順にたどって人の確認を記録する](./interactive-verification-walk.md) - item を指定しない mitodoke verify は、対話で枝を選ばせ、上流から順に item を表示して人の確認を記録し、表示のビューアとコメントのエディタを mitodoke.yaml で設定できるようにする。
 * [new は引数の置き場所を型ごとの置き場所と比べ、合わなければ起票を拒む](./new-location-check.md) - mitodoke new は置き場所を引数で受け取り、設定の型ごとの置き場所と合わない起票を拒む。
 * [サブコマンドは init・new・gap・fresh・index・matrix・model・verify・export・check とする](./subcommand-set.md) - mitodoke の CLI は、初期化・起票・報告・生成・確認の記録・出力・検査を、機能ごとに分けた 10 個のサブコマンドで提供する。
 * [テスト資産の一覧は設定のコマンドとファイルから読み、併用した一覧の重複は失敗とする](./test-asset-inventory-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを合わせて 1 つの一覧にし、同じ資産識別子が 2 か所から出たら失敗にする。

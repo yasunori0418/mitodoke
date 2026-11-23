@@ -121,6 +121,7 @@
 * [サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-with-init.md) - mitodoke の CLI のサブコマンドを、初期化の init と、開発に使う script の名前から接頭辞を外した 9 つの、合わせて 10 個にし、すべてに --json を持たせ、index と model の --check は差分があれば exit code 1 で終える。 (stable)
 * [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](./test-assets-listed-by-configured-sources.md) - mitodoke はテスト資産の列挙を内蔵せず、設定に書いた列挙のコマンドの出力とコミットした一覧のファイルを併用して読む。 (stable)
 * [verify は、端末で人が確認を入力したときだけ確認の記録を書く](./verify-records-human-only-from-terminal.md) - mitodoke verify は、端末で人が確認を入力したときだけ human:<id> と現在時刻を書き、端末の無い実行では拒む。 (stable)
+* [item を指定しない verify は、対話で選んだ枝を上流から順にたどり、ビューアとエディタを設定で選べる](./verify-walks-branch-interactively.md) - item を指定しない mitodoke verify は、対話で枝を選ばせて上流から順に item を表示し、人の確認を記録する。表示のビューアとコメントのエディタは mitodoke.yaml で設定でき、コメントの行き先と自動のコミットは決めない。 (stable)
 
 ## JSON 出力
 
