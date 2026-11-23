@@ -21,18 +21,18 @@ justifies:
 supersedes:
   - "ADR-c291c77e-7e40-4b89-a2c2-0dfec4c911f9"
 references:
-  - "ADR-9a646576-31bd-4cea-996d-54993ff2b8fa"
+  - "ADR-996af7b5-ed7c-4bb6-826f-0de50052f53e"
   - "ADR-7967c58b-2d03-40d6-89b4-680be30fa5d1"
   - "ADR-bab72f31-7cb1-47a3-bb2d-7876757d86fb"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:53:05+09:00"
+  at: "2026-11-23T11:22:37+09:00"
 ---
 # OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない
 
 - ステータス: stable
 - 日付: 2026-11-22
-- 関連: [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](stricter-than-okf-constraints-kept.md), [item に生成者・確認の記録・期限を持たせる](generated-verified-stale-after.md), [status を OKF の 3 値にし全ての型に持たせる](status-okf-values.md), [OKF v0.2 と互換の frontmatter キーを item に足す](okf-compatible-frontmatter.md), GitHub Issue #72, GitHub Issue #6, GitHub Issue #4
+- 関連: [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](stricter-than-okf-constraints-kept.md), [item に生成者・確認の記録・期限のフィールドを持たせる](generated-verified-stale-after-fields.md), [status を OKF の 3 値にし全ての型に持たせる](status-okf-values.md), [OKF v0.2 と互換の frontmatter キーを item に足す](okf-compatible-frontmatter.md), GitHub Issue #72, GitHub Issue #6, GitHub Issue #4
 - 起点: issue #72 の grilling（2026-11-22）で確定。OKF より厳しい 5 つの制約を構造の契約に引き継ぐ ADR を書き直した
 
 ## 背景
@@ -98,8 +98,9 @@ mitodoke は、1 つの mapping を 1 要素のリストとして扱う OKF v0.2
 
 ### check が基準のリビジョンと比べ、新しく加えた item の description の欠けを違反にする
 
-記録には、この案に固有の不採用の理由は無い。#6 のコメントが挙げた検査の時点の候補のうち、起票の
-ときに拒む案を選んだ。
+ある時点の文書だけでは、新しく加えた item かどうかを見分けられず、基準のリビジョンとの比較が要る。起票の
+ときに拒めば、起こす item が新しいことが分かっているので、見分ける必要が無い。#6 のコメントが挙げた検査の
+時点の候補のうち、起票のときに拒む案を選んだ。
 
 ### 1 つの mapping の verified を 1 要素のリストとして受け付け、ほかの 4 つは引き継ぐ
 

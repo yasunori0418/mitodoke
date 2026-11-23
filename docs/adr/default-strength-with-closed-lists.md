@@ -21,7 +21,7 @@ references:
   - "ADR-bf25a81b-d588-4c7e-9365-fe514ee4d626"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:55:41+09:00"
+  at: "2026-11-23T11:22:37+09:00"
 ---
 # 構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる
 
@@ -55,7 +55,8 @@ issue #80 では、つながりの欠けが 3 つと、見直しの義務が 3 �
 - 構造の契約は失敗にする。構造の契約は、`sara check`（`solution` の `stale_after` の欠けを含む）、
   frontmatter の形、ID の置き場所、test_case とテスト資産の 1:1、risk の level の導出、supersedes の先が
   deprecated であること、index.md の差分、`test_case` の `covers` と `follows`、宣言の無い frontmatter の
-  キー、OKF のキーの形と値、OKF に重ねる制約、型と置き場所の一致、テスト資産の重複とする
+  キー、OKF のキーの形と値、OKF に重ねる制約のうち構造の契約として検査するもの、型と置き場所の一致、
+  テスト資産の重複とする
 - つながりの欠けは CI で報告する。つながりの欠けは、covers されない test_condition、mitigates されない
   risk、threatens されない requirement、satisfies されない quality、有効な requirement を持たない有効な
   use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たない品質特性とする

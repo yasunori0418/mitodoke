@@ -10,7 +10,7 @@ specification: |
   correspondence between test_case items and test assets, the derivation of a risk's `level`,
   the `deprecated` status of a `supersedes` target, the difference in `index.md`, the `covers`
   and `follows` of a test_case, an undeclared frontmatter key, the shape and the values of the
-  OKF keys, the constraints on top of OKF, the match between a type and its location, and a
+  OKF keys, the constraints on top of OKF that are inspected as structural contracts, the match between a type and its location, and a
   duplicated test asset. By default, a connection gap and a review obligation SHALL be reported
   without failing. The connection gaps SHALL be the following: a test_condition that is not
   covered, a risk that is not mitigated, a requirement that is not threatened, a quality that is
@@ -27,8 +27,8 @@ specification_ja: |
   既定では、構造の契約の違反は失敗としなければならない。構造の契約は、
   `sara check`（`solution` の `stale_after` の欠けを含む）、frontmatter の形、ID の置き場所、test_case と
   テスト資産の 1:1、risk の `level` の導出、`supersedes` の先が `deprecated` であること、`index.md` の差分、
-  test_case の `covers` と `follows`、宣言の無い frontmatter のキー、OKF のキーの形と値、OKF に重ねる制約、
-  型と置き場所の一致、テスト資産の重複でなければならない。既定では、つながりの欠けと見直しの義務は、失敗にせずに報告
+  test_case の `covers` と `follows`、宣言の無い frontmatter のキー、OKF のキーの形と値、OKF に重ねる制約の
+  うち構造の契約として検査するもの、型と置き場所の一致、テスト資産の重複でなければならない。既定では、つながりの欠けと見直しの義務は、失敗にせずに報告
   しなければならない。つながりの欠けは、covers されない test_condition、
   mitigates されない risk、threatens されない requirement、satisfies されない quality、有効な requirement
   を持たない有効な use_case、親の use_case がすべて deprecated の有効な requirement、有効な risk を持たない
@@ -43,7 +43,7 @@ derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:56:25+09:00"
+  at: "2026-11-23T11:22:37+09:00"
 ---
 # 検査の既定の強さは、構造の契約を失敗、つながりの欠けと見直しの義務を報告とし、設定で変えられる
 
@@ -64,7 +64,7 @@ mitodoke の検査は、構造の契約、つながりの欠け、見直しの�
 - test_case の `covers` と `follows`
 - 宣言の無い frontmatter のキー
 - OKF のキーの形と値
-- OKF に重ねる制約
+- OKF に重ねる制約のうち構造の契約として検査するもの
 - 型と置き場所の一致
 - テスト資産の重複
 

@@ -19,7 +19,7 @@ derives_from:
   - "UC-7575b60a-c45b-4d2c-9c88-3cf68a884a35"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:59:28+09:00"
+  at: "2026-11-23T11:22:45+09:00"
 ---
 # generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む
 

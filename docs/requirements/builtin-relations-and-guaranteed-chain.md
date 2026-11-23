@@ -4,7 +4,7 @@ type: requirement
 name: "組み込みの relation は上流の 8 つと peer の 3 つとし、保証する連鎖は requirement → risk → test_condition → test_case とする"
 description: "組み込みの relation を上流の 8 つと peer の 3 つとし、relation ごとの張り元と張り先の型を定め、保証する連鎖を requirement → risk → test_condition → test_case として design を任意の中継点にする。"
 specification: |
-  The built-in relations SHALL be the eight upstream relations `refines`, `derives_from`,
+  The built-in relations, excluding the inverse relations, SHALL be the eight upstream relations `refines`, `derives_from`,
   `satisfies`, `threatens`, `mitigates`, `covers`, `follows` and `justifies`, and the three peer
   relations `depends_on`, `supersedes` and `references`. The source types and the target types
   of the built-in relations SHALL be the following: `refines` from
@@ -20,7 +20,7 @@ specification: |
   design, a design without a risk SHALL be treated as normal, and design SHALL NOT be counted
   in the indicators of uncovered items.
 specification_ja: |
-  組み込みの relation は、上流の relation `refines`・`derives_from`・`satisfies`・`threatens`・
+  組み込みの relation は、逆向きの relation を除いて、上流の relation `refines`・`derives_from`・`satisfies`・`threatens`・
   `mitigates`・`covers`・`follows`・`justifies` の 8 つと、peer の relation `depends_on`・`supersedes`・
   `references` の 3 つでなければならない。組み込みの relation の張り元の型と張り先の型は、`refines` が
   use_case から solution、`derives_from` が requirement から use_case と、quality・test_plan から
@@ -39,13 +39,13 @@ derives_from:
   - "UC-7575b60a-c45b-4d2c-9c88-3cf68a884a35"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T11:05:37+09:00"
+  at: "2026-11-23T11:22:37+09:00"
 ---
 # 組み込みの relation は上流の 8 つと peer の 3 つとし、保証する連鎖は requirement → risk → test_condition → test_case とする
 
 ## 仕様
 
-組み込みの relation は、上流の relation 8 つと peer の relation 3 つとする。relation ごとの張り元の型と
+組み込みの relation は、逆向きの relation を除いて、上流の relation 8 つと peer の relation 3 つとする。逆向きの relation は、`docs/model.yaml` がそれぞれの relation の `inverse` として定める。relation ごとの張り元の型と
 張り先の型は、次の表のとおりとする。
 
 | relation | 向き | 張り元の型 | 張り先の型 |

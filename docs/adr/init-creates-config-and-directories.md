@@ -22,7 +22,7 @@ references:
   - "ADR-f900c722-23d9-4dcb-8407-97b4eb98b92a"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T11:05:48+09:00"
+  at: "2026-11-23T11:22:45+09:00"
 ---
 # init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、規範は複製しない
 

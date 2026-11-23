@@ -18,7 +18,7 @@ derives_from:
   - "UC-a81ec7f7-0fb1-4ada-ae7c-0a20cdc0b074"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:48:29+09:00"
+  at: "2026-11-23T11:22:45+09:00"
 ---
 # init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、既存の mitodoke.yaml を上書きしない
 

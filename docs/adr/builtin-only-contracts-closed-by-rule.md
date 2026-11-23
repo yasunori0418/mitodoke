@@ -24,7 +24,7 @@ references:
   - "ADR-c5dd9c1d-aaa0-44fd-b1d8-e0544f01b0dd"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T10:51:42+09:00"
+  at: "2026-11-23T11:22:45+09:00"
 ---
 # 組み込みの型・relation・フィールドの名前を条件に持つ契約を、組み込みの型の item だけに働かせる
 
