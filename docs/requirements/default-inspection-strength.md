@@ -14,15 +14,17 @@ specification: |
   duplicated test asset. By default, a connection gap and a review obligation SHALL be reported
   without failing. The connection gaps SHALL be the following: a test_condition that is not
   covered, a risk that is not mitigated, a requirement that is not threatened, a quality that is
-  not satisfied, a valid use_case without a valid requirement, a valid requirement all of whose
-  parent use_case items are deprecated, and a quality characteristic without a valid risk. The
+  not satisfied, an active use_case without an active requirement, an active requirement all of whose
+  parent use_case items are deprecated, and a quality characteristic without an active risk. The
   review obligations SHALL be the following: an item awaiting review after an upstream change, a
   missing `generated` update (an item whose body changed in the difference from the base revision
-  while `generated.at` did not change), a high risk lacking a human verification, a valid
+  while `generated.at` did not change), a high risk lacking a human verification, an active
   solution or use_case lacking a human verification, an expired `stale_after`, and a
-  `stale_after` beyond its interval. In these lists, valid SHALL mean that the `status` is not
-  `deprecated`, `draft` included. The strength of every inspection SHALL be changeable in the
-  configuration.
+  `stale_after` beyond its interval. An active item SHALL be an item whose `status` is not
+  `deprecated`, `draft` included. In every section, gap and fresh SHALL count only active items,
+  and SHALL count an edge only when both of its ends are active items. The structural contracts
+  of check SHALL apply also to items whose `status` is `deprecated`. The strength of every
+  inspection SHALL be changeable in the configuration.
 
   A file that the sara-core loader skips (a scan warning) and a model that cannot be read SHALL
   be treated as preconditions of loading, not as inspections, and SHALL NOT be subject to the
@@ -48,8 +50,10 @@ specification_ja: |
   品質特性でなければならない。見直しの義務は、上流の変更による再確認待ち、generated の更新
   漏れ（基準のリビジョンとの差分で本文が変わったのに `generated.at` が変わっていない item）、人の確認が
   無い high の risk、人の確認が無い有効な solution と use_case、stale_after の期限切れ、stale_after の
-  間隔の超過でなければならない。これらの列挙の「有効な」は、`status` が `deprecated` でないこと（`draft` を含む）と
-  しなければならない。どの検査の強さも、設定で変えられなければならない。
+  間隔の超過でなければならない。有効な item は、`status` が `deprecated` でない item（`draft` を含む）で
+  なければならない。gap と fresh は、すべての節で有効な item だけを数えなければならず、辺は両端が有効な
+  item のものだけを数えなければならない。check の構造の契約は、`status` が `deprecated` の item にも
+  働かせなければならない。どの検査の強さも、設定で変えられなければならない。
 
   sara-core の読み込みが読み飛ばしたファイル（scan warning）と、モデルを読めないことは、検査ではなく
   読み込みの前提として扱わなければならず、強さの設定の対象にしてはならない。ファイルが読み飛ばされた
@@ -67,7 +71,7 @@ derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T18:46:35+09:00"
+  at: "2026-11-23T18:47:47+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:44:02+09:00"
@@ -114,8 +118,17 @@ mitodoke の検査は、構造の契約、つながりの欠け、見直しの�
 - stale_after の期限切れ
 - stale_after の間隔の超過
 
-この列挙の「有効な」は、`status` が `deprecated` でないことを指し、`draft` を含む。`human_judgement` を持つ
-test_condition の一覧は、人が判断する範囲を示す情報で、3 つの分類のどれにも当たらない。
+`human_judgement` を持つ test_condition の一覧は、人が判断する範囲を示す情報で、3 つの分類のどれにも
+当たらない。
+
+### 有効な item
+
+[有効な item](../ubiquitous-language/active-item.md) は、`status` が `deprecated` でない item を指し、
+`draft` を含む。この要件の列挙の「有効な」も、この意味である。
+
+- `gap` と `fresh` は、すべての節で有効な item だけを数える。辺は、両端が有効な item のものだけを数える。
+  たとえば、`deprecated` の risk からの `threatens` は、requirement を覆ったことにしない
+- `check` の構造の契約は、`status` が `deprecated` の item にも働かせる
 
 どの検査も、設定で強さを変えられる。CI のどの job を必須にするかは、適用先の製品が決める。
 
@@ -141,6 +154,7 @@ sara-core の読み込みが読み飛ばしたファイル（scan warning）と�
 
 - [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](../adr/default-strength-with-closed-lists.md)
 - [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](../adr/scan-skips-fail-check-and-block-graph-commands.md)
+- [有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える](../adr/active-items-and-edges-counted-in-gap-and-fresh.md)
 - [モデルを読めなければ exit 2 で終え、組み込みの型へ戻らない](../adr/unreadable-model-exits-without-builtin-fallback.md)
 
 新しく足した検査の要件は次の item が持つ。

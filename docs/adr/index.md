@@ -101,6 +101,7 @@
 
 ## 検査
 
+* [有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える](./active-items-and-edges-counted-in-gap-and-fresh.md) - status が deprecated でない item を有効な item と 1 か所で定義し、gap と fresh はすべての節で有効な item と両端が有効な辺だけを数え、check の構造の契約は deprecated の item にも働かせる。 (stable)
 * [避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる](./avoid-spelling-check-left-to-adopters.md) - 用語の避ける綴りの検査を mitodoke に内蔵せず、mitodoke の JSON 出力を使って適用先の製品が検査を組み立てる。 (stable)
 * [構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる](./default-strength-with-closed-lists.md) - 検査の既定の強さを、構造の契約は失敗、つながりの欠けと見直しの義務は CI での報告とし、3 つの分類に当たる検査を閉じた列挙で決め、どの検査も設定で強さを変えられるようにする。 (stable)
 * [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
