@@ -1,6 +1,6 @@
 # sara CLI の使い方
 
-sara（と `sara-new` / `sara-gap` / `sara-fresh`）は **PATH に通っている前提**で `sara ...` と直接叩く
+sara（と `sara-new` / `sara-gap` / `sara-fresh` / `sara-verify`）は **PATH に通っている前提**で `sara ...` と直接叩く
 （direnv 等で開発シェルが読み込まれた環境なら通っている）。通っていなければ環境構築を
 プロジェクトの規約に従って済ませてから使う。設定はカレント（リポジトリルート）の
 `sara.toml` を読むため、**リポジトリルートで実行する**。
@@ -192,5 +192,38 @@ JSON 形状の異常、frontmatter を YAML として読めない item、`verifi
 `verified` の `at`・`stale_after` を時刻として読めない item があるとき、`SARA_FRESH_NOW` を時刻として読めない
 とき、`--base` の ref を解決できないとき、`--base` の ref と
 HEAD の merge-base が無いときは、一覧を出さずに 2 を返す。結果は報告に留め、`verified` は人が内容を確かめた
-ときにだけ手で足す。CI の `sara` ジョブは pull_request で base ブランチを `--base` に渡して実行し、exit 1 では
+ときにだけ、`sara-verify` か手で足す。CI の `sara` ジョブは pull_request で base ブランチを `--base` に渡して実行し、exit 1 では
 落ちない。
+
+## 別コマンド sara-verify による人の確認の記録（対話）
+
+```bash
+sara-verify        # 枝を選び、generated.at 以降の human: の verified を持たない item を順に確かめる
+sara-verify --all  # human: の verified を持つ item も対象にする
+```
+
+人が端末で使うコマンドで、エージェントは実行しない。stdin と stdout のどちらかが端末でないと exit 2 で終わる。
+
+- 選ぶ手順: `solution` から始め、子の item（その item を `refines` / `derives_from` / `satisfies` / `threatens` /
+  `mitigates` / `covers` / `follows` で指している item）を `fzf` で 1 段ずつ選ぶ。どの段でも、いま選んでいる
+  item で決められる。子の無い item まで降りると、そこで決まる
+- 確認の対象: 根から選んだ item までの経路と、選んだ item の下流のすべて。幅優先で並べ、同じ深さの中は ID の順にする。
+  複数の親から届く item は最初の 1 度だけ対象にする。`status: deprecated` の item と、`generated.at` 以降の
+  `human:` の `verified` を持つ item は外す（`--all` では後者も対象にする）
+- item ごとの流れ: `leaf <ファイル>` で表示し、閉じたら「記録する・飛ばす・中断する」を選ぶ。`solution` と `use_case`
+  では選ぶ前に、`review_question_for` がその型を指す `quality` の item の確認の問い（`specification_ja`）を出す。
+  「記録する」では `EDITOR` が開き、コメントを任意で書く。確認の問いは `#` で始まる行として載り、`#` で始まる行は
+  コメントから除く。コメントが空でも記録する
+- 記録: frontmatter の `verified` に `by: "human:<id>"` と `at`（UTC オフセット付きの ISO 8601 の現在時刻）の要素を
+  足す。`verified` が無ければリストを作る。ほかの行と `generated` は変えない。`<id>` は環境変数
+  `SARA_VERIFY_HUMAN_ID`、無ければ `gh api user --jq .login` の出力
+- コミット: 対象を終えたときと、中断したとき（「中断する」と Ctrl-C）に、記録した item をファイルごとに 1 コミットにする。
+  件名は `docs(<型>): <ファイル名から .md を除いたもの>`、本文は入力したコメントで、空なら本文を書かない。
+  現在のブランチにコミットし、ブランチの作成と push はしない
+
+ビューアの `leaf` は dev flake に入れておらず、PATH から使う。エディタは環境変数 `EDITOR`（無ければ `vi`）。
+
+exit code は対象を終えたときと「中断する」を選んだときは 0、Ctrl-C では 130。引数の誤り、端末でない、
+`sara check` の失敗、`<id>` が空・複数行・二重引用符かバックスラッシュを含む・`gh` の失敗、対象のファイルに
+未コミットの変更がある、`verified` がブロックのリストでない、`fzf` かコミットの失敗では 2。`fzf` とコミットの
+失敗のほかは、何も書かずに終える。
