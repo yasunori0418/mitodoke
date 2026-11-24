@@ -164,6 +164,7 @@
 * [main は PR だけで変え、required の check が成功するまでマージしない](./main-protected-by-required-checks.md) - mitodoke 自身の開発で、main を PR だけで変え、required の check が成功するまでマージせず、直接の push、削除、force push を禁じる規範を quality に起こすと決める。 (stable)
 * [rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする](./rustfmt-and-clippy-gate-merges.md) - mitodoke 自身の開発で、rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする規範を quality に起こすと決める。 (stable)
 * [sara は必要なときに上げ、Cargo.lock と flake の input を同じタグに揃える](./sara-upgraded-when-needed.md) - sara のタグは要る機能や修正が入ったときに上げ、Cargo.lock と flake の input を同じタグへ揃えると決める。 (stable)
+* [バージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作る](./single-version-source-and-automated-release.md) - mitodoke 自身の開発で、バージョンを一次情報 1 か所から導き、タグとリリースノートを自動で作る規範を quality に起こすと決める。 (stable)
 * [利用者向けのスキルを公開用として英語で書く](./user-skills-written-in-english.md) - 利用者向けのスキルを公開用として英語で書き、配り方は候補を挙げて Issue #46 で決めると決める。 (stable)
 
 ## 移し方と記録

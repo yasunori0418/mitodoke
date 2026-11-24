@@ -25,3 +25,4 @@
 * [specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える](./specification-shall-family-and-matching-auxiliaries.md) - specification は SHALL 系で書き、specification_ja は同じ強度の規範助動詞で終える
 * [上流より古い item と generated の更新漏れは機械的に列挙する](./stale-items-enumerated-mechanically.md) - 上流より基準時刻が古い下流の item、本文を変えたのに generated を更新していない item、stale_after の期限切れと間隔の超過を機械的に列挙し、結果は報告に留める
 * [テスト系 item は、テスト資産・検証テーマ・脅威の 3 段の粒度で起こす](./test-items-three-tier-granularity.md) - テスト系 item は CASE をテスト資産・TC を検証テーマ・RISK を脅威の単位で起こし、人が行うテストも CASE にする
+* [バージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作る](./version-from-single-source-with-automated-tags.md) - mitodoke のバージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作ると定める。
