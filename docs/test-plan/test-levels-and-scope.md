@@ -54,7 +54,7 @@ derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-25T00:06:59+09:00"
+  at: "2026-11-25T00:22:12+09:00"
 ---
 # mitodoke 自身のテストは 7 つの区分に分け、単体のテストと受け入れテストの 2 つのレベルで確かめる
 
@@ -139,3 +139,4 @@ mitodoke 自身の手順書は `tests/manual/procedures/` に、テストチャ�
 - [受け入れテストは fixture だけに依り、実物のモデルを重ねない](../adr/acceptance-tests-depend-on-fixtures-only.md)
 - [写した契約テストの期待 141 行のうち 110 行を、受け入れテストに引き継ぐ](../adr/acceptance-scope-inherited-from-copied-contract-tests.md)
 - [mitodoke 自身が対象外にする品質特性を safety だけにする](../adr/safety-excluded-from-quality-characteristics.md)
+- [mitodoke 自身の手順書とテストチャーターを tests/manual/ の下に置く](../adr/own-manual-test-assets-under-tests-manual.md)
