@@ -14,7 +14,7 @@ justifies:
   - "QA-0c13507d-a425-49ac-b98b-eca5185dfb40"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-25T00:36:42+09:00"
+  at: "2026-11-25T00:47:19+09:00"
 ---
 # バージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作る
 
@@ -34,8 +34,8 @@ mitodoke は Rust の CLI を開発して配る。CLI を作る #6 の子の epi
 規範 [バージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作る](../quality/version-from-single-source-with-automated-tags.md)
 を起こす。バージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作る。
 
-一次情報の場所、タグの契機、cachix への push の契機は、この規範では決めない。配布を実装する子の
-epic G が決める。
+一次情報の場所、タグの契機、cachix への push の契機は、この規範では決めない。配布を実装する
+子の epic G（テストの区分の `distribution` に当たる範囲）が決める。
 
 ## 根拠
 

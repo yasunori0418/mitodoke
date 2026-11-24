@@ -14,7 +14,7 @@ justifies:
   - "QA-8ec88967-57ce-40aa-957d-ff3c640a44b2"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-25T00:35:56+09:00"
+  at: "2026-11-25T00:47:19+09:00"
 ---
 # main は PR だけで変え、required の check が成功するまでマージしない
 
@@ -35,8 +35,8 @@ open な Issue にも割り当てられていないと書いていた。
 を起こす。main は PR だけで変え、required の check が成功するまでマージしない。直接の push、削除、
 force push を禁じる。
 
-required にする check の名前と、ruleset の設定は、この規範では決めない。CI を実装する子の epic A が
-決める。
+required にする check の名前と、ruleset の設定は、この規範では決めない。CI を実装する
+子の epic A（テストの区分の `foundation` に当たる範囲）が決める。
 
 ## 根拠
 

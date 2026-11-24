@@ -14,7 +14,7 @@ justifies:
   - "QA-1b6075e4-bb76-4da5-86a3-72e7486d7997"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-25T00:32:13+09:00"
+  at: "2026-11-25T00:47:19+09:00"
 ---
 # rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする
 
@@ -34,7 +34,8 @@ mitodoke は Rust の CLI を開発して配る。CLI を作る #6 の子の epi
 規範 [rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする](../quality/formatting-and-static-analysis-before-merge.md)
 を起こす。rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする。
 
-検証の job と、手元で流すコマンドは、この規範では決めない。CI を実装する子の epic A が決める。
+検証の job と、手元で流すコマンドは、この規範では決めない。CI を実装する
+子の epic A（テストの区分の `foundation` に当たる範囲）が決める。
 
 ## 根拠
 
