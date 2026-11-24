@@ -78,6 +78,7 @@
 * [沈黙性を risk のスコア軸にせず本文に書く](./silence-not-a-score-axis.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決め、`impact` から沈黙の不整合を外した。気づけるかどうかは脅威の性質として重要な情報で、捨てるには惜しい。これをどこに残すかを決める必要があった。 (stable)
 * [test_condition に、人が最終的に判断する理由の human_judgement を持たせる](./test-condition-human-judgement.md) - test_condition に任意の text の human_judgement を足して理由の 1 文を書かせ、機械で確かめるのを既定にして、人が最終的に判断するものだけを一覧にする。 (stable)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる](./test-items-in-three-tiers-with-human-tests-from-any-source.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす。手順書とテストチャーターは、列挙のコマンドの出力か一覧のファイルからテスト資産の一覧に載せ、置き場所は製品が自分で決める (stable)
+* [mitodoke 自身のテストのレベルを、単体のテストと受け入れテストの 2 つにする](./two-test-levels-unit-and-acceptance.md) - mitodoke 自身のテストのレベルを、crate の中のモジュールを cargo test で確かめる単体のテストと、ビルドしたバイナリを fixture のリポジトリに対して実行する受け入れテストの 2 つにし、別のモデルを使うテストはプロセスを分け、端末からの実行が要る受け入れテストは疑似端末で流す。 (stable)
 
 ## 製品の範囲と構成
 
