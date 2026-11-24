@@ -71,6 +71,7 @@
 * [欠陥を既存の RISK / TC に辿れたかで分類して数える](./defects-classified-by-risk-foresight.md) - 欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。 (stable)
 * [欠陥はグラフに置かず GitHub Issues で管理する](./defects-in-github-issues.md) - グラフには欠陥を表す defect 型があった。defect は自分から upstream relation を張れず、親側の test_case が下流向きの `reveals` で接続する唯一の型だった。そのため次の例外を抱えていた。 (stable)
 * [自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](./gate-risk-inherits-impact-by-link.md) - 自動検証の形骸化を表す risk の `impact` は守備対象の regression から継承し、継承元はその regression を持つ risk への Markdown リンクで名指しする。 (stable)
+* [outturn への適合は、--json の出力のサンプルを schema で確かめる](./outturn-conformance-checked-by-schema.md) - outturn への適合を受け入れテストの範囲に入れ、--json の出力のサンプルを outturn の flake の lib.mkSchemaCheck で確かめ、item の id の導出は確かめない。 (stable)
 * [mitodoke 自身の手順書とテストチャーターを tests/manual/ の下に置く](./own-manual-test-assets-under-tests-manual.md) - mitodoke 自身の手順書を tests/manual/procedures/ に、テストチャーターを tests/manual/charters/ に置き、テスト資産の一覧には列挙のコマンドで載せ、ディレクトリは最初のファイルを置くときに作る。 (stable)
 * [mitodoke 自身のテストの区分を、CLI の子の epic の範囲に 1 つずつ合わせる](./own-test-categories-follow-cli-epics.md) - mitodoke 自身のテストの区分を foundation・config-model・authoring・inspection・freshness・result-handoff・distribution の 7 つにし、CLI を作る #6 の子の epic A〜G の範囲に 1 つずつ合わせる。 (stable)
 * [requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](./requirement-risk-exempt.md) - requirement に任意フィールド risk_exempt を設け、requirement 水準の risk を持たない理由を 1 文で書いた requirement を未カバーの一覧から外して免除として列挙する。 (stable)
