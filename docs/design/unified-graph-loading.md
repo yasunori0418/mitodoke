@@ -11,6 +11,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:34:32+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-24T23:33:17+09:00"
 ---
 # ドキュメントグラフの読み込みを 1 つの結果にまとめる
 
