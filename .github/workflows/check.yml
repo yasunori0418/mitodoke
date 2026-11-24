@@ -1,9 +1,7 @@
 name: Nix Flake Check
 
+# push では動かさない。PR の作成でも PR ブランチの更新でも動くので、push でも動かすと同じコミットを 2 回検査する。
 on:
-  push:
-    branches-ignore:
-      - main # main は PR 経由でのみ更新するため push を除外
   pull_request:
 
 jobs:
