@@ -77,7 +77,7 @@
 * [risk に ISO/IEC 25010:2023 の品質特性を 1 つ必須で持たせる](./risk-quality-characteristic.md) - risk に ISO/IEC 25010:2023 の 9 つの品質特性で固定した enum の quality_characteristic を必須で持たせ、リスクを持たない特性を、対象外の宣言を除いて報告する。 (stable)
 * [沈黙性を risk のスコア軸にせず本文に書く](./silence-not-a-score-axis.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決め、`impact` から沈黙の不整合を外した。気づけるかどうかは脅威の性質として重要な情報で、捨てるには惜しい。これをどこに残すかを決める必要があった。 (stable)
 * [test_condition に、人が最終的に判断する理由の human_judgement を持たせる](./test-condition-human-judgement.md) - test_condition に任意の text の human_judgement を足して理由の 1 文を書かせ、機械で確かめるのを既定にして、人が最終的に判断するものだけを一覧にする。 (stable)
-* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](./test-items-in-three-tiers-with-human-tests.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす (stable)
+* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる](./test-items-in-three-tiers-with-human-tests-from-any-source.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす。手順書とテストチャーターは、列挙のコマンドの出力か一覧のファイルからテスト資産の一覧に載せ、置き場所は製品が自分で決める (stable)
 
 ## 製品の範囲と構成
 
@@ -185,6 +185,7 @@
 * [item のファイル名は slug だけにする](./slug-only-filenames.md) - item のファイル名を `<slug>.md` にし、フル ID は frontmatter と H1 見出しだけに書き、散文は Markdown リンクで item を参照する。 (deprecated)
 * [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](./stricter-than-okf-constraints-kept.md) - 写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。 (deprecated)
 * [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (deprecated)
+* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](./test-items-in-three-tiers-with-human-tests.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
 * [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (deprecated)

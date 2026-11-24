@@ -4,7 +4,7 @@ type: adr
 name: "テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする"
 description: "CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす"
 section: risk-test-defect
-status: stable
+status: deprecated
 sources:
   - id: "issue-80"
     resource: "https://github.com/yasunori0418/mitodoke/issues/80"
@@ -23,7 +23,11 @@ generated:
 ---
 # テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする
 
-- ステータス: stable
+> **廃止（2026-11-24）**: 本 ADR の決定は次の後継へ移った。以下の本文は当時の記録として読む。
+>
+> - 全体 → [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる](test-items-in-three-tiers-with-human-tests-from-any-source.md)
+
+- ステータス: deprecated
 - 日付: 2026-11-22
 - 関連: [テスト系 item を CASE・TC・RISK の 3 段で起こす](test-items-in-three-tiers.md), [test_condition に、人が最終的に判断する理由の human_judgement を持たせる](test-condition-human-judgement.md), GitHub Issue #80, `dev/tests/test-doc-map.sh`
 - 起点: issue #80 の grilling（2026-11-22）で確定。テスト系 item を CASE・TC・RISK の 3 段で起こす ADR を書き直した

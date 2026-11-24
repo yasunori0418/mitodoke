@@ -21,7 +21,7 @@ specification_ja: |
   ならない。
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-22T16:53:51+09:00"
+  at: "2026-11-24T23:03:56+09:00"
 ---
 # テスト系 item は、テスト資産・検証テーマ・脅威の 3 段の粒度で起こす
 
@@ -50,7 +50,7 @@ generated:
 
 根拠の決定は次の ADR が持つ。
 
-- [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](../adr/test-items-in-three-tiers-with-human-tests.md)
+- [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる](../adr/test-items-in-three-tiers-with-human-tests-from-any-source.md)
 
 この item は [layat の同じ slug の item](https://github.com/yasunori0418/layat/blob/97ec53ae73d8f609e7a7c53feeb1baf6909fd76d/docs/quality/test-items-three-tier-granularity.md) を写し、製品の形態に依らない文面に
 直したもの。layat での運用の経緯は、原本の出典が持つ。
