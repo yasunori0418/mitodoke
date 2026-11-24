@@ -356,7 +356,7 @@ verified:
     at: "2026-03-01T00:00:00+10:00"
 YAML
   item "$repo" risk-x "$RISK_X" risk "深さの違う 2 つの親を持つリスク" <<YAML
-section: engine-core
+section: foundation
 status: stable
 threatens:
   - "$REQ_1"

@@ -379,14 +379,13 @@ item_types:
         display_name: Section
         field_type: !enum
           values:
-            - manifest-eval
-            - engine-core
-            - copy
-            - migration-stale
-            - atomicity
-            - generations
-            - cli-json
-            - integration
+            - foundation
+            - config-model
+            - authoring
+            - inspection
+            - freshness
+            - result-handoff
+            - distribution
         required: true
       - *status_field
       - *stale_after_field

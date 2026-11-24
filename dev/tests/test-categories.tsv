@@ -1,22 +1,19 @@
-# テスト資産の 8 区分（docs/test/<対象>/ のディレクトリ名）の正本。
+# テスト資産の区分（docs/test/<区分>/ のディレクトリ名）の一覧。
 #
-# この表が「どの区分が存在するか」と「対応表でどの順に並べるか」の SSOT
-# （→ Issue #304、epic #283）。CLAUDE.md の 8 区分表は読み物としての要約で、
-# 規範はこちら。区分を増減するときはここと docs/test/ のディレクトリを揃える。
+# どの区分があるかと、対応表でどの順に並べるかはこの表が決める。区分を増減するときは、
+# この表と docs/test/ のディレクトリを揃える。
 #
-# **個々のテスト資産がどの区分に属するかはこの表では持たない**。区分は CASE
-# ファイルの置き場所（docs/test/<区分>/）から導く。パス prefix では決まらない
-# （internal/engine/*_test.go は 5 区分・tests/e2e/scenarios/* は 4 区分へ割れる）
-# ため、prefix 表を持つと CASE の置き場所との二重管理になる。
+# 個々のテスト資産がどの区分に属するかはこの表では持たない。区分は CASE ファイルの
+# 置き場所（docs/test/<区分>/）から導く。パスの prefix の表を持つと、CASE の置き場所との
+# 二重管理になる。
 #
 # 形式: <区分>\t<説明>
 # 行頭 # はコメント、空行は無視。列の区切りはタブ 1 個。
 # 区分の並び順 = 対応表のセクション順（この表の記載順）。
-manifest-eval	tests/nix-unit と tests/namaka 配下の全テスト（manifest の純評価）
-engine-core	internal/engine の engine / dryrun / preflight、internal/planner
-copy	copytree / copy、e2e 04-copy
-migration-stale	preremove_generalization / staleremove、e2e 03-stale
-atomicity	undo / undo_journal / backup、engine の lock + internal/lock
-generations	generations / reset / result_extensions / drift / prune、internal/paths、e2e 02-home / 08-prune
-cli-json	cmd/layat/ の全テストファイル、internal/generator
-integration	checks.hm-module / nixos-module / darwin-module / nixos-vm、e2e 01/05/06/07/14、internal/gitutil、internal/manifest
+foundation	sara-core を呼ぶこと、読み込みを 1 つにまとめること、設定ファイルの探し方、エンベロープとコードの共通の形、時刻の扱い、端末からの実行の判定
+config-model	`model`、`init`、`mitodoke.yaml` の検証、独自の定義、区分・導出表・言語・置き場所の設定
+authoring	`new`、`index`
+inspection	`check`、`gap`、`matrix`、テスト資産の一覧の読み込み、検査の強さの設定
+freshness	`fresh`、`verify`
+result-handoff	`export`、用語と避ける綴りの JSON、outturn への適合
+distribution	Nix flake での配布、sara の CLI を一緒に配ること、名前の導出

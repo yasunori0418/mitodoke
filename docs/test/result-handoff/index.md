@@ -1,4 +1,4 @@
-# atomicity
+# result-handoff
 
 ## テスト条件（`test_condition`）
 
