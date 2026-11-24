@@ -161,6 +161,7 @@
 * [CI 向けには CLI と workflow の例だけを用意し、action は配らない](./ci-integration-by-cli-and-workflow-example.md) - CI 連携のために CLI と README の workflow の例だけを用意し、action は配らないと決める。 (stable)
 * [カバレッジは報告にとどめ、閾値でマージを止めない](./coverage-is-reported-not-gated.md) - mitodoke 自身の開発で、カバレッジは報告にとどめ、閾値でマージを止めない規範を quality に起こすと決める。 (stable)
 * [Nix flake を主な配布にし、sara の CLI を同じタグで一緒に配る](./distributed-by-nix-flake-with-sara-cli.md) - mitodoke を Nix flake で配り、組み込む sara-core と同じタグの sara の CLI を一緒に配ると決める。 (stable)
+* [main は PR だけで変え、required の check が成功するまでマージしない](./main-protected-by-required-checks.md) - mitodoke 自身の開発で、main を PR だけで変え、required の check が成功するまでマージせず、直接の push、削除、force push を禁じる規範を quality に起こすと決める。 (stable)
 * [rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする](./rustfmt-and-clippy-gate-merges.md) - mitodoke 自身の開発で、rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする規範を quality に起こすと決める。 (stable)
 * [sara は必要なときに上げ、Cargo.lock と flake の input を同じタグに揃える](./sara-upgraded-when-needed.md) - sara のタグは要る機能や修正が入ったときに上げ、Cargo.lock と flake の input を同じタグへ揃えると決める。 (stable)
 * [利用者向けのスキルを公開用として英語で書く](./user-skills-written-in-english.md) - 利用者向けのスキルを公開用として英語で書き、配り方は候補を挙げて Issue #46 で決めると決める。 (stable)
