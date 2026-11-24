@@ -4,6 +4,7 @@
 * [ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る](./adr-one-decision-four-sections-justifies-by-contribution.md) - ADR は単独で覆せる決定ごとに 1 本を 4 節で書き、justifies は規範の形成に寄与した item へ張る
 * [欠陥はトラッカーが持ちドキュメントグラフは規範のみを持つ。起票は分類語彙を経由する](./defects-in-tracker-graph-holds-norms.md) - グラフが持つのは「そうあるべき姿」であり、欠陥は「起きた出来事」になる。両者を同じ場所に置くと、規範の集合に時系列の記録が紛れ、規範だけを読みたい参照が汚れる。所在をトラッカーとグラフで分ける。
 * [ドキュメントグラフのトレーサビリティは機械的に検証する](./document-graph-mechanically-verified.md) - 文書間の参照が指す先を失う、というずれ方は「気づいた人が直す」運用では検出できない。存在しない ID への参照・ID の重複・循環は、人が読んで気づく類の誤りではないため、機械検証に置く。
+* [rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする](./formatting-and-static-analysis-before-merge.md) - 整形の rustfmt と静的解析の clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにすると定める。
 * [フル ID は frontmatter だけに書き、散文では item にリンクで触れる](./full-ids-in-frontmatter-links-in-prose.md) - ID はフル UUIDv4 で frontmatter だけに書き、ファイル名は slug とし、散文では name を文字列にしたリンクで item に触れる
 * [用語の正名は用語 item が固定し、執筆はそれに従う](./glossary-fixes-canonical-terms.md) - 同じ概念が箇所ごとに違う語で呼ばれると、読み手は同じものを指しているのか判断できず、検索も当たらなくなる。正名を 1 箇所で固定し、執筆はそこに従う。
 * [level が high の risk と、有効な solution と use_case は人が確かめた記録を持つ](./high-risk-verified-by-human.md) - level が high の risk と、status が deprecated でない solution と use_case は、generated.at 以降に人が内容を確かめた verified を持つ
