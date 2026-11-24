@@ -14,6 +14,7 @@
 * [規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ](./normative-items-placement-and-authoring.md) - 規範を手書きの文書と item の両方に書くと二重管理になり、改訂で片方だけが古くなる。規範の所在をグラフ側に一本化し、型ごとの item の一覧はグラフから生成した index.md が持つ。各ディレクトリの手書きの README.md は、item から導けない全体像の散文だけを持つ。この分担は文書の分量ではなく**どちらを正とするか**の宣言であり、README.md へ仕様や item の一覧を書き足すことは規範の複製にあたる。
 * [文書管理の規範と決定は mitodoke のリポジトリで変える](./norms-and-decisions-changed-in-mitodoke.md) - 写した時点から、文書管理の規範と決定を mitodoke のリポジトリだけで変えることを定める。
 * [mitodoke の文書は mitodoke 自身で管理する](./own-docs-managed-by-mitodoke.md) - mitodoke のリポジトリは自身の文書を mitodoke で管理し、文書管理の規範を quality item、文書管理の決定を adr として持つ
+* [プラットフォームの差が出る層は、マージ前に配布の対象のすべてのプラットフォームで検証を成功させる](./platform-dependent-layers-verified-on-all-platforms.md) - プラットフォームの差が出る層は、マージ前に配布の対象のすべてのプラットフォームで検証を成功させると定める。
 * [solution の確認の問い](./review-questions-for-solution.md) - solution に人の確認を記録する前に人が答える、3 つの確認の問い。
 * [use_case の確認の問い](./review-questions-for-use-case.md) - use_case に人の確認を記録する前に人が答える、3 つの確認の問い。
 * [risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る](./risk-attaches-to-requirement-by-default.md) - risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る

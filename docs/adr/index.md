@@ -157,6 +157,7 @@
 
 ## 配布と運用
 
+* [プラットフォームの差が出る層は、マージ前に配布の対象のすべてのプラットフォームで検証を成功させる](./all-platforms-verified-before-merge.md) - mitodoke 自身の開発で、プラットフォームの差が出る層をマージ前に配布の対象のすべてのプラットフォームで検証する規範を quality に起こすと決める。 (stable)
 * [CI 向けには CLI と workflow の例だけを用意し、action は配らない](./ci-integration-by-cli-and-workflow-example.md) - CI 連携のために CLI と README の workflow の例だけを用意し、action は配らないと決める。 (stable)
 * [カバレッジは報告にとどめ、閾値でマージを止めない](./coverage-is-reported-not-gated.md) - mitodoke 自身の開発で、カバレッジは報告にとどめ、閾値でマージを止めない規範を quality に起こすと決める。 (stable)
 * [Nix flake を主な配布にし、sara の CLI を同じタグで一緒に配る](./distributed-by-nix-flake-with-sara-cli.md) - mitodoke を Nix flake で配り、組み込む sara-core と同じタグの sara の CLI を一緒に配ると決める。 (stable)
