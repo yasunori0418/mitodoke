@@ -65,6 +65,7 @@
 
 ## risk・テスト系 item・欠陥
 
+* [受け入れテストは fixture だけに依り、実物のモデルを重ねない](./acceptance-tests-depend-on-fixtures-only.md) - mitodoke の受け入れテストの fixture は自分の mitodoke.yaml を持って実物の docs/model.yaml を重ねず、実物の文書は mitodoke 自身の文書に対する mitodoke check で別に確かめる。 (stable)
 * [欠陥とフィードバックから学んだことを上流の item へ追補する](./defect-and-feedback-backfill-upstream.md) - 欠陥 issue のクローズ前にテスト系 item の欠落を追補し、利用者のフィードバックを受けたら確認の問いで solution と use_case を読み直す。 (stable)
 * [欠陥を既存の RISK / TC に辿れたかで分類して数える](./defects-classified-by-risk-foresight.md) - 欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。 (stable)
 * [欠陥はグラフに置かず GitHub Issues で管理する](./defects-in-github-issues.md) - グラフには欠陥を表す defect 型があった。defect は自分から upstream relation を張れず、親側の test_case が下流向きの `reveals` で接続する唯一の型だった。そのため次の例外を抱えていた。 (stable)
