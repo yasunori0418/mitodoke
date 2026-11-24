@@ -54,7 +54,7 @@ derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-25T00:05:34+09:00"
+  at: "2026-11-25T00:06:13+09:00"
 ---
 # mitodoke 自身のテストは 7 つの区分に分け、単体のテストと受け入れテストの 2 つのレベルで確かめる
 
@@ -137,3 +137,4 @@ mitodoke 自身の手順書は `tests/manual/procedures/` に、テストチャ�
 - [mitodoke 自身のテストのレベルを、単体のテストと受け入れテストの 2 つにする](../adr/two-test-levels-unit-and-acceptance.md)
 - [mitodoke 自身のテストの区分を、CLI の子の epic の範囲に 1 つずつ合わせる](../adr/own-test-categories-follow-cli-epics.md)
 - [受け入れテストは fixture だけに依り、実物のモデルを重ねない](../adr/acceptance-tests-depend-on-fixtures-only.md)
+- [写した契約テストの期待 141 行のうち 110 行を、受け入れテストに引き継ぐ](../adr/acceptance-scope-inherited-from-copied-contract-tests.md)

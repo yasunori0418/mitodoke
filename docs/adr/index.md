@@ -65,6 +65,7 @@
 
 ## risk・テスト系 item・欠陥
 
+* [写した契約テストの期待 141 行のうち 110 行を、受け入れテストに引き継ぐ](./acceptance-scope-inherited-from-copied-contract-tests.md) - 写した契約テストの期待 141 行のうち、書いたファイルの中身・index.md の中身・verify の対話を含む 110 行を受け入れテストに引き継いで、空のグラフで exit code 0 になることを新しく確かめ、term-avoid.sh は受け入れテストにせずリポジトリの検査として残す。 (stable)
 * [受け入れテストは fixture だけに依り、実物のモデルを重ねない](./acceptance-tests-depend-on-fixtures-only.md) - mitodoke の受け入れテストの fixture は自分の mitodoke.yaml を持って実物の docs/model.yaml を重ねず、実物の文書は mitodoke 自身の文書に対する mitodoke check で別に確かめる。 (stable)
 * [欠陥とフィードバックから学んだことを上流の item へ追補する](./defect-and-feedback-backfill-upstream.md) - 欠陥 issue のクローズ前にテスト系 item の欠落を追補し、利用者のフィードバックを受けたら確認の問いで solution と use_case を読み直す。 (stable)
 * [欠陥を既存の RISK / TC に辿れたかで分類して数える](./defects-classified-by-risk-foresight.md) - 欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。 (stable)
