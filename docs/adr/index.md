@@ -69,6 +69,7 @@
 * [欠陥を既存の RISK / TC に辿れたかで分類して数える](./defects-classified-by-risk-foresight.md) - 欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。 (stable)
 * [欠陥はグラフに置かず GitHub Issues で管理する](./defects-in-github-issues.md) - グラフには欠陥を表す defect 型があった。defect は自分から upstream relation を張れず、親側の test_case が下流向きの `reveals` で接続する唯一の型だった。そのため次の例外を抱えていた。 (stable)
 * [自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](./gate-risk-inherits-impact-by-link.md) - 自動検証の形骸化を表す risk の `impact` は守備対象の regression から継承し、継承元はその regression を持つ risk への Markdown リンクで名指しする。 (stable)
+* [mitodoke 自身のテストの区分を、CLI の子の epic の範囲に 1 つずつ合わせる](./own-test-categories-follow-cli-epics.md) - mitodoke 自身のテストの区分を foundation・config-model・authoring・inspection・freshness・result-handoff・distribution の 7 つにし、CLI を作る #6 の子の epic A〜G の範囲に 1 つずつ合わせる。 (stable)
 * [requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](./requirement-risk-exempt.md) - requirement に任意フィールド risk_exempt を設け、requirement 水準の risk を持たない理由を 1 文で書いた requirement を未カバーの一覧から外して免除として列挙する。 (stable)
 * [risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する](./risk-attaches-to-requirement-by-default.md) - risk は既定で requirement に張り、設計を差し替えると消える懸念だけを design に張る。判定は threatens の 1 本ごとに行う。 (stable)
 * [複数の失敗方向を持つ risk は最も重い方向で採点する](./risk-heaviest-direction.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決めた。1 つのrisk が複数の失敗の仕方を持ち、方向によって回復できる度合いが違うとき、どの方向で採点するかを決める必要があった。 (stable)
