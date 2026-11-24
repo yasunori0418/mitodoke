@@ -32,6 +32,8 @@ generated:
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:41:11+09:00"
+  - by: "human:yasunori0418"
+    at: "2026-11-24T23:46:50+09:00"
 ---
 # 1 つの CLI が、サブコマンドごとに入力・出力・exit code を定める
 

@@ -10,6 +10,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:33:43+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-24T23:34:10+09:00"
 ---
 # CLI のモジュールを役割で分け、依存の向きを決める
 

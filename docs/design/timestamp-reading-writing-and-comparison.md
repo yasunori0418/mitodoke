@@ -11,6 +11,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:35:15+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-24T23:37:37+09:00"
 ---
 # 時刻の読み書きと比較を共通のモジュールに置く
 

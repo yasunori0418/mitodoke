@@ -61,6 +61,8 @@ generated:
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T12:54:16+09:00"
+  - by: "human:yasunori0418"
+    at: "2026-11-24T23:46:04+09:00"
 ---
 # サブコマンドは init・new・gap・fresh・index・matrix・model・verify・export・check とする
 
