@@ -1,9 +1,6 @@
 name: Nix Flake Check
 
 on:
-  push:
-    branches-ignore:
-      - main # main は PR 経由でのみ更新するため push を除外
   pull_request:
 
 jobs:

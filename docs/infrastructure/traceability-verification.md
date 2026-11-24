@@ -12,8 +12,8 @@ satisfies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-23T14:07:05+09:00"
+  by: "claude-code/claude-sonnet-5-5"
+  at: "2026-11-24T23:58:56+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -52,13 +52,13 @@ generated:
 載せていない。#6 で載せる。
 
 `sara` job は実物のグラフにも `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
-pull_request では base ブランチを `--base` に渡し、push では `--base` を付けない。merge-base を引けるよう、
+pull_request の base ブランチを `--base` に渡す。merge-base を引けるよう、
 この job の checkout は全履歴を取る。挙がった item は読み直しが要ることを示すだけで破損を意味しないため、
 一覧に item が挙がっても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす
 （→ [上流より古い item と generated の更新漏れは機械的に列挙する](../quality/stale-items-enumerated-mechanically.md)）。
 
 `sara` job は `check.yml` で `check` job（`nix flake check`）と並ぶが、paths-filter を持たず、
-`check` job と同じ条件（main 以外への push と pull_request）で毎回実行する。
+`check` job と同じ条件（pull_request）で毎回実行する。
 `sara` job は sara 専用の devShell（`dev#sara`）で実行する。
 
 ## ID 規約
