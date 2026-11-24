@@ -2,6 +2,7 @@
 
 * [設計判断は ADR に記録し、改訂の書き戻しと item への接続を同じ変更の中で完了させる](./adr-decisions-recorded-and-connected.md) - 決定を記録しない、あるいは記録したが後続の改訂で一部だけが古くなった ADR を有効なまま残す状態は、その ADR だけを読んだ人に「上書きされた内容」を最新仕様と誤読させる。本 item はその防止を規範として固定する。
 * [ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る](./adr-one-decision-four-sections-justifies-by-contribution.md) - ADR は単独で覆せる決定ごとに 1 本を 4 節で書き、justifies は規範の形成に寄与した item へ張る
+* [カバレッジは報告にとどめ、閾値でマージを止めない](./coverage-reported-without-threshold.md) - カバレッジは報告にとどめ、閾値でマージを止めないと定める。
 * [欠陥はトラッカーが持ちドキュメントグラフは規範のみを持つ。起票は分類語彙を経由する](./defects-in-tracker-graph-holds-norms.md) - グラフが持つのは「そうあるべき姿」であり、欠陥は「起きた出来事」になる。両者を同じ場所に置くと、規範の集合に時系列の記録が紛れ、規範だけを読みたい参照が汚れる。所在をトラッカーとグラフで分ける。
 * [ドキュメントグラフのトレーサビリティは機械的に検証する](./document-graph-mechanically-verified.md) - 文書間の参照が指す先を失う、というずれ方は「気づいた人が直す」運用では検出できない。存在しない ID への参照・ID の重複・循環は、人が読んで気づく類の誤りではないため、機械検証に置く。
 * [rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする](./formatting-and-static-analysis-before-merge.md) - 整形の rustfmt と静的解析の clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにすると定める。
