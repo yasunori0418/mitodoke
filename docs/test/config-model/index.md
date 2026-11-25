@@ -1,4 +1,4 @@
-# cli-json
+# config-model
 
 ## テスト条件（`test_condition`）
 

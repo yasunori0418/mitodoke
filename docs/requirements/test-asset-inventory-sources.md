@@ -13,8 +13,10 @@ specification: |
   all sources into one inventory, and SHALL fail when the same asset identifier comes from more than
   one source. The configuration SHALL be able to declare the assets excluded from the inventory
   together with the reason for each exclusion. The procedure and test charter files of tests
-  that a person performs SHALL be listed in the inventory through the committed list files, and
-  their kind SHALL take one of two values, procedure or test charter.
+  that a person performs SHALL be listed in the inventory through the output of the enumeration
+  commands or through the committed list files, like any other test asset, and their kind SHALL
+  take one of two values, procedure or test charter. Each product decides the locations of the
+  procedure and test charter files.
 specification_ja: |
   mitodoke は、テスト資産の列挙を内蔵してはならない。mitodoke は、設定に書いた列挙のコマンドの出力と、
   コミットした一覧のファイルから、テスト資産の一覧を読まなければならず、設定にはコマンドとファイルを
@@ -24,15 +26,16 @@ specification_ja: |
   mitodoke は、すべての出どころを合わせて 1 つの
   一覧にし、同じ資産識別子が 2 か所以上の出どころから出たときは失敗にしなければならない。設定には、
   一覧の対象から外す資産を、外す理由とともに書けなければならない。人が行うテストの手順書とテストチャーターの
-  ファイルは、コミットした一覧のファイルからテスト資産の一覧に載せなければならず、その種別は手順書と
-  テストチャーターの 2 つの値で表さなければならない。
+  ファイルは、ほかのテスト資産と同じく、列挙のコマンドの出力か、コミットした一覧のファイルからテスト資産の
+  一覧に載せなければならず、その種別は手順書とテストチャーターの 2 つの値で表さなければならない。手順書と
+  テストチャーターの置き場所は、製品が自分で決める。
 section: commands
 status: stable
 derives_from:
   - "UC-630b51c7-5880-4cbb-b2b4-b05422061b0c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T11:44:11+09:00"
+  at: "2026-11-24T23:03:56+09:00"
 verified:
   - by: "human:yasunori0418"
     at: "2026-11-23T13:41:40+09:00"
@@ -46,11 +49,11 @@ verified:
 - コマンドの出力と一覧のファイルの各行は、1 つのテストをタブ区切りの `<資産識別子>\t<種別>\t<テスト名>` の形で表す。テスト名は空でもよい。資産識別子は、テストケースの `resource` と同じ表記にする
 - すべての出どころを合わせて 1 つの一覧にする。同じ資産識別子が 2 か所以上の出どころから出たときは失敗にする
 - 一覧の対象から外す資産は、外す理由とともに設定に書く
-- 人が行うテストの手順書とテストチャーターのファイルは、コミットした一覧のファイルの経路でテスト資産の一覧に載せる。種別は手順書とテストチャーターの 2 つの値で表す
+- 人が行うテストの手順書とテストチャーターのファイルも、ほかのテスト資産と同じく、列挙のコマンドの出力か、コミットした一覧のファイルからテスト資産の一覧に載せる。種別は手順書とテストチャーターの 2 つの値で表す。置き場所は製品が自分で決める
 
 ## 出典
 
 根拠の決定は次の ADR が持つ。
 
 - [テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む](../adr/test-assets-listed-by-configured-sources.md)
-- [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](../adr/test-items-in-three-tiers-with-human-tests.md)
+- [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる](../adr/test-items-in-three-tiers-with-human-tests-from-any-source.md)

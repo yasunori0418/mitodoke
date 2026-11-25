@@ -65,19 +65,27 @@
 
 ## risk・テスト系 item・欠陥
 
+* [写した契約テストの期待 141 行のうち 110 行を、受け入れテストに引き継ぐ](./acceptance-scope-inherited-from-copied-contract-tests.md) - 写した契約テストの期待 141 行のうち、書いたファイルの中身・index.md の中身・verify の対話を含む 110 行を受け入れテストに引き継いで、空のグラフで exit code 0 になることを新しく確かめ、term-avoid.sh は受け入れテストにせずリポジトリの検査として残す。 (stable)
+* [受け入れテストは fixture だけに依り、実物のモデルを重ねない](./acceptance-tests-depend-on-fixtures-only.md) - mitodoke の受け入れテストの fixture は自分の mitodoke.yaml を持って実物の docs/model.yaml を重ねず、実物の文書は mitodoke 自身の文書に対する mitodoke check で別に確かめる。 (stable)
 * [欠陥とフィードバックから学んだことを上流の item へ追補する](./defect-and-feedback-backfill-upstream.md) - 欠陥 issue のクローズ前にテスト系 item の欠落を追補し、利用者のフィードバックを受けたら確認の問いで solution と use_case を読み直す。 (stable)
 * [欠陥を既存の RISK / TC に辿れたかで分類して数える](./defects-classified-by-risk-foresight.md) - 欠陥の Issue をクローズするときに、対応する risk か test_condition が起票の時点で既にあったかで欠陥を 2 つに分類し、固定した語彙で記録して数えられるようにする。 (stable)
 * [欠陥はグラフに置かず GitHub Issues で管理する](./defects-in-github-issues.md) - グラフには欠陥を表す defect 型があった。defect は自分から upstream relation を張れず、親側の test_case が下流向きの `reveals` で接続する唯一の型だった。そのため次の例外を抱えていた。 (stable)
 * [自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする](./gate-risk-inherits-impact-by-link.md) - 自動検証の形骸化を表す risk の `impact` は守備対象の regression から継承し、継承元はその regression を持つ risk への Markdown リンクで名指しする。 (stable)
+* [outturn への適合は、--json の出力のサンプルを schema で確かめる](./outturn-conformance-checked-by-schema.md) - outturn への適合を受け入れテストの範囲に入れ、--json の出力のサンプルを outturn の flake の lib.mkSchemaCheck で確かめ、item の id の導出は確かめない。 (stable)
+* [mitodoke 自身の手順書とテストチャーターを tests/manual/ の下に置く](./own-manual-test-assets-under-tests-manual.md) - mitodoke 自身の手順書を tests/manual/procedures/ に、テストチャーターを tests/manual/charters/ に置き、テスト資産の一覧には列挙のコマンドで載せ、ディレクトリは最初のファイルを置くときに作る。 (stable)
+* [mitodoke 自身のテストの区分を、CLI の子の epic の範囲に 1 つずつ合わせる](./own-test-categories-follow-cli-epics.md) - mitodoke 自身のテストの区分を foundation・config-model・authoring・inspection・freshness・result-handoff・distribution の 7 つにし、CLI を作る #6 の子の epic A〜G の範囲に 1 つずつ合わせる。 (stable)
 * [requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す](./requirement-risk-exempt.md) - requirement に任意フィールド risk_exempt を設け、requirement 水準の risk を持たない理由を 1 文で書いた requirement を未カバーの一覧から外して免除として列挙する。 (stable)
 * [risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する](./risk-attaches-to-requirement-by-default.md) - risk は既定で requirement に張り、設計を差し替えると消える懸念だけを design に張る。判定は threatens の 1 本ごとに行う。 (stable)
 * [複数の失敗方向を持つ risk は最も重い方向で採点する](./risk-heaviest-direction.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決めた。1 つのrisk が複数の失敗の仕方を持ち、方向によって回復できる度合いが違うとき、どの方向で採点するかを決める必要があった。 (stable)
 * [risk の impact を検出後の回復可能性で採点する](./risk-impact-as-recoverability.md) - risk の `impact` の high 行は、「ユーザー環境・実データの破壊」と「沈黙の不整合を残すこと」を並べていた。気づかれないまま通る脅威は、開発の中に留まるものでも high を採る読み方だった。 (stable)
 * [risk の親に test_plan を含めない](./risk-parent-excludes-test-plan.md) - test_plan を設けた（[テスト計画の型を品質方針の型から分けて設ける](quality-and-test-plan-types.md)）ことで、risk の親に test_plan を加えるかどうかを決める必要があった。テスト計画はどの risk を扱うかを述べるので、両者には関係がある。 (stable)
 * [risk に ISO/IEC 25010:2023 の品質特性を 1 つ必須で持たせる](./risk-quality-characteristic.md) - risk に ISO/IEC 25010:2023 の 9 つの品質特性で固定した enum の quality_characteristic を必須で持たせ、リスクを持たない特性を、対象外の宣言を除いて報告する。 (stable)
+* [mitodoke 自身が対象外にする品質特性を safety だけにする](./safety-excluded-from-quality-characteristics.md) - mitodoke 自身が risk を起こさない品質特性を safety だけにし、理由を dev/tests/quality-characteristic-exclusions.tsv に書く。 (stable)
+* [sara の挙動の回帰は別のレベルにせず、mitodoke の結果で確かめる](./sara-behavior-checked-through-mitodoke-results.md) - sara の挙動の回帰を別のテストのレベルにせず、#6 のコメントの 3.1 節の実験の入力を受け入れテストの fixture にして mitodoke の結果を期待にし、sara-core 自体が何を返すかは確かめない。 (stable)
 * [沈黙性を risk のスコア軸にせず本文に書く](./silence-not-a-score-axis.md) - [risk の impact を検出後の回復可能性で採点する](risk-impact-as-recoverability.md) と決め、`impact` から沈黙の不整合を外した。気づけるかどうかは脅威の性質として重要な情報で、捨てるには惜しい。これをどこに残すかを決める必要があった。 (stable)
 * [test_condition に、人が最終的に判断する理由の human_judgement を持たせる](./test-condition-human-judgement.md) - test_condition に任意の text の human_judgement を足して理由の 1 文を書かせ、機械で確かめるのを既定にして、人が最終的に判断するものだけを一覧にする。 (stable)
-* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](./test-items-in-three-tiers-with-human-tests.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす (stable)
+* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる](./test-items-in-three-tiers-with-human-tests-from-any-source.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす。手順書とテストチャーターは、列挙のコマンドの出力か一覧のファイルからテスト資産の一覧に載せ、置き場所は製品が自分で決める (stable)
+* [mitodoke 自身のテストのレベルを、単体のテストと受け入れテストの 2 つにする](./two-test-levels-unit-and-acceptance.md) - mitodoke 自身のテストのレベルを、crate の中のモジュールを cargo test で確かめる単体のテストと、ビルドしたバイナリを fixture のリポジトリに対して実行する受け入れテストの 2 つにし、別のモデルを使うテストはプロセスを分け、端末からの実行が要る受け入れテストは疑似端末で流す。 (stable)
 
 ## 製品の範囲と構成
 
@@ -149,9 +157,15 @@
 
 ## 配布と運用
 
+* [プラットフォームの差が出る層は、マージ前に配布の対象のすべてのプラットフォームで検証を成功させる](./all-platforms-verified-before-merge.md) - mitodoke 自身の開発で、プラットフォームの差が出る層をマージ前に配布の対象のすべてのプラットフォームで検証する規範を quality に起こすと決める。 (stable)
 * [CI 向けには CLI と workflow の例だけを用意し、action は配らない](./ci-integration-by-cli-and-workflow-example.md) - CI 連携のために CLI と README の workflow の例だけを用意し、action は配らないと決める。 (stable)
+* [カバレッジは報告にとどめ、閾値でマージを止めない](./coverage-is-reported-not-gated.md) - mitodoke 自身の開発で、カバレッジは報告にとどめ、閾値でマージを止めない規範を quality に起こすと決める。 (stable)
 * [Nix flake を主な配布にし、sara の CLI を同じタグで一緒に配る](./distributed-by-nix-flake-with-sara-cli.md) - mitodoke を Nix flake で配り、組み込む sara-core と同じタグの sara の CLI を一緒に配ると決める。 (stable)
+* [workflow は最小権限の permissions を宣言し、外部の action はコミット SHA で固定する](./least-privilege-workflows-and-pinned-actions.md) - mitodoke 自身の開発で、workflow に最小権限の permissions を宣言し、外部の action をコミット SHA で固定する規範を quality に起こすと決める。 (stable)
+* [main は PR だけで変え、required の check が成功するまでマージしない](./main-protected-by-required-checks.md) - mitodoke 自身の開発で、main を PR だけで変え、required の check が成功するまでマージせず、直接の push、削除、force push を禁じる規範を quality に起こすと決める。 (stable)
+* [rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする](./rustfmt-and-clippy-gate-merges.md) - mitodoke 自身の開発で、rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする規範を quality に起こすと決める。 (stable)
 * [sara は必要なときに上げ、Cargo.lock と flake の input を同じタグに揃える](./sara-upgraded-when-needed.md) - sara のタグは要る機能や修正が入ったときに上げ、Cargo.lock と flake の input を同じタグへ揃えると決める。 (stable)
+* [バージョンは一次情報 1 か所から導き、タグとリリースノートは自動で作る](./single-version-source-and-automated-release.md) - mitodoke 自身の開発で、バージョンを一次情報 1 か所から導き、タグとリリースノートを自動で作る規範を quality に起こすと決める。 (stable)
 * [利用者向けのスキルを公開用として英語で書く](./user-skills-written-in-english.md) - 利用者向けのスキルを公開用として英語で書き、配り方は候補を挙げて Issue #46 で決めると決める。 (stable)
 
 ## 移し方と記録
@@ -185,6 +199,7 @@
 * [item のファイル名は slug だけにする](./slug-only-filenames.md) - item のファイル名を `<slug>.md` にし、フル ID は frontmatter と H1 見出しだけに書き、散文は Markdown リンクで item を参照する。 (deprecated)
 * [OKF より厳しい 5 つの制約を構造の契約に引き継ぐ](./stricter-than-okf-constraints-kept.md) - 写した文書管理の仕組みが OKF v0.2 に重ねて定めた 5 つの制約を、すべて mitodoke の構造の契約に引き継ぐ。 (deprecated)
 * [サブコマンドを new・gap・fresh・index・matrix・model・verify・export・check に分ける](./subcommands-split-by-function.md) - mitodoke の CLI のサブコマンドは、開発に使う script の名前から接頭辞を外した名前で、機能ごとに分ける。 (deprecated)
+* [テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にする](./test-items-in-three-tiers-with-human-tests.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、人が行うテストも手順書かテストチャーターを resource で指す CASE として起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こす](./test-items-in-three-tiers.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こす (deprecated)
 * [テスト系 item を CASE・TC・RISK の 3 段で起こし、概要文書へ索引しない](./test-items-three-tier-granularity.md) - CASE はテスト資産、TC は検証テーマ、RISK は TC を束ねる脅威の単位で起こし、概要文書へ索引しない。 (deprecated)
 * [型に固有の契約は組み込みの型だけに働かせる](./type-specific-contracts-builtin-only.md) - frontmatter の形・ID の置き場所・index.md の生成と差分はすべての型に、型に固有の契約は組み込みの型だけに働かせる。 (deprecated)

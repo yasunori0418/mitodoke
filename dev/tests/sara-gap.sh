@@ -396,7 +396,7 @@ risk_item() {
 id: "$3"
 type: risk
 name: "$4 のリスク"
-section: engine-core
+section: foundation
 status: $5
 threatens:
   - "REQ-aaaa0001-0000-4000-8000-000000000003"

@@ -695,7 +695,7 @@ fi
 
 repo14="$work/quality-characteristic"
 make_repo "$repo14"
-risk_sec=(--section engine-core)
+risk_sec=(--section foundation)
 
 run_sara_new "$repo14" sara-new risk no-quality-characteristic docs/risks -- "${risk_sec[@]}" "${desc[@]}"
 noqc_files="$(find "$repo14/docs" -name '*.md' -type f | wc -l)"

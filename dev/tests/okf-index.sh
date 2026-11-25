@@ -40,7 +40,7 @@ fi
 
 # 実物の docs/model.yaml を重ね、上流を持たない item とテスト条件 1 本だけのグラフを作る。
 fixture="$work/fixture"
-mkdir -p "$fixture/docs/adr" "$fixture/docs/ubiquitous-language" "$fixture/docs/requirements" "$fixture/docs/risks" "$fixture/docs/test/copy"
+mkdir -p "$fixture/docs/adr" "$fixture/docs/ubiquitous-language" "$fixture/docs/requirements" "$fixture/docs/risks" "$fixture/docs/test/authoring"
 cp "$repo_root/docs/model.yaml" "$fixture/docs/model.yaml"
 cat > "$fixture/sara.toml" <<'EOF'
 model_schema = "docs/model.yaml"
@@ -188,7 +188,7 @@ specification_ja: |
 EOF
 
 # docs/test/ の区分に置くテスト条件。
-cat > "$fixture/docs/test/copy/condition.md" <<'EOF'
+cat > "$fixture/docs/test/authoring/condition.md" <<'EOF'
 ---
 id: "TC-55555555-5555-4555-8555-555555555555"
 type: test_condition
@@ -211,7 +211,7 @@ likelihood: low
 impact: low
 level: low
 quality_characteristic: reliability
-section: integration
+section: distribution
 status: stable
 ---
 # 統合の脅威
@@ -226,7 +226,7 @@ likelihood: low
 impact: low
 level: low
 quality_characteristic: reliability
-section: manifest-eval
+section: foundation
 status: stable
 ---
 # 評価の脅威
@@ -263,7 +263,7 @@ expect_line "ADR 以外の item には status の添え字を付けず、英数�
 # --- (3) docs/test/ の区分 ------------------------------------------------------
 
 want_copy=$(cat <<'EOF'
-# copy
+# authoring
 
 ## テスト条件（`test_condition`）
 
@@ -272,11 +272,11 @@ want_copy=$(cat <<'EOF'
 ## テストケース（`test_case`）
 EOF
 )
-if [ "$(cat "$fixture/docs/test/copy/index.md")" = "$want_copy" ]; then
+if [ "$(cat "$fixture/docs/test/authoring/index.md")" = "$want_copy" ]; then
   pass "区分の index.md は型ごとの見出しの下にエントリを並べる"
 else
-  fault "(3) docs/test/copy/index.md の形が食い違う"
-  sed 's/^/    /' "$fixture/docs/test/copy/index.md"
+  fault "(3) docs/test/authoring/index.md の形が食い違う"
+  sed 's/^/    /' "$fixture/docs/test/authoring/index.md"
 fi
 
 want_cats=$(read_tsv "$script_dir/test-categories.tsv" | cut -f1 | tr '\n' ' ')
@@ -371,7 +371,7 @@ else
 fi
 
 headed=""
-for f in docs/requirements/index.md docs/ubiquitous-language/index.md docs/test/copy/index.md; do
+for f in docs/requirements/index.md docs/ubiquitous-language/index.md docs/test/authoring/index.md; do
   grep -qxF '## 有効でない item（`deprecated`）' "$fixture/$f" && headed+=" $f"
 done
 if [ -z "$headed" ]; then
@@ -422,10 +422,10 @@ sed 's/8888-888888888888/8888-888888888890/; s/^status: stable$/status: deprecat
 sed 's/8888-888888888888/8888-888888888891/; s/^status: stable$/status: draft/; s/エラーの要件/下書きの要件/; s/エラーの説明。/下書きの説明。/' \
   "$fixture/docs/requirements/error.md" > "$deprecated/docs/requirements/z-draft.md"
 sed 's/8555-555555555555/8555-555555555556/; s/^status: stable$/status: deprecated/; s/条件/古い条件/g' \
-  "$fixture/docs/test/copy/condition.md" > "$deprecated/docs/test/copy/old-condition.md"
+  "$fixture/docs/test/authoring/condition.md" > "$deprecated/docs/test/authoring/old-condition.md"
 sed 's/^status: stable$/status: deprecated/' "$fixture/docs/adr/no-description.md" > "$deprecated/docs/adr/no-description.md"
 sed 's/^status: stable$/status: deprecated/' "$fixture/docs/adr/with-field.md" > "$deprecated/docs/adr/with-field.md"
-cat > "$deprecated/docs/test/copy/a-case.md" <<'EOF'
+cat > "$deprecated/docs/test/authoring/a-case.md" <<'EOF'
 ---
 id: "CASE-99999999-9999-4999-8999-999999999999"
 type: test_case
@@ -489,7 +489,7 @@ else
 fi
 
 want_dep_copy=$(cat <<'EOF'
-# copy
+# authoring
 
 ## テスト条件（`test_condition`）
 
@@ -503,11 +503,11 @@ want_dep_copy=$(cat <<'EOF'
 * [古い条件](./old-condition.md) - 古い条件の説明。
 EOF
 )
-if [ "$(cat "$deprecated/docs/test/copy/index.md")" = "$want_dep_copy" ]; then
+if [ "$(cat "$deprecated/docs/test/authoring/index.md")" = "$want_dep_copy" ]; then
   pass "区分の index.md は、deprecated のテスト条件とテストケースを 2 つの節の後ろの 1 つの節にファイル名順でまとめる"
 else
-  fault "(7) docs/test/copy/index.md の deprecated の item の置き場所が食い違う"
-  sed 's/^/    /' "$deprecated/docs/test/copy/index.md"
+  fault "(7) docs/test/authoring/index.md の deprecated の item の置き場所が食い違う"
+  sed 's/^/    /' "$deprecated/docs/test/authoring/index.md"
 fi
 
 # --- (8) 表に無い section の値で exit 2 ----------------------------------------
@@ -535,11 +535,11 @@ fi
 want_risks=$(cat <<'EOF'
 # リスク（`risk`）
 
-## manifest-eval
+## foundation
 
 * [評価の脅威](./z-eval.md) - 評価の要約
 
-## integration
+## distribution
 
 * [統合の脅威](./a-integration.md) - 統合の要約
 EOF
@@ -554,8 +554,8 @@ fi
 # model.yaml の写しの risk の enum に値を 1 つ足し、sara check は通るが区分に無い値を作る。
 unknown_risk="$work/unknown-risk"
 cp -r "$fixture" "$unknown_risk"
-sed -i 's/^            - integration$/&\n            - zz-unlisted-category/' "$unknown_risk/docs/model.yaml"
-sed 's/^section: integration$/section: zz-unlisted-category/; s/8aaa-aaaaaaaaaaaa/8aaa-aaaaaaaaaaab/' \
+sed -i '/^  - id: risk$/,/^  - id: test_condition$/ s/^            - distribution$/&\n            - zz-unlisted-category/' "$unknown_risk/docs/model.yaml"
+sed 's/^section: distribution$/section: zz-unlisted-category/; s/8aaa-aaaaaaaaaaaa/8aaa-aaaaaaaaaaab/' \
   "$fixture/docs/risks/a-integration.md" > "$unknown_risk/docs/risks/unlisted.md"
 # 生成結果と違う内容に置き換えておき、書き換えられていないことを確かめる。
 printf '# 生成前\n' > "$unknown_risk/docs/risks/index.md"
