@@ -474,6 +474,83 @@ run_gap env SARA_GAP_ROOT="$hj_clean" sara-gap --json
 assert_eq "human_judgement の一覧だけがあっても exit 0" "0:1" \
   "$status_capture:$(jq -r '.human_judgement | length' <<<"$stdout_capture" 2>/dev/null)"
 
+# --- 4e. deprecated の item からの辺 -------------------------------------------
+#
+# ギャップを埋めた fixture で、覆う側の item を 1 つずつ deprecated にする。
+# その item からの辺は数えず、覆われていた有効な item が未カバーに出て到達率からも外れる。
+
+deprecate() {
+  sed -i 's/^status: stable$/status: deprecated/' "$@"
+}
+
+# <ラベル> <期待> <jq の式>。直前の run_gap の --json の出力に式を当てる。
+assert_json() {
+  assert_eq "$1" "$2" "$(jq -r "$3" <<<"$stdout_capture" 2>/dev/null)"
+}
+
+ids='map(.id[0:13]) | join(",")'
+reach='"\(.total),\(.reached)"'
+
+dep_risk="$work/dep-risk"
+fill_gaps "$dep_risk"
+deprecate "$dep_risk/docs/risk-covered.md"
+run_gap env SARA_GAP_ROOT="$dep_risk" sara-gap --json
+assert_json "deprecated の risk からの threatens は REQ を覆わず、その risk は節 2 に出ない" \
+  "1:REQ-aaaa0001:0:1,0" \
+  "\"\(.unthreatened | length):\(.unthreatened[0].id[0:12]):\(.unmitigated | length):\(.reach.requirement | $reach)\""
+
+dep_tc="$work/dep-tc"
+fill_gaps "$dep_tc"
+deprecate "$dep_tc/docs/tc-covered.md"
+run_gap env SARA_GAP_ROOT="$dep_tc" sara-gap --json
+assert_json "deprecated の TC からの mitigates は RISK を覆わず、その TC は節 3 に出ない" \
+  "RISK-11110001:0:1,0" \
+  "\"\(.unmitigated | $ids):\(.uncovered | length):\(.reach.requirement | $reach)\""
+
+dep_case="$work/dep-case"
+fill_gaps "$dep_case"
+deprecate "$dep_case/docs/case.md" "$dep_case/docs/case-followed.md"
+run_gap env SARA_GAP_ROOT="$dep_case" sara-gap --json
+assert_json "deprecated の CASE からの covers と follows は数えず、その CASE は節 4 に出ない" \
+  "TC-33330001-0:0:1,0:1,0" \
+  "\"\(.uncovered | $ids):\(.unfollowed | length):\(.reach.requirement | $reach):\(.reach.test_plan | $reach)\""
+
+dep_inf="$work/dep-inf"
+fill_gaps "$dep_inf"
+deprecate "$dep_inf/docs/inf.md"
+run_gap env SARA_GAP_ROOT="$dep_inf" sara-gap --json
+assert_json "deprecated の INF からの satisfies は QA を覆わない" \
+  "QA-88880001-0:1,0" \
+  "\"\(.unsatisfied_quality | $ids):\(.reach.quality | $reach)\""
+
+# follows の先がすべて deprecated の test_plan である有効な CASE は、follows を持っていても節 4 に出す。
+dep_tp="$work/dep-tp"
+fill_gaps "$dep_tp"
+deprecate "$dep_tp/docs/tp.md"
+run_gap env SARA_GAP_ROOT="$dep_tp" sara-gap --json
+assert_json "follows の先がすべて deprecated の TP である CASE を節 4 に出す" \
+  "CASE-55550001,CASE-66660002:0,0" \
+  "\"\(.unfollowed | $ids):\(.reach.test_plan | $reach)\""
+
+# design 側の risk の印は、design と risk の両方が有効なときだけ付ける。
+for dep_file in dsg-gap risk-on-design; do
+  dep_mark="$work/dep-mark-$dep_file"
+  make_fixture "$dep_mark"
+  deprecate "$dep_mark/docs/$dep_file.md"
+  run_gap env SARA_GAP_ROOT="$dep_mark" sara-gap
+  dep_mark_sec="$(section_body "$h_unthreatened" "$stdout_capture")"
+  assert_has "$dep_file.md が deprecated でも REQ は節 1 に出る" '^REQ-dddd0004' "$dep_mark_sec"
+  assert_lacks "$dep_file.md が deprecated なら design 側の risk の印を付けない" "^REQ-dddd0004.*$design_mark" "$dep_mark_sec"
+done
+
+# draft の item は有効な item で、その辺も数える。
+draft_chain="$work/draft-chain"
+fill_gaps "$draft_chain"
+sed -i 's/^status: stable$/status: draft/' "$draft_chain"/docs/{risk-covered,tc-covered,case,case-followed,inf,tp}.md
+run_gap env SARA_GAP_ROOT="$draft_chain" sara-gap --json
+assert_json "draft の item からの辺は数え、exit 0 になる" "0:1,1,1" \
+  "\"$status_capture:\([.reach.requirement, .reach.test_plan, .reach.quality | .ratio] | join(\",\"))\""
+
 # --- 5. sara check が失敗するグラフでは exit 2 ---------------------------------
 #
 # broken reference（実在しない risk への mitigates）を混ぜ、ギャップ一覧を出さないことを確かめる。

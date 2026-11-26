@@ -24,7 +24,8 @@ sara ドキュメントグラフの未カバーと到達率を 11 節で出す:
   10. 有効な risk を持たず、対象外にもしていない品質特性（ISO/IEC 25010:2023 の 9 特性）
   11. human_judgement を持つ test_condition（情報）
 
-節 8〜11 は status が deprecated の item を除いて数える（draft は含む）。
+どの節も status が deprecated の item を除いて数え（draft は含む）、辺は両端がそうである item の
+ものだけを数える。節 4 は、follows の先がすべて deprecated の test_plan である test_case も出す。
 対象外の品質特性は、特性と理由の 2 列の TSV（1 行目はヘッダ）から読む。パスは既定で
 <リポジトリの根>/dev/tests/quality-characteristic-exclusions.tsv で、SARA_GAP_EXCLUSIONS で
 差し替えられる。ファイルが無ければ対象外なしとして扱う。
@@ -90,52 +91,53 @@ if ! printf '%s' "$graph" | jq -e '.valid == true' >/dev/null; then
   exit 2
 fi
 
-# 宣言辺（relations.<型> の ID 配列）から張り先の集合を作り、各段の未カバーを
-# 逆引きする 1 パス。relations を持たない item もあるので欠落は空配列に倒す。
+# 有効な item が宣言する辺（relations.<型> の ID 配列）から張り先の集合を作り、有効な item の
+# 未カバーを逆引きする 1 パス。relations を持たない item もあるので欠落は空配列に倒す。
 # file はリポジトリルート相対で ./ が前置されるので剥がす。
 gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
-  def targets(t): [.items[] | (.relations[t]? // [])[]] | unique;
   def row: {id, name, file: (.file | ltrimstr("./"))};
   def has_exempt: (.fields.risk_exempt? // "") != "";
   def valid: .fields.status? != "deprecated";
+  def targets(t): [.items[] | select(valid) | (.relations[t]? // [])[]] | unique;
   def has_judgement: (.fields.human_judgement? // "") != "";
   def reach_of(f): length as $total | ([.[] | select(f)] | length) as $reached
     | {total: $total, reached: $reached, ratio: (if $total == 0 then 1 else $reached / $total end)};
   targets("threatens") as $threatened
-  | ([.items[] | select(.type == "design")
+  | ([.items[] | select(.type == "design" and valid)
       | select(.id as $i | $threatened | index($i))
       | (.relations.satisfies? // [])[]] | unique) as $risky_design_reqs
   | targets("mitigates") as $mitigated
   | targets("covers") as $covered
-  | ([.items[] | select(.type == "infrastructure") | (.relations.satisfies? // [])[]] | unique) as $inf_satisfied
+  | ([.items[] | select(.type == "infrastructure" and valid) | (.relations.satisfies? // [])[]] | unique) as $inf_satisfied
   | targets("follows") as $followed
-  | ([.items[] | select(.type == "test_condition") | select(.id as $i | $covered | index($i))
+  | ([.items[] | select(.type == "test_condition" and valid) | select(.id as $i | $covered | index($i))
       | (.relations.mitigates? // [])[]] | unique) as $case_backed_risks
-  | ([.items[] | select(.type == "risk") | select(.id as $i | $case_backed_risks | index($i))
+  | ([.items[] | select(.type == "risk" and valid) | select(.id as $i | $case_backed_risks | index($i))
       | (.relations.threatens? // [])[]] | unique) as $chained_reqs
+  | ([.items[] | select(.type == "test_plan" and valid) | .id]) as $valid_plans
   | ([.items[] | select(.type == "use_case") | {key: .id, value: valid}] | from_entries) as $uc_valid
   | ([.items[] | select(.type == "requirement") | select(valid) | (.relations.derives_from? // [])[]] | unique) as $valid_req_parents
   | ([$exclusions | split("\n") | .[1:][] | split("\t")[0] | select(. != "")]) as $excluded
   | ([.items[] | select(.type == "risk" and valid) | .fields.quality_characteristic? // empty] | unique) as $risked
   | {
       unthreatened: ([.items[]
-        | select(.type == "requirement")
+        | select(.type == "requirement" and valid)
         | select(has_exempt | not)
         | select(.id as $i | ($threatened | index($i)) | not)
         | row + {design_risk: (.id as $i | $risky_design_reqs | index($i) != null)}] | sort_by(.id)),
       unmitigated: ([.items[]
-        | select(.type == "risk")
+        | select(.type == "risk" and valid)
         | select(.id as $i | ($mitigated | index($i)) | not) | row] | sort_by(.id)),
       uncovered: ([.items[]
-        | select(.type == "test_condition")
+        | select(.type == "test_condition" and valid)
         | select(.id as $i | ($covered | index($i)) | not) | row] | sort_by(.id)),
       unfollowed: ([.items[]
-        | select(.type == "test_case")
-        | select((.relations.follows? // []) | length == 0) | row] | sort_by(.id)),
+        | select(.type == "test_case" and valid)
+        | select([(.relations.follows? // [])[] | select(. as $p | $valid_plans | index($p))] | length == 0) | row] | sort_by(.id)),
       unsatisfied_quality: ([.items[]
-        | select(.type == "quality")
+        | select(.type == "quality" and valid)
         | select(.id as $i | ($inf_satisfied | index($i)) | not) | row] | sort_by(.id)),
-      exempt: ([.items[] | select(.type == "requirement") | select(has_exempt) | row] | sort_by(.id)),
+      exempt: ([.items[] | select(.type == "requirement" and valid) | select(has_exempt) | row] | sort_by(.id)),
       use_case_without_requirement: ([.items[]
         | select(.type == "use_case" and valid)
         | select(.id as $i | ($valid_req_parents | index($i)) | not) | row] | sort_by(.id)),
@@ -151,11 +153,11 @@ gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
       human_judgement: ([.items[]
         | select(.type == "test_condition" and valid and has_judgement) | row] | sort_by(.id)),
       reach: {
-        requirement: ([.items[] | select(.type == "requirement") | select(has_exempt | not)]
+        requirement: ([.items[] | select(.type == "requirement" and valid) | select(has_exempt | not)]
           | reach_of(.id as $i | $chained_reqs | index($i))),
-        test_plan: ([.items[] | select(.type == "test_plan")]
+        test_plan: ([.items[] | select(.type == "test_plan" and valid)]
           | reach_of(.id as $i | $followed | index($i))),
-        quality: ([.items[] | select(.type == "quality")]
+        quality: ([.items[] | select(.type == "quality" and valid)]
           | reach_of(.id as $i | $inf_satisfied | index($i)))
       }
     }')
