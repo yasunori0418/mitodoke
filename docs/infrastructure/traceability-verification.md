@@ -24,7 +24,7 @@ satisfies:
   - "QA-ae2f173b-e4b1-412b-8b1f-bcdc38b46170"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T00:56:56+09:00"
+  at: "2026-11-27T00:57:11+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -68,7 +68,7 @@ pull_request の base ブランチを `--base` に渡す。merge-base を引け�
 一覧に item が挙がっても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす
 （→ [上流より古い item と generated の更新漏れは機械的に列挙する](../quality/stale-items-enumerated-mechanically.md)）。
 
-`sara` job は実物のグラフに `sara-gap` も実行し、未カバーと到達率をログと job のサマリーへ出す。`--base` は渡さない。
+`sara` job は実物のグラフに `sara-gap` も実行し、未カバーと到達率をログと job のサマリーへ出す。
 未カバーが残っていても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす。
 PR ごとに未カバーの増減を見えるようにし、0 本にした節が後で増えたときに気づけるようにするため。
 
