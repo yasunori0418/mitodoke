@@ -104,19 +104,20 @@ relation は**起こした側（下流）の frontmatter に宣言する**（`sa
 
 - **`sara check`** — グラフの整合（broken reference・duplicate ID・cycle・orphan）。
   書き込みのたびに回す。green が完了条件。
-- **`sara-gap`** — valid なグラフの**未カバーと到達率**を 11 節で出す。工程の着手点リストとして使う
+- **`sara-gap`** — valid なグラフの**未カバーと到達率**を 12 節で出す。工程の着手点リストとして使う
   （`unthreatened` = リスク識別の未着手（`threatens` も `risk_exempt` も無い `requirement`）、
   `unmitigated` = テスト分析の未着手、`uncovered` = テスト実装の未着手、
   `unfollowed` = `test_plan` への `follows` が無い `test_case`、
-  `unsatisfied_quality` = `infrastructure` に `satisfies` されていない `quality`、
+  `unsatisfied_quality` = `infrastructure` に `satisfies` されておらず `infrastructure_exempt` も無い `quality`、
   `exempt` = `risk_exempt` を持つ `requirement`（情報）、
   `reach` = `requirement`・`test_plan`・`quality` の到達率、
   `use_case_without_requirement` = 有効な `requirement` を 1 本も持たない有効な `use_case`、
   `requirement_under_deprecated_use_case` = 親の `use_case` がすべて `deprecated` の有効な `requirement`、
   `quality_characteristic_without_risk` = 有効な `risk` を 1 本も持たず、対象外にもしていない品質特性、
-  `human_judgement` = `human_judgement` を持つ有効な `test_condition`（情報））。
+  `human_judgement` = `human_judgement` を持つ有効な `test_condition`（情報）、
+  `exempt_quality` = `infrastructure_exempt` を持つ有効な `quality`（情報））。
   「有効な」は `status` が `deprecated` でないことを指し、`draft` を含む。
-  exit 0 = 情報の節（`exempt`・`human_judgement`）以外がすべて空で、到達率がすべて 1 / 1 = それ以外 / 2 = check 失敗。
+  exit 0 = 情報の節（`exempt`・`human_judgement`・`exempt_quality`）以外がすべて空で、到達率がすべて 1 / 1 = それ以外 / 2 = check 失敗。
 - **`sara-fresh`**: valid なグラフから、`generated`・`verified`・`stale_after` で見て確かめ直しが要る item を 6 節で出す
   （`stale` = 上流の `generated.at` が自身の基準時刻より新しい item、
   `generated_not_updated` = `--base <ref>` を渡したときだけ出す節で、ref との merge-base から本文が変わったのに `generated.at` が変わっていない item、

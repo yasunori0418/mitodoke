@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sara ドキュメントグラフの未カバーと到達率を 11 節で出す。
+# sara ドキュメントグラフの未カバーと到達率を 12 節で出す。
 #
 #   sara-gap [--json]
 #
@@ -11,18 +11,19 @@ usage() {
   cat >&2 <<'EOF'
 usage: sara-gap [--json]
 
-sara ドキュメントグラフの未カバーと到達率を 11 節で出す:
+sara ドキュメントグラフの未カバーと到達率を 12 節で出す:
   1. threatens も risk_exempt も無い requirement
   2. mitigates されていない risk
   3. covers されていない test_condition
   4. follows を持たない test_case
-  5. infrastructure に satisfies されていない quality
+  5. infrastructure に satisfies されておらず、infrastructure_exempt も無い quality
   6. risk_exempt を持つ requirement（情報）
   7. 到達率
   8. 有効な requirement を持たない use_case
   9. 親の use_case がすべて deprecated の requirement
   10. 有効な risk を持たず、対象外にもしていない品質特性（ISO/IEC 25010:2023 の 9 特性）
   11. human_judgement を持つ test_condition（情報）
+  12. infrastructure_exempt を持つ quality（情報）
 
 どの節も status が deprecated の item を除いて数え（draft は含む）、辺は両端がそうである item の
 ものだけを数える。節 4 は、follows の先がすべて deprecated の test_plan である test_case も出す。
@@ -100,6 +101,7 @@ gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
   def valid: .fields.status? != "deprecated";
   def targets(t): [.items[] | select(valid) | (.relations[t]? // [])[]] | unique;
   def has_judgement: (.fields.human_judgement? // "") != "";
+  def has_inf_exempt: (.fields.infrastructure_exempt? // "") != "";
   def reach_of(f): length as $total | ([.[] | select(f)] | length) as $reached
     | {total: $total, reached: $reached, ratio: (if $total == 0 then 1 else $reached / $total end)};
   targets("threatens") as $threatened
@@ -136,8 +138,10 @@ gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
         | select([(.relations.follows? // [])[] | select(. as $p | $valid_plans | index($p))] | length == 0) | row] | sort_by(.id)),
       unsatisfied_quality: ([.items[]
         | select(.type == "quality" and valid)
+        | select(has_inf_exempt | not)
         | select(.id as $i | ($inf_satisfied | index($i)) | not) | row] | sort_by(.id)),
       exempt: ([.items[] | select(.type == "requirement" and valid) | select(has_exempt) | row] | sort_by(.id)),
+      exempt_quality: ([.items[] | select(.type == "quality" and valid) | select(has_inf_exempt) | row] | sort_by(.id)),
       use_case_without_requirement: ([.items[]
         | select(.type == "use_case" and valid)
         | select(.id as $i | ($valid_req_parents | index($i)) | not) | row] | sort_by(.id)),
@@ -157,7 +161,7 @@ gaps=$(printf '%s' "$graph" | jq --arg exclusions "$exclusions" '
           | reach_of(.id as $i | $chained_reqs | index($i))),
         test_plan: ([.items[] | select(.type == "test_plan" and valid)]
           | reach_of(.id as $i | $followed | index($i))),
-        quality: ([.items[] | select(.type == "quality" and valid)]
+        quality: ([.items[] | select(.type == "quality" and valid) | select(has_inf_exempt | not)]
           | reach_of(.id as $i | $inf_satisfied | index($i)))
       }
     }')
@@ -194,6 +198,8 @@ else
     + (if (.quality_characteristic_without_risk | length) == 0 then ["なし"] else .quality_characteristic_without_risk end)
     + [""]
     + section("human_judgement を持つ test_condition（情報）"; .human_judgement)
+    + [""]
+    + section("infrastructure_exempt を持つ quality（情報）"; .exempt_quality)
     | .[]'
 fi
 

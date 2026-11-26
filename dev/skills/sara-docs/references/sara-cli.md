@@ -105,12 +105,12 @@ sara schema            # 有効な model schema を YAML で出力
 
 型・relation・フィールド定義の正本は `docs/model.yaml`。編集前に schema で現状を確認する。
 
-## sara-gap — 未カバーの 11 節と到達率（別コマンド）
+## sara-gap — 未カバーの 12 節と到達率（別コマンド）
 
 ```bash
-sara-gap           # text: 11 節の見出し + <フル ID>\t<name>\t<file>
-sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisfied_quality, exempt, reach,
-                   #  use_case_without_requirement, requirement_under_deprecated_use_case,
+sara-gap           # text: 12 節の見出し + <フル ID>\t<name>\t<file>
+sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisfied_quality, exempt, exempt_quality,
+                   #  reach, use_case_without_requirement, requirement_under_deprecated_use_case,
                    #  quality_characteristic_without_risk, human_judgement}
 ```
 
@@ -120,15 +120,16 @@ sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisf
 | 2 | `unmitigated` | `mitigates` されていない `risk` |
 | 3 | `uncovered` | `covers` されていない `test_condition` |
 | 4 | `unfollowed` | 有効な `test_plan` への `follows` を持たない `test_case`。`follows` の先がすべて `deprecated` の `test_plan` であるものも出す |
-| 5 | `unsatisfied_quality` | `infrastructure` に `satisfies` されていない `quality` |
+| 5 | `unsatisfied_quality` | `infrastructure` に `satisfies` されておらず、`infrastructure_exempt` も持たない `quality` |
 | 6 | `exempt` | `risk_exempt` を持つ `requirement`。情報として出し、exit code に影響しない |
 | 7 | `reach` | `requirement` / `test_plan` / `quality` ごとの `{total, reached, ratio}` |
 | 8 | `use_case_without_requirement` | 有効な `requirement` に `derives_from` されていない有効な `use_case`。`deprecated` の `requirement` しか持たないものも出す |
 | 9 | `requirement_under_deprecated_use_case` | 有効な `requirement` のうち、親の `use_case` がすべて `deprecated` のもの。有効な親が 1 本でもあれば出さない |
 | 10 | `quality_characteristic_without_risk` | ISO/IEC 25010:2023 の 9 特性のうち、どの有効な `risk` の `quality_characteristic` にも無く、対象外の TSV にも無い特性 |
 | 11 | `human_judgement` | 値の空でない `human_judgement` を持つ有効な `test_condition`。人が最終的に判断するものの一覧として出し、exit code に影響しない |
+| 12 | `exempt_quality` | 値の空でない `infrastructure_exempt` を持つ有効な `quality`。情報として出し、exit code に影響しない |
 
-節 1〜6・8・9・11 の `--json` の行は `{id, name, file}` で、`id` はフル ID。節 7 の text の行は
+節 1〜6・8・9・11・12 の `--json` の行は `{id, name, file}` で、`id` はフル ID。節 7 の text の行は
 `<型>\t<reached>/<total>\t<割合>%`。節 10 の `--json` は特性の値（`security` など）の文字列の配列で、text の行は
 特性の値を 1 行に 1 つ出す。
 
@@ -144,7 +145,7 @@ sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisf
 
 - `requirement`: `risk_exempt` を持つものを `total` から除き、`requirement` ← `risk` ← `test_condition` ← `test_case` の辺がすべてつながるもの
 - `test_plan`: 1 件以上の `test_case` から `follows` されるもの
-- `quality`: 1 件以上の `infrastructure` から `satisfies` されるもの
+- `quality`: `infrastructure_exempt` を持つものを `total` から除き、1 件以上の `infrastructure` から `satisfies` されるもの
 
 exit code は、節 1〜5 と節 8〜10 のすべてが空で `ratio` がすべて 1 なら 0、それ以外は 1。`sara check` の失敗と
 JSON 形状の異常は 2。

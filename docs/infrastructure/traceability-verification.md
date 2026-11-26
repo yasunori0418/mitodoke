@@ -11,9 +11,20 @@ satisfies:
   - "QA-1dd63789-24ed-4a86-bf12-b62d8c526ba5"
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
+  - "QA-cddaeec3-b9f7-458a-815a-6a14213557ed"
+  - "QA-030f926b-5ae7-4543-b8cb-e66aae5e2b5e"
+  - "QA-05493ea1-6af7-43b6-97bc-051bbb6fd8d1"
+  - "QA-3952eb05-440f-4287-925c-62dd136b6b89"
+  - "QA-3996a09e-f103-4b91-94b3-82764f97aa0c"
+  - "QA-96fe5f3e-37bb-4094-bcf8-b9eeddbcf45b"
+  - "QA-1f2fac5e-cfc3-46d7-89eb-34a9be7a07bf"
+  - "QA-4a623664-650d-4a08-800f-691f4ea6ff91"
+  - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
+  - "QA-d9cf5fcb-6363-49eb-9511-48b233c0c978"
+  - "QA-ae2f173b-e4b1-412b-8b1f-bcdc38b46170"
 generated:
-  by: "claude-code/claude-sonnet-5-5"
-  at: "2026-11-24T23:58:56+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-27T00:57:11+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -28,12 +39,12 @@ generated:
 |---|---|
 | `docs/model.yaml` | カスタムスキーマ。12 型と relation を定義し、sara の組み込みモデルを全面置換する |
 | `sara.toml` | リポジトリ設定 |
-| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テストを実行し、`sara-fresh` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
+| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テストを実行し、`sara-fresh` と `sara-gap` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
 | `sara-new` | `dev/scripts/sara-new.sh` を包む devShell のコマンド。`sara init` で採番し、`<slug>.md` へ配置して `generated` を足す |
-| `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバー（要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を含む）と到達率、人が最終的に判断するテスト条件の一覧を 11 節で出す。実グラフへの実行は CI に載せていない |
+| `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバー（要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を含む）と到達率、人が最終的に判断するテスト条件の一覧、`infrastructure_exempt` を持つ `quality` の一覧を 12 節で出す。結果は報告に留める |
 | `sara-fresh` | `dev/scripts/sara-fresh.sh` を包む devShell のコマンド。上流の `generated.at` が自身の基準時刻より新しい item、`--base <ref>` との差分で本文が変わったのに `generated.at` が変わっていない item、`generated.at` 以降の `human:` の `verified` を持たない item（high の risk、`solution`、`use_case`）、`stale_after` の期限切れと間隔の超過を列挙する。結果は報告に留める |
 | `sara-verify` | `dev/scripts/sara-verify.sh` を包む devShell の対話のコマンド。はじめに起点の型（`solution`・`adr`・`ubiquitous_term`）を選ぶ。`solution` では子の item を `fzf` で 1 段ずつ選び、根からの経路と選んだ item の下流を、上流から順に `leaf` で表示する。`solution` から辿れない `adr` と `ubiquitous_term` では、型の一覧から選んだ item を表示する。人が記録すると決めた item の `verified` に `human:` の要素を足し、ファイルごとにコミットする。端末でないときは動かない |
-| `dev/tests/sara-gap.sh` | `sara-gap` が出す 11 節（未カバーと到達率を含む）の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item が未カバーかは見ない（件数が動き続けるため契約にできない）|
+| `dev/tests/sara-gap.sh` | `sara-gap` が出す 12 節（未カバーと到達率を含む）の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item が未カバーかは見ない（件数が動き続けるため契約にできない）|
 | `dev/tests/sara-fresh.sh` | `sara-fresh` の 6 節の列挙と exit code の契約を検証する。グラフはテストが一時ディレクトリに作り、実物の `docs/model.yaml` を重ねる。`--base` の節は、一時ディレクトリに `git init` したリポジトリで確かめる |
 | `dev/tests/sara-verify.sh` | `sara-verify` の起点の型、枝を選ぶ候補、対象の列挙と順序、`verified` の書き込み、確認の問いの表示、コミット、拒否の契約を検証する。一時ディレクトリに `git init` したリポジトリで動き、`fzf`・`leaf`・`EDITOR`・端末の判定をスタブへ差し替える |
 | `dev/tests/sara-new.sh` | `sara-new` の起票契約（採番・ファイル名規約の適用）を検証する。fixture は実物の `docs/model.yaml` を重ねて使う |
@@ -57,9 +68,30 @@ pull_request の base ブランチを `--base` に渡す。merge-base を引け�
 一覧に item が挙がっても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす
 （→ [上流より古い item と generated の更新漏れは機械的に列挙する](../quality/stale-items-enumerated-mechanically.md)）。
 
+`sara` job は実物のグラフに `sara-gap` も実行し、未カバーと到達率をログと job のサマリーへ出す。
+未カバーが残っていても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす。
+PR ごとに未カバーの増減を見えるようにし、0 本にした節が後で増えたときに気づけるようにするため。
+
 `sara` job は `check.yml` で `check` job（`nix flake check`）と並ぶが、paths-filter を持たず、
 `check` job と同じ条件（pull_request）で毎回実行する。
 `sara` job は sara 専用の devShell（`dev#sara`）で実行する。
+
+## 支える規範と部品
+
+この基盤が支える規範のうち、次の規範は、支える部品を挙げる。ほかの規範は、構成の表とほかの節で扱う。部品が確かめない部分はレビューで守る。表の注記は、レビューで守る部分の例である。
+
+| 規範 | 支える部品 |
+|---|---|
+| [設計判断は ADR に記録し、改訂の書き戻しと item への接続を同じ変更の中で完了させる](../quality/adr-decisions-recorded-and-connected.md) | `dev/tests/adr-supersede.sh`、接続の無い ADR を拒む `sara check`。後継が揃っているかはレビューで守る |
+| [人が最終的に判断する test_condition は、human_judgement に理由を書いて一覧にする](../quality/human-judgement-marked-on-test-condition.md) | `sara-gap` の節 11 |
+| [risk は ISO/IEC 25010:2023 の品質特性を 1 つ持ち、リスクを持たない特性は対象外の宣言を除いて列挙する](../quality/risk-carries-one-quality-characteristic.md) | `docs/model.yaml` の enum、`sara-gap` の節 10、対象外の宣言の TSV |
+| [solution の確認の問い](../quality/review-questions-for-solution.md) | 記録の前に問いを出す `sara-verify` |
+| [use_case の確認の問い](../quality/review-questions-for-use-case.md) | 記録の前に問いを出す `sara-verify` |
+| [specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える](../quality/specification-shall-family-and-matching-auxiliaries.md) | SHALL の無い `specification` を拒む `sara check`、`dev/tests/link-text.sh`。MUST の禁止と日本語の助動詞はレビューで守る |
+| [用語の正名は用語 item が固定し、執筆はそれに従う](../quality/glossary-fixes-canonical-terms.md) | `dev/tests/term-avoid.sh` |
+| [規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ](../quality/normative-items-placement-and-authoring.md) | `dev/scripts/okf-index.sh`、`sara-new` の採番 |
+| [risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る](../quality/risk-attaches-to-requirement-by-default.md) | `sara-gap` の節 1 と節 6。`design` に張ってよいかの判定はレビューで守る |
+| [mitodoke の文書は mitodoke 自身で管理する](../quality/own-docs-managed-by-mitodoke.md) | `sara.toml`、`docs/` のグラフ、CI の `sara` job |
 
 ## ID 規約
 

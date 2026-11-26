@@ -158,6 +158,12 @@ item_types:
             - solution
             - use_case
         required: false
+      # infrastructure に satisfies されない理由を 1 文で書く。
+      # 規範は docs/quality/quality-without-infrastructure-records-reason.md が持つ。
+      - name: infrastructure_exempt
+        display_name: Infrastructure Exempt
+        field_type: text
+        required: false
       - *status_field
       - *stale_after_field
     allowed_targets:

@@ -37,6 +37,7 @@
 ## 機械検証と鮮度
 
 * [鮮度は上流の relation を辿って下流へ伝播させる](./freshness-propagates-along-upstream-relations.md) - 下流の item の基準時刻より上流の generated.at が新しければ、上流の relation のうち justifies を除く 7 種を辿って下流を再検証待ちとして挙げる (stable)
+* [実物のグラフの未カバーは CI で一覧にし、job は失敗にしない](./gap-on-own-graph-reported-in-ci.md) - CI の sara job で実物のグラフへ sara-gap を実行し、未カバーの一覧をログと job のサマリーに出す。該当ありでは job を失敗にせず、実行の失敗か見出しの欠落だけで失敗にする。 (stable)
 * [generated の更新漏れの検査は、frontmatter の specification も本文に数える](./generated-update-check-includes-specification.md) - base との差分で、frontmatter の外の行と `specification`・`specification_<言語>` が変わったのに `generated.at` が変わっていない item を更新漏れとして挙げ、基準のリビジョンが無ければ検査せずにそのことを記録する。 (stable)
 * [level が high の risk と、有効な solution と use_case に人の verified を求める](./human-verified-required-for-high-risk-and-upper-layers.md) - level が high の risk と、status が deprecated でない solution と use_case 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない。 (stable)
 * [sara check を strict モードで回す](./sara-check-strict-mode.md) - `sara check` は接続漏れを warning に留める設定で導入された。移行の途中では、まだ親を持たない item が正常に存在し、接続漏れを error にすると移行そのものが止まるためである。 (stable)
@@ -47,6 +48,8 @@
 
 * [ADR は単独で覆せる 1 つの決定だけを書く](./adr-one-decision-granularity.md) - layat の ADR は、1 本に複数の決定を束ねて書いてきた。後から 1 つの決定だけを変えると、元の ADR に改訂注記を足して「この節だけが変わった」と示すしかない。改訂を 4 回以上受けた ADR は 13 本あり、どの決定がいまも有効かは注記を順に読んで組み立て直さないと分からなくなっていた。 (stable)
 * [ADR の失効は supersedes と 廃止 で表す](./adr-supersedes-and-deprecated-status.md) - `docs/model.yaml` は、ADR 間の関係として節単位の部分改訂を表す `revises` だけを持っていた。文書丸ごとの失効を表す `supersedes` と、ステータスの `廃止` は持たなかった。当時は丸ごと失効したADR の実例が無く、実例の無い関係を先に置くと部分改訂に誤用されると考えたためである。 (stable)
+* [infrastructure の item は、仕組みの単位で分ける](./infrastructure-items-split-by-mechanism.md) - infrastructure の item を文書の検証・ホスティングの設定・ビルドとリリースの仕組みの単位で分け、支えの無い quality をそれぞれへ振り分ける。 (stable)
+* [まだ作っていない仕組みは、status が draft の item で表す](./planned-mechanisms-as-draft-items.md) - 支える仕組みをまだ作っていない quality と test_plan は、status が draft の infrastructure と design で支えを表し、仕組みを作ったときに stable にする。 (stable)
 * [item の出典は分割した時点のパスのまま残す](./provenance-keeps-split-time-paths.md) - item の `## 出典` にある分割した時点の文書のパスは書き換えず、出典の読み方は `docs/model.md` の 1 か所に置く (stable)
 * [棄却した提案の要求・要件・設計は提案の形の題で deprecated にして残す](./rejected-proposals-deprecated-including-use-cases.md) - 棄却した提案と作らないと決めた機能を記録する use_case・requirement・design は、提案の形の題と本文に棄却の記述を添え、status を deprecated にして残す。 (stable)
 * [specification の必須の強度を SHALL 系の綴りに固定する](./specification-shall-family-fixed.md) - specification の必須の強度は SHALL 系だけで書き、specification_ja は同じ強度の規範助動詞で終える。 (stable)
@@ -121,6 +124,7 @@
 * [散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる](./link-targets-not-inspected.md) - 散文の Markdown リンクの先が実在するかを mitodoke check で検査せず、relation の先の実在は sara の検査に、Markdown のリンク切れは既存のリンクチェッカに任せる。 (stable)
 * [human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない](./non-human-verified-accepted-not-counted-as-human.md) - verified に human: 以外の要素も受け付け、再確認待ちの基準時刻には数えるが、人の確認には数えない。 (stable)
 * [OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する](./okf-keys-accepted-on-all-types.md) - OKF のキーをどの型の item でも受け付け、OKF v0.2 の定義に従っているかを構造の契約として検査する。 (stable)
+* [quality に infrastructure_exempt を設け、理由を書いた quality を未カバーから外す](./quality-infrastructure-exempt.md) - quality に任意の text の infrastructure_exempt を足して理由の 1 文を書かせ、gap はそれを持つ quality を未カバーから外して情報の節に一覧にし、規範を quality 1 本として起こす。 (stable)
 * [読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める](./scan-skips-fail-check-and-block-graph-commands.md) - sara-core の読み飛ばしを、検査ではなく読み込みの前提として扱い、check では専用のコードの failed の item で exit 1 にし、グラフを読むほかのサブコマンドは処理を始めず exit 2 で終える。 (stable)
 * [OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない](./stricter-than-okf-constraints-and-inspection-points.md) - OKF v0.2 に重ねた 5 つの制約を引き継ぎ、description の欠けは mitodoke new が起票を拒むことで検査して check では違反にせず、generated.at 以降の verified だけを人の確認に数える規則は違反の条件を持たない数え方にする。 (stable)
 * [test_case は covers と follows をそれぞれ 1 本以上持つ](./test-case-requires-covers-and-follows.md) - test_case が covers と follows をそれぞれ 1 本以上持つことを構造の契約にし、欠けたら失敗にする。 (stable)
