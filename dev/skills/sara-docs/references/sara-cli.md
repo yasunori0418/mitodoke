@@ -119,7 +119,7 @@ sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisf
 | 1 | `unthreatened` | `threatens` も `risk_exempt` も無い `requirement`。`design` は列挙しない。`design` 側にだけ `risk` があれば text の行末に `(design 側に risk あり)` を付ける |
 | 2 | `unmitigated` | `mitigates` されていない `risk` |
 | 3 | `uncovered` | `covers` されていない `test_condition` |
-| 4 | `unfollowed` | `follows` を持たない `test_case` |
+| 4 | `unfollowed` | 有効な `test_plan` への `follows` を持たない `test_case`。`follows` の先がすべて `deprecated` の `test_plan` であるものも出す |
 | 5 | `unsatisfied_quality` | `infrastructure` に `satisfies` されていない `quality` |
 | 6 | `exempt` | `risk_exempt` を持つ `requirement`。情報として出し、exit code に影響しない |
 | 7 | `reach` | `requirement` / `test_plan` / `quality` ごとの `{total, reached, ratio}` |
@@ -132,8 +132,9 @@ sara-gap --json    # {unthreatened, unmitigated, uncovered, unfollowed, unsatisf
 `<型>\t<reached>/<total>\t<割合>%`。節 10 の `--json` は特性の値（`security` など）の文字列の配列で、text の行は
 特性の値を 1 行に 1 つ出す。
 
-節 8〜11 の「有効な」は、`status` が `deprecated` でないことを指し、`draft` を含む。節 1〜7 は `deprecated` の
-item も数える。
+「有効な」は、`status` が `deprecated` でないことを指し、`draft` を含む。どの節も有効な item だけを数え、
+辺は両端が有効な item のものだけを数える。`deprecated` の `risk` からの `threatens` は `requirement` を
+覆ったことにせず、節 7 の到達率も、連鎖の途中の item が 1 つでも `deprecated` なら到達にしない。
 
 対象外の品質特性は特性と理由の 2 列のタブ区切りの TSV に書く。1 行目はヘッダとして読み飛ばす。パスは既定で
 リポジトリの根からの `dev/tests/quality-characteristic-exclusions.tsv` で、環境変数 `SARA_GAP_EXCLUSIONS` で
