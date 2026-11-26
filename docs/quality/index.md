@@ -16,7 +16,7 @@
 * [文書管理の規範と決定は mitodoke のリポジトリで変える](./norms-and-decisions-changed-in-mitodoke.md) - 写した時点から、文書管理の規範と決定を mitodoke のリポジトリだけで変えることを定める。
 * [mitodoke の文書は mitodoke 自身で管理する](./own-docs-managed-by-mitodoke.md) - mitodoke のリポジトリは自身の文書を mitodoke で管理し、文書管理の規範を quality item、文書管理の決定を adr として持つ
 * [プラットフォームの差が出る層は、マージ前に配布の対象のすべてのプラットフォームで検証を成功させる](./platform-dependent-layers-verified-on-all-platforms.md) - プラットフォームの差が出る層は、マージ前に配布の対象のすべてのプラットフォームで検証を成功させると定める。
-* [infrastructure に支えられない quality は、infrastructure_exempt に理由を書いて一覧にする](./quality-without-infrastructure-records-reason.md) - infrastructure に satisfies されない quality だけが infrastructure_exempt に理由の 1 文を持ち、まだ作っていない仕組みは draft の item で表し、理由を持つ quality を情報として一覧にする。
+* [infrastructure に支えられない quality は、infrastructure_exempt に理由を書いて一覧にする](./quality-without-infrastructure-records-reason.md) - infrastructure に satisfies されない quality は infrastructure_exempt に理由の 1 文を持ち、まだ作っていない仕組みは draft の item で表し、理由を持つ quality を情報として一覧にする。
 * [solution の確認の問い](./review-questions-for-solution.md) - solution に人の確認を記録する前に人が答える、3 つの確認の問い。
 * [use_case の確認の問い](./review-questions-for-use-case.md) - use_case に人の確認を記録する前に人が答える、3 つの確認の問い。
 * [risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る](./risk-attaches-to-requirement-by-default.md) - risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る
