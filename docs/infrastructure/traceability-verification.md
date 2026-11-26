@@ -12,9 +12,19 @@ satisfies:
   - "QA-611977bd-3d11-4695-9fb2-a9f7211fcfbd"
   - "QA-aa70fff6-3e0a-4163-bf4c-97f1730f7496"
   - "QA-cddaeec3-b9f7-458a-815a-6a14213557ed"
+  - "QA-030f926b-5ae7-4543-b8cb-e66aae5e2b5e"
+  - "QA-05493ea1-6af7-43b6-97bc-051bbb6fd8d1"
+  - "QA-3952eb05-440f-4287-925c-62dd136b6b89"
+  - "QA-3996a09e-f103-4b91-94b3-82764f97aa0c"
+  - "QA-96fe5f3e-37bb-4094-bcf8-b9eeddbcf45b"
+  - "QA-1f2fac5e-cfc3-46d7-89eb-34a9be7a07bf"
+  - "QA-4a623664-650d-4a08-800f-691f4ea6ff91"
+  - "QA-67715bb3-1162-4ccf-8441-2f44257a57da"
+  - "QA-d9cf5fcb-6363-49eb-9511-48b233c0c978"
+  - "QA-ae2f173b-e4b1-412b-8b1f-bcdc38b46170"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T00:21:08+09:00"
+  at: "2026-11-27T00:26:50+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -61,6 +71,23 @@ pull_request の base ブランチを `--base` に渡す。merge-base を引け�
 `sara` job は `check.yml` で `check` job（`nix flake check`）と並ぶが、paths-filter を持たず、
 `check` job と同じ条件（pull_request）で毎回実行する。
 `sara` job は sara 専用の devShell（`dev#sara`）で実行する。
+
+## 支える規範と部品
+
+次の規範は、この基盤の部品が支える。部品が確かめない部分はレビューで守る。
+
+| 規範 | 支える部品 |
+|---|---|
+| [設計判断は ADR に記録し、改訂の書き戻しと item への接続を同じ変更の中で完了させる](../quality/adr-decisions-recorded-and-connected.md) | `dev/tests/adr-supersede.sh`、接続の無い ADR を拒む `sara check`。後継が揃っているかはレビューで守る |
+| [人が最終的に判断する test_condition は、human_judgement に理由を書いて一覧にする](../quality/human-judgement-marked-on-test-condition.md) | `sara-gap` の節 11 |
+| [risk は ISO/IEC 25010:2023 の品質特性を 1 つ持ち、リスクを持たない特性は対象外の宣言を除いて列挙する](../quality/risk-carries-one-quality-characteristic.md) | `docs/model.yaml` の enum、`sara-gap` の節 10、対象外の宣言の TSV |
+| [solution の確認の問い](../quality/review-questions-for-solution.md) | 記録の前に問いを出す `sara-verify` |
+| [use_case の確認の問い](../quality/review-questions-for-use-case.md) | 記録の前に問いを出す `sara-verify` |
+| [specification は SHALL 系で書き、日本語の規範文は同じ強度の規範助動詞で終える](../quality/specification-shall-family-and-matching-auxiliaries.md) | SHALL の無い `specification` を拒む `sara check`、`dev/tests/link-text.sh`。MUST の禁止と日本語の助動詞はレビューで守る |
+| [用語の正名は用語 item が固定し、執筆はそれに従う](../quality/glossary-fixes-canonical-terms.md) | `dev/tests/term-avoid.sh` |
+| [規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ](../quality/normative-items-placement-and-authoring.md) | `dev/scripts/okf-index.sh`、`sara-new` の採番 |
+| [risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る](../quality/risk-attaches-to-requirement-by-default.md) | `sara-gap` の節 1 と節 6。`design` に張ってよいかの判定はレビューで守る |
+| [mitodoke の文書は mitodoke 自身で管理する](../quality/own-docs-managed-by-mitodoke.md) | `sara.toml`、`docs/` のグラフ、CI の `sara` job |
 
 ## ID 規約
 
