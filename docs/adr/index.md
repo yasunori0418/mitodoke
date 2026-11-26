@@ -37,6 +37,7 @@
 ## 機械検証と鮮度
 
 * [鮮度は上流の relation を辿って下流へ伝播させる](./freshness-propagates-along-upstream-relations.md) - 下流の item の基準時刻より上流の generated.at が新しければ、上流の relation のうち justifies を除く 7 種を辿って下流を再検証待ちとして挙げる (stable)
+* [実物のグラフの未カバーは CI で一覧にし、job は失敗にしない](./gap-on-own-graph-reported-in-ci.md) - CI の sara job で実物のグラフへ sara-gap を実行し、未カバーの一覧をログと job のサマリーに出す。該当ありでは job を失敗にせず、実行の失敗か見出しの欠落だけで失敗にする。 (stable)
 * [generated の更新漏れの検査は、frontmatter の specification も本文に数える](./generated-update-check-includes-specification.md) - base との差分で、frontmatter の外の行と `specification`・`specification_<言語>` が変わったのに `generated.at` が変わっていない item を更新漏れとして挙げ、基準のリビジョンが無ければ検査せずにそのことを記録する。 (stable)
 * [level が high の risk と、有効な solution と use_case に人の verified を求める](./human-verified-required-for-high-risk-and-upper-layers.md) - level が high の risk と、status が deprecated でない solution と use_case 自身に、generated.at 以降の human: の verified を求め、medium・low の risk と TC・CASE には求めない。 (stable)
 * [sara check を strict モードで回す](./sara-check-strict-mode.md) - `sara check` は接続漏れを warning に留める設定で導入された。移行の途中では、まだ親を持たない item が正常に存在し、接続漏れを error にすると移行そのものが止まるためである。 (stable)
