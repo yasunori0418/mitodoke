@@ -78,6 +78,26 @@ jobs:
             echo '```'
           } >>"$GITHUB_STEP_SUMMARY"
 
+      # 実物のグラフの未カバーと到達率をログと Job Summary に出す。
+      # 検出あり（exit 1）は成功とし、実行の失敗（exit 2 以上）か見出しの欠落だけを失敗にする。
+      - name: Report gaps with sara-gap
+        run: |
+          out="$RUNNER_TEMP/sara-gap.txt"
+          status=0
+          nix develop '.?dir=dev#sara' -c sara-gap >"$out" || status=$?
+          cat "$out"
+          if [ "$status" -gt 1 ] || ! grep -q '^## ' "$out"; then
+            echo "::error::sara-gap failed (exit $status)"
+            exit 1
+          fi
+          {
+            echo '### sara-gap'
+            echo
+            echo '```'
+            cat "$out"
+            echo '```'
+          } >>"$GITHUB_STEP_SUMMARY"
+
       - name: Run sara-new contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/sara-new.sh
 
