@@ -4,6 +4,7 @@ type: quality
 name: "規範の型は、それが誰を縛るかで決める"
 description: "規範の型は、それが誰を縛るかで requirement・quality・test_plan から選ぶ"
 status: stable
+infrastructure_exempt: "規範が誰を縛るかは、人が内容を読んで判断する。"
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
@@ -24,8 +25,8 @@ specification_ja: |
   `infrastructure` の間では、規範そのものは `quality` が持たなければならず、それを支える仕組みは
   `infrastructure` が持たなければならない。
 generated:
-  by: "claude-code/claude-fable-5-2"
-  at: "2026-11-20T00:37:16+09:00"
+  by: "claude-code/claude-opus-5-5"
+  at: "2026-11-27T00:25:06+09:00"
 ---
 # 規範の型は、それが誰を縛るかで決める
 

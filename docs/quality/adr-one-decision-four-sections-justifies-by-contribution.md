@@ -4,6 +4,7 @@ type: quality
 name: "ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る"
 description: "ADR は単独で覆せる決定ごとに 1 本を 4 節で書き、justifies は規範の形成に寄与した item へ張る"
 status: stable
+infrastructure_exempt: "決定の粒度と、ADR が規範の形成に寄与したかは、人が内容を読んで判断する。"
 derives_from:
   - "SOL-951ca4d0-8d09-4e41-967b-71315dbf5cf3"
 specification: |
@@ -22,7 +23,7 @@ specification_ja: |
   ならない。
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-20T10:16:19+09:00"
+  at: "2026-11-27T00:25:06+09:00"
 ---
 # ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る
 
