@@ -14,7 +14,7 @@ satisfies:
   - "QA-cddaeec3-b9f7-458a-815a-6a14213557ed"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T00:10:38+09:00"
+  at: "2026-11-27T00:21:08+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
