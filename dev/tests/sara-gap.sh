@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sara-gap（グラフ未カバーの 7 節と到達率の列挙コマンド）の検証。fixture に実物の docs/model.yaml を重ねる。
+# sara-gap（グラフの未カバーと到達率を 11 節で出すコマンド）の検証。fixture に実物の docs/model.yaml を重ねる。
 #
 # 実行:
 #   nix develop ./dev -c dev/tests/sara-gap.sh   # devShell から直接
@@ -124,7 +124,7 @@ design_mark='\(design 側に risk あり\)$'
 full_id='^[A-Z]+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'$'\t'
 short_id='^[A-Z]+-[0-9a-f]{8}'$'\t'
 
-# --- 1. 7 節の検出と exit 1 ---------------------------------------------------
+# --- 1. 11 節の検出と exit 1 ---------------------------------------------------
 
 run_gap env SARA_GAP_ROOT="$base" sara-gap
 gap_out="$stdout_capture"
