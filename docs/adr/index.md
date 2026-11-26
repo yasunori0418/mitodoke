@@ -47,6 +47,8 @@
 
 * [ADR は単独で覆せる 1 つの決定だけを書く](./adr-one-decision-granularity.md) - layat の ADR は、1 本に複数の決定を束ねて書いてきた。後から 1 つの決定だけを変えると、元の ADR に改訂注記を足して「この節だけが変わった」と示すしかない。改訂を 4 回以上受けた ADR は 13 本あり、どの決定がいまも有効かは注記を順に読んで組み立て直さないと分からなくなっていた。 (stable)
 * [ADR の失効は supersedes と 廃止 で表す](./adr-supersedes-and-deprecated-status.md) - `docs/model.yaml` は、ADR 間の関係として節単位の部分改訂を表す `revises` だけを持っていた。文書丸ごとの失効を表す `supersedes` と、ステータスの `廃止` は持たなかった。当時は丸ごと失効したADR の実例が無く、実例の無い関係を先に置くと部分改訂に誤用されると考えたためである。 (stable)
+* [infrastructure の item は、仕組みの単位で分ける](./infrastructure-items-split-by-mechanism.md) - infrastructure の item を文書の検証・ホスティングの設定・ビルドとリリースの仕組みの単位で分け、支えの無い quality をそれぞれへ振り分ける。 (stable)
+* [まだ作っていない仕組みは、status が draft の item で表す](./planned-mechanisms-as-draft-items.md) - 支える仕組みをまだ作っていない quality と test_plan は、status が draft の infrastructure と design で支えを表し、仕組みを作ったときに stable にする。 (stable)
 * [item の出典は分割した時点のパスのまま残す](./provenance-keeps-split-time-paths.md) - item の `## 出典` にある分割した時点の文書のパスは書き換えず、出典の読み方は `docs/model.md` の 1 か所に置く (stable)
 * [棄却した提案の要求・要件・設計は提案の形の題で deprecated にして残す](./rejected-proposals-deprecated-including-use-cases.md) - 棄却した提案と作らないと決めた機能を記録する use_case・requirement・design は、提案の形の題と本文に棄却の記述を添え、status を deprecated にして残す。 (stable)
 * [specification の必須の強度を SHALL 系の綴りに固定する](./specification-shall-family-fixed.md) - specification の必須の強度は SHALL 系だけで書き、specification_ja は同じ強度の規範助動詞で終える。 (stable)
