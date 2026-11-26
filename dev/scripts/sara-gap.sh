@@ -16,7 +16,7 @@ sara ドキュメントグラフの未カバーと到達率を 12 節で出す:
   2. mitigates されていない risk
   3. covers されていない test_condition
   4. follows を持たない test_case
-  5. infrastructure に satisfies も infrastructure_exempt も無い quality
+  5. infrastructure に satisfies されておらず、infrastructure_exempt も無い quality
   6. risk_exempt を持つ requirement（情報）
   7. 到達率
   8. 有効な requirement を持たない use_case
