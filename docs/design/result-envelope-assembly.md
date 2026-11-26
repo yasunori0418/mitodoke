@@ -12,7 +12,7 @@ satisfies:
   - "REQ-ecc41a24-b465-4ab9-ba1b-e56dc5f8a17c"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-23T20:26:07+09:00"
+  at: "2026-11-27T00:11:07+09:00"
 ---
 # 結果エンベロープを outturn のモジュールで組み立てる
 
@@ -47,8 +47,8 @@ git のコミットで依存し、outturn にタグができたらタグに切�
 
 - 単体の `gap` と `fresh` では、該当した組はすべて失敗で、該当した組があれば exit 1 で終える
 - `check` は強さの設定に従う。報告の指摘だけなら exit 0 で、`status` は `success` になる
-- `gap` の情報の節（`risk_exempt` を持つ要件の一覧と、`human_judgement` を持つテスト条件の一覧）と
-  到達率は、item にせず `result.info` に置く
+- `gap` の情報の節（`risk_exempt` を持つ要件の一覧、`human_judgement` を持つテスト条件の一覧と、
+  `infrastructure_exempt` を持つ `quality` の一覧）と到達率は、item にせず `result.info` に置く
 
 ### kind とコードの書き方
 
