@@ -24,7 +24,7 @@ satisfies:
   - "QA-ae2f173b-e4b1-412b-8b1f-bcdc38b46170"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T00:55:10+09:00"
+  at: "2026-11-27T00:56:56+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -39,9 +39,9 @@ generated:
 |---|---|
 | `docs/model.yaml` | カスタムスキーマ。12 型と relation を定義し、sara の組み込みモデルを全面置換する |
 | `sara.toml` | リポジトリ設定 |
-| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テストを実行し、`sara-fresh` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
+| `sara` job | `.github/workflows/check.yml` 内の 1 job。`sara check` で broken reference / duplicate ID / cycles を検出し、同じ job で契約テストを実行し、`sara-fresh` と `sara-gap` で実物のグラフの一覧を出し、`index.md` が生成結果と一致するかを確かめる |
 | `sara-new` | `dev/scripts/sara-new.sh` を包む devShell のコマンド。`sara init` で採番し、`<slug>.md` へ配置して `generated` を足す |
-| `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバー（要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を含む）と到達率、人が最終的に判断するテスト条件の一覧、`infrastructure_exempt` を持つ `quality` の一覧を 12 節で出す。実グラフへの実行は CI に載せていない |
+| `sara-gap` | `dev/scripts/sara-gap.sh` を包む devShell のコマンド。グラフの未カバー（要件の無い要求、廃止した要求の下の要件、リスクを持たない品質特性を含む）と到達率、人が最終的に判断するテスト条件の一覧、`infrastructure_exempt` を持つ `quality` の一覧を 12 節で出す。結果は報告に留める |
 | `sara-fresh` | `dev/scripts/sara-fresh.sh` を包む devShell のコマンド。上流の `generated.at` が自身の基準時刻より新しい item、`--base <ref>` との差分で本文が変わったのに `generated.at` が変わっていない item、`generated.at` 以降の `human:` の `verified` を持たない item（high の risk、`solution`、`use_case`）、`stale_after` の期限切れと間隔の超過を列挙する。結果は報告に留める |
 | `sara-verify` | `dev/scripts/sara-verify.sh` を包む devShell の対話のコマンド。はじめに起点の型（`solution`・`adr`・`ubiquitous_term`）を選ぶ。`solution` では子の item を `fzf` で 1 段ずつ選び、根からの経路と選んだ item の下流を、上流から順に `leaf` で表示する。`solution` から辿れない `adr` と `ubiquitous_term` では、型の一覧から選んだ item を表示する。人が記録すると決めた item の `verified` に `human:` の要素を足し、ファイルごとにコミットする。端末でないときは動かない |
 | `dev/tests/sara-gap.sh` | `sara-gap` が出す 12 節（未カバーと到達率を含む）の契約、および exit code を検証する。判定は fixture 基準で、実グラフのどの item が未カバーかは見ない（件数が動き続けるため契約にできない）|
@@ -67,6 +67,10 @@ pull_request の base ブランチを `--base` に渡す。merge-base を引け�
 この job の checkout は全履歴を取る。挙がった item は読み直しが要ることを示すだけで破損を意味しないため、
 一覧に item が挙がっても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす
 （→ [上流より古い item と generated の更新漏れは機械的に列挙する](../quality/stale-items-enumerated-mechanically.md)）。
+
+`sara` job は実物のグラフに `sara-gap` も実行し、未カバーと到達率をログと job のサマリーへ出す。`--base` は渡さない。
+未カバーが残っていても（exit 1）job は落とさず、実行に失敗したとき（exit 2 以上）か見出しが欠けたときだけ落とす。
+PR ごとに未カバーの増減を見えるようにし、0 本にした節が後で増えたときに気づけるようにするため。
 
 `sara` job は `check.yml` で `check` job（`nix flake check`）と並ぶが、paths-filter を持たず、
 `check` job と同じ条件（pull_request）で毎回実行する。
