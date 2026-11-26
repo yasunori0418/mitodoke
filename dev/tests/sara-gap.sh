@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sara-gap（グラフの未カバーと到達率を 11 節で出すコマンド）の検証。fixture に実物の docs/model.yaml を重ねる。
+# sara-gap（グラフの未カバーと到達率を 12 節で出すコマンド）の検証。fixture に実物の docs/model.yaml を重ねる。
 #
 # 実行:
 #   nix develop ./dev -c dev/tests/sara-gap.sh   # devShell から直接
@@ -62,7 +62,7 @@ unrisked_characteristics=(functional_suitability performance_efficiency compatib
 base="$work/base"
 make_fixture "$base"
 
-# base の期待値は unthreatened 2・unmitigated 2・uncovered 1・unfollowed 1・unsatisfied_quality 1・exempt 1。
+# base の期待値は unthreatened 2・unmitigated 2・uncovered 1・unfollowed 1・unsatisfied_quality 1・exempt 1・exempt_quality 1。
 # 鎖が最後までつながる要求は REQ-aaaa0001 だけで、DSG-dd000001 は risk の有無によらず列挙しない。
 
 run_gap() {
@@ -118,19 +118,20 @@ h_uc_noreq='## 有効な requirement を持たない use_case'
 h_req_depuc='## 親の use_case がすべて deprecated の requirement'
 h_qc='## 有効な risk を持たない品質特性'
 h_hj='## human_judgement を持つ test_condition（情報）'
+h_exq='## infrastructure_exempt を持つ quality（情報）'
 expected_headings="$(printf '%s\n' "$h_unthreatened" "$h_unmitigated" "$h_uncovered" "$h_unfollowed" "$h_unsatisfied" "$h_exempt" "$h_reach" \
-  "$h_uc_noreq" "$h_req_depuc" "$h_qc" "$h_hj")"
+  "$h_uc_noreq" "$h_req_depuc" "$h_qc" "$h_hj" "$h_exq")"
 design_mark='\(design 側に risk あり\)$'
 full_id='^[A-Z]+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'$'\t'
 short_id='^[A-Z]+-[0-9a-f]{8}'$'\t'
 
-# --- 1. 11 節の検出と exit 1 ---------------------------------------------------
+# --- 1. 12 節の検出と exit 1 ---------------------------------------------------
 
 run_gap env SARA_GAP_ROOT="$base" sara-gap
 gap_out="$stdout_capture"
 
 assert_eq "ギャップがあれば exit 1" 1 "$status_capture"
-assert_eq "見出しを 11 個、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
+assert_eq "見出しを 12 個、この順に出す" "$expected_headings" "$(grep '^## ' <<<"$gap_out")"
 
 sec_unthreatened="$(section_body "$h_unthreatened" "$gap_out")"
 sec_unfollowed="$(section_body "$h_unfollowed" "$gap_out")"
@@ -149,6 +150,10 @@ done
 assert_lacks "design を列挙しない" 'DSG-dd000001' "$gap_out"
 assert_lacks "risk_exempt を持つ REQ を節 1 に出さない" 'REQ-cccc0003' "$sec_unthreatened"
 assert_has "risk_exempt を持つ REQ を節 6 に出す" '^REQ-cccc0003' "$sec_exempt"
+assert_lacks "infrastructure_exempt を持つ QA を節 5 に出さない" 'QA-88880003' "$(section_body "$h_unsatisfied" "$gap_out")"
+assert_eq "有効で infrastructure_exempt を持つ QA だけを節 12 に出す" \
+  "QA-88880003-0000-4000-8000-000000000033"$'\t'"infrastructure の支えを免除した品質方針"$'\t'"docs/qa-exempt.md" \
+  "$(section_body "$h_exq" "$gap_out" | grep -v '^$')"
 assert_has "design 側にだけ risk がある REQ に印を付ける" "^REQ-dddd0004.*$design_mark" "$sec_unthreatened"
 assert_lacks "design 側に risk が無い REQ には印を付けない" "^REQ-bbbb0002.*$design_mark" "$sec_unthreatened"
 
@@ -175,8 +180,8 @@ run_gap env SARA_GAP_ROOT="$base" sara-gap --json
 json_out="$stdout_capture"
 
 assert_eq "--json でも exit code は同じ（ギャップあり = 1）" 1 "$status_capture"
-assert_eq "--json は 11 キーのオブジェクトを返す" \
-  "exempt,human_judgement,quality_characteristic_without_risk,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
+assert_eq "--json は 12 キーのオブジェクトを返す" \
+  "exempt,exempt_quality,human_judgement,quality_characteristic_without_risk,reach,requirement_under_deprecated_use_case,uncovered,unfollowed,unmitigated,unsatisfied_quality,unthreatened,use_case_without_requirement" \
   "$(jq -r 'keys | join(",")' <<<"$json_out" 2>/dev/null)"
 assert_eq "--json の件数が 2,2,1,1,1,1" "2,2,1,1,1,1" \
   "$(jq -r '[.unthreatened, .unmitigated, .uncovered, .unfollowed, .unsatisfied_quality, .exempt | length] | join(",")' <<<"$json_out" 2>/dev/null)"
@@ -186,6 +191,8 @@ assert_eq "--json の行の id はフル ID で file は docs/ 前置" "true" \
   "$(jq -r '.unsatisfied_quality[0] | (.id == "QA-88880002-0000-4000-8000-000000000010") and (.name != "") and (.file | startswith("docs/"))' <<<"$json_out" 2>/dev/null)"
 assert_eq "exempt に risk_exempt を持つ REQ が入る" "REQ-cccc0003-0000-4000-8000-00000000000b" \
   "$(jq -r '.exempt[0].id' <<<"$json_out" 2>/dev/null)"
+assert_eq "exempt_quality の行は id / name / file" '[{"file":"docs/qa-exempt.md","id":"QA-88880003-0000-4000-8000-000000000033","name":"infrastructure の支えを免除した品質方針"}]' \
+  "$(jq -c '[.exempt_quality[] | to_entries | sort_by(.key) | from_entries]' <<<"$json_out" 2>/dev/null)"
 assert_eq "unfollowed に follows の無い CASE だけが入る" "CASE-55550001-0000-4000-8000-00000000000a" \
   "$(jq -r '[.unfollowed[].id] | join(",")' <<<"$json_out" 2>/dev/null)"
 assert_eq "reach の 3 値が期待どおり" "true" \
@@ -209,10 +216,11 @@ fill_gaps "$clean"
 
 run_gap env SARA_GAP_ROOT="$clean" sara-gap
 clean_out="$stdout_capture"
-assert_eq "ギャップが無ければ exit 0（exempt は exit に影響しない）" 0 "$status_capture"
-assert_eq "見出しは埋めても 11 個" 11 "$(grep -c '^## ' <<<"$clean_out")"
+assert_eq "ギャップが無ければ exit 0（exempt と exempt_quality は exit に影響しない）" 0 "$status_capture"
+assert_eq "見出しは埋めても 12 個" 12 "$(grep -c '^## ' <<<"$clean_out")"
 assert_eq "0 件の節 1〜5 と新しい節は「なし」と出す" 9 "$(grep -c '^なし$' <<<"$clean_out")"
 assert_has "exempt は埋めても節 6 に出る" '^REQ-cccc0003' "$(section_body "$h_exempt" "$clean_out")"
+assert_has "exempt_quality は埋めても節 12 に出る" '^QA-88880003' "$(section_body "$h_exq" "$clean_out")"
 assert_lacks "risk の無い design を列挙しない" 'DSG-dd000001' "$clean_out"
 
 run_gap env SARA_GAP_ROOT="$clean" sara-gap --json
