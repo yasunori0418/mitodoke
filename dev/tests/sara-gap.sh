@@ -283,6 +283,14 @@ assert_eq "空の risk_exempt を持つ REQ は exempt に出ず unthreatened �
 assert_eq "空の risk_exempt を持つ REQ は到達率の total に入る" "4" \
   "$(jq -r '.reach.requirement.total' <<<"$stdout_capture" 2>/dev/null)"
 
+# 値が空の infrastructure_exempt も免除にならない。
+empty_inf_exempt="$work/empty-inf-exempt"
+make_fixture "$empty_inf_exempt"
+sed -i 's/^infrastructure_exempt: .*/infrastructure_exempt: ""/' "$empty_inf_exempt/docs/qa-exempt.md"
+run_gap env SARA_GAP_ROOT="$empty_inf_exempt" sara-gap --json
+assert_eq "空の infrastructure_exempt を持つ QA は exempt_quality に出ず unsatisfied_quality と到達率の total に入る" "0:true:3" \
+  "$(jq -r '"\(.exempt_quality | length):\([.unsatisfied_quality[].id] | any(startswith("QA-88880003"))):\(.reach.quality.total)"' <<<"$stdout_capture" 2>/dev/null)"
+
 # CASE が無くなると TC までつながっていても requirement は到達にならない。
 no_case="$work/no-case"
 fill_gaps "$no_case"
