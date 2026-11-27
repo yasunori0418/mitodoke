@@ -47,7 +47,7 @@ generated:
 
 ## 実現性
 
-likelihood は medium とした。変わりやすさは高い。節は 7 つあり、item と辺の両方に有効かの判定を当て、
+likelihood は medium とした。変わりやすさは高い。つながりの欠けは 7 種類あり、item と辺の両方に有効かの判定を当て、
 同じ判定を `fresh` と共有する。見逃しやすさは低い。写した `dev/tests/sara-gap.sh` は、`deprecated` の
 risk・test_condition・test_case・infrastructure からの辺が覆ったことにならないこと、`follows` の先が
 すべて `deprecated` の test_case を挙げること、`deprecated` を考えた use_case と requirement の節、

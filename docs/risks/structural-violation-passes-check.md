@@ -55,9 +55,10 @@ item の壊れた frontmatter はどの検査にも掛からない。違反を�
 
 likelihood は high とした。変わりやすさは高い。構造の契約は 13 項目あり、`deprecated` を外す `gap` と
 `fresh` とは逆の扱いをし、拒む値の判定を `new` と共有する。見逃しやすさも高い。写した契約テストのうち
-`dev/tests/okf-frontmatter.sh` は OKF のキーの形・未来の時刻・リストでない `verified` を、
+`dev/tests/okf-frontmatter.sh` は OKF のキーの形・未来の時刻・リストでない `verified`・`generated` の欠けを、
 `dev/tests/risk-matrix.sh` は `level` の導出を確かめている。宣言の無いキー、`covers` と `follows` の両方、
-型と置き場所の一致、`deprecated` の item への適用は、どの契約テストも確かめていない。
+型と置き場所の一致は、どの契約テストも確かめていない。`deprecated` の item を違反の側に置いたフィクスチャも
+無い。
 
 impact は medium とした。見逃した違反は出荷物の誤動作だが、検査を直して再実行すれば見つかる。
 

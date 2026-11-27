@@ -26,7 +26,7 @@ generated:
   が破れ、確認の問いを表示せずに記録するか、適用先の製品が足した問いを表示しない
 - 同じ要件が破れ、問いの答えをグラフに書く
 - [item を指定しない verify は、対話で選んだ枝を上流から順にたどって人の確認を記録する](../requirements/interactive-verification-walk.md)
-  が破れ、選んだ枝の item を上流から順に表示しないか、`deprecated` の item を候補や対象に含める
+  が破れ、選んだ枝の item を上流から順に表示しない
 
 最も重い向きは、確認の問いを表示せずに記録する向きで、この risk はこの向きで採点する。記録は人の確認と
 して残るが、確認の問いに照らした確認ではないので、記録の重みが下がったことは表に出ない。下流を先に
@@ -37,10 +37,10 @@ generated:
 ## 実現性
 
 likelihood は medium とした。変わりやすさは高い。問いは型ごとに `quality` の `review_question_for` から
-読み、表示は solution と use_case に限り、枝の候補は `deprecated` と確認済みの扱いと `--all` で分かれる。
-見逃しやすさは低い。写した `dev/tests/sara-verify.sh` は、solution と use_case の問いを端末とエディタに
-出し、requirement には出さないこと、経路と下流を幅優先で表示すること、`deprecated` と確認済みの item を
-候補から外すことを確かめている。
+読み、適用先の製品が足した問いを含め、表示は solution と use_case に限る。記録は item を指定する実行と
+対話の実行の 2 つの経路を持つ。見逃しやすさは低い。写した `dev/tests/sara-verify.sh` は、solution と
+use_case の問いを端末とエディタに出し、requirement には出さないこと、選んだ枝の経路と下流を上流から
+幅優先で表示することを確かめている。
 
 impact は medium とした。問いを見ずに書かれた確認は確認の質を下げるが、問いを見て確認し直せば記録を
 足せる。
