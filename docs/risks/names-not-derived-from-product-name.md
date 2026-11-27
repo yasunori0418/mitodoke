@@ -37,8 +37,11 @@ generated:
 ## 実現性
 
 likelihood は low とした。変わりやすさは低い。採点した向きの規則は、環境変数に大文字の `MITODOKE` を
-使うことだけで、分岐を持たない。見逃しやすさも低い。写した `dev/tests/sara-new.sh` は、環境変数を
-名前で渡し、その値が `generated.by` に書かれることを確かめている。
+使うことだけで、分岐を持たない。見逃しやすさは高い。写した `dev/tests/sara-new.sh` が渡す環境変数は
+`SARA_NEW_GENERATED_BY` で、製品名から決めた名前を確かめる契約テストは無い。変わりやすさと見逃しやすさの
+片方だけが高いときは medium とする読み替えの規則に当てると medium になる。それでも low としたのは、
+`dev/tests/sara-new.sh` が環境変数を名前で渡し、その値が `generated.by` に書かれることを確かめていて、
+渡す名前を `MITODOKE_GENERATED_BY` に替えるだけで同じ確かめ方を写せるためである。
 
 impact は medium とした。誤った出どころの記録は出荷物の誤動作だが、名前を直した版で起票し直せば回復
 できる。
