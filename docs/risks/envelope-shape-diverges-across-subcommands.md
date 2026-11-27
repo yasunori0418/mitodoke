@@ -15,7 +15,7 @@ threatens:
   - "DSG-b70a4bcf-fa63-4b19-a123-1076b32df625"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T09:02:41+09:00"
+  at: "2026-11-27T09:15:31+09:00"
 ---
 # 結果エンベロープの形がサブコマンドによって食い違う
 
@@ -37,7 +37,9 @@ generated:
 しないエンベロープでも JSON としては読めるので、受け取る側が形を確かめない限り誤りは表に出ない。
 指摘のコードの接頭辞と item の `status` が強さと食い違う懸念は
 [指摘のコードの接頭辞、item の status、置き場所が、その実行で働く強さと食い違う](finding-code-and-status-mismatch-strength.md)
-が持ち、outturn の仕様そのものが変わる懸念は result-handoff の区分の別の risk が持つ。
+が持ち、outturn の仕様そのものが変わる懸念は
+[draft の outturn の仕様が変わり、エンベロープが仕様に適合しなくなる](outturn-spec-change-breaks-conformance.md)
+が持つ。
 
 [結果エンベロープを outturn のモジュールで組み立てる](../design/result-envelope-assembly.md) への辺は、
 text 出力もエンベロープから作る設計に固有の面を指す。エンベロープの組み立ての誤りが text 出力にも及び、

@@ -16,14 +16,14 @@ threatens:
   - "REQ-7ec90232-7ec2-414a-a95e-af8d6994340b"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T09:02:41+09:00"
+  at: "2026-11-27T09:15:31+09:00"
 ---
 # sara-core の破壊的変更で、読み込みと検査の結果が気づかないうちに変わる
 
 ## リスク
 
 組み込む sara-core の版を上げたときに、その破壊的変更で読み込みと検査の結果が変わり、それに気づかない
-懸念である。外部への依存の risk で、次の要件と設計を脅かす。
+懸念である。外部への依存の risk で、次の要件を脅かす。
 
 - [1 つの CLI が、サブコマンドごとに入力・出力・exit code を定める](../requirements/single-cli-subcommand-contracts.md):
   サブコマンドが定めた出力と exit code が、sara-core の振る舞いの変化で黙って変わる
@@ -33,8 +33,9 @@ generated:
   sara-core を上げたときに、mitodoke と一緒に配る sara の CLI の検査と結果が食い違う
 
 どの向きも、利用者が誤った検査の結果を受け取る点で同じ重さである。API の型を変えない振る舞いの変化は
-コンパイルを通るので、誤りは表に出ない。flake が別のタグの sara の CLI を配る梱包の誤りは、distribution の
-区分の別の risk が持つ。
+コンパイルを通るので、誤りは表に出ない。flake が別のタグの sara の CLI を配る梱包の誤りは
+[flake が、組み込んだ sara-core と違うタグの sara の CLI を配る](flake-ships-mismatched-sara-cli.md)
+が持つ。
 
 [sara-core を使う箇所を 1 つのモジュールに集める](../design/sara-core-confined-to-one-module.md) への辺は、
 追随の範囲を 1 つのモジュールに集める設計に固有の面を指す。この設計は API の変化をそのモジュールの

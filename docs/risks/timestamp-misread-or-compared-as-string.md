@@ -15,7 +15,7 @@ threatens:
   - "DSG-e5c2e54c-e8e3-429b-b640-9f30f74c223f"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T09:02:41+09:00"
+  at: "2026-11-27T09:15:31+09:00"
 ---
 # 時刻を文字列として比べるか、受け付ける書式を取りこぼし、検査と書き込みで時刻の扱いが食い違う
 
@@ -41,7 +41,7 @@ generated:
 
 likelihood は medium とした。変わりやすさは高い。受け付ける書式、未来の時刻の扱い、表記だけの書き換えの
 扱いと分岐が多く、`check`・`new`・`verify`・`fresh` が同じ規則を共有する。見逃しやすさは低い。写した契約
-テストのうち `dev/tests/okf-frontmatter.sh` は `Z` と小数の秒の受け付けと未来の時刻を、
+テストのうち `dev/tests/okf-frontmatter.sh` は `Z` の受け付けと未来の時刻を、
 `dev/tests/sara-fresh.sh` はオフセットの違う時刻の比較を確かめている。
 
 impact は medium とした。再確認待ちの見逃しは出荷物の誤動作だが、直した版で再実行すれば報告は正しく
