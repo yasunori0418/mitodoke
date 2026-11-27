@@ -46,12 +46,14 @@ generated:
 
 ## 実現性
 
-likelihood は medium とした。変わりやすさは高い。採点した向きでは、辿る 7 つの relation と
-辿らない 4 つの relation が分かれ、張り元と張り先の型の組が relation ごとに違い、`fresh` と `check` が
-同じ判定を使う。
-見逃しやすさは低い。写した `dev/tests/sara-fresh.sh` は、7 つの relation ごとの下流、`justifies` と
-`depends_on` を辿らないこと、`generated.at` の前後の `verified`、`deprecated` の上流と下流、UTC オフセットの
-違う時刻を確かめている。採点していない独自の relation の宣言は確かめていない。
+likelihood は medium とした。変わりやすさは低い。採点した向きの規則は、組み込みの 7 つの relation を辿り、
+relation を宣言している item を下流とすることだけで、分岐を持たない。見逃しやすさも低い。写した
+`dev/tests/sara-fresh.sh` は、7 つの relation ごとの下流、`justifies` と `depends_on` を辿らないこと、
+`generated.at` の前後の `verified`、`deprecated` の上流と下流、UTC オフセットの違う時刻を確かめている。
+採点していない独自の relation の宣言は確かめていない。両方が低いときは low とする読み替えの規則に当てると
+low になる。それでも medium としたのは、同じ判定を `fresh` と `check` が共有し、辿る relation の一覧に
+設定で宣言した独自の relation が加わるので、組み込みの relation を辿る処理も一覧を組み立てる実装の変更を
+受けるためである。
 
 impact は medium とした。誤った再確認待ちの報告は出荷物の誤動作だが、直した版で再実行すれば回復できる。
 
