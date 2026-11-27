@@ -18,3 +18,25 @@
 * [設定から生成した model.yaml と sara.toml が設定や組み込みの定義と食い違うか、--check が差分を見逃す](./generated-model-diverges-from-config.md) - 設定から生成した model.yaml と sara.toml が設定や組み込みの定義と食い違うか、--check が差分を見逃す
 * [init が既存の mitodoke.yaml を上書きするか、規範を適用先へ複製する](./init-overwrites-existing-config.md) - init が既存の mitodoke.yaml を上書きするか、規範を適用先へ複製する
 * [不正な設定を受け付け、誤った前提で検査する](./invalid-config-accepted.md) - 不正な設定を受け付け、誤った前提で検査する
+
+## authoring
+
+* [index の見出しと並びが置き場所と区分の表と食い違うか、--check が差分を見逃す](./index-generation-or-check-wrong.md) - index の見出しと並びが置き場所と区分の表と食い違うか、--check が差分を見逃す
+* [new が置き場所の不一致、設定に無い区分、description の無い起票を受け付ける](./new-accepts-wrong-location-or-missing-description.md) - new が置き場所の不一致、設定に無い区分、description の無い起票を受け付ける
+* [new が generated.by の出どころの優先順位か、拒む値の判定を誤る](./new-writes-wrong-provenance.md) - new が generated.by の出どころの優先順位か、拒む値の判定を誤る
+
+## inspection
+
+* [gap が deprecated の item や片方の端が deprecated の辺を数え、欠けを見逃すか余分に報告する](./gap-miscounts-valid-items-and-edges.md) - gap が deprecated の item や片方の端が deprecated の辺を数え、欠けを見逃すか余分に報告する
+* [git と設定のコマンドを文書ごとに呼ぶか、辺の突き合わせが item の数の 2 乗で伸び、大きなグラフで CI の検査が使えなくなる](./inspection-time-grows-faster-than-graph.md) - git と設定のコマンドを文書ごとに呼ぶか、辺の突き合わせが item の数の 2 乗で伸び、大きなグラフで CI の検査が使えなくなる
+* [強さの設定が働かず、失敗にする指摘を報告として扱うか、読み込みの前提まで設定で緩む](./strength-setting-misapplied.md) - 強さの設定が働かず、失敗にする指摘を報告として扱うか、読み込みの前提まで設定で緩む
+* [check が構造の契約の違反を見逃すか、deprecated の item に構造の契約を働かせない](./structural-violation-passes-check.md) - check が構造の契約の違反を見逃すか、deprecated の item に構造の契約を働かせない
+* [テスト資産の一覧の重複、除外、種別を読み誤り、test_case との 1:1 と対応表が狂う](./test-asset-inventory-misread.md) - テスト資産の一覧の重複、除外、種別を読み誤り、test_case との 1:1 と対応表が狂う
+
+## freshness
+
+* [generated の更新漏れで、本文に数える範囲か、基準のリビジョンが無い実行の扱いを誤る](./generated-update-omission-misjudged.md) - generated の更新漏れで、本文に数える範囲か、基準のリビジョンが無い実行の扱いを誤る
+* [基準時刻、辿る relation、直接の辺、deprecated の扱いを誤り、再確認待ちを見逃すか余分に報告する](./stale-item-missed-or-overreported.md) - 基準時刻、辿る relation、直接の辺、deprecated の扱いを誤り、再確認待ちを見逃すか余分に報告する
+* [人の確認の無い item、期限切れ、間隔の超過の報告で、数える verified か起点を誤る](./unverified-or-expiry-report-wrong.md) - 人の確認の無い item、期限切れ、間隔の超過の報告で、数える verified か起点を誤る
+* [verify が frontmatter を壊すか、不正な識別子や誤った item に確認を書く](./verify-corrupts-item-or-writes-wrong-record.md) - verify が frontmatter を壊すか、不正な識別子や誤った item に確認を書く
+* [verify が確認の問いを表示せずに記録するか、枝を上流から順にたどらない](./verify-skips-review-questions-or-walk-order.md) - verify が確認の問いを表示せずに記録するか、枝を上流から順にたどらない
