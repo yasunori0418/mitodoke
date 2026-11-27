@@ -23,8 +23,8 @@ generated:
 [下流の item の基準時刻より上流の generated.at が新しければ、下流を再確認待ちとして報告する](../requirements/staleness-judgement.md)
 が破れ、再確認待ちを見逃すか余分に報告する懸念である。失敗の向きは次の 4 つある。
 
-- 基準時刻に `generated.at` より前の `verified[].at` を数えるか、`human:` 以外の actor の `verified` を
-  数えない
+- 基準時刻に、`generated.at` 以降の `verified[].at` か `human:` 以外の actor の `verified` を数えず、
+  余分に報告する
 - 辿る 7 つの relation の一部を辿らないか、`justifies` や peer の relation を辿る
 - 直接の辺を越えて、上流の上流まで比べる
 - `deprecated` の item を上流か下流として数える
@@ -35,8 +35,8 @@ generated:
 [独自の型・relation・フィールドを設定に書けないか、契約と再確認待ちの伝播が独自の定義に及ぶ範囲を誤る](custom-definitions-rejected-or-out-of-scope.md)
 が持つ。
 
-最も重い向きは、組み込みの 7 つの relation の一部を辿らないか、基準時刻に数えてはいけない
-`verified[].at` を数えて再確認待ちを見逃す向きで、この risk はこの向きで採点する。見逃した下流は報告に出ないので、誤りは表に出ない。`deprecated` の上流を
+最も重い向きは、組み込みの 7 つの relation の一部を辿らずに再確認待ちを見逃す向きで、この risk は
+この向きで採点する。見逃した下流は報告に出ないので、誤りは表に出ない。`deprecated` の上流を
 数えて余分に報告する向きは、利用者が読めば誤りと分かる。`gap` の側で `deprecated` の item と辺を数え誤る
 懸念は
 [gap が deprecated の item や片方の端が deprecated の辺を数え、欠けを見逃すか余分に報告する](gap-miscounts-valid-items-and-edges.md)
@@ -46,9 +46,9 @@ generated:
 
 ## 実現性
 
-likelihood は medium とした。変わりやすさは高い。採点した向きでは、基準時刻が `verified` の actor と
-`generated.at` との前後で決まり、辿る 7 つの relation と辿らない 4 つの relation が分かれ、`fresh` と
-`check` が同じ判定を使う。
+likelihood は medium とした。変わりやすさは高い。採点した向きでは、辿る 7 つの relation と
+辿らない 4 つの relation が分かれ、張り元と張り先の型の組が relation ごとに違い、`fresh` と `check` が
+同じ判定を使う。
 見逃しやすさは低い。写した `dev/tests/sara-fresh.sh` は、7 つの relation ごとの下流、`justifies` と
 `depends_on` を辿らないこと、`generated.at` の前後の `verified`、`deprecated` の上流と下流、UTC オフセットの
 違う時刻を確かめている。採点していない独自の relation の宣言は確かめていない。
