@@ -35,9 +35,8 @@ generated:
 [独自の型・relation・フィールドを設定に書けないか、契約と再確認待ちの伝播が独自の定義に及ぶ範囲を誤る](custom-definitions-rejected-or-out-of-scope.md)
 が持つ。
 
-最も重い向きは、辿るべき relation を辿らないか、基準時刻に数えてはいけない `verified[].at` を数えて
-再確認待ちを見逃す向きで、
-この risk はこの向きで採点する。見逃した下流は報告に出ないので、誤りは表に出ない。`deprecated` の上流を
+最も重い向きは、組み込みの 7 つの relation の一部を辿らないか、基準時刻に数えてはいけない
+`verified[].at` を数えて再確認待ちを見逃す向きで、この risk はこの向きで採点する。見逃した下流は報告に出ないので、誤りは表に出ない。`deprecated` の上流を
 数えて余分に報告する向きは、利用者が読めば誤りと分かる。`gap` の側で `deprecated` の item と辺を数え誤る
 懸念は
 [gap が deprecated の item や片方の端が deprecated の辺を数え、欠けを見逃すか余分に報告する](gap-miscounts-valid-items-and-edges.md)
@@ -51,7 +50,7 @@ likelihood は medium とした。変わりやすさは高い。基準時刻の�
 独自の relation の宣言、`deprecated` の除外と分岐が多く、`fresh` と `check` が同じ判定を使う。
 見逃しやすさは低い。写した `dev/tests/sara-fresh.sh` は、7 つの relation ごとの下流、`justifies` と
 `depends_on` を辿らないこと、`generated.at` の前後の `verified`、`deprecated` の上流と下流、UTC オフセットの
-違う時刻を確かめている。独自の relation の宣言は確かめていない。
+違う時刻を確かめている。採点していない独自の relation の宣言は確かめていない。
 
 impact は medium とした。誤った再確認待ちの報告は出荷物の誤動作だが、直した版で再実行すれば回復できる。
 
