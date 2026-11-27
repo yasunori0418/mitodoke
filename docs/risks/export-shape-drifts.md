@@ -42,7 +42,7 @@ sara-core の版を上げたときに新しい sara の形がそのまま出る�
 likelihood は medium とした。どちらの軸も、採点した形の食い違いの向きで見る。変わりやすさは低い。規則は
 写した形に 4 つの OKF のキーを加えることだけで、分岐を持たず、`export` だけが使う。見逃しやすさは高い。
 `export` に当たる契約テストは無い。写した `dev/tests/term-avoid.sh` は `sara check --format json` の
-`.items` が配列であることだけを確かめ、item の形も OKF のキーも確かめていない。
+`.items[]` の `type`・`name`・`fields.avoid` を読むが、OKF のキーの有無は確かめていない。
 
 impact は medium とした。形の食い違いで受け取る側のツールが誤った値で動くが、直した版で `export` を
 やり直せば回復できる。
