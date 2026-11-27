@@ -46,8 +46,9 @@ generated:
 
 ## 実現性
 
-likelihood は medium とした。変わりやすさは高い。基準時刻の決め方、辿る relation と辿らない relation、
-独自の relation の宣言、`deprecated` の除外と分岐が多く、`fresh` と `check` が同じ判定を使う。
+likelihood は medium とした。変わりやすさは高い。採点した向きでは、基準時刻が `verified` の actor と
+`generated.at` との前後で決まり、辿る 7 つの relation と辿らない 4 つの relation が分かれ、`fresh` と
+`check` が同じ判定を使う。
 見逃しやすさは低い。写した `dev/tests/sara-fresh.sh` は、7 つの relation ごとの下流、`justifies` と
 `depends_on` を辿らないこと、`generated.at` の前後の `verified`、`deprecated` の上流と下流、UTC オフセットの
 違う時刻を確かめている。採点していない独自の relation の宣言は確かめていない。
