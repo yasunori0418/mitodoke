@@ -40,3 +40,15 @@
 * [人の確認の無い item、期限切れ、間隔の超過の報告で、数える verified か起点を誤る](./unverified-or-expiry-report-wrong.md) - 人の確認の無い item、期限切れ、間隔の超過の報告で、数える verified か起点を誤る
 * [verify が frontmatter を壊すか、不正な識別子や誤った item に確認を書く](./verify-corrupts-item-or-writes-wrong-record.md) - verify が frontmatter を壊すか、不正な識別子や誤った item に確認を書く
 * [verify が確認の問いを表示せずに記録するか、枝を上流から順にたどらない](./verify-skips-review-questions-or-walk-order.md) - verify が確認の問いを表示せずに記録するか、枝を上流から順にたどらない
+
+## result-handoff
+
+* [export の item の形が、sara 0.12 の items\[\] に OKF のキーを加えた形から外れる](./export-shape-drifts.md) - export の item の形が、sara 0.12 の items[] に OKF のキーを加えた形から外れる
+* [draft の outturn の仕様が変わり、エンベロープが仕様に適合しなくなる](./outturn-spec-change-breaks-conformance.md) - draft の outturn の仕様が変わり、エンベロープが仕様に適合しなくなる
+* [用語の一覧の JSON から用語か avoid の綴りが欠ける](./terms-json-incomplete.md) - 用語の一覧の JSON から用語か avoid の綴りが欠ける
+
+## distribution
+
+* [README の workflow の例が動かなくなるか、mitodoke 自身の CI と食い違う](./ci-example-diverges-from-own-ci.md) - README の workflow の例が動かなくなるか、mitodoke 自身の CI と食い違う
+* [flake が、組み込んだ sara-core と違うタグの sara の CLI を配る](./flake-ships-mismatched-sara-cli.md) - flake が、組み込んだ sara-core と違うタグの sara の CLI を配る
+* [設定ファイル、環境変数、コードの接頭辞の名前が製品名から外れる](./names-not-derived-from-product-name.md) - 設定ファイル、環境変数、コードの接頭辞の名前が製品名から外れる
