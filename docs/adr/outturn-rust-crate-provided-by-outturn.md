@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:00:42+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:35:11+09:00"
 ---
 # outturn の Rust の crate を outturn の側に作って使う
 
