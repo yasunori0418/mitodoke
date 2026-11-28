@@ -18,6 +18,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:32:20+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:05:26+09:00"
 ---
 # 利用者向けのスキルを公開用として英語で書く
 
