@@ -43,6 +43,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:15:54+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:03:02+09:00"
 ---
 # サブコマンドの --json は outturn のエンベロープを出し、既定の text 出力は変えない
 
