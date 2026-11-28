@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T16:13:50+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:26:05+09:00"
 ---
 # deprecated の item は index.md の末尾の節にまとめる
 
