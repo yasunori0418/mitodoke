@@ -12,6 +12,7 @@ specification_ja: |
   mitodoke の製品は、CLI とモデルに加えて、文書管理の規範・スキル・欠陥運用の規範を
   含まなければならない。製品は、特定の製品の開発の進め方の規範（コメント規約や整形など）、
   特定の製品に結びついた規範、DoD を含んではならない。
+risk_exempt: "製品のリポジトリに何を含めるかを定める要件で、CLI の振る舞いの退行では破れない。"
 section: product-scope
 status: stable
 derives_from:

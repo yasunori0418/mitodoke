@@ -113,6 +113,9 @@ jobs:
       - name: Run term-avoid contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/term-avoid.sh
 
+      - name: Run risk-matrix contract test
+        run: nix develop '.?dir=dev#sara' -c bash dev/tests/risk-matrix.sh
+
       - name: Run okf-index contract test
         run: nix develop '.?dir=dev#sara' -c bash dev/tests/okf-index.sh
 

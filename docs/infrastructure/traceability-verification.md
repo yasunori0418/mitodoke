@@ -24,7 +24,7 @@ satisfies:
   - "QA-ae2f173b-e4b1-412b-8b1f-bcdc38b46170"
 generated:
   by: "claude-code/claude-opus-5-5"
-  at: "2026-11-27T00:57:11+09:00"
+  at: "2026-11-27T10:14:27+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
@@ -53,14 +53,14 @@ generated:
 | `dev/tests/okf-index.sh` | `index.md` が `dev/scripts/okf-index.sh` の生成結果と一致するかを検証する |
 | `dev/tests/link-text.sh` | リンク文字列の裸のタグと、リンク直後の name の繰り返しを検出する。文書とコードにある許可外の場所のフル ID と 8 文字省略形も検出する |
 | `dev/tests/test-doc-map.sh` | テスト資産 ⇔ CASE の 1:1 対応を検証する。区分と除外の正本は `dev/tests/` のデータファイルが持つ（CI に載せていない）|
-| `dev/tests/risk-matrix.sh` | risk の `level` が `likelihood` × `impact` のマトリクス導出と一致するかを検証する。マトリクスの正本は `dev/tests/risk-matrix.tsv`（CI に載せていない）|
+| `dev/tests/risk-matrix.sh` | risk の `level` が `likelihood` × `impact` のマトリクス導出と一致するかを検証する。マトリクスの正本は `dev/tests/risk-matrix.tsv` |
 | `dev/tests/term-avoid.sh` | 用語 item の `avoid` にある綴りが docs・README・AGENTS.md の散文に無いことを検証する |
 | `dev/scripts/test-doc-matrix.sh` | テスト資産 ⇔ CASE ⇔ TC ⇔ RISK の対応表を Markdown で生成する（CI に載せていない）|
 
 `sara` job が実行する契約テストは、上の表の `dev/tests/` のうち「CI に載せていない」と書いていない
 もの。契約テストを同じ job へ載せるのは、テストが「人が思い出したときだけ動く」状態を避けるため。
-「CI に載せていない」と書いた 3 本は、risk とテスト資産が 0 件のいまは exit 1 になるので
-載せていない。#6 で載せる。
+「CI に載せていない」と書いた 2 本（`dev/tests/test-doc-map.sh` と `dev/scripts/test-doc-matrix.sh`）は、
+テスト資産が 0 件のいまは exit 1 になるので載せていない。#6 で載せる。
 
 `sara` job は実物のグラフにも `sara-fresh` を実行し、一覧をログと job のサマリーへ出す。
 pull_request の base ブランチを `--base` に渡す。merge-base を引けるよう、

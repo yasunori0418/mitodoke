@@ -5,6 +5,7 @@ name: "利用者向けのスキルは公開用として英語で書く"
 description: "mitodoke が利用者向けに公開するスキルを英語で書くことを定める。"
 specification: "The user-facing skills that mitodoke publishes SHALL be written in English."
 specification_ja: "mitodoke が利用者向けに公開するスキルは、英語で書かなければならない。"
+risk_exempt: "スキルの文書を書く言語を定める要件で、CLI の振る舞いの退行では破れない。"
 section: distribution
 status: stable
 derives_from:
