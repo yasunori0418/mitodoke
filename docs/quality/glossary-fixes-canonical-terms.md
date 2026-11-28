@@ -21,6 +21,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-20T00:37:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:10:21+09:00"
 ---
 # 用語の正名は用語 item が固定し、執筆はそれに従う
 
