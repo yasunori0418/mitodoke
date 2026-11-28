@@ -18,6 +18,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:08:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:58:28+09:00"
 ---
 # 設定から生成した model.yaml と sara.toml が設定や組み込みの定義と食い違うか、--check が差分を見逃す
 

@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T14:26:51+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:58:18+09:00"
 ---
 # 用語の index.md はリンク文字列に name_ja を添える
 

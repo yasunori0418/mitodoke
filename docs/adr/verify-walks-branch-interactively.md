@@ -20,6 +20,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:22:37+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:05:44+09:00"
 ---
 # item を指定しない verify は、対話で選んだ枝を上流から順にたどり、ビューアとエディタを設定で選べる
 

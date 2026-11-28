@@ -19,6 +19,9 @@ supersedes:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T00:12:45+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:23:03+09:00"
 ---
 # ADR は UUID だけで採番する
 

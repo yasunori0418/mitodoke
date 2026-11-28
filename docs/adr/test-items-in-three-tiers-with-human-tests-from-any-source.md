@@ -24,6 +24,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-24T23:03:13+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:01:50+09:00"
 ---
 # テスト系 item を CASE・TC・RISK の 3 段で起こし、人が行うテストも CASE にして、手順書とテストチャーターは列挙のコマンドからも一覧に載せる
 

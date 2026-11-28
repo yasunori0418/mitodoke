@@ -11,6 +11,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:32:09+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:09:17+09:00"
 ---
 # rustfmt と clippy をマージ前の検証に入れ、手元でも同じ判定を得られるようにする
 

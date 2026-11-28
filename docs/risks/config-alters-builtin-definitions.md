@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:08:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:52:41+09:00"
 ---
 # 設定が組み込みの型・relation・フィールドや、likelihood・impact・level の値の集合を削除または変更できる
 

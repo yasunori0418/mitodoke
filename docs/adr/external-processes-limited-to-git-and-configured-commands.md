@@ -18,6 +18,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:53:02+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:26:59+09:00"
 ---
 # 実行中に呼ぶ外部のプロセスは、git と設定のコマンドだけにする
 

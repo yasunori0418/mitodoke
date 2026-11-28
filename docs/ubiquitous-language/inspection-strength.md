@@ -9,6 +9,9 @@ status: stable
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-21T18:55:53+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:18:23+09:00"
 ---
 # inspection strength
 

@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:15:31+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:52:53+09:00"
 ---
 # 時刻を文字列として比べるか、受け付ける書式を取りこぼし、検査と書き込みで時刻の扱いが食い違う
 

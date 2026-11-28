@@ -23,6 +23,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:19+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:05:18+09:00"
 ---
 # new は引数の置き場所を型ごとの置き場所と比べ、合わなければ起票を拒む
 

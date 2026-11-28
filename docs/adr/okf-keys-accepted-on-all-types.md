@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:49:27+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:34:45+09:00"
 ---
 # OKF のキーは型を問わず受け付け、OKF v0.2 の定義に従うかを検査する
 

@@ -35,6 +35,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:05:08+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:02:24+09:00"
 ---
 # 契約の違反と報告は E_MITODOKE_ と W_MITODOKE_ のコードで表す
 

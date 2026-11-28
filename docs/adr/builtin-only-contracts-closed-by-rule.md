@@ -25,6 +25,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:22:45+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:23:27+09:00"
 ---
 # 組み込みの型・relation・フィールドの名前を条件に持つ契約を、組み込みの型の item だけに働かせる
 

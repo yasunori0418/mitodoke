@@ -20,6 +20,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:49:27+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:34:01+09:00"
 ---
 # human: 以外の verified も受け付け、基準時刻には数えるが人の確認には数えない
 

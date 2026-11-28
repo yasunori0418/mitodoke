@@ -18,6 +18,9 @@ references:
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-21T18:24:29+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:33:54+09:00"
 ---
 # new は置き場所を引数で受け取り、型ごとの置き場所と比べる
 

@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:32:52+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:40:45+09:00"
 ---
 # Rust で書き、sara-core を crate として組み込む
 

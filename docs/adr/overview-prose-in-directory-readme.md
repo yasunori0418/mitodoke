@@ -17,6 +17,9 @@ supersedes:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T14:41:56+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:35:20+09:00"
 ---
 # 手書きの概要は各ディレクトリの README.md に置く
 

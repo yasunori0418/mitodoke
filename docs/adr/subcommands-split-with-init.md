@@ -25,6 +25,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:46:02+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:58:14+09:00"
 ---
 # サブコマンドを init・new・gap・fresh・index・matrix・model・verify・export・check に分ける
 

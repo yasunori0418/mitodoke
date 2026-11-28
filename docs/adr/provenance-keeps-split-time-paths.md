@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T16:29:14+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:37:01+09:00"
 ---
 # item の出典は分割した時点のパスのまま残す
 

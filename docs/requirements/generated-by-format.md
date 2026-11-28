@@ -20,6 +20,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:22:45+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:05:23+09:00"
 ---
 # generated.by は自由な文字列とし、空の値と引用符・バックスラッシュ・改行を含む値だけを拒む
 

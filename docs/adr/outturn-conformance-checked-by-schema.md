@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:19:26+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:35:04+09:00"
 ---
 # outturn への適合は、--json の出力のサンプルを schema で確かめる
 

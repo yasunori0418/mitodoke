@@ -16,6 +16,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-12T00:02:04+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:27:14+09:00"
 ---
 # 鮮度は上流の relation を辿って下流へ伝播させる
 

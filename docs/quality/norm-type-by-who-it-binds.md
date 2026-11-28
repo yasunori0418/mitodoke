@@ -27,6 +27,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:25:06+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:13:25+09:00"
 ---
 # 規範の型は、それが誰を縛るかで決める
 

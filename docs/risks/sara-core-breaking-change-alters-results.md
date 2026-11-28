@@ -17,6 +17,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:15:31+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:52:18+09:00"
 ---
 # sara-core の破壊的変更で、読み込みと検査の結果が気づかないうちに変わる
 

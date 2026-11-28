@@ -35,6 +35,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:56:13+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:13:33+09:00"
 ---
 # 欠陥はトラッカーが持ちドキュメントグラフは規範のみを持つ。起票は分類語彙を経由する
 

@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T17:10:55+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:40:20+09:00"
 ---
 # risk の節はテストの区分と同じ語彙にする
 

@@ -23,6 +23,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:22:45+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:32:42+09:00"
 ---
 # init は初期の mitodoke.yaml と型ごとの置き場所のディレクトリを作り、規範は複製しない
 

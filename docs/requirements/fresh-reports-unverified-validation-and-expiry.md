@@ -12,6 +12,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T17:23:48+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:00:25+09:00"
 ---
 # fresh は、人の確認の無い solution と use_case、期限切れ、期限の間隔の超過を報告する
 

@@ -20,6 +20,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-05T00:25:57+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:39:27+09:00"
 ---
 # risk の impact を検出後の回復可能性で採点する
 

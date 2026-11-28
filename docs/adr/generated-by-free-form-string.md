@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:37+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:28:14+09:00"
 ---
 # generated.by は自由な文字列にする
 

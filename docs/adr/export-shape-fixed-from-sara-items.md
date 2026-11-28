@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:35:12+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:26:51+09:00"
 ---
 # export は sara 0.12 の items[] の形を写して固定し、OKF のキーを加える
 

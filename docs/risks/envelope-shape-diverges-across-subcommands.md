@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:15:31+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:04:12+09:00"
 ---
 # 結果エンベロープの形がサブコマンドによって食い違う
 

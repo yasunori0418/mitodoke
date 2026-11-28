@@ -12,6 +12,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:29:29+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:57:18+09:00"
 ---
 # Nix flake で配り、組み込む sara-core と同じタグの sara の CLI を一緒に配る
 

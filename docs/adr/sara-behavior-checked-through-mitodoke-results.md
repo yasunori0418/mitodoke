@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:14:54+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:41:26+09:00"
 ---
 # sara の挙動の回帰は別のレベルにせず、mitodoke の結果で確かめる
 

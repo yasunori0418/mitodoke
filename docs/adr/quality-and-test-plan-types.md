@@ -22,6 +22,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T22:44:41+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:37:10+09:00"
 ---
 # テスト計画の型を品質方針の型から分けて設ける
 

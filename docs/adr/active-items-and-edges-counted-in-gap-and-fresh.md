@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:47:47+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:22:29+09:00"
 ---
 # 有効な item だけを gap と fresh で数え、辺は両端が有効なものだけを数える
 

@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:34:44+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:34:16+09:00"
 ---
 # 規範は mitodoke のリポジトリ自身で管理し、適用先は写さず参照する
 

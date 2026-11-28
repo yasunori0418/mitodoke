@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:33:46+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:03:25+09:00"
 ---
 # 型と置き場所の一致を構造の契約にし、型ごとの置き場所を設定に持つ
 

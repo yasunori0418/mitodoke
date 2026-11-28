@@ -20,6 +20,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:45:19+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:02:29+09:00"
 ---
 # export は文書 1 件を item とし、sara 0.12 の items[] の形に OKF のキーを加えて出す
 

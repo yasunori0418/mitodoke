@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:33:03+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:24:15+09:00"
 ---
 # 写した shell script で自身の文書を管理し、CLI が完成したら置き換える
 

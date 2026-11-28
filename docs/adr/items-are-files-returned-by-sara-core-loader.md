@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:58:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:33:03+09:00"
 ---
 # item は sara-core の読み込みが返したファイルとし、mitodoke は自分で走査しない
 

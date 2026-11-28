@@ -11,6 +11,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:37:28+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:13:48+09:00"
 ---
 # workflow は最小権限の permissions を宣言し、外部の action はコミット SHA で固定する
 

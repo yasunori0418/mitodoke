@@ -23,6 +23,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:27+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:57:38+09:00"
 ---
 # テストの区分は設定で決め、置き場所・risk の section・index の見出しを導く
 

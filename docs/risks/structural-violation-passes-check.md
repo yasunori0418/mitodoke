@@ -21,6 +21,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:52:59+09:00"
 ---
 # check が構造の契約の違反を見逃すか、deprecated の item に構造の契約を働かせない
 

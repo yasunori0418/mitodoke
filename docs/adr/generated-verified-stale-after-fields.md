@@ -19,6 +19,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T17:07:51+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:28:37+09:00"
 ---
 # item に生成者・確認の記録・期限のフィールドを持たせる
 

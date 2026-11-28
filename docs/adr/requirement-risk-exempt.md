@@ -18,6 +18,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T23:31:26+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:38:14+09:00"
 ---
 # requirement に risk_exempt を設け、理由を書いた requirement を未カバーから外す
 

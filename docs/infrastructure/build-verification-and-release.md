@@ -15,6 +15,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:27:50+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:07:47+09:00"
 ---
 # ビルド・検証・リリースの基盤
 

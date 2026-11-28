@@ -23,6 +23,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:29:14+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:00:08+09:00"
 ---
 # 独自の relation は、再確認待ちを伝播させるかを設定で宣言する
 

@@ -19,6 +19,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:24:39+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:38:01+09:00"
 ---
 # 報告の指摘は success の item の警告で表し、働く強さは exit code で決める
 

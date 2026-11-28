@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:37+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:59:01+09:00"
 ---
 # テスト資産の列挙は内蔵せず、設定のコマンドかコミットしたファイルから読む
 

@@ -18,6 +18,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:58:48+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:55:31+09:00"
 ---
 # CLI を 1 つの crate にし、役割ごとのモジュールに分ける
 

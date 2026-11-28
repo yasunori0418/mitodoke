@@ -31,6 +31,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T20:22:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:05:09+09:00"
 ---
 # generated.by は環境変数か引数から取り、どちらも無ければ端末からの実行に限り人の識別子とする
 

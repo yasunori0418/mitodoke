@@ -24,6 +24,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:25:06+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:12:40+09:00"
 ---
 # ADR は 1 本に 1 つの決定を 4 節で書き、justifies は規範の形成に寄与した item へ張る
 

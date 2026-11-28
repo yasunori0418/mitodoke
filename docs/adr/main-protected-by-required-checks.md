@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:47:19+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:33:30+09:00"
 ---
 # main は PR だけで変え、required の check が成功するまでマージしない
 

@@ -22,6 +22,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:08:50+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:39:04+09:00"
 ---
 # 複数の失敗方向を持つ risk は最も重い方向で採点する
 

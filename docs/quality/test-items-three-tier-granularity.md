@@ -22,6 +22,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-24T23:03:56+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:15:53+09:00"
 ---
 # テスト系 item は、テスト資産・検証テーマ・脅威の 3 段の粒度で起こす
 

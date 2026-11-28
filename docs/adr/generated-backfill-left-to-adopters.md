@@ -18,6 +18,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:13:53+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:28:10+09:00"
 ---
 # 既存の文書への generated の埋め戻しは CLI に持たず、README に例を載せる
 

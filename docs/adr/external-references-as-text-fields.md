@@ -14,6 +14,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T09:24:32+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:27:06+09:00"
 ---
 # item にできない外部参照は text フィールドへ逃がす
 
