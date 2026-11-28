@@ -23,6 +23,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-20T00:37:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:16:14+09:00"
 ---
 # risk はまず requirement に張り、設計を差し替えると消える懸念だけを design に張る
 
