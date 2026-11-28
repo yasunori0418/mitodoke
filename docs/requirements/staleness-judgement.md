@@ -36,6 +36,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:49:01+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:59:41+09:00"
 ---
 # 下流の item の基準時刻より上流の generated.at が新しければ、下流を再確認待ちとして報告する
 
