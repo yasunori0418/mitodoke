@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:29:13+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:33:41+09:00"
 ---
 # model.yaml を設定ファイルから生成してコミットし、差分が無いことを確かめる
 
