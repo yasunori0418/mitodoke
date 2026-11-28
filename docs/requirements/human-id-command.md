@@ -22,6 +22,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:19+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:00:33+09:00"
 ---
 # 人の確認に書く識別子は設定のコマンドの出力から取り、不正な出力では何も書かない
 
