@@ -12,6 +12,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:25:06+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:16:23+09:00"
 ---
 # 文書管理の規範と決定は mitodoke のリポジトリで変える
 
