@@ -25,6 +25,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-04T22:44:41+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:32:29+09:00"
 ---
 # infrastructure を技術基盤として再定義し root から外す
 
