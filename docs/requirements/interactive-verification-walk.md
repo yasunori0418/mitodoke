@@ -21,6 +21,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:50:04+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:59:46+09:00"
 ---
 # item を指定しない verify は、対話で選んだ枝を上流から順にたどって人の確認を記録する
 
