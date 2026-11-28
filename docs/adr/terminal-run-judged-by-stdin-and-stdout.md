@@ -19,6 +19,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:50:33+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:58:23+09:00"
 ---
 # 端末からの実行は stdin と stdout の両方が端末であることで判定する
 
