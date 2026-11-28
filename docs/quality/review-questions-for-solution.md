@@ -12,6 +12,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:39:58+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:10:10+09:00"
 ---
 # solution の確認の問い
 
