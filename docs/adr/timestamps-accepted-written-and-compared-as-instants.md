@@ -19,6 +19,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T20:22:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:02:11+09:00"
 ---
 # 時刻は UTC オフセット付きで受け付けてローカルのオフセットで書き、時刻として比べる
 
