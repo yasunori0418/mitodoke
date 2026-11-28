@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:34:15+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:24:43+09:00"
 ---
 # 決定は adr に、作業は Issue に記録する
 
