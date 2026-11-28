@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-11T00:07:44+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:38:47+09:00"
 ---
 # risk の張り先は requirement を既定にし、threatens の 1 本ごとに判定する
 
