@@ -30,6 +30,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T08:06:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:28:02+09:00"
 ---
 # 自動検証の形骸化は守備対象の impact を継承し、継承元をリンクで名指しする
 
