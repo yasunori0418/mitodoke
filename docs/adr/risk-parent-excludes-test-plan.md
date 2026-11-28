@@ -23,6 +23,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T15:55:21+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:39:58+09:00"
 ---
 # risk の親に test_plan を含めない
 
