@@ -16,6 +16,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-07T23:10:46+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:34:32+09:00"
 ---
 # OKF v0.2 と互換の frontmatter キーを item に足す
 
