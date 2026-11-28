@@ -30,6 +30,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T17:06:53+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:08:35+09:00"
 ---
 # CLI の受け入れは、写した契約テストで確かめる
 
