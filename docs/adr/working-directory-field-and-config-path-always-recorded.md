@@ -20,6 +20,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T20:22:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:05:53+09:00"
 ---
 # 作業ディレクトリは workingDirectory に出し、設定ファイルのパスは常に info に記録する
 
