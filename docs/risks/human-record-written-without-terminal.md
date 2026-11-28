@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:02:41+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:00:48+09:00"
 ---
 # 端末からの実行でないのに、人の確認や human: の generated.by を書く
 
