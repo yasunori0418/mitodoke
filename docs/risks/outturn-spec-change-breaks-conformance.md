@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T10:11:46+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:03:56+09:00"
 ---
 # draft の outturn の仕様が変わり、エンベロープが仕様に適合しなくなる
 
