@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:50:03+09:00"
 ---
 # テスト資産の一覧の重複、除外、種別を読み誤り、test_case との 1:1 と対応表が狂う
 
