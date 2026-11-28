@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-21T18:24:29+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:23:15+09:00"
 ---
 # 避ける綴りの検査は内蔵せず、JSON 出力から適用先が組み立てる
 
