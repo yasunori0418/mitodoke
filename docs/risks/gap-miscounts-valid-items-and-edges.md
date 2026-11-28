@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:50:26+09:00"
 ---
 # gap が deprecated の item や片方の端が deprecated の辺を数え、欠けを見逃すか余分に報告する
 
