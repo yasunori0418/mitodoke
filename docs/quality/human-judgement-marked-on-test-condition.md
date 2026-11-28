@@ -11,6 +11,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:52:17+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:09:08+09:00"
 ---
 # 人が最終的に判断する test_condition は、human_judgement に理由を書いて一覧にする
 
