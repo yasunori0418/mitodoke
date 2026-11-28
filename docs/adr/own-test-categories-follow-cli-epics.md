@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:04:47+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:35:45+09:00"
 ---
 # mitodoke 自身のテストの区分を、CLI の子の epic の範囲に 1 つずつ合わせる
 
