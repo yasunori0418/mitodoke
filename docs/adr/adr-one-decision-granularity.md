@@ -14,6 +14,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-01T21:26:22+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:22:48+09:00"
 ---
 # ADR は単独で覆せる 1 つの決定だけを書く
 
