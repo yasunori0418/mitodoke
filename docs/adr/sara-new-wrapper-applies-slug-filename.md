@@ -26,6 +26,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T09:15:32+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:41:40+09:00"
 ---
 # sara-id を廃止し sara init を包む起票ラッパーで slug のファイル名を適用する
 
