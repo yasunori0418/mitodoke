@@ -20,6 +20,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:09:18+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:07:20+09:00"
 ---
 # sara の挙動に依る検査は、mitodoke の結果を期待にして受け入れテストで確かめる
 
