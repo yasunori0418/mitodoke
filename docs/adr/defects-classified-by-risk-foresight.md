@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-14T01:48:40+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:25:08+09:00"
 ---
 # 欠陥を既存の RISK / TC に辿れたかで分類して数える
 
