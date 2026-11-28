@@ -16,6 +16,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T17:31:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:40:09+09:00"
 ---
 # risk に ISO/IEC 25010:2023 の品質特性を 1 つ必須で持たせる
 
