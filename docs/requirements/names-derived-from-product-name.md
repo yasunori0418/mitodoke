@@ -22,6 +22,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:00:49+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:58:03+09:00"
 ---
 # 設定ファイル・環境変数・コードの接頭辞の名前は製品名から決める
 
