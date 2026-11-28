@@ -17,6 +17,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:28:25+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:35:55+09:00"
 ---
 
 # まだ作っていない仕組みは、status が draft の item で表す
