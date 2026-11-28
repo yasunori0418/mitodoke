@@ -11,6 +11,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:50:32+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:09:53+09:00"
 ---
 # risk は ISO/IEC 25010:2023 の品質特性を 1 つ持ち、リスクを持たない特性は対象外の宣言を除いて列挙する
 
