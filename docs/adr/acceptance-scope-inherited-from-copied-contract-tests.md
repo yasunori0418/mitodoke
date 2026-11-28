@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:22:12+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:22:16+09:00"
 ---
 # 写した契約テストの期待 141 行のうち 110 行を、受け入れテストに引き継ぐ
 
