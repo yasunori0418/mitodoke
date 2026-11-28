@@ -22,6 +22,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:38:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:24:51+09:00"
 ---
 # 構造の契約は失敗、つながりの欠けと見直しの義務は報告を既定にし、それぞれの列挙を閉じる
 
