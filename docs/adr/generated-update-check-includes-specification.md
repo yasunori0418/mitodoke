@@ -18,6 +18,9 @@ supersedes:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:51:39+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:28:26+09:00"
 ---
 # generated の更新漏れの検査は、frontmatter の specification も本文に数える
 
