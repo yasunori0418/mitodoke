@@ -8,6 +8,9 @@ status: stable
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-21T18:56:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:21:27+09:00"
 ---
 # verified
 
