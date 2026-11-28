@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:25+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:01:41+09:00"
 ---
 # verify が frontmatter を壊すか、不正な識別子や誤った item に確認を書く
 
