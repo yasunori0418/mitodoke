@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:25+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:01:56+09:00"
 ---
 # verify が確認の問いを表示せずに記録するか、枝を上流から順にたどらない
 
