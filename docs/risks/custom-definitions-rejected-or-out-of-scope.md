@@ -17,6 +17,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:08:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:52:03+09:00"
 ---
 # 独自の型・relation・フィールドを設定に書けないか、契約と再確認待ちの伝播が独自の定義に及ぶ範囲を誤る
 
