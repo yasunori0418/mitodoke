@@ -18,6 +18,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:59:57+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:24:03+09:00"
 ---
 # sara の検証の種類ごとに契約名を割り当て、kind とコードを契約名から導く
 
