@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-21T18:24:29+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:26:17+09:00"
 ---
 # Nix flake を主な配布にし、sara の CLI を同じタグで一緒に配る
 
