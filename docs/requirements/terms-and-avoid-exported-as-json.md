@@ -18,6 +18,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:32:36+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:03:24+09:00"
 ---
 # 用語の一覧と avoid を JSON で出力する
 
