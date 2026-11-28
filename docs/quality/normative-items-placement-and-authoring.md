@@ -35,6 +35,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:47:43+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:10:45+09:00"
 ---
 # 規範は 1 ファイル 1 item のグラフが持ち、item の一覧は生成した index.md だけが持つ
 
