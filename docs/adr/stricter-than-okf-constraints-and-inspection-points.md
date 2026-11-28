@@ -27,6 +27,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:22:37+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:58:11+09:00"
 ---
 # OKF より厳しい 5 つの制約を引き継ぎ、description は起票で拒み、verified の数え方は違反の条件にしない
 
