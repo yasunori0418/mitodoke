@@ -16,6 +16,9 @@ justifies:
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-20T01:01:01+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:29:29+09:00"
 ---
 # 保証する連鎖は requirement → risk → test_condition → test_case とし、design は任意の中継点にする
 
