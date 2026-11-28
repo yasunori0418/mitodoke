@@ -20,6 +20,9 @@ supersedes:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T22:23:22+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:27:42+09:00"
 ---
 # フル ID は frontmatter だけに書き、item にはリンクで触れる
 
