@@ -17,6 +17,9 @@ supersedes:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:29:14+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:03:13+09:00"
 ---
 # 組み込みの型を 12 型にし、すべて必須にする
 
