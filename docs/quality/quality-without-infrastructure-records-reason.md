@@ -11,6 +11,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:17:53+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:16:03+09:00"
 ---
 # infrastructure に支えられない quality は、infrastructure_exempt に理由を書いて一覧にする
 
