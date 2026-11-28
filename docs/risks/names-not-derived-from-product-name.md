@@ -14,6 +14,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T10:13:17+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:58:35+09:00"
 ---
 # 設定ファイル、環境変数、コードの接頭辞の名前が製品名から外れる
 
