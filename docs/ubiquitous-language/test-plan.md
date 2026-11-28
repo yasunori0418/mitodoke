@@ -11,6 +11,9 @@ status: stable
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-20T09:39:05+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:20:26+09:00"
 ---
 # test_plan
 
