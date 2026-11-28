@@ -17,6 +17,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:28:48+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:30:53+09:00"
 ---
 
 # infrastructure の item は、仕組みの単位で分ける
