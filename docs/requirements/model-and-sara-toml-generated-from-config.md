@@ -19,6 +19,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:28:54+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:57:10+09:00"
 ---
 # model.yaml と sara.toml は設定ファイルから生成し、生成物との差分を確かめる
 
