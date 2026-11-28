@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:46:05+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:42:03+09:00"
 ---
 # 読み飛ばしは check を失敗させ、グラフを読むほかのサブコマンドを止める
 
