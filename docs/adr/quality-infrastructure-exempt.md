@@ -19,6 +19,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:11:25+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:37:21+09:00"
 ---
 
 # quality に infrastructure_exempt を設け、理由を書いた quality を未カバーから外す
