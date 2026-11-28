@@ -20,6 +20,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T17:23:48+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:37:37+09:00"
 ---
 # 棄却した提案の要求・要件・設計は提案の形の題で deprecated にして残す
 
