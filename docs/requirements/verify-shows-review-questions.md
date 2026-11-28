@@ -12,6 +12,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:58:51+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:00:02+09:00"
 ---
 # verify は、solution と use_case の確認を記録する前に確認の問いを表示する
 
