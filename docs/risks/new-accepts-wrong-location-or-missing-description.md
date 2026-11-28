@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:50:17+09:00"
 ---
 # new が置き場所の不一致、設定に無い区分、description の無い起票を受け付ける
 
