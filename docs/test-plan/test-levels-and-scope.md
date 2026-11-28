@@ -55,6 +55,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:22:12+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:08:11+09:00"
 ---
 # mitodoke 自身のテストは 7 つの区分に分け、単体のテストと受け入れテストの 2 つのレベルで確かめる
 
