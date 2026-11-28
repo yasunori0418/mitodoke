@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:05:34+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:22:24+09:00"
 ---
 # 受け入れテストは fixture だけに依り、実物のモデルを重ねない
 
