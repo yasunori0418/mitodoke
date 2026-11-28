@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:36+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:30:16+09:00"
 ---
 # 人の識別子は、設定に定義したコマンドの出力から取る
 
