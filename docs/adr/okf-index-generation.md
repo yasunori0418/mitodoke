@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-fable-5-2"
   at: "2026-11-20T01:01:01+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:34:38+09:00"
 ---
 # OKF の index.md を sara check の出力から生成してコミットする
 
