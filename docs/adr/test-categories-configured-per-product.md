@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:30:47+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:01:14+09:00"
 ---
 # テストの区分を製品の概念にし、中身は設定で決める
 
