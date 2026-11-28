@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T01:17:25+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:24:23+09:00"
 ---
 # カバレッジは報告にとどめ、閾値でマージを止めない
 
