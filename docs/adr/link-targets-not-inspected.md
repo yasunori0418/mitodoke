@@ -21,6 +21,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T10:31:12+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:33:26+09:00"
 ---
 # 散文のリンクの先の実在は check で検査せず、既存のリンクチェッカに任せる
 
