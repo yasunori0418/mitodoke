@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:33:44+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:34:07+09:00"
 ---
 # 文書管理の規範と決定は、写した時点から mitodoke だけで変える
 
