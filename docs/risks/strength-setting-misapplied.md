@@ -16,6 +16,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:51:00+09:00"
 ---
 # 強さの設定が働かず、失敗にする指摘を報告として扱うか、読み込みの前提まで設定で緩む
 
