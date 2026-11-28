@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:56:05+09:00"
 ---
 # git と設定のコマンドを文書ごとに呼ぶか、辺の突き合わせが item の数の 2 乗で伸び、大きなグラフで CI の検査が使えなくなる
 
