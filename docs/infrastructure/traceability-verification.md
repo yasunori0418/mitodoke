@@ -25,6 +25,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T10:14:27+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:16:59+09:00"
 ---
 
 # トレーサビリティ検証基盤（sara によるドキュメントグラフの機械検証）
