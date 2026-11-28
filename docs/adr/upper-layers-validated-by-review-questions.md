@@ -17,6 +17,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:39:58+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:05:20+09:00"
 ---
 # solution と use_case は、確認の問いに人が答える妥当性確認でカバーする
 
