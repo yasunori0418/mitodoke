@@ -14,6 +14,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:02:41+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:04:03+09:00"
 ---
 # 設定ファイルを上のディレクトリから拾うか、読んだ設定と暗黙の入力を info に誤って記録する
 
