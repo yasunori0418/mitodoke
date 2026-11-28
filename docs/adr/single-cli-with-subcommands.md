@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:31:42+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:55:05+09:00"
 ---
 # 検査・起票・生成を 1 つの CLI のサブコマンドとして持つ
 
