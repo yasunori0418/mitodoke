@@ -17,6 +17,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:31:34+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:57:43+09:00"
 ---
 # specification は英語で必須にし、ほかの言語は設定で選ぶ
 
