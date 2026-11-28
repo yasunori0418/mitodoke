@@ -49,6 +49,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T17:31:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:10:32+09:00"
 ---
 # 上流より古い item と generated の更新漏れは機械的に列挙する
 
