@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T22:59:08+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:05:23+09:00"
 ---
 # use_case を要求、requirement を要件に対応させる
 
