@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:02:41+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:04:22+09:00"
 ---
 # 指摘のコードの接頭辞、item の status、置き場所が、その実行で働く強さと食い違う
 
