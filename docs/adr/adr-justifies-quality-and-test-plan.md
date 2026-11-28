@@ -23,6 +23,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-03T22:55:03+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:22:44+09:00"
 ---
 # ADR の justifies 対象を specification を持つ全型に広げる
 
