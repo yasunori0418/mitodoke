@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:03:48+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:03:20+09:00"
 ---
 # mitodoke 自身のテストのレベルを、単体のテストと受け入れテストの 2 つにする
 
