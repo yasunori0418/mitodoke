@@ -29,6 +29,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-20T10:16:19+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:09:00+09:00"
 ---
 # 設計判断は ADR に記録し、改訂の書き戻しと item への接続を同じ変更の中で完了させる
 
