@@ -19,6 +19,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:33:02+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:03:02+09:00"
 ---
 # トラッカーに依らない欠陥運用の規範を製品に含め、欠陥の Issue は検査しない
 
