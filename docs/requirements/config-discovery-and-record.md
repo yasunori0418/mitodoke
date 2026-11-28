@@ -33,6 +33,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T20:22:00+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:03:19+09:00"
 ---
 # 設定ファイルは作業ディレクトリから読み、作業ディレクトリを workingDirectory に、設定ファイルのパスと暗黙の入力を info に記録する
 
