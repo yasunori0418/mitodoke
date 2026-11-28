@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:02:06+09:00"
 ---
 # 基準時刻、辿る relation、直接の辺、deprecated の扱いを誤り、再確認待ちを見逃すか余分に報告する
 
