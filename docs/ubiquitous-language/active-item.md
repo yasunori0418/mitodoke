@@ -9,6 +9,9 @@ status: stable
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T18:44:21+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:17:25+09:00"
 ---
 # active item
 
