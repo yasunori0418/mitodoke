@@ -20,6 +20,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:33:32+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:56:35+09:00"
 ---
 # 製品は CLI・モデル・文書管理の規範・スキル・欠陥運用の規範を含む
 
