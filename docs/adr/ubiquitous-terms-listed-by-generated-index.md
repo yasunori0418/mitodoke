@@ -18,6 +18,9 @@ supersedes:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-13T16:29:14+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:03:59+09:00"
 ---
 # 用語は ubiquitous_term の item で管理し、一覧は生成した index.md が持つ
 
