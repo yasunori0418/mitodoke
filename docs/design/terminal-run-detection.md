@@ -11,6 +11,9 @@ satisfies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T19:35:41+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:00:40+09:00"
 ---
 # 端末からの実行の判定を共通のモジュールの 1 か所に置く
 
