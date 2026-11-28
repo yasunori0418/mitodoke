@@ -19,6 +19,9 @@ specification_ja: |
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-20T10:17:37+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:11:00+09:00"
 ---
 # ドキュメントグラフのトレーサビリティは機械的に検証する
 
