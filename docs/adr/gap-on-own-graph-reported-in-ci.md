@@ -15,6 +15,9 @@ justifies:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T00:41:49+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:27:53+09:00"
 ---
 
 # 実物のグラフの未カバーは CI で一覧にし、job は失敗にしない
