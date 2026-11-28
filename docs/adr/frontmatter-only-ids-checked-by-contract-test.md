@@ -20,6 +20,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-09T22:23:23+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:27:25+09:00"
 ---
 # frontmatter の外のフル ID と省略形は起票の機械化と契約テストで防ぐ
 
