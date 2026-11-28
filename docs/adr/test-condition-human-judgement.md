@@ -18,6 +18,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T17:31:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T22:01:31+09:00"
 ---
 # test_condition に、人が最終的に判断する理由の human_judgement を持たせる
 
