@@ -20,6 +20,9 @@ references:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-22T16:41:38+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:30:42+09:00"
 ---
 # level が high の risk と、有効な solution と use_case に人の verified を求める
 
