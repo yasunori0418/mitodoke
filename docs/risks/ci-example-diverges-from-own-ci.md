@@ -14,6 +14,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T10:13:16+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:03:49+09:00"
 ---
 # README の workflow の例が動かなくなるか、mitodoke 自身の CI と食い違う
 
