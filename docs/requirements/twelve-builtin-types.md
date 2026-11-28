@@ -22,6 +22,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-21T16:29:03+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:04:57+09:00"
 ---
 # 組み込みの型は 12 型で、すべて必須とする
 
