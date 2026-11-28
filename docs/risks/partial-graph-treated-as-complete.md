@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:02:17+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T20:53:21+09:00"
 ---
 # 読み飛ばされたファイルやモデルを読めないことを見逃し、欠けたグラフのまま検査や書き込みを続ける
 
