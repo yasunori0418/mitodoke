@@ -15,6 +15,9 @@ threatens:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-27T09:28:24+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:06:42+09:00"
 ---
 # new が generated.by の出どころの優先順位か、拒む値の判定を誤る
 
