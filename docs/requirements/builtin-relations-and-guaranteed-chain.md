@@ -40,6 +40,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-23T11:38:06+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:05:35+09:00"
 ---
 # 組み込みの relation は上流の 8 つと peer の 3 つとし、保証する連鎖は requirement → risk → test_condition → test_case とする
 
