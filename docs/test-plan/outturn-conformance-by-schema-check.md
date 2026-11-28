@@ -18,6 +18,9 @@ derives_from:
 generated:
   by: "claude-code/claude-opus-5-5"
   at: "2026-11-25T00:08:29+09:00"
+verified:
+  - by: "human:yasunori0418"
+    at: "2026-11-28T21:08:23+09:00"
 ---
 # outturn への適合は受け入れテストで --json の出力のサンプルを schema に照らして確かめる
 
